@@ -4,6 +4,10 @@
 
 Minimalist version of [Scidvspc](http://scidvspc.sourceforge.net/ "Scidvspc")
 
+## Binary Version
+
+You can get a copy of the binary version by downloading a zip from Releases.
+
 ## Features Removed
 
 * Correspondence Chess
@@ -31,3 +35,15 @@ Minimalist version of [Scidvspc](http://scidvspc.sourceforge.net/ "Scidvspc")
 * No configuration of colors
 * No configuration of fonts
 * No configuration of number formats
+
+## Development Instructions
+
+* Download a copy of the source code (to say C:\dev\scinc)
+* Download a copy of the binaries form Releases
+* Create a rel sub-folder of the development folder (e.g. C:\dev\scinc\rel) and put the binary version in the folder.
+* Obtain a copy of version 8.5 of TCL from [tombert's tcltk](https://bitbucket.org/tombert/tcltk/downloads "tcl downloads")
+* Get [Mingw-w64](https://mingw-w64.org/doku.php "Mingw-w64")
+* Edit the folders appropriately in build.cmd in teh main development folder.
+* Run this to copy acroos some support files and it then loads the Mingw-w64 prompt. To build the C++ code and the TCL type "make".
+
+This should rebuild everything. You can then simply edit the code and then re-run build and make.
