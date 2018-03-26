@@ -1,0 +1,14 @@
+# Scid vs. PC recent files list
+
+set recentFiles(limit) 10
+
+set recentFiles(menu) 5
+
+set recentFiles(extra) 5
+
+set recentFiles(gamehistory) 5
+
+set recentFiles(playernames) 10
+
+set recentFiles(data) {I:/scidbases/MainBase.si4 I:/pgns/chess-db/AlanKPunnett.pgn I:/pgns/chess-db/MarcusEOsborne.pgn I:/pgns/chess-db/RogerEmerson.pgn I:/pgns/chess-db/HarryGrieve.pgn I:/pgns/chess-db/DanielAbbas.pgn I:/scidbases/KingBase2018.si4}
+

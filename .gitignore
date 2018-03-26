@@ -1,3 +1,9 @@
+*.spf
+rel/
+bin/
+lib/
+bin2/
+.vs/
 # Object files
 *.o
 *.ko

@@ -1,0 +1,26 @@
+# Analysis Engines configuration for Scid0 4.18
+
+engine {
+  Name stockfish
+  Cmd  ./engines/stockfish/stockfish_9_x64.exe
+  Args {}
+  Dir  .
+  Elo  0
+  Time 1517339518
+  URL  {}
+  UCI  1
+  UCIoptions {{Threads 3}}
+}
+
+engine {
+  Name komodo
+  Cmd  ./engines/komodo/komodo-9.02-64bit.exe
+  Args {}
+  Dir  .
+  Elo  0
+  Time 1495430199
+  URL  {}
+  UCI  1
+  UCIoptions {{Threads 3}}
+}
+
