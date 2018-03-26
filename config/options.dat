@@ -90,7 +90,7 @@ set analysis(logMax) 5000
 set analysis(logName) 1
 set analysis(maxPly) 0
 set analysis(lowPriority) 1
-set scidBasesDir I:/GitHub/Scid0/rel/bases
+set scidBasesDir I:/GitHub/Scinc/rel/bases
 set ::gbrowser::size 35
 set ::commenteditor::showBoard 1
 set ::commenteditor::State(markColor) purple
@@ -115,7 +115,7 @@ set ::tools::graphs::showbar 1
 set maintFlag W
 set useGraphFigurine 0
 set photosMinimized 0
-set bookmarks(gamehistory) {}
+set bookmarks(gamehistory) {{g {KingBaseLite2018:  Sangma - Atalik, =-=,  Bhopal (5.4) 2017} I:/GitHub/Scinc/rel/bases/KingBaseLite2018 1 1 {Sangma, Rahul} {Atalik, Suat} 2017 {Bhopal IND} 5.4 =-=}}
 set playerInfoHistory {}
 set glistSize 15
 set glexport {g6: w13 W4  b13 B4  r3:m2 y4 s11 o4}
@@ -319,7 +319,7 @@ set cleaner(rounds) 1
 set cleaner(sites) 1
 set cleaner(tree) 0
 set cleaner(twins) 1
-set initialDir(base) ./
+set initialDir(base) I:/GitHub/Scinc/rel/bases
 set initialDir(html) ./
 set initialDir(tex) ./
 set initialDir(epd) ./

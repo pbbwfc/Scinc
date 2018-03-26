@@ -32,4 +32,4 @@ cd data
 copy ..\..\..\data\*.*
 
 cd /d C:\msys64
-call msys2_shell.cmd -mingw64 -where i:/github/scid0
+call msys2_shell.cmd -mingw64 -where i:/github/scinc

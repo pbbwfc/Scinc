@@ -1,4 +1,4 @@
-![alt text](https://github.com/pbbwfc/Scid0/blob/master/icons/scinc50.png "Scinc Icon")
+![alt text](https://github.com/pbbwfc/Scinc/blob/master/icons/scinc50.png "Scinc Icon")
 # Scinc
 #### *S*hane's *C*hess *I*nformation database - *N*o *C*omplications
 
