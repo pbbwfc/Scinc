@@ -358,7 +358,7 @@ proc FontSlant {style} {
 ### FontDialogRegen: Regenerates font from attributes.
 
 proc FontDialogRegen { font_name } {
-  global fd_family fd_style fd_size graphFigurineAvailable
+  global fd_family fd_style fd_size
 
   set weight "normal"
   if { $fd_style == "Bold Italic" || $fd_style == "Bold" } {
@@ -374,10 +374,6 @@ proc FontDialogRegen { font_name } {
   font configure $font_name -family $fd_family -size $fd_size -slant $slant -weight $weight
   if {$font_name == "font_Regular" } {
     font configure font_Bold -family $fd_family -size $fd_size -slant $slant
-    if {$graphFigurineAvailable} {
-      font configure font_Figurine(normal) -size $fd_size 
-      font configure font_Figurine(bold) -size $fd_size
-    }
     ::pgn::configTabs
   }
 }
