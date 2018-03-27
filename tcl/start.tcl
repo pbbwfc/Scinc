@@ -235,7 +235,6 @@ if {$windowsOS} {
 set scidConfigDir [file nativename [file join $scidUserDir "config"]]
 set scidDataDir [file nativename [file join $scidUserDir "data"]]
 set scidTexturesDir [file nativename [file join $scidUserDir "textures"]]
-set scidPiecesDir [file nativename [file join $scidUserDir "pieces"]]
 set scidPhotosDir [file nativename [file join $scidUserDir "photos"]]
 
 # boardSizes: sizes after 80 are copied rom smaller ones
