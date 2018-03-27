@@ -1059,6 +1059,7 @@ proc updateTwinChecker {} {
       label $f.title.note -font font_Small
       pack $f.title.label -side left
       pack $f.title.note $f.title.d -side right -padx 3
+      autoscrollframe $f.t text $f.t.text -height 16 -width $width -takefocus 0 -wrap word
       # hmmm - for some packing reason the left and right widgets are different widths &&&
       # and it depends on the font's width ^%&^%@. Perhaps autoscroll's fault ?
 
