@@ -1372,8 +1372,6 @@ if {[info tclversion] >= "8.6"} {
   set boardStyle Merida1
 }
 
-set useGraphFigurine 1
-
 if {[catch {source $optionsFile} ]} {
   ::splash::add "Error loading options file \"$optionsFile\"" error
 } else {
