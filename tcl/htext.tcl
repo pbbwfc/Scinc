@@ -201,7 +201,6 @@ proc ::htext::updateRate {w rate} {
 }
 
 proc ::htext::init {w} {
-  global graphFigurineAvailable
 
   set cyan {#007000}
   set maroon {#990000}
@@ -271,10 +270,6 @@ proc ::htext::init {w} {
   $w tag configure ip3 -lmargin1 75 -lmargin2 75
   $w tag configure ip4 -lmargin1 100 -lmargin2 100
 
-  if {$graphFigurineAvailable} {
-    $w tag configure f -font font_Figurine(normal)
-    $w tag configure fb -font font_Figurine(bold)
-  }
 }
 
 proc ::htext::isLinkTag {tagName} {

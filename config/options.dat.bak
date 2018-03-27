@@ -113,6 +113,7 @@ set ::tools::graphs::absfilter::type year
 set ::tools::graphs::showpoints 1
 set ::tools::graphs::showbar 1
 set maintFlag W
+set useGraphFigurine 0
 set photosMinimized 0
 set bookmarks(gamehistory) {{g {KingBaseLite2018:  Sangma - Atalik, =-=,  Bhopal (5.4) 2017} I:/GitHub/Scinc/rel/bases/KingBaseLite2018 1 1 {Sangma, Rahul} {Atalik, Suat} 2017 {Bhopal IND} 5.4 =-=}}
 set playerInfoHistory {}
@@ -147,8 +148,6 @@ set winWidth(.statsWin)  60
 set winHeight(.statsWin) 13
 set winWidth(.treeWin)  58
 set winHeight(.treeWin) 20
-set winWidth(.twinchecker)  439
-set winHeight(.twinchecker) 344
 
 set winX(.)  -1
 set winY(.)  -1
@@ -218,8 +217,6 @@ set winX(.treeWin8)  -1
 set winY(.treeWin8)  -1
 set winX(.treeWin9)  -1
 set winY(.treeWin9)  -1
-set winX(.twinchecker)  232
-set winY(.twinchecker)  209
 
 set analysisCommand {}
 

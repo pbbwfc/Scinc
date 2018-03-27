@@ -619,7 +619,6 @@ menuText E PgnOptIndentV "Indent Variations" 7
 menuText E PgnOptColumn "Column Style" 1
 menuText E PgnOptSpace "Space after Move Numbers" 18
 menuText E PgnOptStripMarks "Hide Square/Arrow Codes" 1
-menuText E PgnOptChess "Chess Pieces" 6
 menuText E PgnOptScrollbar "Scrollbar" 6
 menuText E PgnOptBoldMainLine "Bold Main Line" 4
 menuText E PgnColor "Colors" 0

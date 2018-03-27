@@ -1727,22 +1727,6 @@ set helpText(PGN) {<h1>PGN Window</h1>
   board. Right-clicking displays a context menu.
   </p>
 
-  <h3><name ttf>Chess Figurines</name></h3>
-  <p>
-  The <b>Chess Pieces</b> option displays small chess figurines instead of letters, to represent pieces.
-  This feature is only available if truetype fonts are supported, and ScidChessStandard.ttf has successfully been installed,
-  and may incur a small performance loss.
-  </p>
-  <p>
-  On <b>Microsoft Windows</b>, the fonts are installed automatically, but may
-  not be available until Windows has updated the font cache. If they aren't available, browse the Windows\Fonts directory
-  and double click the Scid fonts.
-  </p>
-  <p> <b>OS X</b> users should also manually install the font.</p>
-  
-  <p><url https://sourceforge.net/projects/scidvspc/files/support files/pgn_ttf_fonts.tgz/download>Download ttf font</url>
-  </p>
-
   <h3>Options</h3>
   <p>
   The PGN menu contains options about how the game is displayed.

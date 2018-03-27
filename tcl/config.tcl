@@ -47,50 +47,5 @@ if {[file isdirectory $::scidBasesDir]} {
   ::splash::add "scidBasesDir $scidBasesDir not found!" error
 }
 
-### Setup for truetype (and PGN figurine) support
-
-array set graphFigurineFamily {}
-array set graphFigurineWeight { normal normal bold normal }
-set graphFigurineAvailable [expr $windowsOS || $macOS]
-if {[::tk windowingsystem] eq "x11"} {
-  catch { if {[::tk::pkgconfig get fontsystem] eq "xft"} { set graphFigurineAvailable 1 } }
-}
-
-if {$graphFigurineAvailable} {
-  set graphFigurineFamilies {}
-  foreach font [font families] {
-    if {[string match -nocase {Scid Chess *} $font]} { lappend graphFigurineFamilies $font }
-  }
-  if {[lsearch $graphFigurineFamilies {Scid Chess Traveller}] >= 0} {
-    set graphFigurineFamily(normal) {Scid Chess Traveller}
-  } elseif {[llength $graphFigurineFamilies] > 0} {
-    set graphFigurineFamily(normal) [lindex $graphFigurineFamilies 0]
-  } else {
-    set graphFigurineAvailable 0
-    set useGraphFigurine 0
-  }
-  if {$graphFigurineAvailable} {
-    if {[lsearch $graphFigurineFamilies {Scid Chess Standard}] >= 0} {
-      set graphFigurineFamily(bold) {Scid Chess Standard}
-      set graphFigurineWeight(bold) bold
-    } else {
-      set graphFigurineFamily(bold) $graphFigurineFamily(normal)
-    }
-  }
-} else {
-  set useGraphFigurine 0
-}
-
-if {$graphFigurineAvailable} {
-  ::splash::add "True type fonts (PGN figurines) enabled."
-} else {
-  ::splash::add "True type fonts (PGN figurines) disabled." error
-}
-
-if {$graphFigurineAvailable} {
-  font create font_Figurine(normal) -family $graphFigurineFamily(normal) -weight $graphFigurineWeight(normal) -size [lindex $fontOptions(Regular) 1]
-  font create font_Figurine(bold) -family $graphFigurineFamily(bold) -weight $graphFigurineWeight(bold) -size [lindex $fontOptions(Regular) 1]
-}
-
 ### end of config.tcl
 

@@ -652,7 +652,7 @@ $m add command -label OptionsSave -command {
     FilterMaxMoves FilterMinMoves FilterStepMoves FilterMaxElo FilterMinElo FilterStepElo 
     FilterMaxYear FilterMinYear FilterStepYear FilterGuessELO autoResizeBoard
     ::tools::graphs::filter::type  ::tools::graphs::absfilter::type ::tools::graphs::showpoints ::tools::graphs::showbar
-    maintFlag useGraphFigurine photosMinimized bookmarks(gamehistory) playerInfoHistory
+    maintFlag photosMinimized bookmarks(gamehistory) playerInfoHistory
     glistSize glexport glistColOrder glistColWidth glistColAnchor addRatings(overwrite) addRatings(filter)
     blistColOrder blistColWidth blistColAnchor} {
 

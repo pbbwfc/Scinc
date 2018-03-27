@@ -7,7 +7,6 @@ namespace eval pgn {
   ################################################################################
   # truetype support
   ################################################################################
-  set graphFigurineInComments 0
   set substUnicode(normal)  { "\u2654" "<f>\u2654</f>"
                               "\u2655" "<f>\u2655</f>"
                               "\u2656" "<f>\u2656</f>"
@@ -48,8 +47,8 @@ namespace eval pgn {
     foreach idx {0 1 3} tag {PgnFilePrint PgnFileCopy PgnFileClose} {
       configMenuText $m.file $idx $tag $lang
     }
-    foreach idx {1 2 3 4 5 6 7 8 9 11 12} tag {
-      PgnOptShort PgnOptColumn PgnOptColor PgnOptIndentC PgnOptIndentV PgnOptBoldMainLine PgnOptSpace PgnOptSymbols PgnOptStripMarks PgnOptChess PgnOptScrollbar
+    foreach idx {1 2 3 4 5 6 7 8 9 12} tag {
+      PgnOptShort PgnOptColumn PgnOptColor PgnOptIndentC PgnOptIndentV PgnOptBoldMainLine PgnOptSpace PgnOptSymbols PgnOptStripMarks PgnOptScrollbar
     } {
       configMenuText $m.opt $idx $tag $lang
     }
@@ -64,62 +63,8 @@ namespace eval pgn {
   #
   ################################################################################
   proc PrepareForDisplay {str} {
-    global useGraphFigurine
-
-    if {$useGraphFigurine} {
-      global graphFigurineWeight
-      variable graphFigurineInComments
-      variable substPlaceHolders
-      variable substUnicode
-
-      if {$graphFigurineInComments} {
-        regsub -all {([KQRBNP])([a-h1-8])?(x)?([a-h][1-8])} $str {\\\1\\\2\3\4} str
-        regsub -all {([a-h][1-8]=)([KQRBN])} $str {\1\\\2\\} str
-      }
-
-      if {!$::pgn::boldMainLine || $graphFigurineWeight(bold) eq "normal"} {
-        set str [string map $substUnicode(normal) $str]
-      } else {
-        # split into chunks: "..." "<var>...</var>" "..." "<var>...</var>" "..."
-        # take nested variations into account
-        set chunks {}
-        set start 0
-        set n1 [string first "<var>" $str]
-        while {$n1 >= 0} {
-          set n [expr {$n1 + 5}]
-          set n2 [string first "<var>"  $str $n]
-          set n3 [string first "</var>" $str $n]
-          while {$n2 >= 0 && $n2 < $n3} {
-            # we have nested variations
-            set n2 [string first "<var>"  $str [expr {$n2 + 5}]]
-            set n3 [string first "</var>" $str [expr {$n3 + 5}]]
-          }
-          if {$n3 == -1} {
-            # Oops: string is corrupt (should never happen)
-            set n1 -1
-          } else {
-            lappend chunks bold [string range $str $start $n1]
-            lappend chunks normal [string range $str [expr {$n1 + 1}] $n3]
-            set start [expr {$n3 + 1}]
-            set n1 $n2
-          }
-        }
-        lappend chunks bold [string range $str $start end]
-        # re-build string concatenating the chunks
-        set str ""
-        foreach {weight part} $chunks {
-          append str [string map $substUnicode($weight) $part]
-        }
-      }
-
-      if {$graphFigurineInComments} {
-        set str [string map $substPlaceHolders $str]
-      }
-    }
-
     return $str
   }
-
 
   proc Open {} {
     global pgnHeight pgnWidth pgnColor
@@ -185,14 +130,6 @@ namespace eval pgn {
         -variable ::pgn::stripMarks -command {updateBoard -pgn}
 
     $w.menu.opt add separator
-
-    if {$::graphFigurineAvailable} {
-      $w.menu.opt add checkbutton -label PgnOptChess \
-	  -variable ::useGraphFigurine -command {updateBoard -pgn}
-    } else {
-      $w.menu.opt add checkbutton -label PgnOptChess \
-	  -variable ::useGraphFigurine -command {updateBoard -pgn} -state disabled
-    }
 
     $w.menu.opt add checkbutton -variable ::pgn::showScrollbar -label PgnOptScrollbar -command ::pgn::packScrollbar 
 
@@ -540,7 +477,6 @@ namespace eval pgn {
   #    tags will be updated.
   ################################################################################
   proc Refresh {{pgnNeedsUpdate 0}} {
-    global useGraphFigurine
 
     if {![winfo exists .pgnWin]} {
       return
@@ -556,7 +492,7 @@ namespace eval pgn {
         -indentVar $::pgn::indentVars -indentCom $::pgn::indentComments \
         -space $::pgn::moveNumberSpaces -format $format -column $::pgn::columnFormat \
         -short $::pgn::shortHeader -markCodes $::pgn::stripMarks \
-        -unicode $useGraphFigurine]
+        -unicode 0]
     # debug puts $pgnStr
 
     if {$pgnNeedsUpdate} {
