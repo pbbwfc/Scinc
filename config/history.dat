@@ -1,6 +1,5 @@
-# Scid vs. PC combobox history lists
+# Scinc combobox history lists
 
-set ::utils::history::listData(::plist::name) {punnett osborne emerson grieve howell carlsen}
-set ::utils::history::listData(::preport::_player) {{Punnett, Alan K} {Osborne, Marcus E} {Emerson, Roger} {Grieve, Harry} {Howell, David W L} {Aagaard, Jacob} {Carlsen, Magnus}}
-set ::utils::history::listData(::tourney::player) {{Howell, David W L}}
-set ::utils::history::listData(HeaderSearchWhite) {Carlsen Brooks}
+set ::utils::history::listData(::plist::name) {Zaitsev Toledo Subramanian Rodriguez Dizdar Richter Petrov Petrosian Opychaneyj Miles}
+set ::utils::history::listData(HeaderSearchEvent) {{Vratsa BUL, Junior ch03}}
+set ::utils::history::listData(HeaderSearchWhite) {{Arroyo, E}}

@@ -198,7 +198,6 @@ proc ::game::LoadNumber {} {
     destroy .glnumDialog
     updateBoard -pgn
     refreshWindows
-    ::bookmarks::AddCurrentGame 
   }
   dialogbutton $b.cancel -text $::tr(Cancel) -command {
     destroy .glnumDialog
@@ -239,7 +238,6 @@ proc ::game::Load { selection {update 1} {raise 1}} {
     raiseWin .
   }
   refreshWindows
-  ::bookmarks::AddCurrentGame
 }
 
 ### Replaces numerous 'sc_game save [sc_game number]' around the place.
@@ -248,10 +246,6 @@ proc ::game::Load { selection {update 1} {raise 1}} {
 proc ::game::Save {} {
     set n [sc_game number]
     sc_game save $n
-    if {$n == 0} {
-      # add new game to history
-      ::bookmarks::AddCurrentGame
-    }
 }
 
 #   Produces a popup dialog for loading a game or other actions

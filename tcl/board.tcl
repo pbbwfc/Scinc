@@ -326,9 +326,6 @@ bind $tb.save <Button-3> {
 }
 
 button $tb.close -image tb_close -command ::file::Close
-menubutton $tb.bkm -image tb_bkm -menu $tb.bkm.menu
-menu $tb.bkm.menu
-bind $tb.bkm <ButtonPress-1> "+$tb.bkm configure -relief flat"
 
 frame  $tb.space1  -width 12
 button $tb.newgame -image tb_newgame -command ::game::Clear
@@ -356,7 +353,7 @@ button $tb.engine  -image tb_engine  -command {makeAnalysisWin -1}
 # Set toolbar help status messages:
 foreach {b m} {
   new FileNew open FileOpen
-  save GameReplace close FileClose bkm FileBookmarks
+  save GameReplace close FileClose
   gfirst GameFirst gprev GamePrev gnext GameNext glast GameLast
   newgame GameNew copy EditCopy paste EditPaste
   hsearch SearchHeader bsearch SearchCurrent msearch SearchMaterial rfilter SearchReset 
@@ -368,7 +365,7 @@ foreach {b m} {
   # ::utils::tooltip::Set $tb.$b $m
 }
 
-foreach i {new open save close bkm newgame copy paste gprev gnext gfirst glast \
+foreach i {new open save close newgame copy paste gprev gnext gfirst glast \
       rfilter hsearch bsearch msearch glist pgn comment maint eco tree engine} {
   $tb.$i configure -relief flat -border 1 -highlightthickness 0 -anchor n -takefocus 0
   ::utils::tooltip::Set $tb.$i [tr $::helpMessage($tb.$i)]
@@ -378,7 +375,7 @@ proc redrawToolbar {} {
   global toolbar
   foreach i [winfo children .main.tb] { pack forget $i }
   set seen 0
-  foreach i {new open save close bkm} {
+  foreach i {new open save close} {
     if {$toolbar($i)} {
       set seen 1
       pack .main.tb.$i -side left -pady 1 -padx 0 -ipadx 0 -pady 0 -ipady 0
@@ -653,7 +650,7 @@ if {0} {
   image create photo tempimage
   foreach i {glist pgn comment maint eco tree engine
     hsearch bsearch msearch rfilter newgame copy paste
-    gfirst gprev gnext glast new open save close bkm} {
+    gfirst gprev gnext glast new open save close} {
 
     tempimage blank
     tempimage copy tb_$i -zoom 2

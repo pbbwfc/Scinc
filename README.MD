@@ -27,6 +27,7 @@ You can get a copy of the binary version by downloading a zip from Releases.
 * Tablebases
 * Opening Books
 * Sounds
+* Bookmarks
 * Engines removed - phalanx, toga, scidlet
 
 ## Limitations

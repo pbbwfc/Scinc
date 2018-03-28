@@ -146,7 +146,6 @@ set helpText(Scid) {<h1>Databases and General Use</h1>
   <h4>Other Utilities and Information</h4>
   <ul>
   <li><a Analysis Annotating>Annotating games</a> automatically</li>
-  <li><a Bookmarks><b>Bookmarks</b></a></li>
   <li><a CalVar><b>Calculation of Variations</b> training</a></li>
   <li><a Cmdline><b>Command-line</b> options</a></li>
   <li><a Compact><b>Compacting</b> a database</a></li>
@@ -192,7 +191,6 @@ append helpText(Index) {
   <li><a Tree Best>Best games</a> window</li>
   <li><a Board>Board options</a> (textures and pieces)</li>
   <li><a Searches Board>Board searches</a></li>
-  <li><a Bookmarks>Bookmarks</a></li>
   <li><a GameList Browsing>Browsing games</a></li>
   <li><a MainWindow>Button Bar</a></li>
   </ul>
@@ -644,7 +642,6 @@ set helpText(Menus) {<h1>Scid Menus</h1>
   <li><green>Save Pgn</green>  Save this game as a PGN file.</li>
   <li><green>Close</green>  Closes the current Scid Database.</li>
   <li><green>Read-Only</green>  Makes the current database read-only.</li>
-  <li><green>Bookmarks</green>  Show and edit <a Bookmarks>Bookmarks</a>.</li>
   <br>
   <li><green>Switch to Base</green>  Switch between the nine available databases (including the <a Clipbase>Clipbase</a>).</li>
   <li><green>Open Base as Tree</green></li>
@@ -1339,7 +1336,7 @@ set helpText(Switcher) {<h1>The Database Switcher</h1>
   gives visual feedback on open databases. 
   The name, <a Filter>filter</a> state, and icon
   of each database is displayed, and the active database is highlighted
-  with a coloured background. At the left most is a <a Bookmarks>bookmark</a> button.
+  with a coloured background.
   </p>
   <p>
   Right-clicking a database produces a popup menu. From this, one can perform <a Filter>filter</a> ops, mark base as Read-Only or
@@ -3013,50 +3010,6 @@ from the Tools menu. Right-clicking the graph will refresh it.
   <p>The current move is now highlighted a different colour, though for performance reasons (on OS X mainly), this can be disabled.
 
   <p><footer>Updated: Scid vs. PC 4.15 Sept 2015</footer></p>
-}
-
-set helpTitle(Bookmarks) "Bookmarks"
-set helpText(Bookmarks) {<h1>Bookmarks</h1>
-  <p>
-  Scid allows you to bookmark important games for easy
-  future reference. The bookmarks menu is found in
-  <green>File-<gt>Bookmarks</green>, or from the toolbar bookmark icon.
-  </p>
-  <p>
-  When you open a bookmark Scid will automatically
-  load the appropriate database, game and position.
-  But if the database has been sorted or compacted, the bookmark
-  details may be out of date. In this case Scid will search 
-  for the best matching game (comparing player names, site, etc),
-  but it is possible that a different game will match the criteria,
-  and be incorrectly loaded.</p>
-  <p><i>
-  It is a good idea to re-bookmark a game if you edit its Players, Site, Result, Round or Year.
-  </i></p>
-  <p><i>
-  Games in a PGN file or the Clipbase cannot be bookmarked.
-  </i></p>
-
-  <h3>Editing and Arranging Bookmarks</h3>
-  <p>
-  With the bookmark editor you can change the label for
-  each bookmark, and add folders for better organization.
-  Double clicking entries will load the game, and the 'Delete', 'Control+Up' and 'Control+Down' keys
-  can be used to delete a bookmark, or reorder it in the list.
-  </p>
-
-  <h3>Hints</h3>
-  <p>
-  You can use bookmarks for fast access to common databases
-  by bookmarking a game from each database. 
-  </p>
-  <p>
-  The bookmark editor contains a checkbox for controlling the display of
-  folders. They can be shown as submenus (useful when there are
-  many games), or as a single list.
-  </p>
-
-  <p><footer>Updated: Scid vs. PC 4.10, July 2013</footer></p>
 }
 
 set helpTitle(Cmdline) "Command-line options"

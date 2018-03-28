@@ -47,17 +47,6 @@ menuText E FileClose "Close" 0 {Close the active Scid database}
 menuText E FileSavePgn "Save PGN" 0 {Save this game to file}
 menuText E FileOpenBaseAsTree "Open Base as Tree" 13   {Open a base and use it in Tree window}
 menuText E FileOpenRecentBaseAsTree "Open Recent as Tree" 0   {Open a recent base and use it in Tree window}
-menuText E FileBookmarks "Bookmarks" 0 {Bookmarks menu}
-menuText E FileBookmarksAdd "Add Bookmark" 0 \
-  {Bookmark the current database game and position}
-menuText E FileBookmarksFile "File Bookmark" 0 \
-  {File a bookmark for the current game and position}
-menuText E FileBookmarksEdit "Edit Bookmarks" 0 \
-  {Edit the bookmarks menus}
-menuText E FileBookmarksList "Display Folders as Single List" 0 \
-  {Display bookmark folders as a single list, not submenus}
-menuText E FileBookmarksSub "Display Folders as Submenus" 0 \
-  {Display bookmark folders as submenus, not a single list}
 
 menuText E FileReadOnly "Read-Only" 0 \
   {Treat the current database as read-only, preventing changes}

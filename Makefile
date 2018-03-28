@@ -99,7 +99,7 @@ TCLS= \
     tcl/utils/validate.tcl tcl/utils/win.tcl \
   tcl/misc/misc.tcl tcl/htext.tcl \
   tcl/file.tcl \
-    tcl/file/bookmark.tcl tcl/file/recent.tcl tcl/file/epd.tcl \
+    tcl/file/recent.tcl tcl/file/epd.tcl \
     tcl/file/spellchk.tcl tcl/file/maint.tcl \
   tcl/edit.tcl \
   tcl/game.tcl \

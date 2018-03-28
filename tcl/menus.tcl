@@ -97,12 +97,7 @@ set helpMessage($m,[incr menuindex]) FileClose
 $m add command -label FileReadOnly -command makeBaseReadOnly
 set helpMessage($m,[incr menuindex]) FileReadOnly
 
-$m add cascade -label FileBookmarks -menu $m.bookmarks
-set helpMessage($m,[incr menuindex]) FileBookmarks
 menu $m.bookmarks
-
-$m add separator
-incr menuindex
 
 $m add cascade -label FileSwitch -menu $m.switch
 set helpMessage($m,[incr menuindex]) FileSwitch
@@ -122,9 +117,6 @@ set helpMessage($m,[incr menuindex]) FileOpenRecentBaseAsTree
 $m add command -label FileExit -accelerator "control-q" -command ::file::Exit
 bind .main <Control-q> ::file::Exit
 set helpMessage($m,[incr menuindex]) FileExit
-
-$m add separator
-incr menuindex
 
 set totalBaseSlots [sc_base count total]
 set clipbaseSlot [sc_info clipbase]
@@ -1066,7 +1058,6 @@ proc updateMenuStates {} {
 
   ::search::Config
   ::maint::Refresh
-  ::bookmarks::Refresh
 }
 
 
@@ -1094,7 +1085,7 @@ proc setLanguageMenus {{lang ""}} {
     configMenuText .menu [tr $tag $oldLang] $tag $lang
   }
 
-  foreach tag {New Open SavePgn OpenBaseAsTree OpenRecentBaseAsTree Close Bookmarks ReadOnly Switch Exit} {
+  foreach tag {New Open SavePgn OpenBaseAsTree OpenRecentBaseAsTree Close ReadOnly Switch Exit} {
     configMenuText .menu.file [tr File$tag $oldLang] File$tag $lang
   }
 

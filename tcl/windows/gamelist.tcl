@@ -456,9 +456,6 @@ proc ::windows::gamelist::Open {} {
   }
 
 
-  button $w.b.bkm -relief flat -image tb_bkm
-  bind   $w.b.bkm <ButtonPress-1> "tk_popup .main.tb.bkm.menu %X %Y ; break"
-
   button $w.b.gfirst -image tb_gfirst -relief flat -command "
     event generate $w.tree <Home>
     ::game::LoadNextPrev first 0"
@@ -511,7 +508,7 @@ proc ::windows::gamelist::Open {} {
 
   pack $f.filter $f.negate $f.reset $f.current $f.compact -side right
 
-  pack $w.b.save $w.b.bkm $w.b.gfirst $w.b.gprev $w.b.gnext $w.b.glast $w.b.goto -side left
+  pack $w.b.save $w.b.gfirst $w.b.gprev $w.b.gnext $w.b.glast $w.b.goto -side left
   pack $w.b.findcase $w.b.find $f -side right
 
   button $w.b.popup -image tb_popup_left -height 32 -width 16 -command ::windows::gamelist::popupButtonBar -relief flat

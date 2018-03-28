@@ -264,7 +264,6 @@ proc ::file::Open {{fName ""} {parent .} {update 1}} {
   if {$update} {
     refreshWindows all
     refreshSearchDBs
-    ::bookmarks::AddCurrentGame
     updateBoard -pgn -switch
   }
   # else bookmarks will call refreshWindows after correct game loaded
