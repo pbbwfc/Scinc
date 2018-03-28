@@ -4,6 +4,9 @@
 
 Minimalist version of [Scidvspc](http://scidvspc.sourceforge.net/ "Scidvspc")
 
+![alt text](https://github.com/pbbwfc/Scinc/blob/master/icons/screen.png "Screen")
+
+
 ## Binary Version
 
 You can get a copy of the binary version by downloading a zip from Releases.

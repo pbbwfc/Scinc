@@ -71,7 +71,7 @@ set exportFlags(htmldiag) 0
 set exportFlags(utf8) 0
 set ::windows::gamelist::findcase 1
 set ::windows::gamelist::showButtons 1
-set gameInfo(show) 1
+set gameInfo(show) 0
 set gameInfo(photos) 0
 set gameInfo(wrap) 0
 set gameInfo(showStatus) 1
@@ -116,10 +116,10 @@ set maintFlag W
 set photosMinimized 0
 set bookmarks(gamehistory) {{g {KingBaseLite2018:  Sangma - Atalik, =-=,  Bhopal (5.4) 2017} I:/GitHub/Scinc/rel/bases/KingBaseLite2018 1 1 {Sangma, Rahul} {Atalik, Suat} 2017 {Bhopal IND} 5.4 =-=}}
 set playerInfoHistory {}
-set glistSize 15
+set glistSize 29
 set glexport {g6: w13 W4  b13 B4  r3:m2 y4 s11 o4}
 set glistColOrder {0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21}
-set glistColWidth {56 112 112 40 40 80 80 40 40 40 80 24 24 24 24 40 48 24 24 24 56 56}
+set glistColWidth {56 112 112 40 40 80 165 40 40 40 80 24 24 24 24 40 48 24 24 24 56 56}
 set glistColAnchor {e w w e e w w e e e w e e e e e w e e e w e}
 set addRatings(overwrite) 0
 set addRatings(filter) 1
@@ -137,10 +137,14 @@ set winWidth(.commentWin)  40
 set winHeight(.commentWin) 6
 set winWidth(.helpWin)  50
 set winHeight(.helpWin) 32
+set winWidth(.maintWin)  552
+set winHeight(.maintWin) 617
 set winWidth(.pgnWin)  65
 set winHeight(.pgnWin) 20
 set winWidth(.playerInfoWin)  45
 set winHeight(.playerInfoWin) 20
+set winWidth(.plist)  55
+set winHeight(.plist) 25
 set winWidth(.spellcheckWin)  55
 set winHeight(.spellcheckWin) 25
 set winWidth(.statsWin)  60
@@ -400,7 +404,7 @@ set informant("?!") 0.5
 set informant("?") 1.5
 set informant("??") 3.0
 
-set ::docking::layout_list(1) {{MainWindowGeometry 834x640+80+50} {{.pw vertical {}} {TPanedwindow {{.pw.pw0 horizontal 564} {TNotebook .nb .fdockmain} {TNotebook .tb1 .fdockpgnWin}}}}}
+set ::docking::layout_list(1) {{MainWindowGeometry 1920x997+0+0} {{.pw vertical {}} {TPanedwindow {{.pw.pw0 horizontal 513} {TPanedwindow {{.pw.pw0.pw6 vertical 577} {TNotebook .nb .fdockmain} {TNotebook .tb7 .fdockpgnWin}}} {TPanedwindow {{.pw.pw0.pw2 vertical 373} {TPanedwindow {{.pw.pw0.pw2.pw4 horizontal {}} {TNotebook .tb1 .fdocktreeWin1}}} {TNotebook .tb3 .fdockglistWin}}}}}}}
 set ::docking::layout_list(2) {{MainWindowGeometry 1311x716+65+36} {{.pw vertical {}} {TPanedwindow {{.pw.pw0 horizontal 570} {TNotebook .nb .fdockmain} {TPanedwindow {{.pw.pw0.pw2 vertical 261} {TPanedwindow {{.pw.pw0.pw2.pw9 horizontal 235} {TNotebook .tb32 .fdockpgnWin} {TPanedwindow {{.pw.pw0.pw2.pw9.pw30 vertical {}} {TNotebook .tb1 {.fdockplayerInfoWin .fdockcommentWin}}}}}} {TPanedwindow {{.pw.pw0.pw2.pw3 horizontal {}} {TNotebook .tb8 {.fdockglistWin .fdockcrosstabWin}}}}}}}}}}
 set ::docking::layout_list(3) {{MainWindowGeometry 968x666+80+50} {{.pw vertical {}} {TPanedwindow {{.pw.pw0 horizontal 566} {TNotebook .nb .fdockmain} {TPanedwindow {{.pw.pw0.pw2 vertical 363} {TNotebook .tb1 {.fdockanalysisWin1 .fdockpgnWin}} {TNotebook .tb3 {.fdocktreeWin1 .fdocktreeBest1}}}}}}}}
 set ::docking::layout_list(4) {{MainWindowGeometry 1449x817+76+30} {{.pw vertical {}} {TPanedwindow {{.pw.pw0 horizontal 747} {TNotebook .nb .fdockmain} {TPanedwindow {{.pw.pw0.pw2 vertical {}} {TPanedwindow {{.pw.pw0.pw2.pw3 horizontal {}} {TPanedwindow {{.pw.pw0.pw2.pw3.pw35 vertical 378} {TPanedwindow {{.pw.pw0.pw2.pw3.pw35.pw38 horizontal 347} {TNotebook .tb36 {.fdockpgnWin .fdockcommentWin}} {TNotebook .tb39 {.fdockanalysisWin0 .fdockplayerInfoWin .fdocktreeWin1}}}} {TNotebook .tb8 {.fdockglistWin .fdocksgraph .fdockcrosstabWin}}}}}}}}}}}}
