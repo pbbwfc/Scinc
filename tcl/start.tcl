@@ -12,8 +12,8 @@
 # The next line restarts using tkscid: \
 exec "`dirname "$0"`"/tkscid "$0" "$@"
 
-set scidVersion 4.18
-set scidVersionDate {Jul 1, 2017}
+set scidVersion 0.02
+set scidVersionDate {Apr 1, 2018}
 
 package require Tcl 8.5
 package require Tk  8.5

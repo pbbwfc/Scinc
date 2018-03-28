@@ -1,1 +1,1 @@
-"I:\Scid vs PC-4.18\bin\tcscid.exe"
+"I:\GitHub\Scinc\rel\bin\tcscid.exe"
