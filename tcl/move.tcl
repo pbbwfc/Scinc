@@ -84,11 +84,6 @@ proc ::move::Back {{count 1}} {
   }
   if {[sc_pos isAt vstart]} { ::move::ExitVar; return }
 
-  ### if playing, remove this move from hash array S.A
-
-  set ::lFen [lrange $::lFen 0 end-[expr {$count+1}]]
-  pauseGame
-
   sc_move back $count
 
   if {$count == 1} {

@@ -1720,20 +1720,6 @@ proc checkRepetition {} {
   }
 
   set elt [lrange [split $fen] 0 2]
-  if {$elt == [lindex $::lFen end]} {
-    return 0
-  }
-
-  lappend ::lFen $elt
-  if { [llength [lsearch -all $::lFen $elt] ] >=3 } {
-    set ::drawShown 1
-    pauseGame
-    sc_game tags set -result =
-    sc_pos setComment "3 fold repetition"
-    tk_messageBox -type ok -message $::tr(Draw) -parent .main.board -icon info
-    catch {::game::Save}
-    return 1
-  }
 
   return 0
 }
