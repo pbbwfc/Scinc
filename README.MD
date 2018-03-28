@@ -4,7 +4,7 @@
 
 Minimalist version of [Scidvspc](http://scidvspc.sourceforge.net/ "Scidvspc")
 
-![alt text](https://github.com/pbbwfc/Scinc/blob/master/icons/screen.png "Screen")
+![alt text](https://github.com/pbbwfc/Scinc/blob/master/icons/screenshot.png "Screen")
 
 
 ## Binary Version
