@@ -8,7 +8,6 @@ copy I:\tcl\bin\tcl85.dll
 copy I:\tcl\bin\tk85.dll
 copy I:\tcl\bin\tclpip85.dll
 copy ..\..\FIDE.spf
-copy ..\..\icons\scinc.gif
 
 md engines
 cd engines
