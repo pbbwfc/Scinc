@@ -133,7 +133,6 @@ set annotate(cutoff) 5.0
 set maintFlag W
 set ::gbrowser::size 35
 set photosMinimized 0
-set bookmarks(gamehistory) {}
 set playerInfoHistory {}
 
 proc ::docking::init_layout_list {{recover 0}} {
@@ -1302,7 +1301,6 @@ set scidConfigFiles(engines)     engines.dat
 set scidConfigFiles(engines.bak) engines.dat
 set scidConfigFiles(recentfiles) recent.dat
 set scidConfigFiles(history)     history.dat
-set scidConfigFiles(bookmarks)   bookmarks.dat
 set scidConfigFiles(reports)     reports.dat
 set scidConfigFiles(optrainer)   optrainer.dat
 

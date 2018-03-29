@@ -652,7 +652,6 @@ set helpText(Menus) {<h1>Scid Menus</h1>
 
   <h3><name Edit>Edit</name></h3>
   <ul>
-  <li><green>Setup Board</green>  Set a (non-standard) start position for the current game.</li>
   <li><green>Copy FEN</green>  Set the clipboard to the FEN representing current position.</li>
   <li><green>Copy PGN</green>  Set the clipboard to the game PGN.</li>
   <li><green>Paste FEN</green>  Set-up board according to FEN in clipboard.</li>
@@ -1047,10 +1046,6 @@ set helpText(Searches) {<h1>Searches in Scid</h1>
   in an endgame.
   </p>
   <p>
-  To search for an arbitrary position, set the board position 
-  via <green>Edit--<gt>Setup Board</green> before running the search.
-  </p>
-  <p>
   You can request that the search look in variations (instead of only
   examining actual game moves) by selecting <b>Look in variations</b>
   , but this may slow the search if your database
@@ -1402,7 +1397,6 @@ is also done from the Maintenance window.</i></p>
 <h3>Buttons</h3>
 <ul>
 <li><img tb_save> - replace current game</li>
-<li><img tb_bkm> - show bookmarks</li>
 <li><img tb_gfirst> - load first filter game</li>
 <li><img tb_gprev> - load previous filter game</li>
 <li><img tb_gnext> - load next filter game</li>
@@ -1952,7 +1946,6 @@ set helpText(TreeMasks) {<h1>Tree Masks</h1>
      <li> <img ::rep::_tb_include> Include line in repertoire</li>
      <li> <img ::rep::_tb_exclude> Exclude line from repertoire</li>
      <li> <img ::tree::mask::imageMainLine> Main Line</li>
-     <li> <img tb_bkm> Bookmark</li>
      <li> <img ::tree::mask::imageWhite> White</li>
      <li> <img ::tree::mask::imageBlack> Black</li>
      <li> <img tb_new> New line</li>
@@ -3672,7 +3665,6 @@ The window manager may interfere with some shortcuts.
 <li><b>control-m</b> - Maintenance window</li>
 <li><b>control-i</b> - Gameinfo window</li>
 <li><b>control-t</b> - Tree window</li>
-<li><b>control-B</b> - Setup board</li>
 <li><b>control-Z</b> - Score graph</li>
 <li><b>escape</b> - Close window</li>
 </ul>
@@ -3746,7 +3738,6 @@ The window manager may interfere with some shortcuts.
 
 <li><b>control-a</b> - Add variation</li>
 <li><b>control-A</b> - Analysis engines</li>
-<li><b>control-B</b> - Setup board</li>
 <li><b>control-c</b> - Copy game to Clipbase</li>
 <li><b>control-C</b> - Copy FEN</li>
 <li><b>control-e</b> - Comment editor</li>

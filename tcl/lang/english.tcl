@@ -83,8 +83,6 @@ menuText E EditPaste "Paste from Clipbase" 1 \
   {Paste the active Clipbase game here}
 menuText E EditPastePGN "Paste PGN" 0 \
   {Interpret the clipboard text as PGN and paste it here}
-menuText E EditSetup "Setup Board" 6 \
-  {Set the start position for this game}
 menuText E EditCopyBoard "Copy FEN" 5 \
   {Copy the current board in FEN notation to the text selection (clipboard)}
 menuText E EditCopyPGN "Copy PGN" 0 \
@@ -481,7 +479,6 @@ translate E Marker {Marker}
 translate E Include {Include}
 translate E Exclude {Exclude}
 translate E MainLine {Main line}
-translate E Bookmark {Bookmark}
 translate E NewLine {New line}
 translate E ToBeVerified {To be verified}
 translate E ToTrain {To train}
@@ -794,9 +791,6 @@ translate E RatingOverride "Overwrite existing ratings?"
 translate E AddRatings "Add ratings to"
 translate E AddedRatings {Scid added $r Elo ratings in $g games.}
 
-#Bookmark editor
-translate E NewSubmenu "Add Menu"
-
 # Comment editor:
 translate E AnnotationSymbols  {Annotations}
 translate E Comment {Comments}
@@ -891,18 +885,8 @@ translate E Today {Today}
 translate E ClassifyGame {Classify game}
 
 # Setup position:
-translate E EmptyBoard {Clear board}
-translate E InitialBoard {Initial board}
 translate E SideToMove {Side to move}
-translate E MoveNumber {Move number}
 translate E Castling {Castling}
-translate E EnPassantFile {En Passant file}
-translate E ClearFen {Clear FEN}
-translate E PasteFen {Paste FEN}
-
-translate E SaveAndContinue {Save and continue}
-translate E DiscardChangesAndContinue {Discard Changes}
-translate E GoBack {Go back}
 
 # Replace move dialog:
 translate E ReplaceMove {Replace Move}

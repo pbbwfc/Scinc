@@ -114,7 +114,6 @@ set ::tools::graphs::showpoints 1
 set ::tools::graphs::showbar 1
 set maintFlag W
 set photosMinimized 0
-set bookmarks(gamehistory) {{g {KingBaseLite2018:  Sangma - Atalik, =-=,  Bhopal (5.4) 2017} I:/GitHub/Scinc/rel/bases/KingBaseLite2018 1 1 {Sangma, Rahul} {Atalik, Suat} 2017 {Bhopal IND} 5.4 =-=}}
 set playerInfoHistory {}
 set glistSize 29
 set glexport {g6: w13 W4  b13 B4  r3:m2 y4 s11 o4}

@@ -28,6 +28,7 @@ You can get a copy of the binary version by downloading a zip from Releases.
 * Opening Books
 * Sounds
 * Bookmarks
+* Position Setup
 * Engines removed - phalanx, toga, scidlet
 
 ## Limitations

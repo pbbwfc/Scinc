@@ -1578,7 +1578,6 @@ proc standardShortcuts {w} {
   bind $w <Control-G> ::search::header
   bind $w <Control-M> ::search::material
   bind $w <Control-e> ::commenteditor::Open
-  bind $w <Control-B> ::setupBoard
   bind $w <Control-l> ::windows::gamelist::Open
   bind $w <Control-p> ::pgn::Open
   bind $w <Control-P> ::plist::Open

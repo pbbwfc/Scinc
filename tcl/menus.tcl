@@ -97,8 +97,6 @@ set helpMessage($m,[incr menuindex]) FileClose
 $m add command -label FileReadOnly -command makeBaseReadOnly
 set helpMessage($m,[incr menuindex]) FileReadOnly
 
-menu $m.bookmarks
-
 $m add cascade -label FileSwitch -menu $m.switch
 set helpMessage($m,[incr menuindex]) FileSwitch
 
@@ -123,14 +121,10 @@ set clipbaseSlot [sc_info clipbase]
 set currentSlot [sc_base current]
 
 
-
 ### Edit menu
 
 set menuindex -1
 set m .menu.edit
-
-$m add command -label EditSetup -command setupBoard -accelerator "control-B"
-set helpMessage($m,[incr menuindex]) EditSetup
 
 $m add command -label EditCopyBoard -accelerator "control-C" -command copyFEN
 set helpMessage($m,[incr menuindex]) EditCopyBoard
@@ -644,7 +638,7 @@ $m add command -label OptionsSave -command {
     FilterMaxMoves FilterMinMoves FilterStepMoves FilterMaxElo FilterMinElo FilterStepElo 
     FilterMaxYear FilterMinYear FilterStepYear FilterGuessELO autoResizeBoard
     ::tools::graphs::filter::type  ::tools::graphs::absfilter::type ::tools::graphs::showpoints ::tools::graphs::showbar
-    maintFlag photosMinimized bookmarks(gamehistory) playerInfoHistory
+    maintFlag photosMinimized playerInfoHistory
     glistSize glexport glistColOrder glistColWidth glistColAnchor addRatings(overwrite) addRatings(filter)
     blistColOrder blistColWidth blistColAnchor} {
 
@@ -965,7 +959,7 @@ proc updateMenuStates {} {
 
   # Remove and reinsert the Recent files list and Exit command
   $m.file add separator
-  set idx 12
+  set idx 10
   $m.file delete $idx end
   if {[::recentFiles::show $m.file] > 0} {
     $m.file add separator
@@ -1089,7 +1083,7 @@ proc setLanguageMenus {{lang ""}} {
     configMenuText .menu.file [tr File$tag $oldLang] File$tag $lang
   }
 
-  foreach tag {PastePGN Setup CopyBoard CopyPGN PasteBoard Reset Copy Paste Add Delete First Main Trial Strip PasteVar Undo Redo} {
+  foreach tag {PastePGN CopyBoard CopyPGN PasteBoard Reset Copy Paste Add Delete First Main Trial Strip PasteVar Undo Redo} {
     configMenuText .menu.edit [tr Edit$tag $oldLang] Edit$tag $lang
   }
   foreach tag {Comments Vars Begin End} {

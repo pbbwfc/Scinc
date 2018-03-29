@@ -1738,7 +1738,6 @@ namespace eval ::tree::mask {
     Include	::rep::_tb_include
     Exclude	::rep::_tb_exclude
     MainLine	::tree::mask::imageMainLine
-    Bookmark	tb_bkm
     White	::tree::mask::imageWhite
     Black	::tree::mask::imageBlack
     NewLine	tb_new
@@ -1939,7 +1938,7 @@ proc ::tree::mask::contextMenu {control win move x y xc yc} {
   foreach j { 0 1 } {
     menu $mctxt.image$j
     $mctxt add cascade -label "[tr Marker] [expr $j +1]" -menu $mctxt.image$j
-    foreach e { Include Exclude MainLine Bookmark White Black NewLine ToBeVerified ToTrain Dubious ToRemove } {
+    foreach e { Include Exclude MainLine White Black NewLine ToBeVerified ToTrain Dubious ToRemove } {
       set i  $::tree::mask::marker2image($e)
 
       $mctxt.image$j add command -label [ tr $e ] -image $i -compound left -command [list ::tree::mask::op setImage 1 $move $i $j]
@@ -2731,7 +2730,7 @@ proc ::tree::mask::searchMask { baseNumber } {
     ttk::menubutton $w.f1.m$j -textvariable ::tree::mask::searchMask_trm$j -menu $w.f1.menum$j 
     set ::tree::mask::searchMask_trm$j [tr "Include"]
     set ::tree::mask::searchMask_m$j $::tree::mask::marker2image(Include)
-    foreach e { Include Exclude MainLine Bookmark White Black NewLine ToBeVerified ToTrain Dubious ToRemove } {
+    foreach e { Include Exclude MainLine White Black NewLine ToBeVerified ToTrain Dubious ToRemove } {
       set i $::tree::mask::marker2image($e)
       $w.f1.menum$j add command -label [ tr $e ] -image $i -compound left -command "
          set ::tree::mask::searchMask_trm$j \"[tr $e ]\"

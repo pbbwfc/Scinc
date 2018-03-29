@@ -30,6 +30,20 @@ set isOpeningOnlyMoves 10
 set stack ""
 set finishGameMode 0
 
+# Button images
+
+image create photo bookmark_up -data {
+R0lGODdhGAAYAMIAALu7uwAAAMzM/5mZ/2ZmzP///zMzZgAAACwAAAAAGAAYAAADRgi63P4w
+ykmrvTirEPQKwtBpYChmpUmMVVAI5kCsbfGqMy25dpzPLAfvNij+gBCDUokjLJUUQ9OAkRpn
+1Mvz6el6v+AwOAEAOw==
+}
+
+image create photo bookmark_down -data {
+R0lGODdhGAAYAMIAALu7uzMzZv///8zM/5mZ/2ZmzAAAAAAAACwAAAAAGAAYAAADSQi63P4w
+ykmrvRiHzbcWw0AQRfCFY0l1ATiSLGQINCiSRZ4b0UyjOB1PMgvddIXhxABEKinM1C5jkD4v
+1WSGYbhuv+CweExeJAAAOw==
+}
+
 proc resetEngines {} {
   for {set i 0} {$i < [llength $::engines(list)]} {incr i} {
     if {[winfo exists .analysisWin$i]} {
@@ -382,7 +396,7 @@ proc ::enginelist::choose {} {
     ::enginelist::edit [lindex [.enginelist.list.list curselection] 0] copy
   }
 
-  # arrow images defined in bookmark.tcl
+
   button $w.buttons.up   -image bookmark_up   -command {::enginelist::move -1} 
   button $w.buttons.down -image bookmark_down -command {::enginelist::move 1} 
   button $w.buttons.uci  -image uci           -command {
