@@ -60,7 +60,7 @@ typedef unsigned short versionT;
 const versionT SCID_VERSION = 400;     // Current file format version = 3.0
 const versionT SCID_OLDEST_VERSION = 400; // Oldest compatible format: 3.0
 
-const char SCID_VERSION_STRING[] = "0.02";     // Current version
+const char SCID_VERSION_STRING[] = "0.03";     // Current version
 const char SCID_VERSION_DATE[] = "April 1, 2018";
 const char SCID_WEBSITE[] = "https://github.com/pbbwfc/Scinc";
 
