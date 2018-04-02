@@ -87,7 +87,7 @@ foreach ns {
   ::game
   ::gbrowser
   ::search
-  ::search::filter ::search::board ::search::header ::search::material
+  ::search::filter ::search::board ::search::header
   ::windows
   ::windows::gamelist ::windows::stats ::tree ::tree::mask ::windows::tree
   ::windows::switcher ::windows::eco ::pgn
@@ -254,7 +254,7 @@ foreach {tbicon status}  {
   new 0 open 0 save 1 close 0
   gfirst 1 gprev 1 gnext 1 glast 1
   newgame 0 copy 0 paste 0
-  rfilter 0 bsearch 0 hsearch 0 msearch 0
+  rfilter 0 bsearch 0 hsearch 0
   glist 1 pgn 1 comment 0 maint 1 eco 0 tree 1 engine 1
 } {
   set toolbar($tbicon) $status
@@ -1285,7 +1285,6 @@ if { $macOS } {
               -message "Unable to open or read SearchOptions file: $file"
         } else {
           switch -- $::searchType {
-            "Material" { ::search::material }
             "Header"   { ::search::header }
             default    { continue }
           }

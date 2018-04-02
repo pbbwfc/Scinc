@@ -710,10 +710,6 @@ set helpText(Menus) {<h1>Scid Menus</h1>
   <br>
   <li><green>General</green>  Searches by <a Searches Header>header</a> information such as player names.</li>
   <li><green>Current board</green>  Searches for the <a Searches Board>current board</a> position.</li>
-  <li><green>Material/Pattern</green>  Searches by <a Searches Material>material</a> or chessboard patterns.</li>
-  <li><green>Move</green> Find a certain move or <a Searches Move>move combination</a>.</li>
-  <br>
-  <li><green>Player Finder</green>  Search for a player name.</li>
   <br>
   <li><green>Load search file</green>  Searches using
   <a Searches Settings>settings</a> from a SearchOptions file.</li>
@@ -962,7 +958,7 @@ set helpText(Searches) {<h1>Searches in Scid</h1>
   <b>Add to</b>, or <b>Restrict</b> the Filter, allowing complex searches to be built up.
   </p>
   <p>
-  With Position, Tree, and Material/Pattern searches, when you load a matching game
+  With Position, Tree searches, when you load a matching game
   it will automatically show the relevant game position, (except
   - in the unlikely event - that the position occurred after move 255 which causes a byte overflow).
   </p>
@@ -1088,7 +1084,7 @@ use of <b>Side to Move</b> can speed up the search.</p>
 
   <h3><name Settings>Saving Search Settings</name></h3>
   <p>
-  The Material/Pattern and Header Search windows provide a
+  The Header Search window provides a
   <b>Save</b> button, enabling one to save the current
   search settings to a SearchOptions file (<b>.sso</b>).
   Loading this file is done from <green>Search--<gt>Load Search File</green> menu.

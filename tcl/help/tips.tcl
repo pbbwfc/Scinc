@@ -164,23 +164,6 @@ set tips(E) {
     these games to show only a particular result.
   }
   {
-    The <a Tmt>Tournament Finder</a> not only finds
-    a particular tournament, but can also show what tournaments
-    a player has recently competed in, or browse the top
-    tournaments played in a particular country.
-  }
-  {
-    There are a number of common patterns defined in the
-    <a Searches Material>Material/Pattern</a> search window that you
-    may find useful for openings or middlegame study.
-  }
-  {
-    When searching for material differences in the
-    <a Searches Material>Material/Pattern</a> search window, pay attention
-    to the "Half moves" entry, to eliminate games where the difference
-    only occurs briefly.
-  }
-  {
     If you use XBoard , the quickest way to copy a  chess position to Scid
     is to select <b>Copy Position</b> from Xboard's File menu 
     , then <b>Paste FEN</b> from Scid's Edit menu.

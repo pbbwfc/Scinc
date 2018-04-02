@@ -30,6 +30,7 @@ You can get a copy of the binary version by downloading a zip from Releases.
 * Bookmarks
 * Position Setup
 * Search Moves
+* Search Material
 * Engines removed - phalanx, toga, scidlet
 
 ## Limitations

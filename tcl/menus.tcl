@@ -324,11 +324,6 @@ set helpMessage($m,[incr menuindex]) SearchHeader
 $m  add command -label SearchCurrent -command ::search::board
 set helpMessage($m,[incr menuindex]) SearchCurrent
 
-$m  add command -label SearchMaterial \
-    -command ::search::material -accelerator "control-M"
-bind .main <Control-M> ::search::material
-set helpMessage($m,[incr menuindex]) SearchMaterial
-
 $m  add separator
 incr menuindex
 
@@ -1081,7 +1076,7 @@ proc setLanguageMenus {{lang ""}} {
     configMenuText .menu.edit.strip [tr EditStrip$tag $oldLang] \
         EditStrip$tag $lang
   }
-  foreach tag {Reset Negate End Material Current Header Using} {
+  foreach tag {Reset Negate End Current Header Using} {
     configMenuText .menu.search [tr Search$tag $oldLang] Search$tag $lang
   }
   

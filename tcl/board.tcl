@@ -340,7 +340,6 @@ frame  $tb.space3  -width 12
 button $tb.rfilter -image tb_rfilter -command ::search::filter::reset
 button $tb.bsearch -image tb_bsearch -command ::search::board
 button $tb.hsearch -image tb_hsearch -command ::search::header
-button $tb.msearch -image tb_msearch -command ::search::material
 frame  $tb.space4  -width 12
 button $tb.glist   -image tb_glist   -command ::windows::gamelist::Open
 button $tb.pgn     -image tb_pgn     -command ::pgn::Open
@@ -356,7 +355,7 @@ foreach {b m} {
   save GameReplace close FileClose
   gfirst GameFirst gprev GamePrev gnext GameNext glast GameLast
   newgame GameNew copy EditCopy paste EditPaste
-  hsearch SearchHeader bsearch SearchCurrent msearch SearchMaterial rfilter SearchReset 
+  hsearch SearchHeader bsearch SearchCurrent rfilter SearchReset 
   glist WindowsGList pgn WindowsPGN comment WindowsComment
   maint WindowsMaint eco WindowsECO tree WindowsTree
   engine ToolsAnalysis
@@ -366,7 +365,7 @@ foreach {b m} {
 }
 
 foreach i {new open save close newgame copy paste gprev gnext gfirst glast \
-      rfilter hsearch bsearch msearch glist pgn comment maint eco tree engine} {
+      rfilter hsearch bsearch glist pgn comment maint eco tree engine} {
   $tb.$i configure -relief flat -border 1 -highlightthickness 0 -anchor n -takefocus 0
   ::utils::tooltip::Set $tb.$i [tr $::helpMessage($tb.$i)]
 }
@@ -399,7 +398,7 @@ proc redrawToolbar {} {
   }
   if {$seen} { pack .main.tb.space3 -side left }
   set seen 0
-  foreach i {hsearch bsearch msearch rfilter } {
+  foreach i {hsearch bsearch rfilter } {
     if {$toolbar($i)} {
       set seen 1
       pack .main.tb.$i -side left -pady 1 -padx 0 -ipadx 0 -pady 0 -ipady 0
@@ -649,7 +648,7 @@ hI+py+0Po5y0WhCCyYljjXheB45hCV7qyrbuaxQAOw==
 if {0} {
   image create photo tempimage
   foreach i {glist pgn comment maint eco tree engine
-    hsearch bsearch msearch rfilter newgame copy paste
+    hsearch bsearch rfilter newgame copy paste
     gfirst gprev gnext glast new open save close} {
 
     tempimage blank

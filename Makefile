@@ -110,7 +110,7 @@ TCLS= \
     tcl/windows/stats.tcl tcl/windows/tree.tcl \
     tcl/windows/pfinder.tcl tcl/windows/switcher.tcl \
   tcl/search/search.tcl \
-    tcl/search/board.tcl tcl/search/header.tcl tcl/search/material.tcl \
+    tcl/search/board.tcl tcl/search/header.tcl \
     tcl/tools/import.tcl \
     tcl/tools/optable.tcl tcl/tools/preport.tcl tcl/tools/pinfo.tcl \
     tcl/tools/analysis.tcl tcl/tools/wbdetect.tcl \

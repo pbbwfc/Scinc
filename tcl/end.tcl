@@ -1576,7 +1576,6 @@ proc standardShortcuts {w} {
   bind $w <Control-g> ::game::GotoMoveNumber
   bind $w <Control-u> ::game::LoadNumber
   bind $w <Control-G> ::search::header
-  bind $w <Control-M> ::search::material
   bind $w <Control-e> ::commenteditor::Open
   bind $w <Control-l> ::windows::gamelist::Open
   bind $w <Control-p> ::pgn::Open
@@ -1925,30 +1924,6 @@ while {$argc > 0} {
       ::splash::add "   Error opening $startbase: $err" error
     } else {
       switch -- $::searchType {
-        "Material" {
-          sc_search material \
-            -wq [list $pMin(wq) $pMax(wq)] -bq [list $pMin(bq) $pMax(bq)] \
-            -wr [list $pMin(wr) $pMax(wr)] -br [list $pMin(br) $pMax(br)] \
-            -wb [list $pMin(wb) $pMax(wb)] -bb [list $pMin(bb) $pMax(bb)] \
-            -wn [list $pMin(wn) $pMax(wn)] -bn [list $pMin(bn) $pMax(bn)] \
-            -wm [list $pMin(wm) $pMax(wm)] -bm [list $pMin(bm) $pMax(bm)] \
-            -wp [list $pMin(wp) $pMax(wp)] -bp [list $pMin(bp) $pMax(bp)] \
-            -flip $ignoreColors -filter $::search::filter::operation \
-            -range [list $minMoveNum $maxMoveNum] \
-            -length $minHalfMoves -bishops $oppBishops \
-            -diff [list $minMatDiff $maxMatDiff] \
-            -patt "$pattBool(1) $pattPiece(1) $pattFyle(1) $pattRank(1)" \
-            -patt "$pattBool(2) $pattPiece(2) $pattFyle(2) $pattRank(2)" \
-            -patt "$pattBool(3) $pattPiece(3) $pattFyle(3) $pattRank(3)" \
-            -patt "$pattBool(4) $pattPiece(4) $pattFyle(4) $pattRank(4)" \
-            -patt "$pattBool(5) $pattPiece(5) $pattFyle(5) $pattRank(5)" \
-            -patt "$pattBool(6) $pattPiece(6) $pattFyle(6) $pattRank(6)" \
-            -patt "$pattBool(7) $pattPiece(7) $pattFyle(7) $pattRank(7)" \
-            -patt "$pattBool(8) $pattPiece(8) $pattFyle(8) $pattRank(8)" \
-            -patt "$pattBool(9) $pattPiece(9) $pattFyle(9) $pattRank(9)" \
-            -patt "$pattBool(10) $pattPiece(10) $pattFyle(10) $pattRank(10)"
-            ::splash::add "   Material/Pattern filter file $startbase correctly applied"
-        }
         "Header"   {
           set sPgnlist {}
           foreach i {1 2 3} {
