@@ -29,6 +29,7 @@ You can get a copy of the binary version by downloading a zip from Releases.
 * Sounds
 * Bookmarks
 * Position Setup
+* Search Moves
 * Engines removed - phalanx, toga, scidlet
 
 ## Limitations

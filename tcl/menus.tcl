@@ -329,15 +329,6 @@ $m  add command -label SearchMaterial \
 bind .main <Control-M> ::search::material
 set helpMessage($m,[incr menuindex]) SearchMaterial
 
-$m add command -label SearchMoves -command ::search::moves
-set helpMessage($m,[incr menuindex]) SearchMoves
-
-$m  add separator
-incr menuindex
-
-$m add command -label WindowsPList -command ::plist::Open -accelerator "control-P"
-set helpMessage($m,[incr menuindex]) WindowsPList
-
 $m  add separator
 incr menuindex
 
@@ -1090,13 +1081,10 @@ proc setLanguageMenus {{lang ""}} {
     configMenuText .menu.edit.strip [tr EditStrip$tag $oldLang] \
         EditStrip$tag $lang
   }
-  foreach tag {Reset Negate End Material Moves Current Header Using} {
+  foreach tag {Reset Negate End Material Current Header Using} {
     configMenuText .menu.search [tr Search$tag $oldLang] Search$tag $lang
   }
   
-  # These two items still appear in windows menu
-  configMenuText .menu.search [tr WindowsPList $oldLang] WindowsPList $lang
-
   foreach tag {Replace Add New First Prev Reload Next Last Random Number Info Browse List Delete
     Deepest GotoMove Novelty} {
     configMenuText .menu.game [tr Game$tag $oldLang] Game$tag $lang
