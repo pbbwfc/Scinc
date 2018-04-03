@@ -205,7 +205,7 @@ proc ::windows::stats::ConfigMenus {{lang ""}} {
   foreach idx {0 1} tag {File Opt} {
     configMenuText $m $idx Stats$tag $lang
   }
-  foreach idx {0 2} tag {StatsFilePrint FileClose} {
+  foreach idx {0 2} tag {StatsFilePrint StatsFileClose} {
     configMenuText $m.file $idx $tag $lang
   }
 }

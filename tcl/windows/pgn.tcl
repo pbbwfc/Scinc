@@ -47,9 +47,7 @@ namespace eval pgn {
     foreach idx {0 1 3} tag {PgnFilePrint PgnFileCopy PgnFileClose} {
       configMenuText $m.file $idx $tag $lang
     }
-    foreach idx {1 2 3 4 5 6 7 8 9 12} tag {
-      PgnOptShort PgnOptColumn PgnOptColor PgnOptIndentC PgnOptIndentV PgnOptBoldMainLine PgnOptSpace PgnOptSymbols PgnOptStripMarks PgnOptScrollbar
-    } {
+    foreach idx {1 2 3 4 5 6 7 8 9 11} tag {PgnOptShort PgnOptColumn PgnOptColor PgnOptIndentC PgnOptIndentV PgnOptBoldMainLine PgnOptSpace PgnOptSymbols PgnOptStripMarks PgnOptScrollbar} {
       configMenuText $m.opt $idx $tag $lang
     }
     foreach idx {1 2 3 4 5 6} tag {PgnColorHeader PgnColorAnno PgnColorComments PgnColorVars PgnColorBackground PgnColorCurrent} {
@@ -132,8 +130,6 @@ namespace eval pgn {
     $w.menu.opt add separator
 
     $w.menu.opt add checkbutton -variable ::pgn::showScrollbar -label PgnOptScrollbar -command ::pgn::packScrollbar 
-
-    $w.menu.opt add command -label [tr OptionsFonts] -command "FontDialogRegular $w" -underline 0
 
     $w.menu.color add command -label PgnColorHeader \
         -command {::pgn::ChooseColor Header "header text"}

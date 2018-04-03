@@ -126,7 +126,6 @@ menuText E WindowsComment "Comment Editor" 9 {Open/close the comment editor}
 menuText E WindowsGList "Game List" 0 {Open/close the game list window}
 menuText E WindowsPGN "PGN Window" 0 {Open/close the PGN (game notation) window}
 menuText E WindowsPList "Player Finder" 2 {Open/close the player finder}
-menuText E WindowsSwitcher "Databases" 0  {Open/close the Database Switcher window}
 menuText E WindowsMaint "Maintenance Window" 0 {Open/close the Maintenance window}
 menuText E WindowsECO "ECO Browser" 0 {Open/close the ECO Browser window}
 menuText E WindowsStats "Statistics Window" 0 {Open/close the filter statistics window}
@@ -184,16 +183,9 @@ menuText E ToolsStartEngine1 "Start engine 1" 0  {Start engine 1}
 menuText E ToolsStartEngine2 "Start engine 2" 0  {Start engine 2}
 menuText E ToolsScreenshot "Board Screenshot" 0  {Take a screenshot}
 
-# menu in cc window:
-menuText E CCEditCopy "Copy Gamelist to Clipbase" 0 {Copy the games as CSV list to clipbase}
-
-
-#  B    GHiJKL    Q  TUV XYZ
-
 # Options menu:
 menuText E Options "Options" 0
 menuText E OptionsExport "Exporting" 0 {Change text export options}
-menuText E OptionsFonts "Fonts" 0 {Change fonts}
 menuText E OptionsGInfo "Game Information" 0 {Game information options}
 
 menuText E TmtSortPlayers "Players" 0
@@ -229,14 +221,12 @@ menuText E OptionsWindowsRaise "Auto-Raise" 5 \
 menuText E OptionsWindowsDock "Dock windows" 0 {Dock windows (needs restart)}
 menuText E OptionsWindowsSaveLayout "Save Layout" 0 {Save layout}
 menuText E OptionsWindowsRestoreLayout "Restore Layout" 0 {Restore layout}
-menuText E OptionsWindowsShowGameInfo "Show game info" 0 {Show game info}
 menuText E OptionsWindowsAutoLoadLayout "Auto load first layout" 0 {Auto load first layout at startup}
 menuText E OptionsWindowsAutoResize "Auto resize board" 0 {}
 menuText E OptionsWindowsFullScreen "Fullscreen" 0 {Toggle fullscreen mode}
 menuText E OptionsECO "Load ECO File" 7 {Load the ECO classification file}
 menuText E OptionsSpell "Load Spellcheck File" 11 \
   {Load the Scid spellcheck file}
-menuText E OptionsBooksDir "Books Directory" 0 {Sets the opening books directory}
 menuText E OptionsTacticsBasesDir "Bases Directory" 0 {Sets the tactics (training) bases directory}
 menuText E OptionsInformant "Configure Informant Values" 0
 menuText E OptionsSave "Save Options" 0 "Save all settable options to the file $::optionsFile"
@@ -247,9 +237,6 @@ menuText E OptionsAutoSave "Auto-Save Options on Exit" 0 \
 menuText E Help "Help" 0
 menuText E HelpContents "Help" 0 {Show the help contents page}
 menuText E HelpIndex "Index" 0 {Show the help index page}
-menuText E HelpGuide "Quick Guide" 0 {Show the quick guide help page}
-menuText E HelpHints "Hints" 1 {Show the hints help page}
-menuText E HelpContact "Contact Info" 1 {Show the contact information help page}
 menuText E HelpTip "Tip of the Day" 0 {Show a useful Scid tip}
 menuText E HelpStartup "Startup Window" 0 {Show the startup window}
 menuText E HelpAbout "About" 0 {Information about Scid Vs PC}
@@ -264,8 +251,6 @@ menuText E GInfoMarks "Show Colored Squares and Arrows" 5
 menuText E GInfoWrap "Wrap Long Lines" 0
 menuText E GInfoFullComment "Show Full Comment" 10
 menuText E GInfoPhotos "Show Photos" 5
-menuText E GInfoDelete "(Un)Delete This Game" 4
-menuText E GInfoMark "(Un)Mark This Game" 4
 menuText E GInfoMenuBar "Menu Bar"  0
 menuText E GInfoToolBar "Tool Bar"  0
 menuText E GInfoButtonBar "Button Bar"  0
@@ -417,7 +402,6 @@ menuText E TreeFileSave "Save Cache File" 0 {Save the tree cache (.stc) file}
 menuText E TreeFileFill "Fill Cache File" 0 \
   {Fill the cache file with common opening positions}
 menuText E TreeFileBest "Best Games" 0 {Show the best matching games}
-menuText E TreeFileGraph "Graph Window" 0 {Show the graph for this tree branch}
 menuText E TreeFileCopy "Copy Tree Text to Clipboard" 1 \
   {Copy the tree statisctics to the clipboard}
 menuText E TreeFileClose "Close Tree Window" 0 {Close the tree window}
@@ -442,7 +426,6 @@ menuText E TreeOpt "Options" 0
 menuText E TreeOptSlowmode "Slow mode" 0 {Slow mode for updates (high accuracy)}
 menuText E TreeOptFastmode "Fast mode" 0 {Fast mode for updates (no move transposition)}
 menuText E TreeOptFastAndSlowmode "Fast and slow mode" 0 {Fast mode then slow mode for updates}
-menuText E TreeOptStartStop "Auto refreshing" 0 {Toggles automatic refreshing of the tree window}
 menuText E TreeOptLock "Lock" 0 {Lock/unlock the tree to the current database}
 menuText E TreeOptTraining "Training" 0 {Turn on/off tree training mode}
 menuText E TreeOptShort "Short Display" 0 {Don't show ELO information}
@@ -497,9 +480,6 @@ translate E Positions {Positions}
 translate E Moves {Moves}
 
 # Player finder:
-menuText E PListFile "Player Finder" 0
-menuText E PListFileUpdate "Update" 0
-menuText E PListFileClose "Close" 0
 menuText E PListSort "Sort" 0
 menuText E PListSortName "Name" 0
 menuText E PListSortElo "Elo" 0
@@ -515,10 +495,7 @@ menuText E GraphFileClose "Close" 0
 menuText E GraphOptions "Options" 0
 menuText E GraphOptionsWhite "Invert White" 0
 menuText E GraphOptionsBlack "Invert Black" 0
-menuText E GraphOptionsDots "Show Dots" 0
 menuText E GraphOptionsBar "Highlight Current Move" 0
-menuText E GraphOptionsBoth "Both" 1
-menuText E GraphOptionsPInfo "Player Info player" 0
 translate E GraphFilterTitle "Frequency per 1000 Games"
 translate E GraphAbsFilterTitle "Game Frequency"
 translate E ConfigureFilter "Configure X Axis"
@@ -611,9 +588,7 @@ menuText E PgnColorAnno "Annotations" 0
 menuText E PgnColorComments "Comments" 0
 menuText E PgnColorVars "Variations" 0
 menuText E PgnColorBackground "Background" 0
-menuText E PgnColorMain "Main line" 0
 menuText E PgnColorCurrent "Current Move" 1
-menuText E PgnColorNextMove "Next move" 0
 menuText E PgnHelp "Help" 0
 menuText E PgnHelpPgn "PGN Help" 0
 menuText E PgnHelpIndex "Index" 0

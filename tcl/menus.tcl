@@ -1080,8 +1080,7 @@ proc setLanguageMenus {{lang ""}} {
     configMenuText .menu.search [tr Search$tag $oldLang] Search$tag $lang
   }
   
-  foreach tag {Replace Add New First Prev Reload Next Last Random Number Info Browse List Delete
-    Deepest GotoMove Novelty} {
+  foreach tag {Replace Add New First Prev Reload Next Last Random Number Info Browse List Delete Deepest GotoMove Novelty} {
     configMenuText .menu.game [tr Game$tag $oldLang] Game$tag $lang
   }
 
@@ -1089,14 +1088,11 @@ proc setLanguageMenus {{lang ""}} {
     configMenuText .menu.windows [tr Windows$tag $oldLang] Windows$tag $lang
   }
 
-  foreach tag {Analysis Maint FilterGraph AbsFilterGraph OpReport
-    Rating Score ExpCurrent ExpFilter ImportOne ImportFile StartEngine1 StartEngine2
-    PlayerReport Screenshot} {
+  foreach tag {Analysis Maint FilterGraph AbsFilterGraph OpReport Rating Score ExpCurrent ExpFilter ImportOne ImportFile StartEngine1 StartEngine2 PlayerReport Screenshot} {
     configMenuText .menu.tools [tr Tools$tag $oldLang] Tools$tag $lang
   }
 
   foreach tag {Win Compact Delete Twin Sort FixBase} {
-    # Maintenance used to be in .menu.file but is now in .menu.tools
     configMenuText .menu.tools.utils [tr ToolsMaint$tag $oldLang] \
         ToolsMaint$tag $lang
   }
@@ -1115,12 +1111,11 @@ proc setLanguageMenus {{lang ""}} {
   }
   .menu.tools.exportfilter entryconfig 4 -label "[tr ToolsExpFilterLaTeX] ([tr OprepViewLaTeX])"
 
-  foreach tag {GInfo Moves Startup
-    Windows Export ECO Spell TacticsBasesDir Informant Save AutoSave} {
+  foreach tag {GInfo Moves Startup Windows Export ECO Spell TacticsBasesDir Informant Save AutoSave} {
     configMenuText .menu.options [tr Options$tag $oldLang] Options$tag $lang
   }
 
-  foreach tag {HideNext Show Coords Material FEN Marks Wrap FullComment Photos } {
+  foreach tag {HideNext Show Coords Material FEN Marks Wrap FullComment Photos} {
     configMenuText .menu.options.ginfo [tr GInfo$tag $oldLang] \
         GInfo$tag $lang
   }
