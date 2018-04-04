@@ -1119,12 +1119,6 @@ Enter preferred player names below, one name per line.
 Every time a game with a player in the list is loaded, the main chessboard will be flipped if necessary.
 }
 
-# Input Engine dialogs
-translate E IEConsole {Input Engine Console}
-translate E IESending {Moves sent for}
-translate E IESynchronise {Synchronise}
-translate E IERotate  {Rotate}
-translate E IEUnableToStart {Unable to start Input Engine:}
 # Calculation of Variations
 translate E DoneWithPosition {Done with position}
 

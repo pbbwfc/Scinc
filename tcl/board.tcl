@@ -80,20 +80,6 @@ R0lGODlhEAAQAIABAIsAAP///yH5BAEKAAEALAAAAAAQABAAAAIljI9pAIq8
 oGMt1icPxZdbZ21gOGriSJ2KqJpd2wZn/MndepdGAQA7
 }
 
-image create photo tb_finder -data {
-R0lGODlhEQARAMIFAAAAAKmpqb6+vrDE3tnZ2f///////////yH5BAEKAAcA
-LAAAAAARABEAAANSeLrcDTBG4Q4oOF9AX9YY4FxfITFR+UUKxwlwLJiBKEmC
-FNSWag7AAYB3keUGmCCnZwQgg0JFriBzQqMtasz6xB6mux1XGEDdbjVRpcJa
-NwiQBAA7
-}
-
-image create photo tb_bkm -data {
-R0lGODlhEAARAMIFAAAAAIsAAHiJoKmpqbDE3v///////////yH5BAEKAAcA
-LAAAAAAQABEAAANOeLrcHtA1AGCgGDBQiu0gMCiZlRUiSazWSnDpAbjtCo8y
-Ye0vis+71k2l4/ViMxbENczRXMcfdNoECKZMn2Jgxb5EuAM3kxmEt+a0epEA
-ADs=
-}
-
 image create photo tb_cut -data {
 R0lGODlhEQARAKEDAAAAAKmpqb+/v////yH5BAEKAAMALAAAAAARABEAAAI2
 nI+pkBB6HJLQMPsq3toO2n0BGJIdgGbamJlTaqGQw2LCNQl3G+yNTnH4GrRI
@@ -240,18 +226,6 @@ image create photo tb_tree -data {
   WheK5kZm4BpywSXC7EC7pXlm6U3HtlwKXnafnnH08tQ8RCEquVk+lT0mlCf9ebaCCqUAADs=
 }
 
-image create photo tb_book -data {
-R0lGODlhFAAUAKU4AAAAAAgICA0NDRERERISEhMTExgYGBsbGxwcHB0dHSMj
-IwAngYsAACoqKiwsLC0tLTc3Nz8/P0BAQEdHR0pKSktLS09PT1NTU1ZWVlpa
-WjZki1xcXF1dXV9fX2JiYmRkZGZmZm5ubnJycnh4eH5+fn9/f4CAgIeHh5GR
-kaOjo7Ozs7y8vMLCwsPDw83NzdXV1d7e3uPj4+Xl5efn5+np6fDw8Pb29v39
-/f///////////////////////////////yH5BAEKAD8ALAAAAAAUABQAAAaV
-wJ9wSCwWF8ikcslsOp9QJm5K7Vip2Cky25nZTp0sdVv14mJhMY6M61JjrHSW
-3LVlL+pt2J5tYayAawttMGIpNTeJNzRhdIVUKS4yUzYxKo2DbSqPOCs1VDYu
-YIJVmzgpMpM3NjCXWpltKCoqL1SJLiRpbG0hJzI0OIk1rq9cFy0uLzA2LyZy
-u1NWFdPTcqRq2K9RTkEAOw==
-}
-
 image create photo tb_engine -data {
   R0lGODdhFAAUAMIAANnZ2QAngf///7i4uAAAAAAAAAAAAAAAACwAAAAAFAAUAAADUwi63B0w
   ykmrvZiKzcXooAB1Q/mdnveNnLmZpSoGHGGHISvcOKjbwKCQ8BsaibSdDTYIwljHIzQ6hMKW
@@ -286,14 +260,6 @@ image create photo tb_help_small -data {
 R0lGODdhEQARAMIEAAAAAFFR+6ysz9nZ2f///////////////ywAAAAAEQAR
 AAADPzi63AswSvmIvdiCeoMP2KYAHUh4lziQViBYgkmobIZqXCnPefuGvdMv
 FXRlaJkkb2Qb4phK4GhChTiu2KwjAQA7
-}
-
-
-image create photo b_bargraph -data {
-R0lGODlhGAAYAKEAAAAAAP/6zf///wAAACH5BAEKAAMALAAAAAAYABgAAAJf
-nI+pCO0PIzBA2ItznqPqr3EeSAoiKWEnCASuO5oU+sLqzNZBvH5tzZulfq9g
-x6SrEG2X03KHBN6OT2VyapVWsdFil2lxXrcP4fi8M2vR4rW77SXD1HE2RYKP
-LPb8QQEAOw==
 }
 
 image create photo b_list -data {

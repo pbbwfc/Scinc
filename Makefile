@@ -118,7 +118,7 @@ TCLS= \
   tcl/help/help.tcl tcl/help/tips.tcl \
   tcl/menus.tcl tcl/board.tcl tcl/move.tcl tcl/main.tcl \
     tcl/lang/english.tcl tcl/dnd/tkdnd.tcl tcl/dnd/tkdnd_windows.tcl \
-  tcl/tools/uci.tcl tcl/end.tcl tcl/tools/calvar.tcl tcl/tools/tactics.tcl tcl/misc/flags.tcl
+  tcl/tools/uci.tcl tcl/end.tcl tcl/tools/calvar.tcl tcl/tools/tactics.tcl
 
 
 ########################################
