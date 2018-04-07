@@ -13,22 +13,32 @@ md engines
 cd engines
 md stockfish
 cd stockfish
-copy ..\..\..\..\engines\stockfish\*.*
+copy ..\..\..\..\setup\engines\stockfish\*.*
 cd ..
 md komodo
 cd komodo
-copy ..\..\..\..\engines\komodo\*.*
+copy ..\..\..\..\setup\engines\komodo\*.*
 cd ..
 cd ..
 md config
 cd config
-copy ..\..\..\config\engines.dat
-copy ..\..\..\config\options.dat
+copy ..\..\..\setup\config\engines.dat
+copy ..\..\..\setup\config\options.dat
 
 cd ..
 md data
 cd data
-copy ..\..\..\data\*.*
+copy ..\..\..\setup\data\*.*
+
+cd ..
+md bitmaps
+cd bitmaps
+copy ..\..\..\setup\bitmaps\*.*
+
+cd ..
+md bitmaps2
+cd bitmaps2
+copy ..\..\..\setup\bitmaps2\*.*
 
 cd /d C:\msys64
 call msys2_shell.cmd -mingw64 -where i:/github/scinc
