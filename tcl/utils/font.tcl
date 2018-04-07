@@ -250,13 +250,6 @@ proc FontDialog {name {parent .}} {
 ### These are new procs - previously in menu.tcl - but moved here
 ### to allow for fonts to be changed from other widgets S.A.
 
-proc FontDialogFixed {parent} {
-  global fontOptions
-
-  set fontOptions(temp) [FontDialog Fixed $parent]
-  if {$fontOptions(temp) != {}} { set fontOptions(Fixed) $fontOptions(temp) }
-}
-
 proc FontDialogRegular {parent} {
   global fontOptions
 
@@ -274,26 +267,6 @@ proc FontDialogRegular {parent} {
   font configure font_H4 -family $font -size [expr {$fontsize + 2} ]
   font configure font_H5 -family $font -size [expr {$fontsize + 0} ]
   ::pgn::configTabs
-}
-
-proc FontDialogMenu {parent} {
-  global fontOptions
-
-  set fontOptions(temp) [FontDialog Menu $parent]
-  if {$fontOptions(temp) != ""} { set fontOptions(Menu) $fontOptions(temp) }
-}
-
-proc FontDialogSmall {parent} {
-  global fontOptions
-
-  set fontOptions(temp) [FontDialog Small $parent]
-  if {$fontOptions(temp) != ""} { set fontOptions(Small) $fontOptions(temp) }
-
-  set font [font configure font_Small -family]
-  set fontsize [font configure font_Small -size]
-  font configure font_SmallBold -family $font -size $fontsize
-  font configure font_SmallItalic -family $font -size $fontsize
-  font configure font_Tiny -family $font -size [expr $fontsize - 1]
 }
 
 proc FontDialogFamily { listname font_name entrywidget } {

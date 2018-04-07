@@ -592,16 +592,6 @@ proc ::utils::graph::xunmap {graph cx} {
             double($_data($graph,xfac))}]
 }
 
-# Yunmap:
-#    Transform a canvas unit to its graph Y coordinate equivalent.
-#
-proc ::utils::graph::yunmap {graph cy} {
-  variable _data
-  return [expr {$_data($graph,aymax) - \
-            double($cy - $_data($graph,ytop)) / \
-            double($_data($graph,yfac))}]
-}
-
 #    Transforms an even-sized list of graph coordinates to canvas units.
 #    eg: 2.0 0.16 2.5 0.19 3.5 0.17 4.0 0.10 4.5 0
 

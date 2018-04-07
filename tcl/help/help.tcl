@@ -197,7 +197,6 @@ append helpText(Index) {
 
   <h3><name C>C</name></h3>
   <ul>
-  <li><a Changelog>Changelog</a></li>
   <li><a Analysis>Chess Engines</a></li>
   <li><a Analysis List>Chess Engine</a> configuration</li>
   <li><a Analysis Debugging>Chess Engine</a>  debugging</li>
@@ -3605,15 +3604,6 @@ set helpText(FindBestMove) {<h1>Find Best Move</h1>
 (Note - games must first be copied to si4 database and flagged with the tactics <b>T</b> flag from the maintenance window).</p>
 
   <p><footer>Updated: Scid vs. PC 4.17 Feb 2016</footer></p>
-}
-
-set helpTitle(Changelog) "Scid vs PC Changelog"
-set helpText(Changelog) {<h1>Changelog</h1>
-
-<h4>0.01 (April 1, 2018)</h4>
-<ul>
-<li>First Version</li>
-</ul><br>
 }
 
 set helpTitle(ShortCuts) "Shortcuts"

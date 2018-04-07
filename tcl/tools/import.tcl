@@ -207,30 +207,6 @@ proc importMoveList {line} {
   updateBoard -pgn
 }
 
-### Unused
-
-proc importMoveListTrans {line} {
-
-  if {[sc_game number] > 0} {
-    set confirm [::game::ConfirmDiscard]
-    if {$confirm == 2} { return }
-    if {$confirm == 0} {
-      ::game::Save
-    }
-    setTrialMode 0
-
-    sc_game new
-  }
-
-  sc_game undoPoint
-
-  set line [untrans $line]
-  sc_move start
-  sc_move addSan $line
-  updateBoard -pgn
-
-}
-
 ### Import file of Pgn games:
 
 proc importPgnFile {} {

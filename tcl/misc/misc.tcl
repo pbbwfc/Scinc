@@ -6,28 +6,6 @@
 ### Miscellaneous routines called by other Tcl functions
 
 ################################################################################
-# vwait but will timeout after a delay. Var must be fully qualified (::)
-################################################################################
-proc vwaitTimed { var {delay 0} {warn "warnuser"} } {
-
-  proc trigger {var warn} {
-    if {$warn == "warnuser"} {
-      tk_messageBox -type ok -icon error -parent . -title "Protocol error" -message "vwait timeout for $var"
-    }
-    set $var 1
-  }
-
-  if { $delay != 0 } {
-    set timerId [after $delay "trigger $var $warn"]
-  }
-
-  vwait $var
-
-  if [info exists timerId] { after cancel $timerId }
-
-}
-
-################################################################################
 # bindFocusColors:
 #   Configures a text or entry widget so it turns lightYellow when it
 #   gets the focus, and turns white again when it loses focus.

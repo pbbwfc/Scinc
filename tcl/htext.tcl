@@ -195,11 +195,6 @@ proc updateHelpWindow {name {heading {}}} {
   focus $w
 }
 
-### Now unused... big slowdown for what purpose ?
-proc ::htext::updateRate {w rate} {
-  set ::htext::updates($w) $rate
-}
-
 proc ::htext::init {w} {
 
   set cyan {#007000}

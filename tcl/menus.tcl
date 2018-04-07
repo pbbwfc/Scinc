@@ -881,8 +881,6 @@ set helpMessage($m,[incr menuindex]) HelpStartup
 $m add separator
 incr menuindex
 
-$m add command -label Changelog -command {helpWindow Changelog}
-incr menuindex
 $m  add command -label HelpAbout -command {helpWindow Author}
 set helpMessage($m,[incr menuindex]) HelpAbout
 

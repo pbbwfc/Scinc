@@ -17,11 +17,6 @@ if {! [info exists ::utils::history::listData]} {
 catch {source [scidConfigFile history]}
 
 
-proc ::utils::history::SetList {key list} {
-  set ::utils::history::listData($key) $list
-}
-
-
 proc ::utils::history::GetList {key} {
   variable listData
   if {[info exists listData($key)]} {

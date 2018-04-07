@@ -875,49 +875,6 @@ proc createCanvas {w wonx lossx baseNumber move} {
   return $w
 }
 
-### Currently unused (previously used by getColorScore)
-
-proc ::tree::getLineValues {l} {
-
-  # Returns a list with "ngames freq success eloavg perf" or
-  # {} if there was a problem during parsing
-
-  #0         1         2         3         4         5         6
-  #0123456789012345678901234567890123456789012345678901234567890
-  # 1: Nf3    C34      5115: 77.3%   53.9%  2289  2335  1975   16%
-  # 1: e4     B00     37752: 47.1%   54.7%  2474  2513  2002   37%
-  # 3: Nc3    C33       128:  1.9%   46.8%  2287  2329  1981  100%
-  #                  ngames: freq% success%  elo  perf
-
-  if {[scan [string range $l 14 24] %d:  ngames]  != 1} {return {}}
-  if {[scan [string range $l 25 29] %f%% freq]    != 1} {return {}}
-  if {[scan [string range $l 33 37] %f%% success] != 1} {return {}}
-  if {[scan [string range $l 40 44] %d   eloavg]  != 1} {return {}}
-  if {[scan [string range $l 46 50] %d   perf]    != 1} {return {}}
-
-  return [list $ngames $freq $success $eloavg $perf]
-}
-
-### Tree statusbar now unused.
-### Identical stats are available in other places, and tree widget gets y-crowded
-
-proc ::tree::status { msg baseNumber } {
-  global tree
-  if {$msg != ""} {
-    set tree(status$baseNumber) $msg
-    return
-  }
-  set s "  $::tr(Database)"
-  # set base [sc_base current]
-  # if {$tree(locked$baseNumber)} { set base $tree(base$baseNumber) }
-  set base $baseNumber
-  set status "  $::tr(Database): [file tail [sc_base filename $base]]"
-  if {$tree(locked$baseNumber)} { append status " ($::tr(TreeLocked))" }
-  append status "   $::tr(Filter)"
-  append status ": [filterText $base]"
-  set tree(status$baseNumber) $status
-}
-
 ################################################################################
 set tree(standardLines) {
   {}
@@ -1537,11 +1494,6 @@ proc ::tree::getCacheInfo { base } {
   tk_messageBox -title "Cache Info" -type ok -icon info \
       -message "Cache used : [lindex $ci 0] / [lindex $ci 1]" -parent .treeWin$base
 
-}
-
-proc ::tree::isCacheFull { base } {
-  set ci [sc_tree cacheinfo $base]
-  return [expr {[lindex $ci 0] == [lindex $ci 1]}]
 }
 
 ################################################################################

@@ -72,14 +72,6 @@ proc moveEntry_Complete {} {
   }
 }
 
-proc moveEntry_Backspace {} {
-  global moveEntry
-  set moveEntry(Text) [string range $moveEntry(Text) 0 \
-      [expr {[string length $moveEntry(Text)] - 2}]]
-  set moveEntry(List) [sc_pos matchMoves $moveEntry(Text) $moveEntry(Coord)]
-  updateStatusBar
-}
-
 proc moveEntry_Char {ch} {
   global moveEntry
   set oldMoveText $moveEntry(Text)
@@ -136,22 +128,6 @@ proc updateTitle {} {
   } else {
     wm title $::dot_w "$::scidName: $white - $black $fname"
   }
-}
-
-
-proc warnStatusBar {warning} {
-
-   # Show statusbar if hidden
-   if {!$::gameInfo(showStatus)} {
-     set ::gameInfo(showStatus) 1
-     toggleStatus
-   }
-   # Stop engine in status bar if neccessary
-   if {[winfo exists .analysisWin1] && $::analysis(mini)} { makeAnalysisWin 1 }
-
-   set ::statusBar $warning
-   .main.statusbar configure -foreground red3
-   # Will be restored by updateStatusBar in main.tcl
 }
 
 ### Update the main status bar, which is alternatively used to
@@ -1697,31 +1673,6 @@ proc setTrialMode {mode {updateBoard 1}} {
   if {$updateBoard} {
     updateBoard -pgn
   }
-}
-
-### Add current position, and check for 3 fold repetition or 50 move rule
-
-proc checkRepetition {} {
-
-  # Only show draw dialog once
-  if {$::drawShown} {
-    return 0
-  }
-
-  set fen [sc_pos fen]
-  if {[lindex $fen 4] > 99} {
-    set ::drawShown 1
-    pauseGame
-    sc_game tags set -result =
-    sc_pos setComment "50 move rule"
-    tk_messageBox -type ok -message $::tr(Draw) -parent .main.board -icon info
-    catch {::game::Save}
-    return 1
-  }
-
-  set elt [lrange [split $fen] 0 2]
-
-  return 0
 }
 
 ### If path starts with '.' ,  replace it with Scid directory

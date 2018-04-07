@@ -9,13 +9,6 @@ proc ::utils::string::Surname {name} {
   return $name
 }
 
-
-proc ::utils::string::CityName {siteName} {
-  regsub { [A-Z][A-Z][A-Z]$} $siteName "" siteName
-  return [string trim [::utils::string::Surname $siteName]]
-}
-
-
 # ::utils::string::Capital
 #
 #    Returns a string with the first character capitalised.
@@ -77,12 +70,3 @@ proc ::utils::string::PadCenter {str length {padChar " "}} {
   }
   return $s
 }
-
-proc ::utils::string::invertcase {char} {
-  if {[string is lower $char]} {
-      return [string toupper $char]
-   } else {
-      return [string tolower $char]
-   }
-}
-

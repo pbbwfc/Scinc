@@ -1031,11 +1031,6 @@ proc toggleToolbar {} {
   }
 }
 
-proc toggleMenubar {} {
-  set ::gameInfo(showMenu) [expr !$::gameInfo(showMenu)]
-  showMenubar
-}
-
 proc showMenubar {} {
   if {!$::gameInfo(showMenu)} {
     $::dot_w configure -menu {}

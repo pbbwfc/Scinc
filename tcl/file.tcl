@@ -63,19 +63,6 @@ proc ::file::Exit {}  {
   destroy .
 }
 
-proc ::file::ExitFast {} {
-  wm protocol . WM_DELETE_WINDOW {}
-  if {$::optionsAutoSave} {
-    # restore askToReplaceMoves if necessary
-    if {[winfo exists .tacticsWin]} {
-      ::tactics::restoreAskToReplaceMoves
-    }
-    .menu.options invoke [tr OptionsSave]
-  }
-  ::recentFiles::save
-  destroy .
-}
-
 # ::file::New
 #
 #   Opens file-save dialog and creates a new database.

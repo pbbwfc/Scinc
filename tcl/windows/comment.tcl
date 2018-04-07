@@ -472,20 +472,6 @@ proc ::commenteditor::ButtonReleased {board button x y} {
   InsertMark $board $square
 }
 
-# Append arg as a comment
-proc ::commenteditor::appendComment {arg} {
-  set comment [sc_pos getComment]
-
-  sc_game undoPoint
-  if {$comment == {}} {
-    sc_pos setComment "$arg"
-  } else {
-    sc_pos setComment "$comment\n$arg"
-  }
-  updateStatusBar
-  updateBoard -pgn
-}
-
 
 # ::commenteditor::storeComment --
 #
