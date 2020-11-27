@@ -1,6 +1,15 @@
 *.spf
-rel/
-bin/
+rel/bases
+rel/bin/bitmaps
+rel/bin/bitmaps2
+rel/bin/config
+rel/bin/data
+rel/bin/engines
+rel/bin/scid.res
+rel/bin/*.html
+rel/bin/*.gui
+rel/masks
+# bin/
 lib/
 bin2/
 .vs/
