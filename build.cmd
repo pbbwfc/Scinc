@@ -4,9 +4,9 @@ cd bin
 copy C:\msys64\mingw64\bin\libgcc_s_seh-1.dll
 copy "C:\msys64\mingw64\bin\libstdc++-6.dll"
 copy C:\msys64\mingw64\bin\libwinpthread-1.dll
-copy I:\tcl\bin\tcl85.dll
-copy I:\tcl\bin\tk85.dll
-copy I:\tcl\bin\tclpip85.dll
+copy D:\tcl\bin\tcl85.dll
+copy D:\tcl\bin\tk85.dll
+copy D:\tcl\bin\tclpip85.dll
 copy ..\..\FIDE.spf
 
 md engines
@@ -41,4 +41,4 @@ cd bitmaps2
 copy ..\..\..\setup\bitmaps2\*.*
 
 cd /d C:\msys64
-call msys2_shell.cmd -mingw64 -where i:/github/scinc
+call msys2_shell.cmd -mingw64 -where d:/github/scinc

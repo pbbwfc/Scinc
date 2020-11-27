@@ -9,13 +9,13 @@ WIN_TARGET=win64
 # Tcl/Tk version: it should be "85" for Tcl/Tk 8.5, etc.
 TCL_VERSION=85
 
-TCL_DIR=/i/tcl
+TCL_DIR=/d/tcl
 MINGW_TARGET=x86_64-w64-mingw32
 
 ### Compiler and linker
 CXX=$(MINGW_TARGET)-g++
 CC=$(MINGW_TARGET)-gcc
-RC=$(MINGW_TARGET)-windres
+RC=windres
 LINK=$(CXX)
 
 ### SCIDFLAGS: Scid customization flags.
