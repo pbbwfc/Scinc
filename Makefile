@@ -167,10 +167,6 @@ src/tcscid.o: src/tkscid.cpp
 	$(CXX) $(CXXFLAGS) -std=c++0x -I$(TCL_DIR)/include -DTCL_ONLY -c src/tkscid.cpp \
 	  -o ./src/tcscid.o
 
-src/tkscid.o: src/tkscid.cpp
-	$(CXX) $(CXXFLAGS) -std=c++0x -I$(TCL_DIR)/include -c src/tkscid.cpp \
-	  -o ./src/tkscid.o
-
 src/scid.o: src/tkscid.cpp
 	$(CXX) $(CXXFLAGS) -std=c++0x -I$(TCL_DIR)/include -DSOURCE_TCL_FILE="\"scinc.gui\"" \
 	  -c src/tkscid.cpp -o ./src/scid.o
