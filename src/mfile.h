@@ -39,25 +39,16 @@
 # include "win_mmap.h"
 
 enum mfileT {
-    MFILE_REGULAR = 0, MFILE_MEMORY, MFILE_GZIP, MFILE_ZIP,
-    MFILE_MMAP,
+    MFILE_REGULAR = 0, MFILE_MEMORY, MFILE_MMAP,
 };
 
 class MFile
 {
   private:
     FILE *      Handle;         // For regular files.
-    gzFile      GzHandle;       // For Gzip files.
     fileModeT   FileMode;
     mfileT      Type;
     char *      FileName;
-
-    // The next few fields are used to improve I/O speed on Gzip files, by
-    // avoiding doing a gzgetc() every character, since the zlib file gzio.c
-    // simply does a (relatively slow) gzread() for each gzgetc().
-    byte *      GzBuffer;
-    int         GzBuffer_Avail;
-    byte *      GzBuffer_Current;
 
     // The next few fields are used for in-memory files.
     uint        Capacity;
@@ -70,7 +61,6 @@ class MFile
     WinMMap *   MappedFile;  // File mapping for fast read access.
 
     void  Extend();
-    int   FillGzBuffer();
 
   public:
     MFile() { Init(); }
@@ -135,9 +125,6 @@ MFile::EndOfFile ()
         return (Location >= Capacity);
     case MFILE_REGULAR:
         return feof(Handle);
-    case MFILE_GZIP:
-        if (GzBuffer_Avail > 0) { return 0; }
-        return gzeof(GzHandle);
     case MFILE_MMAP:
         return Location >= MappedFile->size();
     default:
@@ -156,9 +143,6 @@ MFile::WriteOneByte (byte value)
         return OK;
     }
     Location++;
-    if (Type == MFILE_GZIP) {
-        return (gzputc(GzHandle, value) == EOF) ? ERROR_FileWrite : OK;
-    }
     return (putc(value, Handle) == EOF) ? ERROR_FileWrite : OK;
 }
 
@@ -172,16 +156,6 @@ MFile::ReadOneByte ()
         Location++;
         CurrentPtr++;
         return (int) value;
-    }
-    if (Type == MFILE_GZIP) {
-        Location++;
-        if (GzBuffer_Avail <= 0) {
-            return FillGzBuffer();
-        }
-        GzBuffer_Avail--;
-        int retval = *GzBuffer_Current;
-        GzBuffer_Current++;
-        return retval;
     }
     if (Type == MFILE_MMAP) {
         if (Location >= MappedFile->size()) { return EOF; }

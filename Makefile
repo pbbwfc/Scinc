@@ -37,10 +37,7 @@ RCFLAGS+= --target=pe-x86-64
 ### EXECS: all the evecutable programs compiled from C++ files.
 EXECS= scidt.exe scinc.exe tcscid.exe
 
-### SCIDOBJS: not all the .o files that make up scid, just the standard
-###   files that most of the scid programs use.
-
-SCIDOBJS= src/misc.o src/index.o src/date.o src/namebase.o src/position.o \
+OBJS= src/misc.o src/index.o src/date.o src/namebase.o src/position.o \
       src/game.o src/gfile.o src/matsig.o src/bytebuf.o src/textbuf.o \
       src/myassert.o src/stralloc.o src/mfile.o src/dstring.o src/pgnparse.o \
       src/stored.o src/movelist.o \
@@ -66,19 +63,6 @@ CHARSETCONVOBJS= src/charsetdetector.o src/charsetconverter.o \
       src/universalchardet/nsSBCharSetProber.o src/universalchardet/nsSBCSGroupProber.o \
       src/universalchardet/nsSJISProber.o src/universalchardet/nsUniversalDetector.o \
       src/universalchardet/nsUTF8Prober.o
-
-
-### ZLIBOBJS: object files in the zlib compression library.
-
-ZLIBOBJS= src/zlib/adler32.o src/zlib/compress.o src/zlib/crc32.o \
-      src/zlib/gzio.o src/zlib/uncompr.o src/zlib/deflate.o src/zlib/trees.o \
-      src/zlib/zutil.o src/zlib/inflate.o src/zlib/infblock.o \
-      src/zlib/inftrees.o src/zlib/infcodes.o src/zlib/infutil.o \
-      src/zlib/inffast.o
-
-### OBJS: all standard object files for scid.
-
-OBJS= $(SCIDOBJS) $(ZLIBOBJS)
 
 ## LANGUAGES are now source from scidShareDir/lang
 

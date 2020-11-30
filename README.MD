@@ -44,6 +44,7 @@ You can get a copy of the binary version by downloading a zip from Releases.
 * No configuration of number formats
 * No support for custom pieces or textures
 * No support for chess figurine fonts
+* No support for zip files
 
 ## Development Instructions
 
