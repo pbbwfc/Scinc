@@ -15,9 +15,6 @@
 
 // An MFile is a file that can be a regular file, or memory-only with
 // no actual file on any device.
-// In addition, an MFile can decode its contents from a GZip (.gz) file
-// and will hopefully in future also be able to extract the contents of
-// all files in a Zip file, as if they were in one large plain file.
 
 // -------------------------------------------------------------------
 // Extension by Gregor Cramer, 25 March 2014:

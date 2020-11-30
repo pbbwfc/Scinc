@@ -1051,7 +1051,6 @@ Commands:
 / <a href="#info_clipbase">clipbase</a>
 / <a href="#info_decimal">decimal</a>
 / <a href="#info_fsize">fsize</a>
-/ <a href="#info_gzip">gzip</a>
 / <a href="#info_html">html</a>
 / <a href="#info_limit">limit</a>
 / <a href="#info_preMoveCmd">preMoveCmd</a>
@@ -1087,7 +1086,7 @@ Returns the number of elements (games, lines or positions) in the
 specified file. For a Scid-format database or PGN file, the number
 of games is returned. For an EPD file, the number of positions is
 returned. For an opening repertoire file, the number of (include and
-exclude) lines is returned. The file may be GZip-compressed.
+exclude) lines is returned. 
 </p>
 <p>
 For all types except Scid-format databases, only the first 64 kilobytes
@@ -1095,12 +1094,6 @@ of the file are examined to compute the number of elements, so the
 value returned is an estimate if the file exceeds this size.
 An estimate value is returned as a negative value to distinguish it from
 an exact value, and is suitably rounded to a multiple of 10, 100 or 1000.
-</p>
-
-<h4><a name="info_gzip">sc_info gzip</a></h4>
-<p>
-Returns a boolean value, indicating if the program was compiled with
-the zlib library for reading GZip format files.
 </p>
 
 <h4><a name="info_html">sc_info html [0|1]</a></h4>

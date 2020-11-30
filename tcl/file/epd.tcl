@@ -104,9 +104,6 @@ proc newEpdWin {cmd {fname ""}} {
   }
   set new_types { {"EPD files" {".epd"} } }
   set open_types $new_types
-  if {[sc_info gzip]} {
-    set open_types { {"EPD files" {".epd" ".epd.gz"} } }
-  }
   if {$fname == ""} {
     if {! [file isdirectory $::initialDir(epd)] } {
       set ::initialDir(epd) $::env(HOME)

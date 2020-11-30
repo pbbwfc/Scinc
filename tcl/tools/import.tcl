@@ -218,19 +218,12 @@ proc importPgnFile {} {
     tk_messageBox -type ok -icon error -title "Scid: Error" -message $err
     return
   }
-  if {[sc_info gzip]} {
-    set ftypes {
-      { "Portable Game Notation files" {".pgn" ".PGN" ".pgn.gz"} }
-      { "Text files" {".txt" ".TXT"} }
-      { "All files" {"*"} }
-    }
-  } else {
-    set ftypes {
-      { "Portable Game Notation files" {".pgn" ".PGN"} }
-      { "Text files" {".txt" ".TXT"} }
-      { "All files" {"*"} }
-    }
+  set ftypes {
+    { "Portable Game Notation files" {".pgn" ".PGN"} }
+    { "Text files" {".txt" ".TXT"} }
+    { "All files" {"*"} }
   }
+
   if {! [file isdirectory $::initialDir(pgn)] } {
     set ::initialDir(pgn) $::env(HOME)
   }
