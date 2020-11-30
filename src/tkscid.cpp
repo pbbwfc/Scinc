@@ -27,8 +27,6 @@
 #include <set>
 #include <unordered_set>
 
-#include "charsetconverter.h"
-
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Global variables:
 
@@ -1354,7 +1352,7 @@ sc_base_check (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 //  exportGame:
 //    Called by sc_base_export() to export a single game.
 static void
-exportGame (Game * g, FILE * exportFile, gameFormatT format, uint pgnStyle, CharsetConverter* converter)
+exportGame (Game * g, FILE * exportFile, gameFormatT format, uint pgnStyle)
 {
     char old_language = language;
 
@@ -1380,12 +1378,6 @@ exportGame (Game * g, FILE * exportFile, gameFormatT format, uint pgnStyle, Char
 
     g->WriteToPGN (db->tbuf);
     db->tbuf->NewLine();
-
-#ifndef TCL_ONLY
-    if (converter) {
-        converter->doConversion(*db->tbuf);
-    }
-#endif
 
     db->tbuf->DumpToFile (exportFile);
     language = old_language;
@@ -1512,8 +1504,6 @@ sc_base_export (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
         return errorResult (ti, "Error opening file for exporting games.");
     }
 
-    CharsetConverter* charsetConverter = NULL;
-
     // Write start text or find the place in the file to append games:
     if (appendToFile) {
         if (outputFormat == PGN_FORMAT_Plain) {
@@ -1554,17 +1544,15 @@ sc_base_export (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
     }
 
     if (outputFormat == PGN_FORMAT_Plain || useUTF8) {
-        charsetConverter = new CharsetConverter(useUTF8 ? "utf-8" : "iso8859-1");
-	db->tbuf->SetWrapColumn (75);
+    	db->tbuf->SetWrapColumn (75);
     }
 
     if (!exportFilter) {
         // Only export the current game:
-        exportGame (db->game, exportFile, outputFormat, pgnStyle, charsetConverter);
+        exportGame (db->game, exportFile, outputFormat, pgnStyle);
         fputs (endText, exportFile);
         fclose (exportFile);
         if (showProgress) { updateProgressBar (ti, 1, 1); }
-        delete charsetConverter;
         return TCL_OK;
     }
 
@@ -1599,13 +1587,12 @@ sc_base_export (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
                 continue;
             }
             g->LoadStandardTags (ie, db->nb);
-            exportGame (g, exportFile, outputFormat, pgnStyle, charsetConverter);
+            exportGame (g, exportFile, outputFormat, pgnStyle);
         }
     }
     fputs (endText, exportFile);
     fclose (exportFile);
     if (showProgress) { updateProgressBar (ti, 1, 1); }
-    delete charsetConverter;
     return TCL_OK;
 }
 

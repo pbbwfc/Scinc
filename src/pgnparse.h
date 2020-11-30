@@ -29,9 +29,6 @@
 
 #include <string>
 
-class CharsetConverter;
-class CharsetDetector;
-
 #define MAX_UNGETCHARS 16
 static const uint MAX_IGNORED_TAGS = 16;
 
@@ -50,9 +47,6 @@ class PgnParser
     DString * ErrorBuffer;
     uint   NumErrors;
 
-    CharsetConverter * CharConverter;
-    CharsetDetector  * CharDetector;
-
     enum { PARSE_Searching, PARSE_Header, PARSE_Game } ParseMode;
 
     bool   StorePreGameText;
@@ -70,7 +64,6 @@ class PgnParser
     inline void   UnGetChar (int ch);
 
     void   Init();
-    void   CreateCharsetDetector();
     void   Reset();
     bool   CheckUTF8BOM();
     void   LogError (const char * errMessage, const char * text);
@@ -89,9 +82,6 @@ class PgnParser
     tokenT GetGameToken (char * buffer, uint bufSize);
 
     void MapChessBaseFigurine(Game * game);
-    void DoCharsetConversion(Game * game);
-    void ConvertComments(Game * game);
-    std::string ConvertToUTF8(char * str);
 
   public:
     // Constructors: PgnParser is initialised with a file pointer or

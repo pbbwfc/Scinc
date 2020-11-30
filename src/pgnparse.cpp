@@ -14,8 +14,6 @@
 
 
 #include "pgnparse.h"
-#include "charsetdetector.h"
-#include "charsetconverter.h"
 
 const uint MAX_COMMENT_SIZE = 16000;
 
@@ -28,7 +26,6 @@ const uint MAX_COMMENT_SIZE = 16000;
 PgnParser::~PgnParser()
 {
     delete ErrorBuffer;
-    delete CharConverter;
     ClearIgnoredTags();
 }
 
@@ -37,8 +34,6 @@ void
 PgnParser::Init ()
 {
     ErrorBuffer = new DString;
-    CharConverter = NULL;
-    CharDetector = NULL;
     Reset();
 }
 
@@ -65,7 +60,6 @@ PgnParser::Init (MFile * infile)
     InFile = infile;
     InBuffer = InCurrent = NULL;
     EndChar = EOF;
-    CreateCharsetDetector();
 }
 
 void
@@ -75,32 +69,6 @@ PgnParser::Reset (MFile * infile)
     InFile = infile;
     InBuffer = InCurrent = NULL;
     EndChar = EOF;
-
-    if (CheckUTF8BOM())
-    {
-        delete CharConverter;
-        CharConverter = NULL;
-        CharDetector = NULL;
-    }
-    else
-    {
-        CreateCharsetDetector();
-    }
-}
-
-void
-PgnParser::CreateCharsetDetector ()
-{
-    if (CharConverter)
-    {
-        CharConverter->reset();
-        CharDetector->reset();
-    }
-    else
-    {
-        CharConverter = new CharsetConverter;
-        CharDetector = &CharConverter->detector();
-    }
 }
 
 void
@@ -110,7 +78,6 @@ PgnParser::Init (const char * inbuffer)
     InFile = NULL;
     InBuffer = InCurrent = inbuffer;
     EndChar = 0;
-    CreateCharsetDetector();
 }
 
 void
@@ -120,7 +87,6 @@ PgnParser::Reset (const char * inbuffer)
     InFile = NULL;
     InBuffer = InCurrent = inbuffer;
     EndChar = 0;
-    CreateCharsetDetector();
 }
 
 bool
@@ -356,9 +322,6 @@ PgnParser::ExtractPgnTag (const char * buffer, Game * game)
     if (! seenEndQuote) { return ERROR_PGNTag; }
     value[lastQuoteIndex] = 0;
 
-    if (CharDetector)
-        CharDetector->detect(value, length);
-
     // Now decide what to add to the game based on this tag:
     if (strEqual (tag, "White")) {
         // The White, Black, Site, Event, Round tags should not be empty
@@ -525,8 +488,6 @@ PgnParser::GetComment (char * buffer, uint bufSize)
         sprintf (tempStr, "started on line %u\n", startLine);
         LogError ("Error: Open Comment at end of input", tempStr);
     }
-    if (CharDetector)
-        CharDetector->detect(buffer, outPtr - buffer);
 }
 
 void
@@ -1276,17 +1237,6 @@ PgnParser::ParseGame (Game * game)
     delete[] buffer;
     delete[] preGameTextBuffer;
 
-    if (err != ERROR_NotFound && CharDetector)
-    {
-        CharDetector->finish();
-
-        if (CharDetector->charset() != CharsetDetector::UTF8)
-            DoCharsetConversion(game);
-
-        CharDetector->reset();
-        CharConverter->reset();
-    }
-
     if (ParseMode == PARSE_Header) {
         if (EndOfInputWarnings) {
             LogError ("Warning: End of input in PGN header tags section", "");
@@ -1297,27 +1247,6 @@ PgnParser::ParseGame (Game * game)
     }
     return err;
 }
-
-
-std::string
-PgnParser::ConvertToUTF8(char * str)
-{
-    std::string tmp(str);
-
-    if (tmp.empty())
-        return tmp;
-
-    std::string res;
-
-    if (CharDetector->isASCII() && !CharConverter->fixLatin1(tmp, res))
-        res.clear();
-
-    if (res.empty())
-        CharConverter->convertToUTF8(tmp, res);
-
-    return res;
-}
-
 
 typedef char* (Game::*GetTag)();
 typedef void (Game::*SetTag)(const char *);
@@ -1337,81 +1266,6 @@ static Pair GetSetTbl[5] =
   Pair(&Game::GetBlackStr, &Game::SetBlackStr ),
   Pair(&Game::GetRoundStr, &Game::SetRoundStr ),
 };
-
-
-void
-PgnParser::DoCharsetConversion(Game * game)
-{
-    CharConverter->setupDetected();
-
-    // Convert standard tags.
-
-    for (unsigned i = 0; i < sizeof(::GetSetTbl)/sizeof(::GetSetTbl[0]); ++i)
-    {
-        Pair const& p = ::GetSetTbl[i];
-
-        char * str((game->*p.getter)());
-
-        if (!CharsetConverter::isAscii(str))
-            (game->*p.setter)(ConvertToUTF8(str).c_str());
-    }
-
-    // Convert extra tags.
-
-    tagT * tag = game->GetExtraTags();
-    tagT * end = tag + game->GetNumExtraTags();
-
-    for ( ; tag < end; ++tag)
-    {
-        if (!CharsetConverter::isAscii(tag->value))
-        {
-            std::string res(ConvertToUTF8(tag->value));
-            delete [] tag->value;
-            tag->value = strDuplicate(res.c_str());
-        }
-    }
-
-    // Convert comments.
-    game->MoveToPly(0);
-    ConvertComments(game);
-}
-
-
-void
-PgnParser::ConvertComments(Game * game)
-{
-    if (game->GetMoveComment())
-    {
-        char * str(game->GetMoveComment());
-
-        if (!CharsetConverter::isAscii(str))
-            game->SetMoveComment(ConvertToUTF8(str).c_str());
-    }
-
-    while (game->GetCurrentMove())
-    {
-        if (uint n = game->GetNumVariations())
-        {
-            for (uint i = 0; i < n; ++i)
-            {
-                game->MoveIntoVariation(i);
-                ConvertComments(game);
-                game->MoveExitVariation();
-            }
-        }
-
-        game->MoveForward();
-
-        if (game->GetMoveComment())
-        {
-            char * str(game->GetMoveComment());
-
-            if (!CharsetConverter::isAscii(str))
-                game->SetMoveComment(ConvertToUTF8(str).c_str());
-        }
-    }
-}
-
 
 //////////////////////////////////////////////////////////////////////
 //  EOF: pgnparse.cpp

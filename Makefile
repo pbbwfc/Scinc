@@ -49,22 +49,6 @@ OBJS= src/misc.o src/index.o src/date.o src/namebase.o src/position.o \
       src/polyglot/parse.o src/polyglot/pgn.o src/polyglot/piece.o src/polyglot/random.o \
       src/polyglot/san.o src/polyglot/search.o src/polyglot/square.o src/polyglot/util.o
 
-CHARSETCONVOBJS= src/charsetdetector.o src/charsetconverter.o \
-      src/universalchardet/CharDistribution.o src/universalchardet/JpCntx.o \
-      src/universalchardet/LangBulgarianModel.o src/universalchardet/LangCyrillicModel.o \
-      src/universalchardet/LangGreekModel.o src/universalchardet/LangHebrewModel.o \
-      src/universalchardet/LangHungarianModel.o src/universalchardet/LangThaiModel.o \
-      src/universalchardet/nsBig5Prober.o src/universalchardet/nsCharSetProber.o \
-      src/universalchardet/nsEscCharsetProber.o src/universalchardet/nsEscSM.o \
-      src/universalchardet/nsEUCJPProber.o src/universalchardet/nsEUCKRProber.o \
-      src/universalchardet/nsEUCTWProber.o src/universalchardet/nsGB2312Prober.o \
-      src/universalchardet/nsHebrewProber.o src/universalchardet/nsLatin1Prober.o \
-      src/universalchardet/nsMBCSGroupProber.o src/universalchardet/nsMBCSSM.o \
-      src/universalchardet/nsSBCharSetProber.o src/universalchardet/nsSBCSGroupProber.o \
-      src/universalchardet/nsSJISProber.o src/universalchardet/nsUniversalDetector.o \
-      src/universalchardet/nsUTF8Prober.o
-
-## LANGUAGES are now source from scidShareDir/lang
 
 ### TCLS: all the .tcl files that make up "scinc".
 TCLS= \
@@ -108,13 +92,13 @@ scinc.gui: $(TCLS)
 	rm -f ./rel/bin/scinc.gui
 	cat $(TCLS) > ./rel/bin/scinc.gui
 
-scidt.exe: src/scidt.o $(OBJS) $(CHARSETCONVOBJS)
-	$(LINK) -o rel/bin/scidt.exe src/scidt.o $(OBJS) $(CHARSETCONVOBJS) -L$(TCL_DIR)/lib -ltcl$(TCL_VERSION)
+scidt.exe: src/scidt.o $(OBJS)
+	$(LINK) -o rel/bin/scidt.exe src/scidt.o $(OBJS) -L$(TCL_DIR)/lib -ltcl$(TCL_VERSION)
 
-scinc.exe: src/scid.o $(OBJS) $(CHARSETCONVOBJS) src/tree.o src/filter.o \
+scinc.exe: src/scid.o $(OBJS) src/tree.o src/filter.o \
             src/pbook.o src/spellchk.o src/probe.o \
             src/optable.o src/engine.o src/recog.o src/tkdnd/TkDND_OleDND.o src/tk_selection.o scid.res
-	$(LINK) $(LDFLAGS) -o rel/bin/scinc.exe src/scid.o $(OBJS) $(CHARSETCONVOBJS) \
+	$(LINK) $(LDFLAGS) -o rel/bin/scinc.exe src/scid.o $(OBJS) \
             src/tree.o src/filter.o src/pbook.o \
             src/spellchk.o src/probe.o \
             src/optable.o src/engine.o src/recog.o src/tkdnd/TkDND_OleDND.o src/tk_selection.o rel/bin/scid.res \
@@ -122,8 +106,8 @@ scinc.exe: src/scid.o $(OBJS) $(CHARSETCONVOBJS) src/tree.o src/filter.o \
 
 tcscid.exe: src/tcscid.o $(OBJS) src/tree.o src/filter.o \
             src/pbook.o src/spellchk.o src/probe.o \
-            src/optable.o src/engine.o src/recog.o $(CHARSETCONVOBJS)
-	$(LINK) $(LDFLAGS) -o rel/bin/tcscid.exe src/tcscid.o $(OBJS) $(CHARSETCONVOBJS) -ltcl$(TCL_VERSION) \
+            src/optable.o src/engine.o src/recog.o
+	$(LINK) $(LDFLAGS) -o rel/bin/tcscid.exe src/tcscid.o $(OBJS) -ltcl$(TCL_VERSION) \
             src/tree.o src/filter.o src/pbook.o \
             src/spellchk.o src/probe.o \
             src/optable.o src/engine.o src/recog.o \
@@ -133,7 +117,7 @@ scid.res: scid.rc
 	$(RC) $(RCFLAGS) -o rel/bin/scid.res scid.rc
 
 clean:
-	rm -f src/*.o src/zlib/*.o src/polyglot/*.o src/universalchardet/*.o rel/bin/*.exe rel/bin/scinc.gui rel/bin/scid.res
+	rm -f src/*.o src/polyglot/*.o rel/bin/*.exe rel/bin/scinc.gui rel/bin/scid.res
 	$(MAKE) -C src/tkdnd/ -f Makefile.mingwx clean
 
 strip:
