@@ -42,3 +42,4 @@ copy ..\..\..\setup\bitmaps2\*.*
 
 cd /d C:\msys64
 call msys2_shell.cmd -mingw64 -where d:/github/scinc
+cd /d d:\Github\Scinc

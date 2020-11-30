@@ -48,9 +48,7 @@ PgnParser::Reset()
     UnGetCount = 0;
     NumErrors = 0;
     BytesSeen = 0;
-#ifndef WINCE
     ErrorFile = NULL;
-#endif
     LineCounter = 0;
     GameCounter = 0;
     StorePreGameText = true;
@@ -165,11 +163,7 @@ void
 PgnParser::ClearIgnoredTags ()
 {
     for (uint i = 0; i < NumIgnoredTags; i++) {
-#ifdef WINCE
-        my_Tcl_Free( IgnoredTags[i] );
-#else
         delete[] IgnoredTags[i];
-#endif
     }
     NumIgnoredTags = 0;
 }
@@ -370,9 +364,7 @@ PgnParser::ExtractPgnTag (const char * buffer, Game * game)
         // The White, Black, Site, Event, Round tags should not be empty
         // (Date and Result should also have values, but these will be set after ExtractPgnTag returns)
         if (length == 0) { return ERROR_PGNTagNull; }
-#ifdef STANDARD_PLAYER_NAMES
         standardPlayerName (value);
-#endif
         // Check for a rating in parentheses at the end of the player name:
         uint elo = 0;
         if (length > 7  &&  value[length-1] == ')'
@@ -392,9 +384,7 @@ PgnParser::ExtractPgnTag (const char * buffer, Game * game)
 
     } else if (strEqual (tag, "Black")) {
         if (length == 0) { return ERROR_PGNTagNull; }
-#ifdef STANDARD_PLAYER_NAMES
         standardPlayerName (value);
-#endif
         // Check for a rating in parentheses at the end of the player name:
         uint elo = 0;
         if (length > 7  &&  value[length-1] == ')'
@@ -1039,15 +1029,9 @@ PgnParser::GetNextToken (char * buffer, uint bufSize)
 errorT
 PgnParser::ParseMoves (Game * game)
 {
-#ifdef WINCE
-    char * buffer = my_Tcl_Alloc(sizeof( char [MAX_COMMENT_SIZE]));
-    errorT err = ParseMoves (game, buffer, MAX_COMMENT_SIZE);
-    my_Tcl_Free( buffer );
-#else
     char * buffer = new char [MAX_COMMENT_SIZE];
     errorT err = ParseMoves (game, buffer, MAX_COMMENT_SIZE);
     delete[] buffer;
-#endif
     return err;
 }
    

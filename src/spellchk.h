@@ -12,7 +12,6 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-#ifndef WINCE
 
 #ifndef SCID_SPELLCHK_H
 #define SCID_SPELLCHK_H
@@ -78,24 +77,6 @@ class SpellChecker
     void Destroy (void);
 
   public:
-#ifdef WINCE
-  void* operator new(size_t sz) {
-    void* m = my_Tcl_Alloc(sz);
-    return m;
-  }
-  void operator delete(void* m) {
-    my_Tcl_Free((char*)m);
-  }
-  void* operator new [] (size_t sz) {
-    void* m = my_Tcl_AttemptAlloc(sz);
-    return m;
-  }
-
-  void operator delete [] (void* m) {
-    my_Tcl_Free((char*)m);
-  }
-
-#endif  
 
     SpellChecker ()  { Init(); }
     ~SpellChecker () { Destroy(); }
@@ -139,7 +120,6 @@ class SpellChecker
 
 #endif  // SCID_SPELLCHK_H
 
-#endif // WINCE
 //////////////////////////////////////////////////////////////////////
 //  EOF: spellchk.h
 //////////////////////////////////////////////////////////////////////

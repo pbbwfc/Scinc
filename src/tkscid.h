@@ -64,9 +64,6 @@
 #  define CONST84
 #endif
 
-#ifdef WINCE
-#include "tclmy.h"
-#endif
 
 // Filter operations:
 
@@ -84,16 +81,11 @@ const filterOpT FILTEROP_RESET = 2;
 #define PROBE_REPORT 3
 #define PROBE_OPTIMAL 4
 
-#ifdef WINCE
-const uint SCID_TreeCacheSize = 50;
-const uint SCID_BackupCacheSize = 20;
-#else
 // TreeCache size for each open database:
 const uint SCID_TreeCacheSize = 1000; //250
 
 // Secondary (memory only) TreeCache size:
 const uint SCID_BackupCacheSize = 100;
-#endif
 
 // Number of undo levels
 #define UNDO_MAX 20
@@ -140,13 +132,11 @@ struct scidStatsT {
     unsigned long long  sumRatings;
     uint  minRating;
     uint  maxRating;
-#ifndef WINCE
     ecoStatsT ecoCount0 [1];
     ecoStatsT ecoCount1 [5];
     ecoStatsT ecoCount2 [50];
     ecoStatsT ecoCount3 [500];
     ecoStatsT ecoCount4 [500*26];
-#endif
 };
 
 

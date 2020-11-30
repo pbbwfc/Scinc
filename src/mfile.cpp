@@ -33,9 +33,7 @@ MFile::Init ()
     CurrentPtr = NULL;
     FileBuffer = NULL;
     FileName = NULL;
-#ifdef WIN32
     MappedFile = NULL;
-#endif
 }
 
 void
@@ -87,10 +85,8 @@ MFile::Seek (uint position)
     if (Type == MFILE_GZIP) {
         result = gzseek (GzHandle, position, 0);
         GzBuffer_Avail = 0;
-#ifdef WIN32
     } else if (Type == MFILE_MMAP) {
         result = 0; // always succeeding
-#endif
     } else {
         result = fseek (Handle, position, 0);
     }
@@ -144,7 +140,6 @@ MFile::Open (const char * name, fileModeT fmode)
     return OK;
 }
 
-#ifdef WIN32
 errorT
 MFile::OpenMappedFile (const char * name, fileModeT fmode)
 {
@@ -159,7 +154,6 @@ MFile::OpenMappedFile (const char * name, fileModeT fmode)
 
     return MappedFile->isOpen() ? OK : ERROR_FileOpen;
 }
-#endif
 
 errorT
 MFile::Create (const char * name, fileModeT fmode)
@@ -196,11 +190,9 @@ MFile::Close ()
             GzBuffer_Avail = 0;
         }
         result = gzclose (GzHandle);
-#ifdef WIN32
     } else if (Type == MFILE_MMAP) {
         delete MappedFile;
         MappedFile = NULL;
-#endif
     } else {
         result = fclose (Handle);
     }
@@ -269,14 +261,7 @@ MFile::ReadNBytes (char * str, uint length)
 
 
 #define FREAD_OPTIMIZE
-#ifdef FREAD_OPTIMIZE
         Location += fread (str, 1, length, Handle);
-#else
-        while (length-- > 0) {
-            *str++ = getc(Handle);
-        }
-        Location++;
-#endif
     }
     return OK;
 }

@@ -18,11 +18,7 @@
 #include "tree.h"
 
 // Include header file for memcpy():
-#ifdef WIN32
 #  include <memory.h>
-#else
-#  include <string.h>
-#endif
 
 
 // TREEFILE_MAGIC:
@@ -74,11 +70,7 @@ TreeCache::Delete ()
         for (uint i=0; i < NumInUse; i++) {
             if (Cache[i].cfilter != NULL) { delete Cache[i].cfilter; }
         }
-#ifdef WINCE
-        my_Tcl_Free((char*) Cache);
-#else
         delete[] Cache;
-#endif
     }
     CacheSize = 0;
     NumInUse = 0;
@@ -93,11 +85,7 @@ void
 TreeCache::SetCacheSize (uint size)
 {
     if (CacheSize > 0) { Delete(); }
-#ifdef WINCE
-    Cache = (cachedTreeT*) my_Tcl_Alloc( sizeof(cachedTreeT [size]));
-#else
     Cache = new cachedTreeT [size];
-#endif
 
     CacheSize = size;
     NumInUse = 0;
@@ -127,11 +115,7 @@ TreeCache::CacheResize (uint size)
     cachedTreeT* oldCache = Cache;
     uint oldSize = CacheSize;
 
-#ifdef WINCE
-    Cache = (cachedTreeT*) my_Tcl_Alloc( sizeof(cachedTreeT [size]));
-#else
     Cache = new cachedTreeT [size];
-#endif
 
     CacheSize = size;
     // Clear all the filters and nodes so they dont contain garbage:
@@ -292,19 +276,6 @@ TreeCache::Add (Position * pos, treeT * pTree, Filter * filter)
 errorT
 TreeCache::WriteFile (const char * fname)
 {
-#ifdef WINCE
-    /*FILE **/Tcl_Channel  fp;
-    fileNameT fullname;
-    strCopy (fullname, fname);
-    strAppend (fullname, TREEFILE_SUFFIX);
-
-//    fp = fopen (fullname, "wb");
-    fp = my_Tcl_OpenFileChannel(NULL, fullname, "w", 0666);
-    if (fp == NULL) { return ERROR_FileOpen; }
- my_Tcl_SetChannelOption(NULL, fp, "-encoding", "binary");
- my_Tcl_SetChannelOption(NULL, fp, "-translation", "binary");
-
-#else
     FILE * fp;
     fileNameT fullname;
     strCopy (fullname, fname);
@@ -312,7 +283,6 @@ TreeCache::WriteFile (const char * fname)
 
     fp = fopen (fullname, "wb");
     if (fp == NULL) { return ERROR_FileOpen; }
-#endif
     writeFourBytes (fp, TREEFILE_MAGIC);
     writeTwoBytes (fp, SCID_VERSION);
     writeFourBytes (fp, CacheSize);
@@ -352,11 +322,7 @@ TreeCache::WriteFile (const char * fname)
         // Write the compressed filter:
         ctree->cfilter->WriteToFile (fp);
     }
-#ifdef WINCE
-    my_Tcl_Close(NULL, fp);
-#else
     fclose (fp);
-#endif
     return OK;
 }
 
@@ -365,26 +331,6 @@ TreeCache::ReadFile (const char * fname)
 {
     // Only read the file if the cache is empty:
     if (NumInUse > 0) { return OK; }
-#ifdef WINCE
-    /*FILE * */Tcl_Channel fp;
-    fileNameT fullname;
-    strCopy (fullname, fname);
-    strAppend (fullname, TREEFILE_SUFFIX);
-
-    //fp = fopen (fullname, "rb");
-    fp = mySilent_Tcl_OpenFileChannel(NULL, fullname, "r", 0666);
-    if (fp == NULL) {
-        return ERROR_FileOpen;
-    }
- my_Tcl_SetChannelOption(NULL, fp, "-encoding", "binary");
- my_Tcl_SetChannelOption(NULL, fp, "-translation", "binary");
-
-    uint magic = readFourBytes (fp);
-    if (magic != TREEFILE_MAGIC) {
-        //fclose (fp);
-        my_Tcl_Close(NULL, fp);
-
-#else
     FILE * fp;
     fileNameT fullname;
     strCopy (fullname, fname);
@@ -398,7 +344,6 @@ TreeCache::ReadFile (const char * fname)
     uint magic = readFourBytes (fp);
     if (magic != TREEFILE_MAGIC) {
         fclose (fp);
-#endif
         return ERROR_Corrupt;
     }
     readTwoBytes (fp);  // Scid Version; unused
@@ -444,11 +389,7 @@ TreeCache::ReadFile (const char * fname)
         ctree->cfilter = new CompressedFilter;
         ctree->cfilter->ReadFromFile (fp);
     }
-#ifdef WINCE
-     my_Tcl_Close(NULL, fp);
-#else
     fclose (fp);
-#endif
     return OK;
 }
 

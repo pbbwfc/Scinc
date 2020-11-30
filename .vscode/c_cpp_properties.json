@@ -7,7 +7,6 @@
             ],
             "defines": [
                 "WIN32",
-                "ZLIB",
                 "SOURCE_TCL_FILE"
             ],
             "windowsSdkVersion": "10.0.18362.0",

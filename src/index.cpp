@@ -49,7 +49,6 @@ enum {
     SORT_deleted, SORT_eventdate, SORT_variations, SORT_comments, SORT_random, SORT_sentinel
 };
 
-#ifdef WIN32 // Fast file read
 
 struct Index::WinFileMapping {
     Index& index;
@@ -77,7 +76,6 @@ struct Index::WinFileMapping {
     }
 };
 
-#endif
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // IndexEntry::Init():
@@ -1128,15 +1126,11 @@ Index::ReadEntireFile (int reportFrequency,
             gamesToRead = INDEX_ENTRY_CHUNKSIZE;
         }
 
-#ifdef WIN32 // Fast file read
         { Index::WinFileMapping fileMapping(*this, FilePtr->GetFileName());
-#endif
 
         err = ReadEntries (Entries[chunkCount], readCount, gamesToRead);
 
-#ifdef WIN32 // Fast file read
         }
-#endif
 
         if (err != OK) {
             for (uint i = 0; i <= chunkCount; i++) {

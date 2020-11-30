@@ -15,11 +15,7 @@
 #include "filter.h"
 
 // Include header file for memcpy():
-#ifdef WIN32
 #  include <memory.h>
-#else
-#  include <string.h>
-#endif
 
 void
 Filter::Init (uint size) {

@@ -184,15 +184,9 @@ OpLine::Init (Game * g, IndexEntry * ie, gameNumberT gameNum,
 void
 OpLine::Destroy (void)
 {
-#ifdef WINCE
-    my_Tcl_Free((char*) White);
-    my_Tcl_Free((char*) Black);
-    my_Tcl_Free((char*)  Site);
-#else
     delete[] White;
     delete[] Black;
     delete[] Site;
-#endif
 }
 
 
@@ -554,11 +548,7 @@ OpTable::Clear (void)
         delete Line[i];
     }
     for (i=0; i < NumMoveOrders; i++) {
-#ifdef WINCE
-        my_Tcl_Free((char*) MoveOrder[i].moves);
-#else
         delete MoveOrder[i].moves;
-#endif
     }
     NumLines = NumTableLines = 0;
     NumMoveOrders = 0;
@@ -568,11 +558,7 @@ OpTable::Clear (void)
     TheoryResults[RESULT_White] = TheoryResults[RESULT_Black] = 0;
     TheoryResults[RESULT_Draw] = TheoryResults[RESULT_None] = 0;
     if (EcoStr != NULL) {
-#ifdef WINCE
-        my_Tcl_Free((char*) EcoStr);
-#else
         delete[] EcoStr;
-#endif
         EcoStr =  NULL;
     }
     ExcludeMove[0] = 0;
@@ -761,43 +747,6 @@ OpTable::GuessNumRows (void)
     SetNumRows (int_sqrt((NumTableLines * 3) / 4) + 3);
 }
 
-#ifdef WINCE
-void
-OpTable::DumpLines (/*FILE * */ Tcl_Channel fp)
-{
-    MakeRows();
-    DString * dstr = new DString;
-    char buf[1024];
-    for (uint i=0; i < NumRows; i++) {
-        bool first = true;
-        OpLine * line = Row[i];
-        OpLine * prevLine = NULL;
-        while (line != NULL) {
-            dstr->Clear();
-            if (first) {
-                first = false;
-                line->PrintNote (dstr, (StartLength + 2) / 2, 0, OPTABLE_Text);
-                //fprintf (fp, "ROW %u[%u]: ", i+1, NLines[i]);
-                sprintf (buf, "ROW %u[%u]: ", i+1, NLines[i]);
-                my_Tcl_Write(fp,buf,strlen(buf));
-            } else {
-                //fprintf (fp, "   %u-NOTE: ", i+1);
-                sprintf (buf, "   %u-NOTE: ", i+1);
-                my_Tcl_Write(fp,buf,strlen(buf));
-                line->PrintNote (dstr, (StartLength + 2) / 2,
-                            line->CommonLength(prevLine), OPTABLE_Text);
-            }
-            //fprintf (fp, "%s\n", dstr->Data());
-            sprintf (buf, "%s\n", dstr->Data());
-            my_Tcl_Write(fp,buf,strlen(buf));
-            prevLine = line;
-            line = line->Next;
-        }
-    }
-    delete dstr;
-}
-
-#else
 void
 OpTable::DumpLines (FILE * fp)
 {
@@ -825,7 +774,6 @@ OpTable::DumpLines (FILE * fp)
     }
     delete dstr;
 }
-#endif
 
 bool
 OpTable::IsRowMergable (uint rownum)
@@ -968,11 +916,7 @@ OpTable::SortTableLines (OpLine ** lines, uint nlines, uint depth)
     if (nlines < 2) { return; }
     if (depth >= OPLINE_MOVES) { return; }
 
-#ifdef WINCE
-    opSortT * moves = (opSortT *) my_Tcl_Alloc(sizeof( opSortT [nlines]));
-#else
     opSortT * moves = new opSortT [nlines];
-#endif
 
     for (i=0; i < nlines; i++) {
         bool newMove = true;
@@ -1037,11 +981,7 @@ OpTable::SortTableLines (OpLine ** lines, uint nlines, uint depth)
     }
 
     // Delete the moves array:
-#ifdef WINCE
-    my_Tcl_Free((char*)moves);
-#else
     delete[] moves;
-#endif
 }
 
 void
@@ -1641,11 +1581,7 @@ OpTable::TopPlayers (DString * dstr, colorT c, uint count)
         uint id = (c == WHITE ? Line[i]->WhiteID : Line[i]->BlackID);
         if (id > largestPlayerID) { largestPlayerID = id; }
     }
-#ifdef WINCE
-    playerFreqT * pf = (playerFreqT *) my_Tcl_Alloc(sizeof(playerFreqT [largestPlayerID + 1]));
-#else
     playerFreqT * pf = new playerFreqT [largestPlayerID + 1];
-#endif
     for (i=0; i <= largestPlayerID; i++) {
         pf[i].name = NULL;
         pf[i].frequency = 0;
@@ -1837,11 +1773,7 @@ OpTable::TopPlayers (DString * dstr, colorT c, uint count)
     dstr->Append (endTable);
 
     // Delete temporary player frequency data:
-#ifdef WINCE
-    my_Tcl_Free((char*)pf);
-#else
     delete[] pf;
-#endif
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2354,11 +2286,7 @@ OpTable::EndMaterialReport (DString * dstr, const char * repGames,
 uint *
 OpTable::SelectGames (char type, uint number)
 {
-#ifdef WINCE
-    uint * matches = (uint *) my_Tcl_Alloc(sizeof( uint [NumLines * 2 + 2]));
-#else
     uint * matches = new uint [NumLines * 2 + 2];
-#endif
     uint * match = matches;
 
     for (uint i=0; i < NumLines; i++) {

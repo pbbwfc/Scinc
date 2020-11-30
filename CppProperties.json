@@ -11,8 +11,7 @@
                 "${workspaceRoot}\\**"
             ],
             "defines": [
-                "WIN32",
-                "ZLIB"
+                "WIN32"
              ],
             "intelliSenseMode": "linux-gcc-x64",
             "environments": [

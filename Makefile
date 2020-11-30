@@ -18,20 +18,13 @@ CC=$(MINGW_TARGET)-gcc
 RC=windres
 LINK=$(CXX)
 
-### SCIDFLAGS: Scid customization flags.
-#      Use -DZLIB if your system does not have zlib and you need
-#      to include the code in the src/zlib directory.
-#      The default is to use the system zlib library.
-
-SCIDFLAGS = -DZLIB
-
 WARNINGS = -Wall
 
 CFLAGS = -DWIN32 -O2 $(WARNINGS)
 # Debug
 # CFLAGS = -DWIN32 -O0 $(WARNINGS) -g3 -ggdb
 
-CXXFLAGS = -fno-rtti $(CFLAGS) $(SCIDFLAGS)
+CXXFLAGS = -fno-rtti $(CFLAGS)
 
 LDFLAGS =
 RCFLAGS = --output-format=coff

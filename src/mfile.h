@@ -36,15 +36,11 @@
 #include "dstring.h"
 #include "error.h"
 
-#ifdef WIN32
 # include "win_mmap.h"
-#endif
 
 enum mfileT {
     MFILE_REGULAR = 0, MFILE_MEMORY, MFILE_GZIP, MFILE_ZIP,
-#ifdef WIN32
     MFILE_MMAP,
-#endif
 };
 
 class MFile
@@ -71,9 +67,7 @@ class MFile
 
     char *      FileBuffer;  // Only for files with unusual buffer size.
 
-#ifdef WIN32
     WinMMap *   MappedFile;  // File mapping for fast read access.
-#endif
 
     void  Extend();
     int   FillGzBuffer();
@@ -85,9 +79,7 @@ class MFile
         if (Data != NULL) { delete[] Data; }
         if (FileBuffer != NULL) { delete[] FileBuffer; }
         if (FileName != NULL) { delete[] FileName; }
-#ifdef WIN32
         delete MappedFile;
-#endif
     }
 
     void Init();
@@ -96,9 +88,7 @@ class MFile
 
     errorT Create (const char * name, fileModeT fmode);
     errorT Open  (const char * name, fileModeT fmode);
-#ifdef WIN32
     errorT OpenMappedFile (const char * name, fileModeT fmode);
-#endif
     void   CreateMemory () { Close(); Init(); }
     errorT Close ();
 
@@ -148,10 +138,8 @@ MFile::EndOfFile ()
     case MFILE_GZIP:
         if (GzBuffer_Avail > 0) { return 0; }
         return gzeof(GzHandle);
-#ifdef WIN32
     case MFILE_MMAP:
         return Location >= MappedFile->size();
-#endif
     default:
         return false;
     }
@@ -195,7 +183,6 @@ MFile::ReadOneByte ()
         GzBuffer_Current++;
         return retval;
     }
-#ifdef WIN32
     if (Type == MFILE_MMAP) {
         if (Location >= MappedFile->size()) { return EOF; }
         return *(MappedFile->address() + Location++);
@@ -203,14 +190,6 @@ MFile::ReadOneByte ()
         Location++;
         return getc(Handle);
     }
-#else
-    Location++;
-# ifdef __GNUC__
-    return getc_unlocked(Handle);
-# else
-    return getc(Handle);
-# endif
-#endif
 }
 
 #endif  // SCID_MFILE_H

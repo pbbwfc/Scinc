@@ -20,7 +20,6 @@
 #define M_ASSERT(x) assert(x)
 
 
-#if defined(WIN32) || (defined(__unix__) && !defined(__MacOSX__))
 
 extern "C" { int TclRenameCommand(Tcl_Interp* ti, char const* oldName, char const* newName); }
 
@@ -823,10 +822,5 @@ Tk_Selection_Init(Tcl_Interp* ti)
 	Tcl_CreateObjCommand(ti, "selection", selCmd, 0, 0);
 }
 
-#else
- 
-void Tk_Selection_Init(Tcl_Interp* ti) {}
-
-#endif
 
 // vi:set ts=3 sw=3:

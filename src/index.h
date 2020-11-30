@@ -252,26 +252,6 @@ class IndexEntry
     
   public:
     
-#ifdef WINCE
-  void* operator new (size_t sz) {
-    void* m = my_Tcl_AttemptAlloc(sz);
-    return m;
-  }
-
-  void operator delete (void* m) {
-    my_Tcl_Free((char*)m);
-  }
-
-  void* operator new [] (size_t sz) {
-    void* m = my_Tcl_AttemptAlloc(sz);
-    return m;
-  }
-
-  void operator delete [] (void* m) {
-    my_Tcl_Free((char*)m);
-  }
-
-#endif
     IndexEntry() {}
     ~IndexEntry() {}
     void Init();
@@ -651,24 +631,6 @@ class Index
     //----------------------------------
  public:
     uint *        EntriesHeap;
-#ifdef WINCE
-  void* operator new(size_t sz) {
-    void* m = my_Tcl_AttemptAlloc(sz);
-    return m;
-  }
-  void operator delete(void* m) {
-    my_Tcl_Free((char*)m);
-  }
-  void* operator new [] (size_t sz) {
-    void* m = my_Tcl_AttemptAlloc(sz);
-    return m;
-  }
-
-  void operator delete [] (void* m) {
-    my_Tcl_Free((char*)m);
-  }
-
-#endif
     Index()     { Init(); }
     ~Index()    { Clear(); }
 
@@ -766,10 +728,8 @@ class Index
 
      errorT     ParseSortCriteria (const char * inputStr);
 
-#ifdef WIN32 // Fast file read
     class WinFileMapping;
     friend class WinFileMapping;
-#endif
 };
 
 
