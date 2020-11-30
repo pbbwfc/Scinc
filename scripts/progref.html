@@ -1354,7 +1354,6 @@ Commands:
 / <a href="#pos_moveNumber">moveNumber</a>
 / <a href="#pos_pgnBoard">pgnBoard</a>
 / <a href="#pos_pgnOffset">pgnOffset</a>
-/ <a href="#pos_probe">probe</a>
 / <a href="#pos_setComment">setComment</a>
 / <a href="#pos_side">side</a>.
 </p>
@@ -1480,18 +1479,6 @@ Returns the PGN offset of the current move (or next move if the optional
 <i>next</i> is true) in the current game, which is the number of moves
 printed up to the move in its PGN representation. This is used for
 highlighting the current and next move in the PGN window.
-</p>
-
-<h4><a name="pos_probe">sc_pos probe [report|optimal|score]</a></h4>
-<p>
-Probes tablebases for information about the current position.
-The information returned depends on the parameter, For "report",
-it returns a report of results for each legal move with the moves
-grouped by result, as seen in the Tablebase window.
-For "optimal", it returns a list of optimal moves for this position,
-For "score" (the default), it returns the tablebase result as an integer
-where 0 is a draw, 1 means the to move mates in 1, -1 means the side to
-move is checkmated, etc.
 </p>
 
 <h4><a name="pos_setComment">sc_pos setComment <i>text</i></a></h4>

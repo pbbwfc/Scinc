@@ -45,6 +45,8 @@ You can get a copy of the binary version by downloading a zip from Releases.
 * No support for custom pieces or textures
 * No support for chess figurine fonts
 * No support for zip files
+* Only plain text PGN files
+* No support for Tablebases
 
 ## Development Instructions
 

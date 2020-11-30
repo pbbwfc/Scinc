@@ -26,7 +26,6 @@
 #include "pgnparse.h"
 #include "timer.h"
 #include "spellchk.h"
-#include "probe.h"
 #include "optable.h"
 #include "stored.h"
 #include "polyglot.h"
@@ -72,14 +71,6 @@ const filterOpT FILTEROP_AND = 0;
 const filterOpT FILTEROP_OR = 1;
 const filterOpT FILTEROP_RESET = 2;
 
-
-// Tablebase probe modes:
-
-#define PROBE_NONE 0
-#define PROBE_RESULT 1
-#define PROBE_SUMMARY 2
-#define PROBE_REPORT 3
-#define PROBE_OPTIMAL 4
 
 // TreeCache size for each open database:
 const uint SCID_TreeCacheSize = 1000; //250
@@ -485,7 +476,6 @@ int sc_info_fsize     (TCL_ARGS);
 int sc_info_limit     (TCL_ARGS);
 int sc_info_priority  (TCL_ARGS);
 int sc_info_suffix    (TCL_ARGS);
-int sc_info_tb        (TCL_ARGS);
 
 int sc_move           (TCL_ARGS);
 int sc_move_add       (TCL_ARGS);
@@ -523,8 +513,6 @@ int sc_pos_isInsufficient (TCL_ARGS);
 int sc_pos_isPromo    (TCL_ARGS);
 int sc_pos_matchMoves (TCL_ARGS);
 int sc_pos_pgnBoard   (TCL_ARGS);
-int sc_pos_probe      (TCL_ARGS);
-int sc_pos_probe_board (TCL_ARGS);
 int sc_pos_setComment (TCL_ARGS);
 int sc_pos_moves      (TCL_ARGS);
 int sc_pos_moves_uci  (TCL_ARGS);

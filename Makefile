@@ -96,20 +96,20 @@ scidt.exe: src/scidt.o $(OBJS)
 	$(LINK) -o rel/bin/scidt.exe src/scidt.o $(OBJS) -L$(TCL_DIR)/lib -ltcl$(TCL_VERSION)
 
 scinc.exe: src/scid.o $(OBJS) src/tree.o src/filter.o \
-            src/pbook.o src/spellchk.o src/probe.o \
+            src/pbook.o src/spellchk.o  \
             src/optable.o src/engine.o src/recog.o src/tkdnd/TkDND_OleDND.o src/tk_selection.o scid.res
 	$(LINK) $(LDFLAGS) -o rel/bin/scinc.exe src/scid.o $(OBJS) \
             src/tree.o src/filter.o src/pbook.o \
-            src/spellchk.o src/probe.o \
+            src/spellchk.o \
             src/optable.o src/engine.o src/recog.o src/tkdnd/TkDND_OleDND.o src/tk_selection.o rel/bin/scid.res \
 	    -mwindows -lole32 -luuid -L$(TCL_DIR)/lib -ltk$(TCL_VERSION) -ltcl$(TCL_VERSION)
 
 tcscid.exe: src/tcscid.o $(OBJS) src/tree.o src/filter.o \
-            src/pbook.o src/spellchk.o src/probe.o \
+            src/pbook.o src/spellchk.o \
             src/optable.o src/engine.o src/recog.o
 	$(LINK) $(LDFLAGS) -o rel/bin/tcscid.exe src/tcscid.o $(OBJS) -ltcl$(TCL_VERSION) \
             src/tree.o src/filter.o src/pbook.o \
-            src/spellchk.o src/probe.o \
+            src/spellchk.o \
             src/optable.o src/engine.o src/recog.o \
             -L$(TCL_DIR)/lib -ltcl$(TCL_VERSION)
 
@@ -123,7 +123,6 @@ clean:
 strip:
 	$(MINGW_TARGET)-strip $(EXECS)
 
-
 src/tcscid.o: src/tkscid.cpp
 	$(CXX) $(CXXFLAGS) -std=c++0x -I$(TCL_DIR)/include -DTCL_ONLY -c src/tkscid.cpp \
 	  -o ./src/tcscid.o
@@ -131,9 +130,6 @@ src/tcscid.o: src/tkscid.cpp
 src/scid.o: src/tkscid.cpp
 	$(CXX) $(CXXFLAGS) -std=c++0x -I$(TCL_DIR)/include -DSOURCE_TCL_FILE="\"scinc.gui\"" \
 	  -c src/tkscid.cpp -o ./src/scid.o
-
-src/probe.o: src/probe.cpp src/egtb/tbindex.cpp src/egtb/tbdecode.c
-	$(CXX) $(CXXFLAGS) -Wno-missing-braces -c src/probe.cpp -o ./src/probe.o
 
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -I$(TCL_DIR)/include -c $< -o ./$@
