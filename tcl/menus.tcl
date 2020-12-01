@@ -666,7 +666,7 @@ $m add command -label OptionsSave -command {
     foreach i [lsort [array names cleaner]] {
       puts $optionF "set cleaner($i) [list $cleaner($i)]"
     }
-    foreach type {base html tex epd stm sso pgn report tablebase1 tablebase2 tablebase3 tablebase4} {
+    foreach type {base html tex stm sso pgn report tablebase1 tablebase2 tablebase3 tablebase4} {
       puts $optionF "set initialDir($type) [list $initialDir($type)]"
     }
     puts $optionF ""

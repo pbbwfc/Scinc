@@ -328,7 +328,6 @@ set cleaner(twins) 1
 set initialDir(base) I:/GitHub/Scinc/rel/bases
 set initialDir(html) ./
 set initialDir(tex) ./
-set initialDir(epd) ./
 set initialDir(stm) ./
 set initialDir(sso) ./
 set initialDir(pgn) ./

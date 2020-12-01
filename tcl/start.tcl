@@ -387,7 +387,6 @@ array set findopponent {}
 # Defaults for initial directories:
 set initialDir(base) $::env(HOME)
 set initialDir(pgn)  $::env(HOME)
-set initialDir(epd)  $::env(HOME)
 set initialDir(html) $::env(HOME)
 set initialDir(tex)  $::env(HOME)
 set initialDir(stm)  $::env(HOME)

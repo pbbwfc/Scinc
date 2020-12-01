@@ -394,15 +394,6 @@ int sc_base_fix_corrupted   (TCL_ARGS);
 int sc_base_sortup (TCL_ARGS);
 int sc_base_sortdown (TCL_ARGS);
 
-int sc_epd            (TCL_ARGS);
-int sc_epd_deepest    (Tcl_Interp * ti, int epdID);
-int sc_epd_moves      (Tcl_Interp * ti, int epdID);
-int sc_epd_next       (Tcl_Interp * ti, int epdID, bool forwards);
-int sc_epd_open       (Tcl_Interp * ti, int argc, const char ** argv, bool create);
-int sc_epd_set        (Tcl_Interp * ti, int epdID, const char * text);
-int sc_epd_write      (Tcl_Interp * ti, int epdID);
-// int sc_epd_load      	(Tcl_Interp * ti, int epdID, int from, int to);
-
 int sc_clipbase       (TCL_ARGS);
 int sc_clipbase_clear (Tcl_Interp * ti);
 int sc_clipbase_copy  (TCL_ARGS);

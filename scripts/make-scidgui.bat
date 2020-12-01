@@ -1,6 +1,6 @@
 copy tcl\start.tcl + tcl\config.tcl + tcl\bitmaps.tcl + tcl\language.tcl + tcl\utils.tcl + tcl\utils\date.tcl +tcl\utils\font.tcl +tcl\utils\graph.tcl +tcl\utils\history.tcl + tcl\utils\pane.tcl + tcl\utils\sound.tcl + tcl\utils\string.tcl 1
 
-copy tcl\utils\tooltip.tcl + tcl\utils\validate.tcl + tcl\utils\win.tcl + tcl\misc\misc.tcl + tcl\htext.tcl + tcl\file.tcl + tcl\file\finder.tcl + tcl\file\bookmark.tcl + tcl\file\recent.tcl + tcl\file\epd.tcl + tcl\file\spellchk.tcl 2
+copy tcl\utils\tooltip.tcl + tcl\utils\validate.tcl + tcl\utils\win.tcl + tcl\misc\misc.tcl + tcl\htext.tcl + tcl\file.tcl + tcl\file\finder.tcl + tcl\file\bookmark.tcl + tcl\file\recent.tcl + tcl\file\spellchk.tcl 2
 
 copy tcl\file\maint.tcl + tcl\edit.tcl + tcl\game.tcl + tcl\game\browser.tcl + tcl\windows.tcl + tcl\windows\gamelist.tcl + tcl\windows\pgn.tcl + tcl\windows\book.tcl + tcl\windows\comment.tcl + tcl\windows\eco.tcl 3
 

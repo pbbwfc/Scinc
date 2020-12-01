@@ -151,7 +151,6 @@ set helpText(Scid) {<h1>Databases and General Use</h1>
   <li><a Compact><b>Compacting</b> a database</a></li>
   <li><a Maintenance><b>Database maintenance</b> tools</a></li>
   <li><a ECO><b>ECO</b> codes</a></li>
-  <li><a EPD><b>EPD</b> files</a></li>
   <li><a Export><b>Exporting</b> games</a></li>
   <li><a Import><b>Import game</b> Window</a></li>
   <li><a LaTeX>Using <b>LaTeX</b> with Scid</a></li>
@@ -244,8 +243,6 @@ append helpText(Index) {
   <li><a Analysis List>Engines</a> - configuring</li>
   <li><a Analysis Debugging>Engines</a> - debugging</li>
   <li><a Moves>Entering Moves</a></li>
-  <li><a EPD>EPD Files</a></li>
-  <li><a EPD opcodes>EPD Opcodes</a></li>
   <li><a Export>Exporting Games</a></li>
   </ul>
 
@@ -431,7 +428,7 @@ set helpText(Hints) {<h1>Scid Hints</h1>
 
   <h4>Can I load automatically load a databases</h4>
   <p>
-  Only by adding databases, PGN files or <a EPD>EPD files</a>
+  Only by adding databases or PGN files
   to the command line. For example:
   <ul>
   <li> <b>scid  mybase  games.pgn.gz</b> </li>
@@ -2662,90 +2659,6 @@ set helpText(CalVar) {<h1>Calculation of Variations</h1>
   <p><footer>Updated: Scid vs. PC 4.7, January 2012</footer></p>
 }
 
-set helpTitle(EPD) "EPD files"
-set helpText(EPD) {<h1>EPD Files</h1>
-  <p>
-  An <b>Extended Position Description</b> file is a text file with chess positions;
-  each having some associated text.
-  <br>
-  Like <a PGN>PGN</a>, it is a common standard for chess information.
-  </p>
-  <p>
-  EPD files contain <a EPD opcodes>Opcodes</a> , or fields, which are separated by semicolons in the file,
-  but shown on separate lines in Scid's EPD Window.
-  (Semicolons within an EPD field are stored as "<b>\s</b>" to distinguish them from end-of-field markers).
-  They have a number of uses. Scid uses an EPD file to classify
-  games according to the <a ECO>ECO</a> system, and you can create an EPD file for your opening repertoire,
-  adding comments for positions you regularly reach in games [Feature removed].
-  </p>
-  <p>
-  At most four EPD files can be open at any time.
-  </p>
-  <p><i>
-  Scid vs PC will automatically save changes to all EPD positions on the fly. 
-  To avoid dataloss, please backup EPD files before using them.
-  </i></p>
-
-  <h3>Navigating EPD files</h3>
-  <p>
-  To browse the positions in an EPD file, use  the <b>Control+Down</b>,
-  <b>Control+Up</b>, <b>Control+Home</b> or <b>Control+End</b> keys.
-  These commands move to the next/previous position in the file, clearing
-  the current game and setting its start position.
-  </p>
-
-  <h3>Annotating</h3>
-  <p>
-  EPD files can be automatically annotated by the <b>Tools--<gt>Annotate Positions</b> menu.
-  A dialogue will ask for the Analysis Time 
-  , and the first analysis engine will start.
-  The EPD tags used are <b>acd</b>, <b>acn</b>, <b>ce</b> and <b>pv</b>.
-  </p>
-
-  <h3>Stripping out EPD fields</h3>
-  <p>
-  EPD files you find on the Internet may contain fields that do not
-  interest you, and they can waste a lot of space in the file.
-  For example, an EPD file of computer evaluations might have ce, acd,
-  acn, pm, pv and id fields but you may only need the ce and pv fields.
-  </p>
-  <p>
-  You can strip out an EPD opcode from all positions in the EPD file using
-  the <b>Tools--<gt>Strip out EPD field</b> menu.
-  </p>
-
-  <h3>The EPD window status bar</h3>
-  <p>
-  The status bar of each EPD window shows:
-  <ul>
-  <li>- the file status (<b>--</b> means unchanged, <b>XX</b> means
-  changed, and <b>%%</b> means read-only); </li>
-  <li>- the file name; </li>
-  <li>- the number of positions in the file; </li>
-  <li>- legal moves from the current position reach another position
-  in this EPD file.</li>
-  </ul>
-
-  <h3><name opcodes>Standard EPD Opcodes</name></h3>
-  <ul>
-  <li> <b>acd</b> Analysis count: depth searched.</li>
-  <li> <b>acn</b> Analysis count: number of nodes searched.</li>
-  <li> <b>acs</b> Analysis count: search time in seconds.</li>
-  <li> <b>bm</b> Best moves: move(s) judged best for some reason.</li>
-  <li> <b>ce</b> Centipawn evaluation: evaluation in hundredths of a
-  pawn from the perspective of the <b>side to move</b> -- note this
-  differs from the Analysis window which shows evaluations in pawns from
-  Whites perspective. </li>
-  <li> <b>cX</b> Comment (where <b>X</b> is a digit, 0-9).</li>
-  <li> <b>eco</b> <a ECO>ECO</a> system opening code.</li>
-  <li> <b>id</b> Unique Identification for this position.</li>
-  <li> <b>nic</b> <i>New In Chess</i> system opening code.</li>
-  <li> <b>pm</b> Predicted move: the first move of the PV.</li>
-  <li> <b>pv</b> Predicted variation: the line of best play.</li>
-  </ul>
-
-  <p><footer>Updated: Scid vs. PC 4.15, August 2015</footer></p>
-}
 
 set helpTitle(Reports) "Reports"
 set helpText(Reports) {<h1>Reports</h1>
@@ -3085,12 +2998,6 @@ set helpText(Formats) {<h1>Scid File Formats</h1>
   be restored to its minimal size by <a Compact>compaction</a>.
   </p>
 
-  <h3>Other file formats</h3>
-  <p>
-  An <a EPD>EPD</a> file (<b>.epd</b>)
-  contains a number of chess positions, each with a text comment.
-  The EPD file format is described in the <a Related>PGN Standard</a>.
-  </p>
   <p>
   A SearchOptions (<b>.sso</b>) file contains Scid
   <a Searches Header>header</a> or
@@ -3551,7 +3458,7 @@ set helpText(Related) {<h1>Links</h1>
   <li>Debian/Mint/Ubuntu installation how-to <url http://www.linuxx.eu/2012/11/scid-vs-pc-installation-guide-ubuntu.html>http://www.linuxx.eu/2012/11/scid-vs-pc-installation-guide-ubuntu.html</url></li>
   <li>Ed Collins' Scid vs. PC page <url http://edcollins.com/chess/scidvspc/index.html>http://edcollins.com/chess/scidvspc/index.html</url></li>
   <li>Gorgonian's custom pieces <url http://gorgonian.weebly.com/scid-vs-pc.html>http://gorgonian.weebly.com/scid-vs-pc.html</url></i>
-  <li>The PGN and EPD standards <url http://www.saremba.de/chessgml/standards/pgn/pgn-complete.htm>www.saremba.de/chessgml/standards/pgn...</url></li>
+  <li>The PGN standards <url http://www.saremba.de/chessgml/standards/pgn/pgn-complete.htm>www.saremba.de/chessgml/standards/pgn...</url></li>
   <li>Common PGN extensions <url http://www.enpassant.dk/chess/palview/enhancedpgn.htm>http://www.enpassant.dk/chess/palview/enhancedpgn.htm</url></li>
   <li>Pgn of players <url http://www.pgnmentor.com/files.html#players>www.pgnmentor.com/files.html#players</url></li>
   <li>Pgn of events <url http://www.pgnmentor.com/files.html#events>www.pgnmentor.com/files.html#events</url></li>

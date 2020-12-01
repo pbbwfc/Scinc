@@ -2842,10 +2842,6 @@ Position::PrintCompactStrFlipped (char * cboard)
 //      IMPORTANT: the shortcut of having a two-digit number to represent
 //      a number of empty rows (e.g. "/24/" instead of "/8/8/8/") is NOT
 //      accepted by this function.
-//
-//      It is not considered an error for the halfmove clock or fullmove
-//      counter to be invalid, so this routine can also read positions
-//      from EPD lines (which only share the first four fields with FEN).
 errorT
 Position::ReadFromFEN (const char * str)
 {

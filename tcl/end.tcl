@@ -1893,7 +1893,7 @@ proc fullname {fname} {
 }
 
 # Loading a database if specified on the command line:
-# Need to check file type: .epd, .pgn, .pgn.gz, etc
+# Need to check file type: .pgn etc
 
 while {$argc > 0} {
   set arg [lindex $argv 0]
@@ -1912,13 +1912,7 @@ while {$argc > 0} {
     set argc 0
     break
   }
-  if {[string match "*.epd*" $startbase]} {
-    ::splash::add "Opening EPD file: $startbase..."
-    if {![newEpdWin openSilent $startbase]} {
-      ::splash::add "   Error opening EPD file: $startbase" error
-    }
-    set initialDir(epd) [file dirname $startbase]
-  } elseif {[string match "*.sso" $startbase]} {
+  if {[string match "*.sso" $startbase]} {
     ::splash::add "Opening filter file: $startbase..."
     if {[catch {uplevel "#0" source $startbase} err]} {
       ::splash::add "   Error opening $startbase: $err" error

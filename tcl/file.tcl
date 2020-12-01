@@ -74,9 +74,7 @@ proc ::file::New {} {
     return
   }
   set ftype {
-    { "Scid databases, EPD files" {".si4" ".epd"} }
     { "Scid databases" {".si4"} }
-    { "EPD files" {".epd"} }
   }
   if {! [file isdirectory $::initialDir(base)] } {
     set ::initialDir(base) $::env(HOME)
@@ -84,10 +82,6 @@ proc ::file::New {} {
   set fName [tk_getSaveFile -initialdir $::initialDir(base) -filetypes $ftype -title "Create a Scid database"]
   if {$fName == {}} {
     return
-  } elseif {[file extension $fName] == ".epd"} {
-    if {![newEpdWin create $fName]} {
-      return
-    }
   } else {
     if {[file extension $fName] == ".si4"} {
       set fName [file rootname $fName]
@@ -122,10 +116,9 @@ proc ::file::Open {{fName ""} {parent .} {update 1}} {
   }
 
   set ftype {
-    { {All Scid files} {.si4 .si3 .pgn .PGN .epd} }
+    { {All Scid files} {.si4 .pgn .PGN} }
     { {Scid databases} {.si4 .si3} }
     { {PGN files} {.pgn .PGN} }
-    { {EPD files} {.epd .EPD} }
   }
 
   if {$fName == ""} {
@@ -183,13 +176,6 @@ proc ::file::Open {{fName ""} {parent .} {update 1}} {
     } else {
       set ::initialDir(base) [file dirname $fName]
       ::recentFiles::add "$fName.si4"
-    }
-  } elseif {[string match "*.epd" [string tolower $fName]]} {
-    # EPD file:
-    if {[newEpdWin open $fName]} {
-      ::recentFiles::add $fName
-    } else {
-      ::recentFiles::remove $fName
     }
   } else {
     if {![file exists $fName]} {

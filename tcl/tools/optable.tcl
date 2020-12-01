@@ -96,7 +96,7 @@ proc ::optable::makeReportWin {args} {
     busyCursor .
   }
   sc_search board RESET Exact false 0
-  set newTreeData [sc_tree search -time 0 -epd 0 -adjust 1]
+  set newTreeData [sc_tree search -time 0 -adjust 1]
   if {$showProgress} {
     if {$::optable::_interrupt} {
       unbusyCursor .
