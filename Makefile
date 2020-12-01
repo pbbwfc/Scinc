@@ -41,14 +41,6 @@ OBJS= src/misc.o src/index.o src/date.o src/namebase.o src/position.o \
       src/game.o src/gfile.o src/matsig.o src/bytebuf.o src/textbuf.o \
       src/myassert.o src/stralloc.o src/mfile.o src/dstring.o src/pgnparse.o \
       src/stored.o src/movelist.o \
-      src/polyglot/attack.o src/polyglot/board.o src/polyglot/book.o \
-      src/polyglot/book_make.o src/polyglot/book_merge.o src/polyglot/colour.o \
-      src/polyglot/fen.o src/polyglot/game.o src/polyglot/hash.o \
-      src/polyglot/io.o src/polyglot/line.o src/polyglot/list.o src/polyglot/main.o src/polyglot/move.o \
-      src/polyglot/move_do.o src/polyglot/move_gen.o src/polyglot/move_legal.o src/polyglot/option.o \
-      src/polyglot/parse.o src/polyglot/pgn.o src/polyglot/piece.o src/polyglot/random.o \
-      src/polyglot/san.o src/polyglot/search.o src/polyglot/square.o src/polyglot/util.o
-
 
 ### TCLS: all the .tcl files that make up "scinc".
 TCLS= \
@@ -117,7 +109,7 @@ scid.res: scid.rc
 	$(RC) $(RCFLAGS) -o rel/bin/scid.res scid.rc
 
 clean:
-	rm -f src/*.o src/polyglot/*.o rel/bin/*.exe rel/bin/scinc.gui rel/bin/scid.res
+	rm -f src/*.o rel/bin/*.exe rel/bin/scinc.gui rel/bin/scid.res
 	$(MAKE) -C src/tkdnd/ -f Makefile.mingwx clean
 
 strip:

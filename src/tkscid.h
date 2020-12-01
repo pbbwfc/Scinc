@@ -28,7 +28,6 @@
 #include "spellchk.h"
 #include "optable.h"
 #include "stored.h"
-#include "polyglot.h"
 
 #include "tclmy.h"
 #ifndef _MSC_VER
@@ -544,13 +543,6 @@ int sc_search_moves   (TCL_ARGS);
 int sc_search_material (TCL_ARGS);
 int sc_search_header  (TCL_ARGS);
 
-int sc_book  					(TCL_ARGS);
-int sc_book_load  		(TCL_ARGS);
-int sc_book_close  		(TCL_ARGS);
-int sc_book_moves  		(TCL_ARGS);
-int sc_book_positions  		(TCL_ARGS);
-int sc_book_update		(TCL_ARGS);
-int sc_book_movesupdate		(TCL_ARGS);
 //////////////////////////////////////////////////////////////////////
 /// END of tkscid.h
 //////////////////////////////////////////////////////////////////////

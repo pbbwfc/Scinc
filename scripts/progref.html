@@ -25,22 +25,21 @@ Last updated by Stevenaaus, 14-Mar-2013
 <td>
 1. <a href="#intro">Introduction</a> <br>
 2. <a href="#base">sc_base</a> <br>
-3. <a href="#book">sc_book</a> <br>
-4. <a href="#clipbase">sc_clipbase</a> <br>
-5. <a href="#compact">sc_compact</a> <br>
-6. <a href="#filter">sc_filter</a> <br>
-7. <a href="#game">sc_game</a> <br>
-8. <a href="#info">sc_info</a> <br>
-9. <a href="#move">sc_move</a> <br>
+3. <a href="#clipbase">sc_clipbase</a> <br>
+4. <a href="#compact">sc_compact</a> <br>
+5. <a href="#filter">sc_filter</a> <br>
+6. <a href="#game">sc_game</a> <br>
+7. <a href="#info">sc_info</a> <br>
+8. <a href="#move">sc_move</a> <br>
 </td><td>
-10. <a href="#name">sc_name</a> <br>
-11. <a href="#optable">sc_optable</a> <br>
-12. <a href="#pos">sc_pos</a> <br>
-13. <a href="#progressBar">sc_progressBar</a> <br>
-14. <a href="#search">sc_search</a> <br>
-15. <a href="#tree">sc_tree</a> <br>
-16. <a href="#var">sc_var</a> <br>
-17. <a href="#string">Extra string commands</a> <br>
+9. <a href="#name">sc_name</a> <br>
+10. <a href="#optable">sc_optable</a> <br>
+11. <a href="#pos">sc_pos</a> <br>
+12. <a href="#progressBar">sc_progressBar</a> <br>
+13. <a href="#search">sc_search</a> <br>
+14. <a href="#tree">sc_tree</a> <br>
+15. <a href="#var">sc_var</a> <br>
+16. <a href="#string">Extra string commands</a> <br>
 </td></tr>
 </tbody></table>
 <hr>
@@ -351,140 +350,6 @@ Upgrades an old (2.x) Scid-format database to the new format used
 since Scid 3.0. The database should not already be open.
 Updates the <a href="#progressBar">progress bar</a> if applicable.
 </p>
-
-
-<!-- ************************************************************ -->
-
-<h2><a name="book">sc_book</a></h2>
-
-<p>
-Commands:
-<a href="#book_altered">altered</a>
-/ <a href="#book_available">available</a>
-/ <a href="#book_close">close</a>
-/ <a href="#book_create">create</a>
-/ <a href="#book_deepest">deepest</a>
-/ <a href="#book_get">get</a>
-/ <a href="#book_moves">moves</a>
-/ <a href="#book_name">name</a>
-/ <a href="#book_next">next</a>
-/ <a href="#book_open">open</a>
-/ <a href="#book_prev">prev</a>
-/ <a href="#book_readonly">readonly</a>
-/ <a href="#book_set">set</a>
-/ <a href="#book_size">size</a>
-/ <a href="#book_strip">strip</a>
-/ <a href="#book_write">write</a>
-</p>
-<p>
-This group contains commands for handling "book" (EPD) files.
-An EPD file contains a number of chess positions, one per line,
-with extra text for each position in the form of opcodes (such
-as "bm" for best move and "pv" for principal variation). Each
-In the EPD file, all opcodes and their values are stored on the
-same line as the FEN string for the position, with a semicolon
-separating each opcode. In Scid, the opcodes are separated by
-newline characters instead; this makes EPD positions far easier
-to edit.
-</p>
-<p>
-Most sc_book commands take a <i>bookID</i> parameter which is
-the value returned by sc_book create or sc_book open.
-</p>
-
-<h4><a name="book_altered">sc_book altered <i>bookID</i></a></h4>
-<p>
-Returns a boolean value indicating if the book has been altered
-since it was last opened, created or saved.
-</p>
-
-<h4><a name="book_available">sc_book available</a></h4>
-<p>
-Returns a boolean value indicating if another book file can
-currently be opened or created.
-Use <a href="#info_limit">sc_info limit books</a> to find the
-maximum number of books Scid can have open at any time.
-</p>
-
-<h4><a name="book_close">sc_book close <i>bookID</i></a></h4>
-<p>
-Closes the book file, without saving it.
-</p>
-
-<h4><a name="book_create">sc_book create <i>filename</i></a></h4>
-<p>
-Creates a new empty book file called <i>filename</i>.
-Returns its <i>bookID</i> or an error message.
-</p>
-
-<h4><a name="book_deepest">sc_book deepest <i>bookID</i></a></h4>
-<p>
-Returns the deepest ply in the current game (main moves only,
-not variations) that matches a position in the book.
-</p>
-
-<h4><a name="book_get">sc_book get <i>bookID</i></a></h4>
-<p>
-Returns the book file text for the current position.
-</p>
-
-<h4><a name="book_moves">sc_book moves <i>bookID</i></a></h4>
-<p>
-Returns the list of all legal moves (in standard algebraic
-notation) from the current position that are recorded in this book.
-</p>
-
-<h4><a name="book_name">sc_book name <i>bookID</i></a></h4>
-<p>
-Returns the filename for the book.
-</p>
-
-<h4><a name="book_next">sc_book next <i>bookID</i></a></h4>
-<p>
-Clears the current game and sets its start position to
-be that of the next position found in the book (in the order
-they are stored in the book file).
-</p>
-
-<h4><a name="book_open">sc_book open <i>filename</i></a></h4>
-<p>
-Opens an existing book file called <i>filename</i>.
-Returns its <i>bookID</i> or an error message.
-</p>
-
-<h4><a name="book_prev">sc_book prev <i>bookID</i></a></h4>
-<p>
-Clears the current game and sets its start position to
-be that of the previous position found in the book (in the order
-they are stored in the book file).
-</p>
-
-<h4><a name="book_readonly">sc_book readonly <i>bookID</i></a></h4>
-<p>
-Returns a boolean value indicating whether this book file is
-read-only and cannot be edited.
-</p>
-
-<h4><a name="book_set">sc_book set <i>bookID</i> <i>text</i></a></h4>
-<p>
-Sets the book file text for the current position.
-</p>
-
-<h4><a name="book_size">sc_book size <i>bookID</i></a></h4>
-<p>
-Returns the number of positions recorded in the book.
-</p>
-
-<h4><a name="book_strip">sc_book strip <i>bookID</i> <i>opcode</i></a></h4>
-<p>
-Strips the specified EPD <i>opcode</i> from all positions in the book.
-</p>
-
-<h4><a name="book_write">sc_book write <i>bookID</i></a></h4>
-<p>
-Saves the current book file, and keeps it open.
-</p>
-
 
 <!-- ************************************************************ -->
 
