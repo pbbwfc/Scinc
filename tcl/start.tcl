@@ -12,11 +12,11 @@
 # The next line restarts using tkscid: \
 exec "`dirname "$0"`"/tkscid "$0" "$@"
 
-set scidVersion 0.04
-set scidVersionDate {Apr 6, 2018}
+set scidVersion 0.05
+set scidVersionDate {Dec 1, 2020}
 
-package require Tcl 8.5
-package require Tk  8.5
+package require Tcl 8.6
+package require Tk  8.6
 
 # Determine operating system platform: unix or windows
 

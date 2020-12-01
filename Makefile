@@ -6,8 +6,8 @@
 
 WIN_TARGET=win64
 
-# Tcl/Tk version: it should be "85" for Tcl/Tk 8.5, etc.
-TCL_VERSION=85
+# Tcl/Tk version: it should be "86" for Tcl/Tk 8.6, etc.
+TCL_VERSION=86
 
 TCL_DIR=/d/tcl
 MINGW_TARGET=x86_64-w64-mingw32

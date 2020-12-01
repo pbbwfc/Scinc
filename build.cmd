@@ -4,9 +4,8 @@ cd bin
 copy C:\msys64\mingw64\bin\libgcc_s_seh-1.dll
 copy "C:\msys64\mingw64\bin\libstdc++-6.dll"
 copy C:\msys64\mingw64\bin\libwinpthread-1.dll
-copy D:\tcl\bin\tcl85.dll
-copy D:\tcl\bin\tk85.dll
-copy D:\tcl\bin\tclpip85.dll
+copy D:\tcl\bin\tcl86.dll
+copy D:\tcl\bin\tk86.dll
 copy ..\..\FIDE.spf
 
 md engines
