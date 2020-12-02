@@ -901,9 +901,9 @@ Commands:
 / <a href="#info_fsize">fsize</a>
 / <a href="#info_html">html</a>
 / <a href="#info_limit">limit</a>
-/ <a href="#info_preMoveCmd">preMoveCmd</a>
+/ <a href="#info_priority">priority</a>
 / <a href="#info_ratings">ratings</a>
-/ <a href="#info_tb">tb</a>
+/ <a href="#info_suffix">suffix</a>
 / <a href="#info_validDate">validDate</a>
 / <a href="#info_version">version</a>
 </p>
@@ -925,15 +925,13 @@ Returns the slot number of the clipbase.
 <h4><a name="info_decimal">sc_info decimal [<i>char</i>]</a></h4>
 <p>
 If <i>char</i> is defined, this command sets the decimal point character
-to <i>char</i>. Otherwise, it returns the current decimal point character.
+to <i>char</i>. Otherwise, it returns the current decimal point character ".".
 </p>
 
 <h4><a name="info_fsize">sc_info fsize <i>filename</i></a></h4>
 <p>
-Returns the number of elements (games, lines or positions) in the
-specified file. For a Scid-format database or PGN file, the number
-of games is returned. For an opening repertoire file, the number of (include and
-exclude) lines is returned. 
+Returns the number of games in the
+specified Scid-format database or PGN file.
 </p>
 <p>
 For all types except Scid-format databases, only the first 64 kilobytes
@@ -964,31 +962,26 @@ Valid types are:
 <li><b>players</b>: the maximum number of unique Players in a database. </li>
 <li><b>rounds</b>: the maximum number of unique Rounds in a database. </li>
 <li><b>sites</b>: the maximum number of unique Sites in a database. </li>
+<li><b>treeCache</b>: the maximum TreeCache size for each open database. </li>
 <li><b>year</b>: the maximum permitted year of a game date. </li>
 </ul>
-<p></p>
 
-<h4><a name="info_preMoveCmd">sc_info preMoveCmd [<i>command</i>]</a></h4>
+<h4><a name="info_priority">sc_info priority <i>pid [normal|idle]</i></a></h4>
 <p>
-Sets (or returns the current value, if <i>command</i> is not supplied) the
-pre-move command, which is called before every change of the board
-position. This is useful for checking if the contents of a window
-editing the comment for each move has changed, for example.
+This gets or sets the priority class of a process.
 </p>
 
 <h4><a name="info_ratings">sc_info ratings</a></h4>
 <p>
 Returns a Tcl list of all known rating types, which currently are:
-Elo, Rating, Rapid, ICCF, USCF, DWZ and BCF.
+Elo, Rating, Rapid, ICCF, USCF, DWZ and ECF.
 </p>
 
-<h4><a name="info_tb">sc_info tb [<i>directory</i>]</a></h4>
+<h4><a name="info_suffix">sc_info suffix <i>type</i></a></h4>
 <p>
-If <i>directory</i> is supplied, this command sets the directory where
-tablebase files are located to <i>directory</i>, and returns the
-largest number of pieces and pawns found by the tablebase decoder.
-Otherwise, it returns a boolean value indicating if the program was
-compiled with tablebase support.
+Returns a Scid file suffix for a database file type. 
+The suffix is returned with the leading dot.
+Valid types are: "game", "index", "name", "treecache".
 </p>
 
 <h4><a name="info_validDate">sc_info validDate <i>dateString</i></a></h4>

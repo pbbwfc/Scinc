@@ -45,7 +45,7 @@ const versionT SCID_VERSION = 400;     // Current file format version = 3.0
 const versionT SCID_OLDEST_VERSION = 400; // Oldest compatible format: 3.0
 
 const char SCID_VERSION_STRING[] = "0.05";     // Current version
-const char SCID_VERSION_DATE[] = "April 6, 2018";
+const char SCID_VERSION_DATE[] = "December 1, 2020";
 const char SCID_WEBSITE[] = "https://github.com/pbbwfc/Scinc";
 
 const char TREEFILE_SUFFIX[] = ".stc";
