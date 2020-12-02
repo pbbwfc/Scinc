@@ -23,6 +23,8 @@ WARNINGS = -Wall
 CFLAGS = -DWIN32 -O2 $(WARNINGS)
 # Debug
 # CFLAGS = -DWIN32 -O0 $(WARNINGS) -g3 -ggdb
+# Asserts
+# CFLAGS = -DWIN32 -O2 $(WARNINGS) -DASSERTIONS
 
 CXXFLAGS = -fno-rtti $(CFLAGS)
 

@@ -1,22 +1,15 @@
 <html><head>
 <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
 <title>
-Scid vs. PC Programmer's Reference
+Scinc Programmer's Reference
 </title>
-<style type="text/css">
-!--
-  body { background: #ffffff; }
-  h1, h2, h3, h4, h5 { color: #990000; }
-  h1 { align: center; }
--->
-</style>
 </head>
 
 <body bgcolor="#ffffff">
-<h1>Scid vs. PC Programmer's Reference</h1>
+<h1>Scinc Programmer's Reference</h1>
 Author: Shane G Hudson, 16-Jan-2002
 <br>
-Last updated by Stevenaaus, 14-Mar-2013
+Last updated by Phil Brooks, 2-Dec-2020
 
 <hr>
 <h2><a name="contents">Contents</a></h2>
@@ -46,11 +39,11 @@ Last updated by Stevenaaus, 14-Mar-2013
 
 <h2><a name="intro">Introduction</a></h2>
 <p>
-<a href="http://scidvspc.sourceforge.net/">Scid vs. PC</a>
+<a href="https://github.com/pbbwfc/Scinc">Scinc</a>
 is a free chess database written in C++ and Tcl/Tk.
 Two versions of the database interface exist.
 </p><l>
-<li> The full version, <b>Tkscid</b>, incorporates Tcl and Tk and is used in conjunction with Scid's
+<li> The full version, <b>Scinc</b>, incorporates Tcl and Tk and is used in conjunction with Scid's
      graphical user interface. </li>
 <li> <b>Tcscid</b> uses Tcl alone and has no GUI. It is useful for
      writing small scripts that manipulate Scid databases. </li>
@@ -63,25 +56,15 @@ The Scid source code also includes a "scripts" directory with
 several scripting examples.
 </p>
 <p>
-The Tcl commands provided by tcscid and tkscid start with
+The Tcl commands provided start with
 the prefix "sc_" (except for a couple of string processing functions),
 and are implemented, and further documented, in the file src/tkscid.cpp.
 </p>
 
 <p>
-On <b>Windows</b>, things are a little different. The executable <b>tkscid</b> is
-renamed to <b>scid.exe</b>, and the Tcl/Tk fontend <b>scid</b> is renamed to
-<b>scinc.gui</b>. The Windows equivalent of <b>tcscid</b> is <b>tcscid.exe</b>.</p>
-
-<!--
-<h4>Scid Tcl program idioms</h4>
-
-<p>
-This section describes some common snippets and methods you may want
-to use when writing a Scid Tcl script to execute some action on a
-database.
-</p>
--->
+Only <b>Windows</b> is supported. The main executable is
+<b>scinc.exe</b>, and the Tcl/Tk fontend which consists just of TCL code is in the file
+<b>scinc.gui</b>.</p>
 
 <!-- ************************************************************ -->
 <hr>

@@ -1,0 +1,18 @@
+# sc_info.test
+ 
+package require tcltest
+namespace import ::tcltest::*
+ 
+# Software under test
+source sc_info.tcl
+
+# use 206 if asserts are on otherwise 0
+test asserts  {} -body {
+    sc_info asserts } -result 206
+
+
+test limitelo  {} -body {
+    sc_info limit elo
+} -result 4000
+ 
+cleanupTests
