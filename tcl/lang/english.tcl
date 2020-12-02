@@ -191,7 +191,6 @@ menuText E OptionsGInfo "Game Information" 0 {Game information options}
 menuText E TmtSortPlayers "Players" 0
 translate E TmtLimit "List Size"
 
-menuText E OptionsMovesTranslatePieces "Translate Pieces" 0 {Translate first letter of pieces}
 menuText E OptionsMovesHighlightLastMove "Highlight Last Move" 0 {Highlight last move}
 menuText E OptionsMovesHighlightLastMoveDisplay "Show" 0 {Display last move Highlight}
 menuText E OptionsMovesHighlightLastMoveWidth "Width" 0 {Thickness of line}

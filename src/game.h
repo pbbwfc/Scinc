@@ -25,13 +25,6 @@
 #include "bytebuf.h"
 #include "matsig.h"
 
-void transPieces(char *s);
-char transPiecesChar(char c);
-
-// Piece letters translation
-extern int language; // default to english
-extern const char *langPieces[];
-
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  Game: Constants
 

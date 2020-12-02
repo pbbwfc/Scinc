@@ -321,21 +321,19 @@ recalcNameFrequencies (NameBase * nb, Index * idx)
 const char *
 errMsgNotOpen (Tcl_Interp * ti)
 {
-    return translate (ti, "ErrNotOpen", "This is not an open database.");
+    return "This is not an open database.";
 }
 
 const char *
 errMsgReadOnly (Tcl_Interp * ti)
 {
-    return translate (ti, "ErrReadOnly",
-                      "This database is read-only; it cannot be altered.");
+    return "This database is read-only; it cannot be altered.";
 }
 
 const char *
 errMsgSearchInterrupted (Tcl_Interp * ti)
 {
-    return translate (ti, "ErrSearchInterrupted",
-                      "[Interrupted search; results are incomplete]");
+    return "[Interrupted search; results are incomplete]";
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -839,9 +837,9 @@ sc_base_filename (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
     }
 
     if (! basePtr->inUse) {
-        Tcl_AppendResult (ti, "[", translate (ti, "empty"), "]", NULL);
+        Tcl_AppendResult (ti, "[", "empty", "]", NULL);
     } else if (basePtr == clipbase) {
-        Tcl_AppendResult (ti, "[", translate (ti, "clipbase"), "]", NULL);
+        Tcl_AppendResult (ti, "[", "clipbase", "]", NULL);
     } else {
         Tcl_AppendResult (ti, basePtr->fileName, NULL);
     }
@@ -1344,8 +1342,6 @@ sc_base_check (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 static void
 exportGame (Game * g, FILE * exportFile, gameFormatT format, uint pgnStyle)
 {
-    char old_language = language;
-
     db->tbuf->Empty();
 
     g->ResetPgnStyle (pgnStyle);
@@ -1358,11 +1354,9 @@ exportGame (Game * g, FILE * exportFile, gameFormatT format, uint pgnStyle)
     case PGN_FORMAT_Latex:
         db->tbuf->NewlinesToSpaces (false);
         g->AddPgnStyle (PGN_STYLE_SHORT_HEADER);
-        language = 0;
         break;
     default:
         g->AddPgnStyle (PGN_STYLE_STRIP_BRACES);
-        language = 0;
         break;
     }
 
@@ -1370,7 +1364,6 @@ exportGame (Game * g, FILE * exportFile, gameFormatT format, uint pgnStyle)
     db->tbuf->NewLine();
 
     db->tbuf->DumpToFile (exportFile);
-    language = old_language;
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -4602,7 +4595,7 @@ sc_eco_summary (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
                 break;
             default:
                 dstr->AddChar (ch);
-                if (inMoveList) { temp->AddChar (transPiecesChar(ch)); }//{ temp->AddChar (ch); }
+                if (inMoveList) { temp->AddChar (ch); }
             }
             s++;
         }
@@ -5588,14 +5581,14 @@ sc_flags (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 	  const char * flagStr = userFlags;
 	  if (*flagStr == 'D') {
               deleted = 1;
-	      Tcl_AppendResult (ti, "(", translate (ti, "deleted"), ")  ",  NULL);
+	      Tcl_AppendResult (ti, "(", "deleted", ")  ",  NULL);
               flagStr++;
           }
 
 	  if (*flagStr != 0) {
 	      char flagName[100];
 	      uint custom;
-	      Tcl_AppendResult (ti, translate (ti, "flags", "flags"), ": ", NULL); // , flagStr
+	      Tcl_AppendResult (ti, "flags", ": ", NULL); // , flagStr
 	      while (*flagStr != 0) {
 		  flagName[0] = 0;
 		  custom = 0;
@@ -5623,7 +5616,7 @@ sc_flags (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 		      if (custom)
 			  Tcl_AppendResult (ti, (flagCount > 0 ? ", " : ""), flagName, NULL);
 		      else
-			  Tcl_AppendResult (ti, (flagCount > 0 ? ", " : ""), translate (ti, flagName), NULL);
+			  Tcl_AppendResult (ti, (flagCount > 0 ? ", " : ""), flagName, NULL);
 		  }
 		  flagCount++;
 		  flagStr++;
@@ -5634,9 +5627,9 @@ sc_flags (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
       /*** Twins (duplicates) ***/
       if (db->duplicates != NULL  &&  db->duplicates[gnum] != 0) {
           if (deleted > 0 || flagCount > 0)
-	    Tcl_AppendResult (ti, "  (", translate (ti, "twin"), ")", NULL);
+	    Tcl_AppendResult (ti, "  (", "twin", ")", NULL);
           else
-	    Tcl_AppendResult (ti, "(", translate (ti, "twin"), ")", NULL);
+	    Tcl_AppendResult (ti, "(", "twin", ")", NULL);
       }
 
     }
@@ -5668,7 +5661,6 @@ sc_game (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
         GAME_TRUNCATE, GAME_TRUNCATEANDFREE, GAME_UNDO,    GAME_MAKE_UNDO_POINT,  GAME_REDO
     };
     int index = -1;
-    char old_language = 0;
     uint location;
     Game * g;
     int  i;
@@ -5764,8 +5756,6 @@ sc_game (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
         return sc_game_tags (cd, ti, argc, argv);
 
     case GAME_TRUNCATE:
-        old_language = language;
-        language = 0;
         if (argc > 2 && strIsPrefix (argv[2], "-start")) {
             // "sc_game truncate -start" truncates the moves up to the
             // current position:
@@ -5775,17 +5765,13 @@ sc_game (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
             db->game->Truncate();
         }
         db->gameAltered = true;
-        language = old_language;
         break;
 
     case GAME_TRUNCATEANDFREE:
-            old_language = language;
-            language = 0;
            // Truncate from the current position to the end of the game
            // and free moves memory (to FreeList
             db->game->TruncateAndFree();
             db->gameAltered = true;
-            language = old_language;
         break;
 
     case GAME_UNDO:
@@ -6257,7 +6243,6 @@ sc_game_info (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
         } else if (strIsPrefix (argv[arg], "nextMove")) {
             db->game->GetSAN (temp);
             strcpy(tempTrans, temp);
-            transPieces(tempTrans);
             Tcl_AppendResult (ti, tempTrans, NULL);
             return TCL_OK;
 // nextMoveNT is the same as nextMove, except that the move is not translated
@@ -6273,7 +6258,6 @@ sc_game_info (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
         } else if (strIsPrefix (argv[arg], "previousMove")) {
             db->game->GetPrevSAN (temp);
             strcpy(tempTrans, temp);
-            transPieces(tempTrans);
             Tcl_AppendResult (ti, tempTrans, NULL);
             return TCL_OK;
 // previousMoveNT is the same as previousMove, except that the move is not translated
@@ -6353,7 +6337,7 @@ sc_game_info (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 
     // Hide some of this info if unknown
 
-    sprintf (temp, "<br>%s : <blue>", translate (ti, "Event"));
+    sprintf (temp, "<br>%s : <blue>", "Event");
     Tcl_AppendResult (ti, temp, NULL);
 
     if ( *db->game->GetEventStr() == '?' && *db->game->GetSiteStr() == '?' )
@@ -6370,7 +6354,7 @@ sc_game_info (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
     if ( *db->game->GetRoundStr() == '?' )
       sprintf (temp, ")");
     else
-      sprintf (temp, ", %s %s)", translate (ti, "Round"), db->game->GetRoundStr());
+      sprintf (temp, ", %s %s)", "Round", db->game->GetRoundStr());
 
     Tcl_AppendResult (ti, temp, NULL);
 
@@ -6419,13 +6403,12 @@ sc_game_info (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 
     db->game->GetPrevSAN (san);
     strcpy(tempTrans, san);
-    transPieces(tempTrans);
     bool printNags = true;
     if (san[0] == 0) {
         strCopy (temp, "");
         strAppend (temp, db->game->GetVarLevel() == 0 ?
-                   translate (ti, "GameStart", "Start of game") :
-                   translate (ti, "LineStart", "Start of line"));
+                    "Start of game" :
+                   "Start of line");
         strAppend (temp, "");
         printNags = false;
     } else {
@@ -6460,18 +6443,17 @@ sc_game_info (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 
     db->game->GetSAN (san);
     strcpy(tempTrans, san);
-    transPieces(tempTrans);
     if (san[0] == 0) {
         strCopy (temp, "");
         strAppend (temp, db->game->GetVarLevel() == 0 ?
-		   translate (ti, "GameEnd", "End of game") :
-		   translate (ti, "LineEnd", "End of line"));
+		   "End of game" :
+		   "End of line");
         strAppend (temp, "");
         printNags = false;
     } else {
       if (hideNextMove) {
 	  sprintf (temp, "%u.   %s(", moveCount, toMove==WHITE ? "" : "...  ");
-	  strAppend (temp, translate (ti, "hidden"));
+	  strAppend (temp, "hidden");
 	  strAppend (temp, ")");
 	  printNags = false;
       } else {
@@ -6482,7 +6464,7 @@ sc_game_info (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
     }
 
     if (!hideNextMove) {
-      Tcl_AppendResult (ti, "\t", translate (ti, "NextMove", "Next"), NULL);
+      Tcl_AppendResult (ti, "\t", "Next", NULL);
       Tcl_AppendResult (ti, ":  ", temp, "</blue>", NULL);
 
       nags = db->game->GetNextNags();
@@ -6502,7 +6484,7 @@ sc_game_info (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
     if (showMaterialValue == 0) {
         uint mWhite = db->game->GetCurrentPos()->MaterialValue (WHITE);
         uint mBlack = db->game->GetCurrentPos()->MaterialValue (BLACK);
-        sprintf (temp, "   %s: %u-%u", translate (ti, "Material"), mWhite, mBlack);
+        sprintf (temp, "   %s: %u-%u", "Material", mWhite, mBlack);
         Tcl_AppendResult (ti, temp, NULL);
         if (mWhite > mBlack) {
             sprintf (temp, ":+%u", mWhite - mBlack);
@@ -6516,9 +6498,9 @@ sc_game_info (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 
     /*** Length ***/
     if (hideNextMove) {
-        // sprintf (temp, "(%s: %s)", translate (ti, "Result"), translate (ti, "hidden"));
+        // sprintf (temp, "(%s: %s)", "Result", "hidden");
     } else {
-      sprintf (temp, "\t\t%s: %u   ", translate (ti, "Length"), (db->game->GetNumHalfMoves() + 1) / 2);
+      sprintf (temp, "\t\t%s: %u   ", "Length", (db->game->GetNumHalfMoves() + 1) / 2);
       Tcl_AppendResult (ti, temp, NULL);
     }
 
@@ -6573,14 +6555,13 @@ sc_game_info (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 
     uint varCount = db->game->GetNumVariations();
     if (!hideNextMove  &&  varCount > 0) {
-        Tcl_AppendResult (ti, "<br>", translate (ti, "Variations"), ":", NULL);
+        Tcl_AppendResult (ti, "<br>", "Variations", ":", NULL);
         // Only show the first 5 variations
         for (uint vnum = 0; vnum < varCount && vnum < 5; vnum++) {
             char s[20];
             db->game->MoveIntoVariation (vnum);
             db->game->GetSAN (s);
             strcpy(tempTrans, s);
-            transPieces(tempTrans);
             sprintf (temp, "   <run sc_var enter %u; updateBoard -animate>%u",
                      vnum, vnum+1);
             Tcl_AppendResult (ti, "<green>", temp, "</green>: ", NULL);
@@ -6869,7 +6850,7 @@ sc_game_merge (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
     dstr->Append (" ", RESULT_LONGSTR[ie->GetResult()]);
     if (endPly < merge->GetNumHalfMoves()) {
         dstr->Append (" (", (merge->GetNumHalfMoves()+1) / 2, " ");
-        dstr->Append (translate (ti, "moves"), ")");
+        dstr->Append ("moves", ")");
     }
     dstr->Append ("\n", ie->GetEventName (base->nb));
     dstr->Append (", ", ie->GetYear());
@@ -7010,9 +6991,9 @@ sc_game_novelty (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
     int current = db->gameNumber;
     const char * updateLabel = NULL;
     const char * interruptedStr =
-        translate (ti, "NoveltyInterrupt", "Novelty search interrupted");
+        "Novelty search interrupted";
     const char * noNoveltyStr =
-        translate (ti, "NoveltyNone", "No novelty was found for this game");
+        "No novelty was found for this game";
 
     const char * usage =
         "Usage: sc_game novelty [-older|-all] [-updatelabel <label>] [base]";
@@ -7938,8 +7919,6 @@ sc_game_strip (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
         default: return errorResult (ti, usage);
     }
 
-    int old_lang = language;
-    language = 0;
     db->tbuf->Empty();
     db->tbuf->SetWrapColumn (99999);
     db->game->WriteToPGN (db->tbuf);
@@ -7959,7 +7938,6 @@ sc_game_strip (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 
     db->game->MoveToPly (old_ply);
     db->gameAltered = true;
-    language = old_lang;
     return TCL_OK;
 }
 
@@ -8725,23 +8703,6 @@ sc_info (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
             setResult (ti, SCID_VERSION_STRING);
         }
         break;
-    case INFO_LANGUAGE:
-      if (argc != 3) {
-        return errorResult (ti, "Usage: sc_info language <lang>");
-      }
-      if ( strcmp(argv[2], "en") == 0) {language = 0;}
-      if ( strcmp(argv[2], "fr") == 0) {language = 1;}
-      if ( strcmp(argv[2], "es") == 0) {language = 2;}
-      if ( strcmp(argv[2], "de") == 0) {language = 3;}
-      if ( strcmp(argv[2], "it") == 0) {language = 4;}
-      if ( strcmp(argv[2], "ne") == 0) {language = 5;}
-      if ( strcmp(argv[2], "cz") == 0) {language = 6;}
-      if ( strcmp(argv[2], "hu") == 0) {language = 7;}
-      if ( strcmp(argv[2], "no") == 0) {language = 8;}
-      if ( strcmp(argv[2], "sw") == 0) {language = 9;}
-      if ( strcmp(argv[2], "gr") == 0) {language = 10;}
-
-    break;
     default:
         return InvalidCommand (ti, "sc_info", options);
     };
@@ -9184,7 +9145,6 @@ sc_move_addUCI (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 
       db->gameAltered = true;
       db->game->GetPrevSAN (tmp);
-      // transPieces(tmp);
       Tcl_AppendResult (ti, tmp, " ", NULL);
     }
 
@@ -10748,10 +10708,10 @@ sc_name_info (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 	      if (titleTable[i].id[0] != 0) {
 		// this is a little confusing, just to get the multiple "titles" on one line
 		if (count==0 && mark)
-		  Tcl_AppendResult (ti, startHeading, translate (ti,"Title"), ":	", endHeading, titleTable[i].data, NULL);
+		  Tcl_AppendResult (ti, startHeading, "Title", ":	", endHeading, titleTable[i].data, NULL);
 		else {
 		  if (count==0)
-		    Tcl_AppendResult (ti, startHeading, translate (ti,"Title"), ":	", endHeading, titleTable[i].data, "  ", t_elo, newline,  NULL);
+		    Tcl_AppendResult (ti, startHeading, "Title", ":	", endHeading, titleTable[i].data, "  ", t_elo, newline,  NULL);
 		  else {
 		    if (mark)
 		      Tcl_AppendResult (ti, ",  ", titleTable[i].data, NULL);
@@ -10768,9 +10728,9 @@ sc_name_info (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 		  mark2 = t_elo;
 		  if (mark2[0] == '[')
 		    mark2++;
-		  Tcl_AppendResult (ti, startHeading, translate (ti,"Elo"), ":	", endHeading, mark2, newline, NULL);
+		  Tcl_AppendResult (ti, startHeading, "Elo", ":	", endHeading, mark2, newline, NULL);
 		} else {
-		  Tcl_AppendResult (ti, startHeading, translate (ti,"Title"), ":	", endHeading, t_title, "  ", t_elo, newline, NULL);
+		  Tcl_AppendResult (ti, startHeading, "Title", ":	", endHeading, t_title, "  ", t_elo, newline, NULL);
 		}
 	      }
 
@@ -10810,10 +10770,10 @@ sc_name_info (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 
 	      if (t_country[0] != '-') {
 		if (count==0 && !mark)
-		  Tcl_AppendResult (ti, startHeading, translate (ti,"Country"), ":	", endHeading, temp , newline, NULL);
+		  Tcl_AppendResult (ti, startHeading, "Country", ":	", endHeading, temp , newline, NULL);
 		else {
 		  if (count==0)
-		    Tcl_AppendResult (ti, startHeading, translate (ti,"Country"), ":	", endHeading, temp , NULL);
+		    Tcl_AppendResult (ti, startHeading, "Country", ":	", endHeading, temp , NULL);
 		  else {
 		    if (mark)
 		      Tcl_AppendResult (ti, ",  ", temp , NULL);
@@ -10840,7 +10800,7 @@ sc_name_info (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 	// biography
 	const bioNoteT * note = spChecker->GetBioData (playerName);
 	if (note != NULL) {
-	    Tcl_AppendResult (ti, startHeading, translate (ti, "Biography"), ":", endHeading, newline, NULL);
+	    Tcl_AppendResult (ti, startHeading, "Biography", ":", endHeading, newline, NULL);
 	    while (note != NULL) {
 		Tcl_AppendResult (ti, "	", note->text, newline, NULL);
 		note = note->next;
@@ -11023,9 +10983,9 @@ sc_name_info (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
     char trWhite[128];
     char trBlack[128];
     char trTotal[128];
-    strcpy (trWhite , translate (ti, "White"));
-    strcpy (trBlack , translate (ti, "Black"));
-    strcpy (trTotal , translate (ti, "Total"));
+    strcpy (trWhite , "White");
+    strcpy (trBlack , "Black");
+    strcpy (trTotal , "Total");
 
     uint wWidth = strLength (trWhite);
     uint bWidth = strLength (trBlack);
@@ -11048,7 +11008,7 @@ sc_name_info (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
     if (ratingsOnly) { goto doRatings; }
 
     if (totalcount[STATS_ALL] == 0) {
-      Tcl_AppendResult (ti, "0 ", translate (ti, "games"), NULL);
+      Tcl_AppendResult (ti, "0 ", "games", NULL);
       return TCL_OK;
     }
 
@@ -11056,7 +11016,7 @@ sc_name_info (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
              htextOutput ? "<green><run sc_name info -faA {}; ::playerInfoRefresh>" : "",
              totalcount[STATS_ALL],
              (totalcount[STATS_ALL] == 1 ?
-              translate (ti, "game") : translate (ti, "games")),
+              "game" : "games"),
              htextOutput ? "</run></green>" : "");
     Tcl_AppendResult (ti, temp, NULL);
 
@@ -11075,11 +11035,11 @@ sc_name_info (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 
     if (totalcount[STATS_FILTER] != totalcount[STATS_ALL]) {
       sprintf (temp, "%s: %s%u %s%s",
-	       translate (ti, "Filter"),
+	       "Filter",
 	       htextOutput ? "<green><run sc_name info -F {}; ::playerInfoRefresh>" : "",
 	       totalcount[STATS_FILTER],
 	       (totalcount[STATS_FILTER] == 1 ?
-		translate (ti, "game") : translate (ti, "games")),
+		"game" : "games"),
 	       htextOutput ? "</run></green>" : "");
       Tcl_AppendResult (ti, temp, NULL);
     }
@@ -11100,7 +11060,7 @@ sc_name_info (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 
     // Print stats for all games:
 
-    sprintf (temp, "<b>%s</b>", translate (ti, "PInfoAll"));
+    sprintf (temp, "<b>%s</b>", "PInfoAll");
     if (! htextOutput) { strTrimMarkup (temp); }
     Tcl_AppendResult (ti, newline, startHeading, temp,
                       endHeading, newline, NULL);
@@ -11194,7 +11154,7 @@ sc_name_info (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 
     // Now print stats for games in the filter:
 
-    sprintf (temp, "<b>%s</b>", translate (ti, "PInfoFilter"));
+    sprintf (temp, "<b>%s</b>", "PInfoFilter");
     if (! htextOutput) { strTrimMarkup (temp); }
     Tcl_AppendResult (ti, startHeading, temp,
                       endHeading, newline, NULL);
@@ -11269,7 +11229,7 @@ sc_name_info (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 
     if (opponent != NULL) {
         Tcl_AppendResult (ti, startHeading,
-                          translate (ti, "PInfoAgainst"), " ",
+                          "PInfoAgainst", " ",
                           startBold, opponent, endBold,
                           endHeading, newline, NULL);
 
@@ -11378,7 +11338,7 @@ sc_name_info (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
                     const char * s = (color == WHITE ? "PInfoMostWhite" :
                                       "PInfoMostBlack");
                     Tcl_AppendResult (ti, newline, startHeading,
-                                      translate (ti, s),
+                                      s,
                                       endHeading, newline, NULL);
                 } else if (count == 3) {
                     Tcl_AppendResult (ti, newline, NULL);
@@ -11408,7 +11368,7 @@ sc_name_info (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
     if (seenRating) {
         if (! ratingsOnly) {
             Tcl_AppendResult (ti, newline, newline, startHeading,
-                              translate (ti, "PInfoRating"),
+                              "PInfoRating",
                               endHeading, NULL);
         }
         eloT previousElo = 0;
@@ -12302,8 +12262,8 @@ sc_report (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
     case OPT_ENDMAT:
         dstr = new DString;
         report->EndMaterialReport (dstr,
-                       translate (ti, "OprepReportGames", "Report games"),
-                       translate (ti, "OprepAllGames", "All games"));
+                       "Report games",
+                       "All games");
         Tcl_AppendResult (ti, dstr->Data(), NULL);
         break;
 
@@ -13290,9 +13250,9 @@ sc_tree_search (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 	// This row sets line length only.
 	const char *titleRow = "      Move        Frequency    Score  %Draws AvElo Perf AvYear ECO ";
         if (shortDisplay) {
-	  titleRow = translate (ti, "TreeTitleRowShort", titleRow);
+	  titleRow = titleRow;
         } else {
-	  titleRow = translate (ti, "TreeTitleRow", titleRow);
+	  titleRow = titleRow;
         }
         output->Append (titleRow);
     }
@@ -13320,7 +13280,6 @@ sc_tree_search (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
         node->san[6] = 0;
 
         strcpy(tempTrans, node->san);
-        transPieces(tempTrans);
 
         if (listMode) {
             if (ecoStr[0] == 0) { strCopy (ecoStr, "{}"); }
@@ -13436,7 +13395,7 @@ sc_tree_search (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 
             */
         } else {
-            const char * totalString = translate (ti, "TreeTotal:", "TOTAL:");
+            const char * totalString = "TOTAL:";
             if (shortDisplay)
               output->Append ("\n___________________________________________\n");
             else

@@ -274,7 +274,6 @@ OpLine::PrintMove (DString * dstr, const char * move, uint format)
 
     if (format == OPTABLE_Compact) {
         strcpy(tempTrans, move);
-        transPieces(tempTrans);
         char *ptr = tempTrans;
         char ch = *ptr; //*move;
         while (ch != 0) {
@@ -289,7 +288,6 @@ OpLine::PrintMove (DString * dstr, const char * move, uint format)
 
     if (format != OPTABLE_LaTeX) {
         strcpy(tempTrans, move);
-        transPieces(tempTrans);
         dstr->Append(tempTrans);//(move);
         return;
     } 
@@ -2227,16 +2225,12 @@ OpTable::EndMaterialReport (DString * dstr, const char * repGames,
         for (uint space=0; space < len; space++) { dstr->AddChar (' '); }
         char t1[10]; char t2[10];
         strcpy(t1, "     P"); strcpy(t2, "    BN");
-        transPieces(t1); transPieces(t2);
         dstr->Append (nextCell, t1, nextCell, t2);
         strcpy(t1, "     R"); strcpy(t2, "  R,BN");
-        transPieces(t1); transPieces(t2);
         dstr->Append (nextCell, t1, nextCell, t2);
         strcpy(t1, "     Q"); strcpy(t2, "  Q,BN");
-        transPieces(t1); transPieces(t2);
         dstr->Append (nextCell, t1, nextCell, t2);
         strcpy(t1, "   Q,R"); strcpy(t2, "Q,R,BN");
-        transPieces(t1); transPieces(t2);
         dstr->Append (nextCell, t1, nextCell, t2);
 //         dstr->Append (nextCell, "     P", nextCell, "    BN");
 //         dstr->Append (nextCell, "     R", nextCell, "  R,BN");

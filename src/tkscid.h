@@ -318,26 +318,6 @@ appendCharResult (Tcl_Interp * ti, char ch)
     return TCL_OK;
 }
 
-void transPieces(char *s);
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// translate:
-//    Return the translation for a phrase.
-//
-inline const char *
-translate (Tcl_Interp * ti, const char * name, const char * defaultText)
-{
-    const char * str = Tcl_GetVar2 (ti, "tr", (char *) name, TCL_GLOBAL_ONLY);
-    if (str == NULL) { str = defaultText; }
-    return str;
-}
-
-inline const char *
-translate (Tcl_Interp * ti, const char * name)
-{
-    return translate (ti, name, name);
-}
-
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // filter help functions
 //

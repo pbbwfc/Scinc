@@ -497,9 +497,6 @@ set optionsAutoSave 1
 #  Example: ".," for "1,234.5" format; ",." for "1.234,5" format.
 set locale(numeric) ".,"
 
-# Ask for piece translations (first letter)
-set translatePieces 1
-
 # Hightlight the last move played
 set highlightLastMove 1
 set highlightLastMoveWidth 2

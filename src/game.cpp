@@ -33,56 +33,6 @@
 #include <math.h>
 #include <string.h>
 
-// Piece letters translation
-// (not all languages have piece translation)
-
-int language = 0; // default to english
-//  0 = en,
-//  1 = fr, 2 = es, 3 = de,
-//  4 = it, 5 = ne, 6 = cz
-//  7 = hu, 8 = no, 9 = sw, 10 = gk
-//  format is P?K?Q?R?B?N?  (Pawn King Queen Rook Bishop kNight)
-//  where ? is replaced by an ascii char in the new language
-//  see 'case INFO_LANGUAGE' in tkscid.cpp
-
-const char * langPieces[] = { "",
-"PPKRQDRTBFNC", "PPKRQDRTBANC", "PBKKQDRTBLNS",
-"PPKRQDRTBANC", "PpKKQDRTBLNP", "PPKKQDRVBSNJ",
-"PGKKQVRBBFNH", "PBKKQDRTBLNS", "PBKKQDRTBLNS", "PSKPQBR[BANI" };
-
-// Translate pieces (moves) from english to another language
-
-void transPieces(char *s) {
-
-  if (language == 0) return;
-  char * ptr = s;
-  int i;
-
-  while (*ptr) {
-    if (*ptr >= 'A' && *ptr <= 'Z') {
-      for (i=0; i<12; i+=2) {
-        if (*ptr == langPieces[language][i]) {
-          *ptr = langPieces[language][i+1];
-          break;
-        }
-      }
-    }
-    ptr++;
-  }
-}
-
-char transPiecesChar(char c) {
-  char ret = c;
-  if (language == 0) return c;
-  for (int i=0; i<12; i+=2) {
-    if (c == langPieces[language][i]) {
-      ret = langPieces[language][i+1];
-      break;
-      }
-    }
-  return ret;
-}
-
 // ============ PG : destructor that frees all memory ===============
 Game::~Game() {
     while (MoveChunk->next != NULL) {
@@ -2372,10 +2322,7 @@ Game::WriteMoveList (TextBuffer *tb, uint plyCount,
                         *q = '\0';
                         tb->PrintWord (buf);
                 } else {
-                        // translate pieces
                         strcpy(tempTrans, m->san);
-                        transPieces(tempTrans);
-                        //tb->PrintWord (m->san);
                         tb->PrintWord (tempTrans);
             }
                 colWidth -= strLength (m->san);
@@ -3325,7 +3272,6 @@ Game::WritePGNtoLaTeX(TextBuffer * tb, uint stopLocation)
                 }
 
                 strcpy(temp, m->san);
-                transPieces(temp);
                 tb->PrintWord(temp);
 
                 for (uint i = 0; i < (uint)m->nagCount; i++) {
@@ -3445,7 +3391,6 @@ Game::WritePGNtoLaTeX(TextBuffer * tb, uint stopLocation)
                                             CurrentPos->MakeSANString (&(v->moveData), v->san, SAN_MATETEST);
                                         }
                                         strcpy(temp, v->san);
-                                        transPieces(temp);
                                         tb->PrintWord(temp);
 
                                         for (uint i = 0; i < (uint)v->nagCount; i++) {

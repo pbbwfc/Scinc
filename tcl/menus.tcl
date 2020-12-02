@@ -608,7 +608,7 @@ $m add command -label OptionsSave -command {
     annotate(blunder) annotate(addTag) annotate(Moves) annotate(WithVars) annotate(WithScore) useAnalysisBook annotate(isVar) annotate(scoreType) annotate(cutoff) annotate(MissedMates)
     annotate(WantedDepth) annotate(Depth) autoplayDelay animateDelay boardCoords boardSTM 
     moveEntry(AutoExpand) moveEntry(Coord)
-    translatePieces highlightLastMove highlightLastMoveWidth highlightLastMoveColor 
+    highlightLastMove highlightLastMoveWidth highlightLastMoveColor 
     askToReplaceMoves ::windows::switcher::icons ::windows::switcher::confirmCopy locale(numeric) 
     spellCheckFile ::splash::keepopen autoRaise autoIconify windowsDock autoLoadLayout
     exportFlags(comments) exportFlags(space) exportFlags(vars) exportFlags(indentc)
@@ -788,10 +788,6 @@ set helpMessage($m.entry,5) OptionsMovesSuggest
 $m.entry add checkbutton -label OptionsMovesSpace \
     -variable ::pgn::moveNumberSpaces -offvalue 0 -onvalue 1
 set helpMessage($m.entry,7) OptionsMovesSpace
-
-$m.entry add checkbutton -label OptionsMovesTranslatePieces \
-    -variable ::translatePieces -offvalue 0 -onvalue 1 -command setLanguage
-set helpMessage($m.entry,8) OptionsMovesTranslatePieces
 
 set m .menu.options.export
 menu $m -tearoff -1
@@ -1119,7 +1115,7 @@ proc setLanguageMenus {{lang ""}} {
   }
   configMenuText .menu.options.entry [tr OptionsShowVarPopup $oldLang] OptionsShowVarPopup $lang
   # S.A. here's how to fix these f-ing menus. &&&
-  foreach tag {Ask Animate Delay Suggest Key Coord Space TranslatePieces HighlightLastMove ShowVarArrows} {
+  foreach tag {Ask Animate Delay Suggest Key Coord Space HighlightLastMove ShowVarArrows} {
     configMenuText .menu.options.entry [tr OptionsMoves$tag $oldLang] \
         OptionsMoves$tag $lang
   }

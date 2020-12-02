@@ -39,7 +39,7 @@ set untransPieces(G) { S P P K B Q [ R A B I N }
 
 ################################################################################
 proc trans { msg } {
-  if { $::language == "E" || ! $::translatePieces || $msg == "\[end\]"} {
+  if { $::language == "E" || $msg == "\[end\]"} {
     return $msg
   }
   if { [ catch { set t [string map $::transPieces($::language) $msg ]} ] } {
@@ -49,7 +49,7 @@ proc trans { msg } {
 }
 ################################################################################
 proc untrans { msg } {
-  if { $::language == "E"  || ! $::translatePieces || $msg == "\[end\]"} {
+  if { $::language == "E"  || $msg == "\[end\]"} {
     return $msg
   }
   if { [ catch { set t [string map $::untransPieces($::language) $msg ]} ] } {
@@ -169,7 +169,7 @@ proc setLanguage {{lang ""}} {
   }
 
   if {$lang == "E"} {
-      sc_info language en
+      # sc_info language en
   } else {
     ### Source language if necessary
     ### (langEncoding doubles as a way to know if we have inited language yet)
@@ -185,14 +185,6 @@ proc setLanguage {{lang ""}} {
       }
     }
 
-    if { $::translatePieces } {
-      set info [lindex $langTable($lang) 4]
-      if {$info == {}} {
-	sc_info language en
-      } else {
-	sc_info language $info
-      }
-    }
   }
   if {[catch {setLanguage_$lang} err]} {
     puts "setLanguage_$lang error: $err"
@@ -219,24 +211,6 @@ proc setLanguage {{lang ""}} {
     }
   }
   set oldLang $lang
-}
-
-################################################################################
-# Will switch language only for Scid backoffice, no UI
-# Used to make callbacks use english by default
-################################################################################
-proc setLanguageTemp { lang } {
-
-  if {$lang == "E"} {
-      sc_info language en
-  } else {
-    set info [lindex $::langTable($lang) 4]
-    if {$info == {}} {
-      sc_info language en
-    } else {
-      sc_info language $info
-    }
-  }
 }
 
 ### End of file: lang.tcl
