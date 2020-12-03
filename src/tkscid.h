@@ -361,7 +361,6 @@ int sc_base_numGames  (TCL_ARGS);
 int sc_base_slot      (TCL_ARGS);
 int sc_base_stats     (TCL_ARGS);
 int sc_base_ecoStats  (TCL_ARGS);
-int sc_base_piecetrack (TCL_ARGS);
 int sc_base_sort      (TCL_ARGS);
 int sc_base_switch    (TCL_ARGS);
 int sc_base_tag       (TCL_ARGS);

@@ -626,7 +626,7 @@ sc_base (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
         "create",       "current",      "description",  "duplicates",
         "ecoStats",     "export",       "filename",     "import",
         "inUse",        "isReadOnly",   "numGames",     "open",
-        "piecetrack",   "slot",         "sort",         "stats",
+        "slot",         "sort",         "stats",
         "switch",       "tag",          "tournaments",  "type",
         "upgrade",      "fixCorrupted",    "sortup",    "sortdown",
         NULL
@@ -636,7 +636,7 @@ sc_base (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
         BASE_CREATE,      BASE_CURRENT,     BASE_DESCRIPTION, BASE_DUPLICATES,
         BASE_ECOSTATS,    BASE_EXPORT,      BASE_FILENAME,    BASE_IMPORT,
         BASE_INUSE,       BASE_ISREADONLY,  BASE_NUMGAMES,    BASE_OPEN,
-        BASE_PTRACK,      BASE_SLOT,        BASE_SORT,        BASE_STATS,
+        BASE_SLOT,        BASE_SORT,        BASE_STATS,
         BASE_SWITCH,      BASE_TAG,         BASE_TOURNAMENTS, BASE_TYPE,
         BASE_UPGRADE,     BASE_FIX_CORRUPTED, BASE_SORTUP,    BASE_SORTDOWN
     };
@@ -736,9 +736,6 @@ sc_base (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 
     case BASE_OPEN:
         return sc_base_open (cd, ti, argc, argv);
-
-    case BASE_PTRACK:
-        return sc_base_piecetrack (cd, ti, argc, argv);
 
     case BASE_SLOT:
         return sc_base_slot (cd, ti, argc, argv);
@@ -1670,203 +1667,6 @@ sc_base_import (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
         Tcl_AppendElement (ti, parser.ErrorMessages());
     } else {
         Tcl_AppendElement (ti, "");
-    }
-    return TCL_OK;
-}
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// sc_base_piecetrack:
-//    Examines games in the filter of the current database and
-//    returns a list of 64 integers indicating how frequently
-//    the specified piece moves to each square.
-int
-sc_base_piecetrack (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
-{
-    bool showProgress = startProgressBar();
-
-    const char * usage =
-        "Usage: sc_base piecetrack [-g|-t] <minMoves> <maxMoves> <startSquare ...>";
-
-    if (argc < 5) {
-        return errorResult (ti, usage);
-    }
-
-    // Check for optional mode parameter:
-    bool timeOnSquareMode = false;
-    int arg = 2;
-    if (argv[arg][0] == '-') {
-        if (argv[arg][1] == 'g'  && strIsPrefix (argv[arg], "-games")) {
-            timeOnSquareMode = false;
-            arg++;
-        } else if (argv[arg][1] == 't'  && strIsPrefix (argv[arg], "-time")) {
-            timeOnSquareMode = true;
-            arg++;
-        } else {
-            return errorResult (ti, usage);
-        }
-    }
-
-    // Read the two move-number parameters:
-    uint minPly = strGetUnsigned(argv[arg]) * 2;
-    arg++;
-    uint maxPly = strGetUnsigned(argv[arg]) * 2;
-    arg++;
-
-    // Convert moves to plycounts, e.g. "5-10" -> "9-20"
-    if (minPly < 2) { minPly=2; }
-    if (maxPly < minPly) { maxPly = minPly; }
-    minPly--;
-
-    // Parse the variable number of tracked square arguments:
-    uint sqFreq[64] = {0};
-    bool trackSquare[64] = { false };
-    int nTrackSquares = 0;
-    for (int a=arg; a < argc; a++) {
-        squareT sq = strGetSquare (argv[a]);
-        if (sq == NULL_SQUARE) { return errorResult (ti, usage); }
-        if (!trackSquare[sq]) {
-            // Seen another starting square to track.
-            trackSquare[sq] = true;
-            nTrackSquares++;
-        }
-    }
-
-    // If current base is unused, filter is empty, or no track
-    // squares specified, then just return a zero-filled list:
-
-    if (! db->inUse  ||  db->filter->Count() == 0  ||  nTrackSquares == 0) {
-        for (uint i=0; i < 64; i++) { appendUintElement (ti, 0); }
-        return TCL_OK;
-    }
-
-    // Examine every filter game and track the selected pieces:
-
-    uint updateStart = 1000;  // Update progress bar every 1000 filter games.
-    uint update = updateStart;
-    uint filterCount = db->filter->Count();
-    uint filterSeen = 0;
-
-    for (uint gnum = 0; gnum < db->numGames; gnum++) {
-        // Skip over non-filter games:
-        if (!db->filter->Get(gnum)) { continue; }
-
-        // Update progress bar:
-        if (showProgress) {
-            update--;
-            filterSeen++;
-            if (update == 0) {
-                update = updateStart;
-                if (interruptedProgress()) { break; }
-                updateProgressBar (ti, filterSeen, filterCount);
-            }
-        }
-
-        IndexEntry * ie = db->idx->FetchEntry (gnum);
-
-        // Skip games with non-standard start or no moves:
-        if (ie->GetStartFlag()) { continue; }
-        if (ie->GetLength() == 0) { continue; }
-
-        // Skip games too short to be useful:
-        if (ie->GetNumHalfMoves() < minPly) { continue; }
-
-        // Set up piece tracking for this game:
-        bool movedTo[64] = { false };
-        bool track[64];
-        int ntrack = nTrackSquares;
-        for (uint sq=0; sq < 64; sq++) { track[sq] = trackSquare[sq]; }
-
-        Game * g = scratchGame;
-        if (db->gfile->ReadGame (db->bbuf, ie->GetOffset(),
-                                 ie->GetLength()) != OK) {
-            continue;
-        }
-        db->bbuf->BackToStart();
-        g->Clear();
-        if (g->DecodeStart (db->bbuf) != OK) { continue; }
-
-        uint plyCount = 0;
-        simpleMoveT sm;
-
-        // Process each game move until the maximum ply or end of
-        // the game is reached:
-
-        while (plyCount < maxPly) {
-            if (g->DecodeNextMove (db->bbuf, &sm) != OK) { break; }
-            plyCount++;
-            squareT toSquare = sm.to;
-            squareT fromSquare = sm.from;
-
-            // Special hack for castling:
-            if (piece_Type(sm.movingPiece) == KING) {
-                if (fromSquare == E1) {
-                    if (toSquare == G1  &&  track[H1]) {
-                        fromSquare = H1; toSquare = F1;
-                    }
-                    if (toSquare == C1  &&  track[A1]) {
-                        fromSquare = A1; toSquare = D1;
-                    }
-                }
-                if (fromSquare == E8) {
-                    if (toSquare == G8  &&  track[H8]) {
-                        fromSquare = H8; toSquare = F8;
-                    }
-                    if (toSquare == C8  &&  track[A8]) {
-                        fromSquare = A8; toSquare = D8;
-                    }
-                }
-            }
-
-            // TODO: Special hack for en-passant capture?
-
-            if (track[toSquare]) {
-                // A tracked piece has been captured:
-                track[toSquare] = false;
-                ntrack--;
-                if (ntrack <= 0) { break; }
-
-            } else if (track[fromSquare]) {
-                // A tracked piece is moving:
-                track[fromSquare] = false;
-                track[toSquare] = true;
-                if (plyCount >= minPly) {
-                    // If not time-on-square mode, and this
-                    // new target square has not been moved to
-                    // already by a tracked piece in this game,
-                    // increase its frequency now:
-                    if (!timeOnSquareMode  && !movedTo[toSquare]) {
-                        sqFreq[toSquare]++;
-                    }
-                    movedTo[toSquare] = true;
-                }
-            }
-
-            if (timeOnSquareMode  &&  plyCount >= minPly) {
-                // Time-on-square mode: find all tracked squares
-                // (there are ntrack of them) and increment the
-                // frequency of each.
-                int nleft = ntrack;
-                for (uint i=0; i < 64; i++) {
-                    if (track[i]) {
-                        sqFreq[i]++;
-                        nleft--;
-                        // We can stop early when all tracked
-                        // squares have been found:
-                        if (nleft <= 0) { break; }
-                    }
-                }
-            }
-        } // while (plyCount < maxPly)
-    } // for (uint gnum = 0; gnum < db->numGames; gnum++)
-
-    if (showProgress) { updateProgressBar (ti, 1, 1); }
-
-    // Now return the 64-integer list: if in time-on-square mode,
-    // the value for each square is the number of plies when a
-    // tracked piece was on it, so halve it to convert to moves:
-
-    for (uint i=0; i < 64; i++) {
-        appendUintElement (ti, timeOnSquareMode ? sqFreq[i] / 2 : sqFreq[i]);
     }
     return TCL_OK;
 }
