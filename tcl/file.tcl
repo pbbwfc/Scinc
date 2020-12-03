@@ -140,11 +140,6 @@ proc ::file::Open {{fName ""} {parent .} {update 1}} {
     set ext .si4
   }
 
-  if {$ext == ".si3" && [file exists $fName]} {
-    ::file::Upgrade [file rootname $fName]
-    return
-  }
-
   set fName [fullname $fName]
 
   set slot [sc_base slot $fName]
@@ -329,42 +324,6 @@ proc refreshSearchDBs {} {
   }
 }
 
-# ::file::Upgrade
-#
-#   Upgrades an old (version 3) Scid database to version 4.
-#
-proc ::file::Upgrade {name} {
-  if {[file readable "$name.si4"]} {
-    set msg [string trim $::tr(ConfirmOpenNew)]
-    set res [tk_messageBox -title "Scid" -type yesno -icon info -message $msg]
-    if {$res == "no"} { return }
-    ::file::Open "$name.si4"
-    return
-  }
-
-  set msg [string trim $::tr(ConfirmUpgrade)]
-  set res [tk_messageBox -title "Scid" -type yesno -icon info -message $msg]
-  if {$res == "no"} { return }
-  progressWindow "Scid" "$::tr(Upgrading): [file tail $name]"\
-      $::tr(Cancel) "sc_progressBar"
-  busyCursor .
-  update
-  set err [catch {sc_base upgrade $name} res]
-  unbusyCursor .
-  closeProgressWindow
-  if {$err} {
-    tk_messageBox -title "Scid" -type ok -icon warning \
-        -message "Unable to upgrade the database:\n$res"
-    return
-  } else  {
-    # rename game and name files, delete old .si3
-    file rename "$name.sg3"  "$name.sg4"
-    file rename "$name.sn3"  "$name.sn4"
-    file delete "$name.si3"
-  }
-  ::file::Open "$name.si4"
-}
-
 #    Opens a Scid database, showing a progress bar in a separate window
 #    if the database is around 5 Mb or larger in size.
 #   ::file::Open should be used if the base is not already in si4 format
@@ -512,11 +471,6 @@ proc ::file::openBaseAsTree { { fName "" } } {
 
   if {[file extension $fName] == ""} {
     set fName "$fName.si4"
-  }
-
-  if {[file extension $fName] == ".si3" && [file exists $fName]} {
-    ::file::Upgrade [file rootname $fName]
-    return
   }
 
   ### Check it is not already open

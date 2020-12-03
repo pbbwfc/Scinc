@@ -141,6 +141,11 @@ test switch {} -setup {
     sc_base switch 1 
     sc_base close } -result {[clipbase]}
 
+test type {} -setup {
+    sc_base open "data/test" } -body {
+    sc_base type 1 } -cleanup {
+    sc_base close } -result 1
+
 
 
 cleanupTests

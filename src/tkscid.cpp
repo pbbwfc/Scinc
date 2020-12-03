@@ -628,7 +628,7 @@ sc_base (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
         "inUse",        "isReadOnly",   "numGames",     "open",
         "slot",         "sort",         "stats",
         "switch",       "tag",          "type",
-        "upgrade",      "fixCorrupted",    "sortup",    "sortdown",
+        "fixCorrupted",    "sortup",    "sortdown",
         NULL
     };
     enum {
@@ -638,7 +638,7 @@ sc_base (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
         BASE_INUSE,       BASE_ISREADONLY,  BASE_NUMGAMES,    BASE_OPEN,
         BASE_SLOT,        BASE_SORT,        BASE_STATS,
         BASE_SWITCH,      BASE_TAG,         BASE_TYPE,
-        BASE_UPGRADE,     BASE_FIX_CORRUPTED, BASE_SORTUP,    BASE_SORTDOWN
+        BASE_FIX_CORRUPTED, BASE_SORTUP,    BASE_SORTDOWN
     };
     int index = -1;
 
@@ -754,9 +754,6 @@ sc_base (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 
     case BASE_TYPE:
         return sc_base_type (cd, ti, argc, argv);
-
-    case BASE_UPGRADE:
-        return sc_base_upgrade (cd, ti, argc, argv);
 
     case BASE_FIX_CORRUPTED:
         return sc_base_fix_corrupted (cd, ti, argc, argv);
@@ -2572,120 +2569,6 @@ sc_base_tag (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
         }
         delete tagnb;
     }
-
-    return TCL_OK;
-}
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// sc_base_upgrade:
-//    Upgrades an old (version 3.x, suffix .si3) Scid database
-//    to version 4 (suffix .si4).
-int
-sc_base_upgrade (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
-{
-    bool showProgress = startProgressBar();
-
-    if (argc != 3) {
-        return errorResult (ti, "Usage: sc_base upgrade <old-database>");
-    }
-    const char * fname = argv[2];
-    Index * oldIndex = new Index;
-    Index * newIndex = new Index;
-
-    oldIndex->SetFileName (fname);
-    newIndex->SetFileName (fname);
-
-    if (newIndex->OpenIndexFile(FMODE_ReadOnly) == OK) {
-        newIndex->CloseIndexFile();
-        delete oldIndex;
-        delete newIndex;
-        return errorResult (ti, "An upgraded version of this database already exists.");
-    }
-
-    if (oldIndex->OpenOldIndexFile (FMODE_ReadOnly) != OK) {
-        delete oldIndex;
-        delete newIndex;
-        return errorResult (ti, "Error opening the old database.");
-    }
-
-    if (newIndex->CreateIndexFile (FMODE_WriteOnly) != OK) {
-        oldIndex->CloseIndexFile();
-        delete oldIndex;
-        delete newIndex;
-        return errorResult (ti, "Error creating the new dataabse.");
-    }
-
-    MFile * oldMFile = oldIndex->GetMFile();
-    MFile * newMFile = newIndex->GetMFile();
-
-    char buf[256];
-    // First copy the header with new version number
-
-    oldMFile->Seek(0);
-    newMFile->Seek(0);
-
-    oldMFile->ReadNBytes( buf, 8);
-    newMFile->WriteNBytes(buf, 8);
-
-    oldMFile->ReadTwoBytes();
-    newMFile->WriteTwoBytes(SCID_VERSION);
-
-    oldMFile->ReadNBytes(buf, 4 + 3 + 3 + SCID_DESC_LENGTH + 1);
-    newMFile->WriteNBytes(buf, 4 + 3 + 3 + SCID_DESC_LENGTH + 1);
-
-    // write the descriptions of the custom flags added with v4 version of base
-    memset( buf, 0, 256 );
-    newMFile->WriteNBytes( buf, CUSTOM_FLAG_MAX * ( CUSTOM_FLAG_DESC_LENGTH+1 ) );
-
-    // Now copy each index entry
-    uint i;
-    uint numGames = oldIndex->GetNumGames();
-    errorT err = OK;
-    uint updateStart = 250;
-    uint update = updateStart;
-
-    for (i=0; i < numGames; i++) {
-        if (showProgress) {
-            update--;
-            if (update == 0) {
-                update = updateStart;
-                if (interruptedProgress()) { break; }
-                updateProgressBar (ti, i, numGames);
-            }
-        }
-
-        oldMFile->ReadNBytes(buf, 4 + 2);
-        newMFile->WriteNBytes(buf, 4 + 2);
-
-        // insert one byte for Length_High and user bits
-        newMFile->WriteNBytes( "\0", 1 );
-
-        oldMFile->ReadNBytes(buf, 40 );
-        newMFile->WriteNBytes(buf, 40 );
-
-    }
-
-    oldIndex->CloseIndexFile();
-    newIndex->CloseIndexFile(true); // don't write again the header
-
-    if (err == OK  &&  !interruptedProgress()) {
-        if (err != OK) { setResult (ti, "Error writing name file"); }
-    }
-
-    delete oldIndex;
-    delete newIndex;
-
-    if (interruptedProgress()) {
-        removeFile (fname, INDEX_SUFFIX);
-        return errorResult (ti, "Upgrading was cancelled.");
-    }
-
-    if (err != OK) {
-        removeFile (fname, INDEX_SUFFIX);
-        return TCL_ERROR;
-    }
-
-    if (showProgress) { updateProgressBar (ti, 1, 1); }
 
     return TCL_OK;
 }
