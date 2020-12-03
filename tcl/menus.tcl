@@ -429,11 +429,6 @@ set helpMessage($m.utils,5) ToolsMaintDelete
 $m.utils add command -label ToolsMaintTwin -command updateTwinChecker
 set helpMessage($m.utils,6) ToolsMaintTwin
 
-$m.utils add separator
-
-$m.utils add command -label ToolsMaintFixBase -command ::maint::fixCorruptedBase
-set helpMessage($m.utils,10) ToolsMaintFixBase
-
 # **********
 
 $m add command -label ToolsPlayerReport -command ::preport::preportDlg
@@ -1082,7 +1077,7 @@ proc setLanguageMenus {{lang ""}} {
     configMenuText .menu.tools [tr Tools$tag $oldLang] Tools$tag $lang
   }
 
-  foreach tag {Win Compact Delete Twin Sort FixBase} {
+  foreach tag {Win Compact Delete Twin Sort} {
     configMenuText .menu.tools.utils [tr ToolsMaint$tag $oldLang] \
         ToolsMaint$tag $lang
   }

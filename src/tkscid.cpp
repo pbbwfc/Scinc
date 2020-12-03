@@ -628,7 +628,7 @@ sc_base (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
         "inUse",        "isReadOnly",   "numGames",     "open",
         "slot",         "sort",         "stats",
         "switch",       "tag",          "type",
-        "fixCorrupted",    "sortup",    "sortdown",
+        "sortup",    "sortdown",
         NULL
     };
     enum {
@@ -638,7 +638,7 @@ sc_base (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
         BASE_INUSE,       BASE_ISREADONLY,  BASE_NUMGAMES,    BASE_OPEN,
         BASE_SLOT,        BASE_SORT,        BASE_STATS,
         BASE_SWITCH,      BASE_TAG,         BASE_TYPE,
-        BASE_FIX_CORRUPTED, BASE_SORTUP,    BASE_SORTDOWN
+        BASE_SORTUP,    BASE_SORTDOWN
     };
     int index = -1;
 
@@ -754,9 +754,6 @@ sc_base (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 
     case BASE_TYPE:
         return sc_base_type (cd, ti, argc, argv);
-
-    case BASE_FIX_CORRUPTED:
-        return sc_base_fix_corrupted (cd, ti, argc, argv);
 
     case BASE_SORTUP:
         return sc_base_sortup (cd, ti, argc, argv);
@@ -2575,169 +2572,6 @@ sc_base_tag (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 
 inline static idNumberT
 safeNameId(idNumberT id, idNumberT numEntries) { return id < numEntries ? id : 0; }
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// sc_base_fix_corrupted:
-//    Tries to fix a corrupted base by rewriting its index and name
-//    files. This function is very close to sc_compact_names
-int
-sc_base_fix_corrupted (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
-{
-    const char * filename = argv[2];
-
-    errorT err = 0;
-
-    Index * idx = new Index;
-    NameBase * nb = new NameBase;
-
-    idx->SetFileName (filename);
-    nb->SetFileName (filename);
-
-    if ( nb->ReadNameFile() != OK) {
-        delete nb;
-        delete idx;
-        errorResult (ti, "Error opening name file.");
-    }
-
-    Index * idxTemp = new Index;
-    idxTemp->SetFileName (filename);
-    if (idxTemp->OpenIndexFile (FMODE_ReadOnly) != OK) {
-        delete idxTemp;
-        delete nb;
-        delete idx;
-        return errorResult (ti, "Error opening index file.");
-    }
-    recalcNameFrequencies (nb, idxTemp);
-    idxTemp->CloseIndexFile();
-
-    // Now, add only the names with nonzero frequencies to a new namebase:
-
-    NameBase * nbNew = new NameBase;
-
-    idNumberT * idMapping[NUM_NAME_TYPES];
-
-    for (nameT nt = NAME_FIRST; nt <= NAME_LAST; nt++) {
-        uint unused;
-        nbNew->AddName (nt, "?", &unused); // must be zero
-        idNumberT numNames = nb->GetNumNames (nt);
-        idNumberT numEntries = NAME_MAX_ID[nt];
-        idMapping[nt] = new idNumberT[numEntries];
-        memset(idMapping[nt], 0, numEntries*sizeof(idNumberT));
-
-        for (idNumberT oldID = 0; oldID < numNames; oldID++) {
-            const char * name = nb->GetName (nt, oldID);
-            uint frequency = nb->GetFrequency (nt, oldID);
-            if (frequency > 0) {
-                uint newID;
-                if (nbNew->AddName (nt, name, &newID) != OK) {
-                    errorResult (ti, "Error compacting namebase.");
-                    break;
-                }
-                if (newID >= numEntries)
-                    newID = 0;
-                idMapping[nt][oldID] = newID;
-            } else {
-                idMapping[nt][oldID] = 0;
-            }
-        }
-    }
-
-    printf ("New: %u players, %u events, %u sites, %u rounds\n",
-            nbNew->GetNumNames(NAME_PLAYER), nbNew->GetNumNames(NAME_EVENT),
-            nbNew->GetNumNames(NAME_SITE), nbNew->GetNumNames(NAME_ROUND));
-    Index * idxOld = new Index;
-    Index * idxNew = new Index;
-    char tempName[1024];
-    strCopy (tempName, filename);
-    strAppend (tempName, "_OLD");
-    idxOld->SetFileName (tempName);
-    idxNew->SetFileName (filename);
-
-    printf ("Renaming %s%s to %s%s in case of error...\n",
-            filename, INDEX_SUFFIX, tempName, INDEX_SUFFIX);
-    if (renameFile (filename, tempName, INDEX_SUFFIX) != OK) {
-        errorResult (ti, "Unable to rename the index file!");
-    }
-    printf ("Renaming %s%s to %s%s in case of error...\n",
-            filename, NAMEBASE_SUFFIX, tempName, NAMEBASE_SUFFIX);
-    if (renameFile (filename, tempName, NAMEBASE_SUFFIX) != OK) {
-        errorResult (ti, "Unable to rename the namebase file!");
-    }
-    if (idxOld->OpenIndexFile (FMODE_ReadOnly) != OK) {
-        renameFile (tempName, filename, INDEX_SUFFIX);
-        errorResult (ti, "Error renaming index file");
-    }
-
-    if (idxNew->CreateIndexFile (FMODE_WriteOnly) != OK) {
-        renameFile (tempName, filename, INDEX_SUFFIX);
-        errorResult (ti , "Error creating index file");
-    }
-    idxNew->SetType (idxOld->GetType());
-
-    printf ("Writing new name and index files...\n");
-
-    // For each entry in old index: read it, alter its name ID
-    // values to match the new namebase, and write the entry to
-    // the new index.
-
-    gameNumberT newNumGames = 0;
-    for (uint i=0; i < idxOld->GetNumGames(); i++) {
-        updateProgressBar (ti, i, idxOld->GetNumGames());
-        IndexEntry ieOld, ieNew;
-        idxOld->ReadEntries (&ieOld, i, 1);
-        if (ieOld.Verify (nb) != OK) {
-              fprintf (stderr, "Warning: game %u: ", i+1);
-              fprintf (stderr, "names were corrupt, they may be incorrect.\n");
-        }
-        err = idxNew->AddGame (&newNumGames, &ieNew);
-        if (err != OK)  { break; }
-        ieNew = ieOld;
-#define MAP_ID(id, nt) idMapping[nt] [safeNameId(id, NAME_MAX_ID[nt])]
-        ieNew.SetWhite (MAP_ID(ieOld.GetWhite(), NAME_PLAYER));
-        ieNew.SetBlack (MAP_ID(ieOld.GetBlack(), NAME_PLAYER));
-        ieNew.SetEvent (MAP_ID(ieOld.GetEvent(), NAME_EVENT));
-        ieNew.SetSite  (MAP_ID(ieOld.GetSite(), NAME_SITE));
-        ieNew.SetRound (MAP_ID(ieOld.GetRound(), NAME_ROUND));
-#undef MAP_ID
-        nbNew->IncFrequency (NAME_PLAYER, ieNew.GetWhite(), 1);
-        nbNew->IncFrequency (NAME_PLAYER, ieNew.GetBlack(), 1);
-        nbNew->IncFrequency (NAME_EVENT, ieNew.GetEvent(), 1);
-        nbNew->IncFrequency (NAME_SITE, ieNew.GetSite(), 1);
-        nbNew->IncFrequency (NAME_ROUND, ieNew.GetRound(), 1);
-        err = idxNew->WriteEntries (&ieNew, newNumGames, 1);
-        if (err != OK)  { break; }
-    }
-
-    for (nameT nt = NAME_FIRST; nt <= NAME_LAST; nt++)
-        delete [] idMapping[nt];
-
-    idxOld->CloseIndexFile();
-    idxNew->CloseIndexFile();
-    nbNew->SetFileName (filename);
-
-    if (err == OK) {
-        err = nbNew->WriteNameFile();
-    }
-
-    if (err != OK) {
-        fprintf (stderr, "ERROR: I/O error!\n");
-        fprintf (stderr, "Restoring original file and aborting.\n");
-        removeFile (filename, INDEX_SUFFIX);
-        renameFile (tempName, filename, INDEX_SUFFIX);
-    }
-
-    printf ("New index file sucessfully created; old index removed.\n");
-    removeFile (tempName, INDEX_SUFFIX);
-    removeFile (tempName, NAMEBASE_SUFFIX);
-
-    delete nb;
-    delete nbNew;
-    delete idx;
-    delete idxTemp;
-    delete idxOld;
-    delete idxNew;
-    return TCL_OK;
-}
 
 //////////////////////////////////////////////////////////////////////
 /// CLIPBASE functions

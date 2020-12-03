@@ -150,7 +150,6 @@ menuText E ToolsMaintNamePlayer "Spellcheck Player Names" 11 {Spellcheck player 
 menuText E ToolsMaintNameEvent "Spellcheck Event Names" 11 {Spellcheck event names using the spellcheck file}
 menuText E ToolsMaintNameSite "Spellcheck Site Names" 11 {Spellcheck site names using the spellcheck file}
 menuText E ToolsMaintNameRound "Spellcheck Round Names" 11 {Spellcheck round names using the spellcheck file}
-menuText E ToolsMaintFixBase "Repair base" 0 {Try to repair a corrupted base}
 
 menuText E ToolsPInfo "Player Information"  0 \
   {Open/update the Player Information window}
