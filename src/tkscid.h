@@ -28,7 +28,6 @@
 #include "optable.h"
 #include "stored.h"
 
-#include "tclmy.h"
 #ifndef _MSC_VER
 #include <unistd.h>
 #endif
