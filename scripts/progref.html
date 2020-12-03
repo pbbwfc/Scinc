@@ -94,7 +94,6 @@ Commands:
 / <a href="#base_sort">sort</a>
 / <a href="#base_stats">stats</a>
 / <a href="#base_switch">switch</a>
-/ <a href="#base_tournaments">tournaments</a>
 / <a href="#base_type">type</a>
 / <a href="#base_upgrade">upgrade</a>
 </p>
@@ -300,27 +299,6 @@ Returns an integer lists of statistics about the database for these values of <i
 Switches to the specified database slot. The slot can be a number,
 or "c" for the clipbase.
 </p>
-
-<h4><a name="base_tournaments">sc_base tounaments [<i>-option value ...</i>]</a></h4>
-<p>
-Returns a list containing information about selected tournaments in
-the current database, with each list element being a 13-element
-sublist with data about one tournament.
-Options for restricting the tournament list are:
-</p>
-<ul>
-<li> -start <i>gameNumber</i>
-</li><li> -end <i>gameNumber</i>
-</li><li> -country <i>countryCode</i>
-</li><li> -minElo <i>eloRating</i>
-</li><li> -minGames <i>integer</i>
-</li><li>-maxGames <i>integer</i>
-</li><li> -minPlayers <i>integer</i>
-</li><li> -maxPlayers <i>integer</i>
-</li><li> -size <i>integer</i> (the maximum list length to return).
-</li><li> -site <i>siteText</i>
-</li><li> -player <i>playerText</i>
-</li></ul>
 
 <h4><a name="base_type">sc_base type <i>slot </i> [<i>type</i>]</a></h4>
 <p>

@@ -134,6 +134,13 @@ test statsresults {} -setup {
     sc_base stats results } -cleanup {
     sc_base close } -result "0 0 6 0"
 
+test switch {} -setup {
+    sc_base open "data/test" } -body {
+    sc_base switch c
+    sc_base filename } -cleanup {
+    sc_base switch 1 
+    sc_base close } -result {[clipbase]}
+
 
 
 cleanupTests
