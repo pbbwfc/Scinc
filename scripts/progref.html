@@ -159,7 +159,8 @@ Returns the number of deleted games, or an error message.
 <p>
 The recognised options that control whether any two games are considered
 to be twins are:
-</p><ul>
+</p>
+<ul>
 <li> <b>-colors</b>: whether each player must have the same color in the
      two games. </li>
 <li> <b>-event</b>, <b>-site</b>, <b>-round</b>, <b>-year</b>, <b>-month</b>,
@@ -172,7 +173,6 @@ to be twins are:
 <li> <b>-usefilter</b>: whether to only examine games in the current filter.
      </li>
 </ul>
-<p></p>
 
 <h4><a name="base_ecoStats">sc_base ecoStats <i>ecoPrefix</i></a></h4>
 <p>
@@ -279,23 +279,21 @@ Date, Year, Event, Site, Round, White, Black, Eco, Result, Length,
 Rating, Country, Month, Deleted and Marked.
 </p>
 
-<h4><a name="base_stats">sc_base stats [<i>slot</i>]</a></h4>
+<h4><a name="base_stats">sc_base stats [<i>option</i>]</a></h4>
 <p>
-Returns a 11-integer lists of statistics about the database in the
-specified slot, which defaults to the current database.
-The list is:
-[0] number of games,
-[1] number with delete flag on,
-[2] number with mark flag on,
-[3] number with comments,
-[4] number with variations,
-[5] minimum year,
-[6] maximum year,
-[7] mean year,
-[8] minimum rating,
-[9] maximum rating,
-[10] mean rating.
+Returns an integer lists of statistics about the database for these values of <i>option</i>:
 </p>
+<ul>
+    <li> <b>flags</b>: 
+        list of 3 items for flags for delete, white and black. </li>
+    <li> <b>dates</b>:
+        list of 3 items for minimum, maximum and average year. </li>
+    <li> <b>ratings</b>:
+        list of 3 items for minimum, maximum and average rating. </li>
+    <li> <b>results</b>:
+        list of 4 items for white wins, draws, black wins and unknown results. </li>
+</ul>
+
 
 <h4><a name="base_switch">sc_base switch <i>slot</i></a></h4>
 <p>

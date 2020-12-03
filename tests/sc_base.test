@@ -101,6 +101,38 @@ test open {} -body {
     sc_base open "data/test" } -cleanup {
     sc_base close } -result 1
 
+test slot {} -setup {
+    sc_base open "data/test" } -body {
+    sc_base slot "data/test" } -cleanup {
+    sc_base close } -result 1
+
+test sort {} -setup {
+    file copy {*}[glob data/test.*] {temp}
+    sc_base open "temp/test" } -body {
+    sc_base sort "Eco" {} } -cleanup {
+    sc_base close
+    file delete {*}[glob temp/test.*] 
+    } -result ""
+
+test statsflags {} -setup {
+    sc_base open "data/test" } -body {
+    sc_base stats flags } -cleanup {
+    sc_base close } -result "0 0 0"
+
+test statsdates {} -setup {
+    sc_base open "data/test" } -body {
+    sc_base stats dates } -cleanup {
+    sc_base close } -result "2016 2016 2016"
+
+test statsratings {} -setup {
+    sc_base open "data/test" } -body {
+    sc_base stats ratings } -cleanup {
+    sc_base close } -result "0 0 0"
+
+test statsresults {} -setup {
+    sc_base open "data/test" } -body {
+    sc_base stats results } -cleanup {
+    sc_base close } -result "0 0 6 0"
 
 
 
