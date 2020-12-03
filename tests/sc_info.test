@@ -7,91 +7,91 @@ namespace import ::tcltest::*
 source sc_info.tcl
 
 # use 206 if asserts are on otherwise 0
-test asserts  {} -body {
+test asserts {} -body {
     sc_info asserts } -result 0
 
-test clipbase  {} -body {
+test clipbase {} -body {
     sc_info clipbase } -result 9
 
-test decimal  {} -body {
+test decimal {} -body {
     sc_info decimal } -result .
 
-test fsizePGN  {} -body {
+test fsizePGN {} -body {
     sc_info fsize "data/test.pgn" } -result 2
 
-test fsizeSCID  {} -body {
-    sc_info fsize "data/test.si4" } -result 7
+test fsizeSCID {} -body {
+    sc_info fsize "data/test.si4" } -result 6
 
-test html  {} -body {
+test html {} -body {
     sc_info html } -result 0
 
-test limitclipbase  {} -body {
+test limitclipbase {} -body {
     sc_info limit clipbase
 } -result 5000000
 
-test limitelo  {} -body {
+test limitelo {} -body {
     sc_info limit elo
 } -result 4000
 
-test limitevents  {} -body {
+test limitevents {} -body {
     sc_info limit events
 } -result 524287
 
-test limitgames  {} -body {
+test limitgames {} -body {
     sc_info limit games
 } -result 16777214
 
-test limitnags  {} -body {
+test limitnags {} -body {
     sc_info limit nags
 } -result 8
 
-test limitplayers  {} -body {
+test limitplayers {} -body {
     sc_info limit players
 } -result 1048575
 
-test limitrounds  {} -body {
+test limitrounds {} -body {
     sc_info limit rounds
 } -result 262143
 
-test limitsites  {} -body {
+test limitsites {} -body {
     sc_info limit sites
 } -result 524287
 
-test limityear  {} -body {
+test limityear {} -body {
     sc_info limit year
 } -result 2047
 
-test limittreeCache  {} -body {
+test limittreeCache {} -body {
     sc_info limit treeCache
 } -result 1000
 
 # can't run this test as not sure of a process and its pid that you can access
-# test priority  {} -body {
+# test priority {} -body {
 #    sc_info priority 244
 # } -result normal
 
-test ratings  {} -body {
+test ratings {} -body {
     sc_info ratings } -result "Elo Rating Rapid ICCF USCF DWZ ECF"
 
-test suffixgame  {} -body {
+test suffixgame {} -body {
     sc_info suffix game } -result .sg4
 
-test suffixindex  {} -body {
+test suffixindex {} -body {
     sc_info suffix index } -result .si4
 
-test suffixname  {} -body {
+test suffixname {} -body {
     sc_info suffix name } -result .sn4
 
-test suffixtreecache  {} -body {
+test suffixtreecache {} -body {
     sc_info suffix treecache } -result .stc
 
-test validDate  {} -body {
+test validDate {} -body {
     sc_info validDate 2020.12.02 } -result 1
 
-test version  {} -body {
+test version {} -body {
     sc_info version } -result 0.05
 
-test versiondate  {} -body {
+test versiondate {} -body {
     sc_info version date } -result "December 1, 2020"
 
 cleanupTests

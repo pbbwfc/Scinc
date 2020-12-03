@@ -75,6 +75,7 @@ Only <b>Windows</b> is supported. The main executable is
 <p>
 Commands:
 <a href="#base_autoload">autoload</a>
+/ <a href="#base_check">check</a>
 / <a href="#base_close">close</a>
 / <a href="#base_count">count</a>
 / <a href="#base_create">create</a>
@@ -112,6 +113,12 @@ Sets (or gets) the game number to be autoloaded when the current
 database is opened. A value of 0 indicates that no game should be
 loaded, and a value larger than the number of games in the database
 indicates that the last game should be loaded.
+</p>
+
+<h4><a name="base_check">sc_base check [<i>all_games</i>]</a></h4>
+<p>
+Checks the integrity of the current database. Specify true or false for <i>all_games</i> to instruct 
+whether to check all games or just filtered games. Returns an error string if any issues found.
 </p>
 
 <h4><a name="base_close">sc_base close [<i>baseNum</i>]</a></h4>
@@ -206,10 +213,8 @@ move number.
 <h4><a name="base_filename">sc_base filename [<i>slot</i>]</a></h4>
 <p>
 Returns the file name for the specified slot, which defaults to the
-current database. The name returned for an empty database is "[empty]"
-or a translation of it, such as "[leer]" for Deutsch.
-Similarly, "[clipbase]" (or a translation of it) is returned for the
-clipbase slot.
+current database. The name returned for an empty database is "[empty]".
+Similarly, "[clipbase]" is returned for the clipbase slot.
 </p>
 
 <h4><a name="base_import">sc_base import file <i>filename</i><br>
