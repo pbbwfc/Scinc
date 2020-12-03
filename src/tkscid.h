@@ -17,7 +17,6 @@
 #include "common.h"
 #include "index.h"
 #include "position.h"
-#include "engine.h"
 #include "game.h"
 #include "gfile.h"
 #include "namebase.h"

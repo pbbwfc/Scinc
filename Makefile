@@ -91,20 +91,20 @@ scidt.exe: src/scidt.o $(OBJS)
 
 scinc.exe: src/scid.o $(OBJS) src/tree.o src/filter.o \
             src/pbook.o src/spellchk.o  \
-            src/optable.o src/engine.o src/recog.o src/tkdnd/TkDND_OleDND.o src/tk_selection.o scid.res
+            src/optable.o src/tkdnd/TkDND_OleDND.o src/tk_selection.o scid.res
 	$(LINK) $(LDFLAGS) -o rel/bin/scinc.exe src/scid.o $(OBJS) \
             src/tree.o src/filter.o src/pbook.o \
             src/spellchk.o \
-            src/optable.o src/engine.o src/recog.o src/tkdnd/TkDND_OleDND.o src/tk_selection.o rel/bin/scid.res \
+            src/optable.o src/tkdnd/TkDND_OleDND.o src/tk_selection.o rel/bin/scid.res \
 	    -mwindows -lole32 -luuid -L$(TCL_DIR)/lib -ltk$(TCL_VERSION) -ltcl$(TCL_VERSION)
 
 tcscid.exe: src/tcscid.o $(OBJS) src/tree.o src/filter.o \
             src/pbook.o src/spellchk.o \
-            src/optable.o src/engine.o src/recog.o
+            src/optable.o
 	$(LINK) $(LDFLAGS) -o rel/bin/tcscid.exe src/tcscid.o $(OBJS) -ltcl$(TCL_VERSION) \
             src/tree.o src/filter.o src/pbook.o \
             src/spellchk.o \
-            src/optable.o src/engine.o src/recog.o \
+            src/optable.o \
             -L$(TCL_DIR)/lib -ltcl$(TCL_VERSION)
 
 scid.res: scid.rc
