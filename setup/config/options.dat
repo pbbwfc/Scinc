@@ -26,7 +26,6 @@ set ::tree::showBar 1
 set ::tree::short 1
 set ::tree::sortBest 1
 set ecoFile data/scid.eco
-set suggestMoves 0
 set showVarPopup 0
 set showVarArrows 1
 set annotate(blunder) 1.0

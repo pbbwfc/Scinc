@@ -1281,22 +1281,13 @@ proc addSanMove {san {animate ""} {noTraining ""}} {
 
 # enterSquare:
 #   Called when the mouse pointer enters a board square.
-#   Finds the best matching square for a move (if there is a
-#   legal move to or from this square), and colors the squares
-#   to indicate the suggested move.
+#   TODO - does nothing yet but may show possible moves
 #
 proc enterSquare { square } {
-  global highcolor currentSq bestSq bestcolor selectedSq suggestMoves
+  global highcolor currentSq bestSq bestcolor selectedSq 
   set currentSq $square
   if {$selectedSq == -1} {
     set bestSq -1
-    if {$suggestMoves} {
-      set bestSq [sc_pos bestSquare $square]
-    }
-    if {[expr {$bestSq != -1}]} {
-      ::board::colorSquare .main.board $square $bestcolor
-      ::board::colorSquare .main.board $bestSq $bestcolor
-    }
   }
 }
 
@@ -1371,18 +1362,8 @@ proc releaseSquare {w x y} {
   }
 
   if {$square == $selectedSq} {
-    if {$::suggestMoves} {
-      # User pressed and released on same square, so make the
-      # suggested move if there is one:
-      set selectedSq -1
-      ::board::colorSquare $w $bestSq
-      ::board::colorSquare $w $square
-      addMove $square $bestSq -animate
-      enterSquare $square
-    } else {
       # Current square is the square user pressed the button on,
       # so we do nothing.
-    }
   } else {
     if {$selectedSq == -1} {
       return
@@ -1489,12 +1470,6 @@ proc autoplay {} {
     }
     update
     return
-  }
-
-  ### Engine Annotation feature
-
-  if { ![sc_pos isAt start] } {
-    addAnnotation [sc_pos side]
   }
 
   if { $::isOpeningOnly && [sc_pos moveNumber] > $::isOpeningOnlyMoves} {

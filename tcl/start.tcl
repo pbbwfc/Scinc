@@ -506,9 +506,6 @@ set highlightLastMovePattern {} ; # this option is not saved
 # Ask before replacing existing moves: on by default
 set askToReplaceMoves 1
 
-# Show suggested moves
-set suggestMoves 0
-
 # Show variations popup window, arrows
 set showVarPopup 0
 set showVarArrows 1
