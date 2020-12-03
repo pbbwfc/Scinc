@@ -146,6 +146,10 @@ test type {} -setup {
     sc_base type 1 } -cleanup {
     sc_base close } -result 1
 
+test sortup {} -body {
+    sc_base sortup } -result ""
 
+test sortdown {} -body {
+    sc_base sortdown } -result ""
 
 cleanupTests

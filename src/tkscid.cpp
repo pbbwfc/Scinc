@@ -628,7 +628,7 @@ sc_base (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
         "inUse",        "isReadOnly",   "numGames",     "open",
         "slot",         "sort",         "stats",
         "switch",       "tag",          "type",
-        "sortup",    "sortdown",
+        "sortup",       "sortdown",
         NULL
     };
     enum {
@@ -638,7 +638,7 @@ sc_base (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
         BASE_INUSE,       BASE_ISREADONLY,  BASE_NUMGAMES,    BASE_OPEN,
         BASE_SLOT,        BASE_SORT,        BASE_STATS,
         BASE_SWITCH,      BASE_TAG,         BASE_TYPE,
-        BASE_SORTUP,    BASE_SORTDOWN
+        BASE_SORTUP,      BASE_SORTDOWN
     };
     int index = -1;
 
