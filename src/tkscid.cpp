@@ -9224,14 +9224,14 @@ int
 sc_pos (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 {
     static const char * options [] = {
-        "addNag", "bestSquare", "board", "clearNags",
+        "addNag", "board", "clearNags",
         "fen", "getComment", "getNags", "hash", "html",
         "isAt", "isCheck", "isInsufficient", "isLegal", "isPromotion",
         "matchMoves", "moveNumber", "pgnBoard", "pgnOffset", "pieceCount",
         "setComment", "side", "tex", "moves", "movesUci", "location", NULL
     };
     enum {
-        POS_ADDNAG, POS_BESTSQ, POS_BOARD, POS_CLEARNAGS,
+        POS_ADDNAG, POS_BOARD, POS_CLEARNAGS,
         POS_FEN, POS_GETCOMMENT, POS_GETNAGS, POS_HASH, POS_HTML,
         POS_ISAT, POS_ISCHECK, POS_ISINSUFFICENT, POS_ISLEGAL, POS_ISPROMO, POS_MATCHMOVES, POS_MOVENUM,
         POS_PGNBOARD, POS_PGNOFFSET, POS_PIECECOUNT,
@@ -9245,9 +9245,6 @@ sc_pos (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
     switch (index) {
     case POS_ADDNAG:
         return sc_pos_addNag (cd, ti, argc, argv);
-
-    case POS_BESTSQ:
-        return sc_pos_bestSquare (cd, ti, argc, argv);
 
     case POS_BOARD:
         db->game->GetCurrentPos()->MakeLongStr (boardStr);
@@ -9375,100 +9372,6 @@ sc_pos_addNag (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
         db->game->AddNag ((byte) nag);
     }
     db->gameAltered = true;
-    return TCL_OK;
-}
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// sc_pos_bestSquare:
-//    Takes a square and returns the best square that makes a move
-//    with the given square. The square can be the from or to part of
-//    a move. Used for smart move completion.
-//    Returns -1 if no legal moves go to or from the square.
-int
-sc_pos_bestSquare (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
-{
-    if (argc != 3) {
-        return errorResult (ti, "Usage: sc_pos bestSquare <square>");
-    }
-
-    Position * pos = db->game->GetCurrentPos();
-
-    // Try to read the square parameter as algebraic ("h8") or numeric (63):
-    squareT sq = strGetSquare (argv[2]);
-    if (sq == NULL_SQUARE) {
-      int sqInt = strGetInteger (argv[2]);
-      if (sqInt >= 0  &&  sqInt <= 63) { sq = sqInt; }
-    }
-    if (sq == NULL_SQUARE) {
-        return errorResult (ti, "Usage: sc_pos bestSquare <square>");
-    }
-
-    // Generate all legal moves:
-    MoveList mlist;
-    pos->GenerateMoves(&mlist);
-
-    // Restrict the list of legal moves to contain only those that
-    // move to or from the specified square:
-    mlist.SelectBySquare (sq);
-
-     // If no matching legal moves, return -1:
-    if (mlist.Size() == 0) {
-        return setResult (ti, "-1");
-    }
-
-    if (mlist.Size() > 1) {
-        // We have more than one move to choose from, so first check
-        // the ECO openings book (if it is loaded) to see if any move
-        // in the list reaches an ECO position. If so, select the move
-        // reaching the largest ECO code as the best move. If no ECO
-        // position is found, do a small chess engine search to find
-        // the best move.
-
-        ecoT bestEco = ECO_None;
-        ecoT secondBestEco = ECO_None;
-        if (ecoBook != NULL) {
-            DString ecoStr;
-            for (uint i=0; i < mlist.Size(); i++) {
-                ecoT eco = ECO_None;
-                pos->DoSimpleMove (mlist.Get(i));
-                ecoStr.Clear();
-                if (ecoBook->FindOpcode (pos, "eco", &ecoStr) == OK) {
-                    eco = eco_FromString (ecoStr.Data());
-                }
-                pos->UndoSimpleMove (mlist.Get(i));
-                if (eco >= bestEco) {
-                    secondBestEco = bestEco;
-                    bestEco = eco;
-                    mlist.MoveToFront (i);
-                }
-            }
-        }
-
-        if (bestEco == ECO_None  ||  bestEco == secondBestEco) {
-            // No matching ECO position found, or a tie. So do a short
-            // engine search to find the best move; 25 ms (= 1/40 s)
-            // is enough to reach a few ply and select reasonable
-            // moves but fast enough to seem almost instant. The
-            // search promotes the best move to be first in the list.
-            Engine * engine = new Engine();
-            engine->SetSearchTime (25);    // Do a 25 millisecond search
-            engine->SetPosition (pos);
-            engine->Think (&mlist);
-            delete engine;
-        }
-    }
-
-    // Now the best move is the first in the list, either because it
-    // is the only move, or it reaches the largest ECO code, or because
-    // the chess engine search selected it.
-    // Find the other square in the best move and return it:
-
-    simpleMoveT * sm = mlist.Get(0);
-    ASSERT (sq == sm->from  ||  sq == sm->to);
-    squareT bestSq = sm->from;
-    if (sm->from == sq) { bestSq = sm->to; }
-    setUintResult (ti, bestSq);
-
     return TCL_OK;
 }
 

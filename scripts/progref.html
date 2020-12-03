@@ -1179,7 +1179,6 @@ theory table.
 <p>
 Commands:
 <a href="#pos_addNag">addNag</a>
-/ <a href="#pos_bestSquare">bestSquare</a>
 / <a href="#pos_board">board</a>
 / <a href="#pos_clearNags">clearNags</a>
 / <a href="#pos_fen">fen</a>
@@ -1205,19 +1204,6 @@ This group contains commands related to the current position.
 Adds a single NAG (numeric annotation glyph) to the current position.
 The <i>nag</i> can by in many forms: "3", "$3", "!!", etc.
 See the funtion game_parseNag in src/game.cpp for details.
-</p>
-
-<h4><a name="pos_bestSquare">sc_pos bestSquare <i>sq</i></a></h4>
-<p>
-Returns an integer indicating the "best" legal move to or from <i>sq</i>.
-Both <i>sq</i> and the return value have the format
-0=a1, 1=b1, ..., 62=g8, 63=h8. If there is no legal move to or from
-the specified square, -1 is returned.
-</p>
-<p>
-This is used for "smart" mouse move entry, but the current algorithm
-for choosing best moves is very primitive and silly moves are
-frequently suggested.
 </p>
 
 <h4><a name="pos_board">sc_pos board</a></h4>
