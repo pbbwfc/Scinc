@@ -125,16 +125,6 @@ proc translate {lang tag label} {
   }
 }
 ################################################################################
-# translateECO:
-#    Given a pair list of ECO opening name phrase translations,
-#    assigns the translations for future reference.
-################################################################################
-proc translateECO {lang pairList} {
-  foreach {from to} $pairList {
-    sc_eco translate $lang $from $to
-  }
-}
-################################################################################
 # tr:
 #    Given a tag and language, returns the stored text for that tag.
 ################################################################################

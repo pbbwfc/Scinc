@@ -1,0 +1,46 @@
+# sc_eco.test
+ 
+package require tcltest
+namespace import ::tcltest::*
+ 
+# Software under test
+# source sc_eco.tcl
+
+test base {} -setup {
+    file copy {*}[glob data/test.*] {temp}
+    sc_base open "temp/test"
+    sc_eco read "data/scid.eco" } -body {
+    sc_eco base true true } -cleanup {
+    sc_base close
+    file delete {*}[glob temp/test.*] 
+    } -result "Classified 6 games in 0.00 seconds"
+
+test game {} -setup {
+    file copy {*}[glob data/test.*] {temp}
+    sc_base open "temp/test"
+    sc_eco read "data/scid.eco" } -body {
+    sc_eco game } -cleanup {
+    sc_base close
+    file delete {*}[glob temp/test.*] 
+    } -result "A00a"
+
+test read {} -body {
+    sc_eco read "data/scid.eco" } -result "10360"
+
+test reset {} -body {
+    sc_eco reset } -result ""
+
+test size {} -setup {
+    sc_eco read "data/scid.eco" } -body {
+    sc_eco size } -result "10360"
+
+test summary {} -setup {
+    sc_eco read "data/scid.eco" } -body {
+    sc_eco summary "A00c" false } -result "A00c \[Kadas Opening\]  1.h4 \n"
+
+test summaryhtext {} -setup {
+    sc_eco read "data/scid.eco" } -body {
+    sc_eco summary "A00c" true } -result "A00c <tab>\[Kadas Opening\]<blue><run importMoveListTrans {  1.h4 }>  1.h4 </run></blue></tab><br>"
+
+
+cleanupTests

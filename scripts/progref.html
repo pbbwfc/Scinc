@@ -20,19 +20,20 @@ Last updated by Phil Brooks, 2-Dec-2020
 2. <a href="#base">sc_base</a> <br>
 3. <a href="#clipbase">sc_clipbase</a> <br>
 4. <a href="#compact">sc_compact</a> <br>
-5. <a href="#filter">sc_filter</a> <br>
-6. <a href="#game">sc_game</a> <br>
-7. <a href="#info">sc_info</a> <br>
-8. <a href="#move">sc_move</a> <br>
+5. <a href="#eco">sc_eco</a> <br>
+6. <a href="#filter">sc_filter</a> <br>
+7. <a href="#game">sc_game</a> <br>
+8. <a href="#info">sc_info</a> <br>
+9. <a href="#move">sc_move</a> <br>
 </td><td>
-9. <a href="#name">sc_name</a> <br>
-10. <a href="#optable">sc_optable</a> <br>
-11. <a href="#pos">sc_pos</a> <br>
-12. <a href="#progressBar">sc_progressBar</a> <br>
-13. <a href="#search">sc_search</a> <br>
-14. <a href="#tree">sc_tree</a> <br>
-15. <a href="#var">sc_var</a> <br>
-16. <a href="#string">Extra string commands</a> <br>
+10. <a href="#name">sc_name</a> <br>
+11. <a href="#optable">sc_optable</a> <br>
+12. <a href="#pos">sc_pos</a> <br>
+13. <a href="#progressBar">sc_progressBar</a> <br>
+14. <a href="#search">sc_search</a> <br>
+15. <a href="#tree">sc_tree</a> <br>
+16. <a href="#var">sc_var</a> <br>
+17. <a href="#string">Extra string commands</a> <br>
 </td></tr>
 </tbody></table>
 <hr>
@@ -412,7 +413,6 @@ Commands:
 / <a href="#eco_reset">reset</a>
 / <a href="#eco_size">size</a>
 / <a href="#eco_summary">summary</a>
-/ <a href="#eco_translate">translate</a>
 </p>
 <p>
 This group contains commands for ECO opening classification.
@@ -460,22 +460,13 @@ Returns the number of positions in the ECO classification key.
 
 <h4><a name="eco_summary">sc_eco summary <i>ecoPrefix</i> [<i>htext</i>:boolean]</a></h4>
 <p>
-For the current database and given ECO prefix, returns a summary
+For the ECO classification key, given a prefix, returns a summary
 listing positions for the prefix. For example, if <i>ecoPrefix</i> is
 "A4", a line for each of A40, A41, ..., A49 will be returned.
 </p>
 <p>
 If the optional <i>htext</i> (defaults to true) is true, the summary
 is returned in color hypertext format instead of plain text.
-</p>
-
-<h4><a name="eco_translate">sc_eco translate <i>language</i> <i>fromText</i> <totext< i=""></totext<></a></h4>
-<p>
-Sets up a translation for an ECO opening name phrase for the specified
-language code.
-For example, <i>sc_eco translate D {Queens Indian} {Damenindisch}</i>
-will set the phrase <i>Queens Indian</i> in an ECO opening name to be
-displayed as <i>Damenindisch</i> in Deutsch (German).
 </p>
 
 

@@ -3146,18 +3146,6 @@ sc_compact_stats (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 //////////////////////////////////////////////////////////////////////
 /// ECO Classification functions
 
-// ecoTranslateT:
-//    Structure for a linked list of ECO opening name translations.
-//
-struct ecoTranslateT {
-    char   language;
-    char * from;
-    char * to;
-    ecoTranslateT * next;
-};
-
-static ecoTranslateT * ecoTranslations = NULL;
-void translateECO (Tcl_Interp * ti, const char * strFrom, DString * dstrTo);
 
 int
 sc_eco (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
@@ -3165,11 +3153,10 @@ sc_eco (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
     int index = -1;
     static const char * options [] = {
         "base", "game", "read", "reset", "size", "summary",
-        "translate", NULL
+        NULL
     };
     enum {
-        ECO_BASE, ECO_GAME, ECO_READ, ECO_RESET, ECO_SIZE, ECO_SUMMARY,
-        ECO_TRANSLATE
+        ECO_BASE, ECO_GAME, ECO_READ, ECO_RESET, ECO_SIZE, ECO_SUMMARY
     };
 
     if (argc > 1) { index = strUniqueMatch (argv[1], options); }
@@ -3193,9 +3180,6 @@ sc_eco (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 
     case ECO_SUMMARY:
         return sc_eco_summary (cd, ti, argc, argv);
-
-    case ECO_TRANSLATE:
-        return sc_eco_translate (cd, ti, argc, argv);
 
     default:
         return InvalidCommand (ti, "sc_eco", options);
@@ -3459,9 +3443,7 @@ sc_eco_summary (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
     DString * dstr = new DString;
     DString * temp = new DString;
     bool inMoveList = false;
-    ecoBook->EcoSummary (argv[2], temp);
-    translateECO (ti, temp->Data(), dstr);
-    temp->Clear();
+    ecoBook->EcoSummary (argv[2], dstr);
     if (color) {
         DString * oldstr = dstr;
         dstr = new DString;
@@ -3498,60 +3480,6 @@ sc_eco_summary (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
     delete temp;
     delete dstr;
     return TCL_OK;
-}
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// sc_eco_translate:
-//    Adds a new ECO openings phrase translation.
-int
-sc_eco_translate (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
-{
-    if (argc != 5) {
-        return errorResult (ti, "Usage: sc_eco translate <lang> <from> <to>");
-    }
-
-    ecoTranslateT * trans = new ecoTranslateT;
-    trans->next = ecoTranslations;
-    trans->language = argv[2][0];
-    trans->from = strDuplicate (argv[3]);
-    trans->to = strDuplicate (argv[4]);
-    ecoTranslations = trans;
-    return TCL_OK;
-}
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// translateECO:
-//    Translates an ECO opening name into the current language.
-//
-void
-translateECO (Tcl_Interp * ti, const char * strFrom, DString * dstrTo)
-{
-    ecoTranslateT * trans = ecoTranslations;
-    dstrTo->Clear();
-    dstrTo->Append (strFrom);
-    const char * language = Tcl_GetVar (ti, "language", TCL_GLOBAL_ONLY);
-    if (language == NULL) { return; }
-    char lang = language[0];
-    while (trans != NULL) {
-        if (trans->language == lang
-            &&  strContains (dstrTo->Data(), trans->from)) {
-            // Translate this phrase in the string:
-            char * temp = strDuplicate (dstrTo->Data());
-            dstrTo->Clear();
-            char * in = temp;
-            while (*in != 0) {
-                if (strIsPrefix (trans->from, in)) {
-                    dstrTo->Append (trans->to);
-                    in += strLength (trans->from);
-                } else {
-                    dstrTo->AddChar (*in);
-                    in++;
-                }
-            }
-            delete[] temp;
-        }
-        trans = trans->next;
-    }
 }
 
 
@@ -5275,13 +5203,10 @@ sc_game_info (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 
             uint len = strLength (estr);
             if (len >= 4) { estr[3] = 0; }
-            DString * tempDStr = new DString;
-            translateECO (ti, ecoComment.Data(), tempDStr);
 	    if (db->game->GetEco() == 0)
-	      Tcl_AppendResult (ti, "  <blue><run ::windows::eco::Refresh ", estr, ">", tempDStr->Data(), "</run></blue>", NULL);
+	      Tcl_AppendResult (ti, "  <blue><run ::windows::eco::Refresh ", estr, ">", ecoComment.Data(), "</run></blue>", NULL);
             else
-	      Tcl_AppendResult (ti, "  (<blue><run ::windows::eco::Refresh ", estr, ">", tempDStr->Data(), "</run></blue>)", NULL);
-            delete tempDStr;
+	      Tcl_AppendResult (ti, "  (<blue><run ::windows::eco::Refresh ", estr, ">", ecoComment.Data(), "</run></blue>)", NULL);
         }
     }
 

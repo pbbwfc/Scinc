@@ -1,4 +1,4 @@
-# sc_info.test
+# sc_base.test
  
 package require tcltest
 namespace import ::tcltest::*
