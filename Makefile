@@ -14,27 +14,19 @@ MINGW_TARGET=x86_64-w64-mingw32
 
 ### Compiler and linker
 CXX=$(MINGW_TARGET)-g++
-CC=$(MINGW_TARGET)-gcc
 RC=windres
 LINK=$(CXX)
 
 WARNINGS = -Wall
 
-CFLAGS = -DWIN32 -O2 $(WARNINGS)
+CXXFLAGS = -fno-rtti -DWIN32 -O2 $(WARNINGS)
 # Debug
-# CFLAGS = -DWIN32 -O0 $(WARNINGS) -g3 -ggdb
+# CXXFLAGS = -fno-rtti -DWIN32 -O0 $(WARNINGS) -g3 -ggdb
 # Asserts
-# CFLAGS = -DWIN32 -O2 $(WARNINGS) -DASSERTIONS
+# CXXFLAGS = -fno-rtti -DWIN32 -O2 $(WARNINGS) -DASSERTIONS
 
-CXXFLAGS = -fno-rtti $(CFLAGS)
-
-LDFLAGS =
-RCFLAGS = --output-format=coff
-
-CFLAGS += -m64
-#CXXFLAGS+= -m64
-LDFLAGS+= -m64
-RCFLAGS+= --target=pe-x86-64
+LDFLAGS = -m64
+RCFLAGS = --output-format=coff --target=pe-x86-64
 
 ### EXECS: all the evecutable programs compiled from C++ files.
 EXECS= scidt.exe scinc.exe tcscid.exe
@@ -128,9 +120,6 @@ src/scid.o: src/tkscid.cpp
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -I$(TCL_DIR)/include -c $< -o ./$@
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o ./$@
-
 src/tkdnd/TkDND_OleDND.o: src/tkdnd/win/TkDND_OleDND.cpp
-	$(MAKE) -C src/tkdnd/ -f Makefile.mingwx CC="$(CC)" LINK="$(LINK)" CXXFLAGS="$(CXXFLAGS)" \
+	$(MAKE) -C src/tkdnd/ -f Makefile.mingwx LINK="$(LINK)" CXXFLAGS="$(CXXFLAGS)" \
               WIN_TARGET="$(WIN_TARGET)" TCL_VERSION="$(TCL_VERSION)" TCL_DIR="$(TCL_DIR)"

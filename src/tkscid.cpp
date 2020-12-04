@@ -3513,16 +3513,16 @@ sc_filter (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 {
     int index = -1;
     static const char * options [] = {
-        "copy", "count", "first", "frequency",
+        "copy", "count", "first", "freq",
         "index", "last", "locate", "negate",
 	"next", "previous", "remove", "reset", "end",
-	"size", "stats", "textfind", "textfilter", "value", "clear", NULL
+	"stats", "textfind", "textfilter", "value", "clear", NULL
     };
     enum {
         FILTER_COPY, FILTER_COUNT, FILTER_FIRST, FILTER_FREQ,
         FILTER_INDEX, FILTER_LAST, FILTER_LOCATE, FILTER_NEGATE,
         FILTER_NEXT, FILTER_PREV, FILTER_REMOVE, FILTER_RESET, FILTER_END,
-        FILTER_SIZE, FILTER_STATS, FILTER_TEXTFIND, FILTER_TEXTFILTER, FILTER_VALUE,
+        FILTER_STATS, FILTER_TEXTFIND, FILTER_TEXTFILTER, FILTER_VALUE,
         FILTER_CLEAR
     };
 
@@ -3567,9 +3567,6 @@ sc_filter (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 
     case FILTER_REMOVE:
         return sc_filter_remove (cd, ti, argc, argv);
-
-    case FILTER_SIZE:   // Alias for "sc_filter count"
-        return sc_filter_count (cd, ti, argc, argv);
 
     case FILTER_STATS:
         return sc_filter_stats (cd, ti, argc, argv);

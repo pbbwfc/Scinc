@@ -1,0 +1,91 @@
+# sc_filter.test
+ 
+package require tcltest
+namespace import ::tcltest::*
+ 
+# Software under test
+# source sc_filter.tcl
+
+test copy {} -setup {
+    file copy {*}[glob data/test.*] {temp}
+    sc_base open "temp/test" } -body {
+    sc_filter copy [sc_base current] [sc_info clipbase] } -cleanup {
+    sc_base close
+    file delete {*}[glob temp/test.*] 
+    } -result ""
+
+test count {} -setup {
+    file copy {*}[glob data/test.*] {temp}
+    sc_base open "temp/test" } -body {
+    sc_filter count } -cleanup {
+    sc_base close
+    file delete {*}[glob temp/test.*] 
+    } -result 6
+
+test first {} -setup {
+    file copy {*}[glob data/test.*] {temp}
+    sc_base open "temp/test" } -body {
+    sc_filter first } -cleanup {
+    sc_base close
+    file delete {*}[glob temp/test.*] 
+    } -result 1
+
+test freqdate1 {} -setup {
+    file copy {*}[glob data/test.*] {temp}
+    sc_base open "temp/test" } -body {
+    sc_filter freq date "2000.12.31" } -cleanup {
+    sc_base close
+    file delete {*}[glob temp/test.*] 
+    } -result "6 6"
+
+test freqdate2 {} -setup {
+    file copy {*}[glob data/test.*] {temp}
+    sc_base open "temp/test" } -body {
+    sc_filter freq date "2020.12.31" } -cleanup {
+    sc_base close
+    file delete {*}[glob temp/test.*] 
+    } -result "0 0"
+
+test freqelo {} -setup {
+    file copy {*}[glob data/test.*] {temp}
+    sc_base open "temp/test" } -body {
+    sc_filter freq elo 1000 } -cleanup {
+    sc_base close
+    file delete {*}[glob temp/test.*] 
+    } -result "0 0"
+
+test freqmove1 {} -setup {
+    file copy {*}[glob data/test.*] {temp}
+    sc_base open "temp/test" } -body {
+    sc_filter freq move 104 104 } -cleanup {
+    sc_base close
+    file delete {*}[glob temp/test.*] 
+    } -result "6 6"
+
+test freqmove2 {} -setup {
+    file copy {*}[glob data/test.*] {temp}
+    sc_base open "temp/test" } -body {
+    sc_filter freq move 105 106 } -cleanup {
+    sc_base close
+    file delete {*}[glob temp/test.*] 
+    } -result "0 0"
+
+test index {} -setup {
+    file copy {*}[glob data/test.*] {temp}
+    sc_base open "temp/test" } -body {
+    sc_filter index 5 } -cleanup {
+    sc_base close
+    file delete {*}[glob temp/test.*] 
+    } -result 5
+
+test last {} -setup {
+    file copy {*}[glob data/test.*] {temp}
+    sc_base open "temp/test" } -body {
+    sc_filter last } -cleanup {
+    sc_base close
+    file delete {*}[glob temp/test.*] 
+    } -result 6
+
+
+
+cleanupTests
