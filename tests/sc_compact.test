@@ -1,0 +1,31 @@
+# sc_info.test
+ 
+package require tcltest
+namespace import ::tcltest::*
+ 
+# Software under test
+# source sc_compact.tcl
+
+test games {} -setup {
+    sc_base open "data/test" } -body {
+    sc_compact games } -cleanup {
+    sc_base close } -result ""
+
+test names {} -setup {
+    sc_base open "data/test" } -body {
+    sc_compact names } -cleanup {
+    sc_base close } -result ""
+
+test statsgames {} -setup {
+    sc_base open "data/test" } -body {
+    sc_compact stats games } -cleanup {
+    sc_base close } -result "6 659 6 659"
+
+test statsnames {} -setup {
+    sc_base open "data/test" } -body {
+    sc_compact stats names } -cleanup {
+    sc_base close } -result "2 0 1 0 1 0 1 0"
+
+
+
+cleanupTests
