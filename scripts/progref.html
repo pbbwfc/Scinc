@@ -485,8 +485,10 @@
 
     <p>
         Commands:
-        <a href="#filter_copy">copy</a>
+        <a href="#filter_clear">clear</a>
+        / <a href="#filter_copy">copy</a>
         / <a href="#filter_count">count</a>
+        / <a href="#filter_end">end</a>
         / <a href="#filter_first">first</a>
         / <a href="#filter_freq">freq</a>
         / <a href="#filter_index">index</a>
@@ -499,9 +501,17 @@
         / <a href="#filter_reset">reset</a>
         / <a href="#filter_stats">stats</a>
         / <a href="#filter_textfind">textfind</a>
+        / <a href="#filter_textfilter">textfilter</a>
+        / <a href="#filter_value">value</a>
     </p>
     <p>
         This group contains commands that manipulate the current database filter.
+    </p>
+
+    <h4><a name="filter_clear">sc_filter clear [<i>slot</i>]</a></h4>
+    <p>
+        Takes an optional base number (defaults to current base) and
+        clears all filters.
     </p>
 
     <h4><a name="filter_copy">sc_filter copy <i>from</i> <i>to</i></a></h4>
@@ -515,6 +525,11 @@
     <p>
         Returns the number of games in the filter of the database in the specified
         slot, which defaults to the current database.
+    </p>
+
+    <h4><a name="filter_end">sc_filter end</a></h4>
+    <p>
+        Sets all filter games to the end of moves.
     </p>
 
     <h4><a name="filter_first">sc_filter first</a></h4>
@@ -603,11 +618,23 @@
         or only the filter games played since 1st January of <i>minYear</i>.
     </p>
 
-    <h4><a name="filter_textfind">sc_filter textfind <i>filterNumber</i> <i>searchText</i></a></h4>
+    <h4><a name="filter_textfind">sc_filter textfind <i>case</i> <i>filterNumber</i> <i>searchText</i></a></h4>
     <p>
         Returns the filter number of the next filtered game containing
         <i>searchText</i> in its White, Black, Event or Site fields, starting
-        at the <i>filterNumber</i>'th filtered game.
+        at the <i>filterNumber</i>'th filtered game. <i>case</i> (0 or 1) specifies
+        whether case sensitive.
+    </p>
+
+    <h4><a name="filter_textfilter">sc_filter textfilter <i>case</i> <i>searchText</i></a></h4>
+    <p>
+        Removes games that match string
+        in its White, Black, Event or Site fields.Returns number of games removed.
+    </p>
+
+    <h4><a name="filter_value">sc_filter value <i>baseNumber</i> <i>gameNumber</i></a></h4>
+    <p>
+        Returns the filter value/ply of the specified base and game
     </p>
 
 

@@ -3580,7 +3580,6 @@ sc_filter (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
     case FILTER_VALUE:
         return sc_filter_value (cd, ti, argc, argv);
 
-    // --- clear filter
     case FILTER_CLEAR:
         return sc_filter_clear (cd, ti, argc, argv);
 

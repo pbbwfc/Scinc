@@ -6,6 +6,14 @@ namespace import ::tcltest::*
 # Software under test
 # source sc_filter.tcl
 
+test clear {} -setup {
+    file copy {*}[glob data/test.*] {temp}
+    sc_base open "temp/test" } -body {
+    sc_filter clear } -cleanup {
+    sc_base close
+    file delete {*}[glob temp/test.*] 
+    } -result ""
+
 test copy {} -setup {
     file copy {*}[glob data/test.*] {temp}
     sc_base open "temp/test" } -body {
@@ -21,6 +29,14 @@ test count {} -setup {
     sc_base close
     file delete {*}[glob temp/test.*] 
     } -result 6
+
+test end {} -setup {
+    file copy {*}[glob data/test.*] {temp}
+    sc_base open "temp/test" } -body {
+    sc_filter end } -cleanup {
+    sc_base close
+    file delete {*}[glob temp/test.*] 
+    } -result ""
 
 test first {} -setup {
     file copy {*}[glob data/test.*] {temp}
@@ -85,6 +101,86 @@ test last {} -setup {
     sc_base close
     file delete {*}[glob temp/test.*] 
     } -result 6
+
+test locate {} -setup {
+    file copy {*}[glob data/test.*] {temp}
+    sc_base open "temp/test" } -body {
+    sc_filter locate 1 } -cleanup {
+    sc_base close
+    file delete {*}[glob temp/test.*] 
+    } -result 1
+
+test negate {} -setup {
+    file copy {*}[glob data/test.*] {temp}
+    sc_base open "temp/test" } -body {
+    sc_filter negate } -cleanup {
+    sc_base close
+    file delete {*}[glob temp/test.*] 
+    } -result ""
+
+test next {} -setup {
+    file copy {*}[glob data/test.*] {temp}
+    sc_base open "temp/test" } -body {
+    sc_filter next } -cleanup {
+    sc_base close
+    file delete {*}[glob temp/test.*] 
+    } -result 1
+
+test previous {} -setup {
+    file copy {*}[glob data/test.*] {temp}
+    sc_base open "temp/test" } -body {
+    sc_filter previous } -cleanup {
+    sc_base close
+    file delete {*}[glob temp/test.*] 
+    } -result 0
+
+test remove {} -setup {
+    file copy {*}[glob data/test.*] {temp}
+    sc_base open "temp/test" } -body {
+    sc_filter remove 5 } -cleanup {
+    sc_base close
+    file delete {*}[glob temp/test.*] 
+    } -result ""
+
+test reset {} -setup {
+    file copy {*}[glob data/test.*] {temp}
+    sc_base open "temp/test" } -body {
+    sc_filter reset } -cleanup {
+    sc_base close
+    file delete {*}[glob temp/test.*] 
+    } -result ""
+
+test stats {} -setup {
+    file copy {*}[glob data/test.*] {temp}
+    sc_base open "temp/test" } -body {
+    sc_filter stats } -cleanup {
+    sc_base close
+    file delete {*}[glob temp/test.*] 
+    } -result "      6       0       0       6     0.0%"
+
+test textfind {} -setup {
+    file copy {*}[glob data/test.*] {temp}
+    sc_base open "temp/test" } -body {
+    sc_filter textfind 1 0 "BrookS" } -cleanup {
+    sc_base close
+    file delete {*}[glob temp/test.*] 
+    } -result 1
+
+test textfilter {} -setup {
+    file copy {*}[glob data/test.*] {temp}
+    sc_base open "temp/test" } -body {
+    sc_filter textfilter 0 "BrookS" } -cleanup {
+    sc_base close
+    file delete {*}[glob temp/test.*] 
+    } -result 6
+
+test value {} -setup {
+    file copy {*}[glob data/test.*] {temp}
+    sc_base open "temp/test" } -body {
+    sc_filter value 1 1 } -cleanup {
+    sc_base close
+    file delete {*}[glob temp/test.*] 
+    } -result 1
 
 
 
