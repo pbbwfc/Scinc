@@ -4,7 +4,7 @@ package require tcltest
 namespace import ::tcltest::*
  
 # Software under test
-source sc_base.tcl
+# source sc_base.tcl
 
 test autoload {} -body {
     sc_base autoload } -result 1

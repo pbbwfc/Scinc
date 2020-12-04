@@ -4,7 +4,7 @@ package require tcltest
 namespace import ::tcltest::*
  
 # Software under test
-source sc_info.tcl
+# source sc_info.tcl
 
 # use 206 if asserts are on otherwise 0
 test asserts {} -body {

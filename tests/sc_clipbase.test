@@ -1,0 +1,18 @@
+# sc_info.test
+ 
+package require tcltest
+namespace import ::tcltest::*
+ 
+# Software under test
+# source sc_clipbase.tcl
+
+test clear {} -body {
+    sc_clipbase clear } -result ""
+
+test copy {} -body {
+    sc_clipbase copy } -result ""
+
+test paste {} -body {
+    sc_clipbase paste } -result ""
+
+cleanupTests
