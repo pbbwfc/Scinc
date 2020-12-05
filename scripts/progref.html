@@ -648,7 +648,6 @@
         / <a href="#game_setaltered">setaltered</a>
         / <a href="#game_eco">eco</a>
         / <a href="#game_flag">flag</a>
-        / <a href="#game_getTag">getTag</a>
         / <a href="#game_import">import</a>
         / <a href="#game_info">info</a>
         / <a href="#game_list">list</a>
@@ -700,17 +699,6 @@
         that game is returned.
     </p>
 
-    <h4><a name="game_getTag">sc_game getTag [-last] <i>tagName</i></a></h4>
-    <p>
-        Returns the specified tag for the current game. If the optional "-last"
-        is included, the value is for the last game in the database rather than
-        the current game.
-    </p>
-    <p>
-        Valid tag names are: Event, Site, Date, Year, Month, Day, Round, Result,
-        White: Black, WhiteWlo, BlackElo, WhiteRType, BlackRType, ECO and Extra.
-    </p>
-
     <h4><a name="game_import">sc_game import <i>pgnText</i></a></h4>
     <p>
         Imports the specified PGN text, replacing the current game details
@@ -725,9 +713,9 @@
         Options include:
     </p>
     <ul>
-        <li><b>-white</b>, <b>-black</b>, <b>-event</b>, <b>-site</b>: return the
+        <li><b>white</b>, <b>black</b>, <b>event</b>, <b>site</b>: return the
             White, Black, Event or Site tag instead. </li>
-        <li><b>-duplicate</b>: return the number of the twin of this game, or 0 if it
+        <li><b>duplicate</b>: return the number of the twin of this game, or 0 if it
             has no twin. </li>
         <li><b>-fen <i>boolean</i></b>: whether to display the FEN representation
             of the current position. </li>

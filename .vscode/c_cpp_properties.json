@@ -7,7 +7,7 @@
             ],
             "defines": [
                 "WIN32",
-                "SOURCE_TCL_FILE"
+                "SOURCE_TCL_FILE=\"scinc.gui\""
             ],
             "windowsSdkVersion": "10.0.18362.0",
             "compilerPath": "C:/msys64/mingw64/bin/g++.exe",
