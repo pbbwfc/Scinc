@@ -22,5 +22,14 @@ test setaltered {} -setup {
     file delete {*}[glob temp/test.*] 
     } -result ""
 
+test eco {} -setup {
+    file copy {*}[glob data/test.*] {temp}
+    sc_base open "temp/test"
+    sc_eco read "data/scid.eco" } -body {
+    sc_game eco } -cleanup {
+    sc_base close
+    file delete {*}[glob temp/test.*] 
+    } -result "A00a"
+
 
 cleanupTests

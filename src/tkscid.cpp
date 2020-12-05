@@ -4460,7 +4460,7 @@ int
 sc_game (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 {
     static const char * options [] = {
-        "altered",    "setaltered", "eco",        "find",
+        "altered",    "setaltered", "eco", 
         "firstMoves", "flag",       "import",     "info",
         "load",       "list",       "merge",      "moves",
         "new",        "novelty",    "number",     "pgn",
@@ -4469,7 +4469,7 @@ sc_game (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
         "truncate", "truncatefree", "undo",      "undoPoint",   "redo",  NULL
     };
     enum {
-        GAME_ALTERED,    GAME_SET_ALTERED,  GAME_ECO,        GAME_FIND,
+        GAME_ALTERED,    GAME_SET_ALTERED,  GAME_ECO, 
         GAME_FIRSTMOVES, GAME_FLAG,       GAME_IMPORT,     GAME_INFO,
         GAME_LOAD,       GAME_LIST,       GAME_MERGE,      GAME_MOVES,
         GAME_NEW,        GAME_NOVELTY,    GAME_NUMBER,     GAME_PGN,
@@ -4504,9 +4504,6 @@ sc_game (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 
     case GAME_ECO:  // "sc_game eco" is equivalent to "sc_eco game"
         return sc_eco_game (cd, ti, argc, argv);
-
-    case GAME_FIND:
-        return sc_game_find (cd, ti, argc, argv);
 
     case GAME_FIRSTMOVES:
         return sc_game_firstMoves (cd, ti, argc, argv);
@@ -4680,78 +4677,6 @@ sc_game (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
     return TCL_OK;
 }
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// sc_game_find:
-//    Returns the game number of the game in that current database
-//    that best matches the specified number, player names, site,
-//    round, year and result.
-//    This command is used primarily to locate a bookmarked game in
-//    a database where the number may be inaccurate due to database
-//    sorting or compaction.
-int
-sc_game_find (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
-{
-    if (argc != 9) {
-        return errorResult (ti, "sc_game_find: Incorrect parameters");
-    }
-
-    uint gnum = strGetUnsigned (argv[2]);
-    if (gnum == 0) { return setUintResult (ti, 0); }
-    gnum--;
-    const char * whiteStr = argv[3];
-    const char * blackStr = argv[4];
-    const char * siteStr = argv[5];
-    const char * roundStr = argv[6];
-    uint year = strGetUnsigned(argv[7]);
-    resultT result = strGetResult (argv[8]);
-
-    idNumberT white, black, site, round;
-    white = black = site = round = 0;
-    db->nb->FindExactName (NAME_PLAYER, whiteStr, &white);
-    db->nb->FindExactName (NAME_PLAYER, blackStr, &black);
-    db->nb->FindExactName (NAME_SITE, siteStr, &site);
-    db->nb->FindExactName (NAME_ROUND, roundStr, &round);
-
-    // We give each game a "score" which is 1 for each matching field.
-    // So the best possible score is 6.
-
-    // First, check if the specified game number matches all fields:
-    if (db->numGames > gnum) {
-        uint score = 0;
-        IndexEntry * ie = db->idx->FetchEntry (gnum);
-        if (ie->GetWhite() == white) { score++; }
-        if (ie->GetBlack() == black) { score++; }
-        if (ie->GetSite() == site) { score++; }
-        if (ie->GetRound() == round) { score++; }
-        if (ie->GetYear() == year) { score++; }
-        if (ie->GetResult() == result) { score++; }
-        if (score == 6) { return setUintResult (ti, gnum+1); }
-    }
-
-    // Now look for the best matching game:
-    uint bestNum = 0;
-    uint bestScore = 0;
-
-    for (uint i=0; i < db->numGames; i++) {
-        uint score = 0;
-        IndexEntry * ie = db->idx->FetchEntry (i);
-        if (ie->GetWhite() == white) { score++; }
-        if (ie->GetBlack() == black) { score++; }
-        if (ie->GetSite() == site) { score++; }
-        if (ie->GetRound() == round) { score++; }
-        if (ie->GetYear() == year) { score++; }
-        if (ie->GetResult() == result) { score++; }
-        // Update if the best score, favouring the specified game number
-        // in the case of a tie:
-        if (score > bestScore  ||  (score == bestScore  &&  gnum == i)) {
-            bestScore = score;
-            bestNum = i;
-        }
-        // Stop now if the best possible match is found:
-        if (score == 6) { break; }
-    }
-    return setUintResult (ti, bestNum + 1);
-}
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // sc_game_firstMoves:
