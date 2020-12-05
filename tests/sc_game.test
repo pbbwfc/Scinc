@@ -1,0 +1,26 @@
+# sc_game.test
+ 
+package require tcltest
+namespace import ::tcltest::*
+ 
+# Software under test
+# source sc_game.tcl
+
+test altered {} -setup {
+    file copy {*}[glob data/test.*] {temp}
+    sc_base open "temp/test" } -body {
+    sc_game altered } -cleanup {
+    sc_base close
+    file delete {*}[glob temp/test.*] 
+    } -result 0
+
+test setaltered {} -setup {
+    file copy {*}[glob data/test.*] {temp}
+    sc_base open "temp/test" } -body {
+    sc_game setaltered 0 } -cleanup {
+    sc_base close
+    file delete {*}[glob temp/test.*] 
+    } -result ""
+
+
+cleanupTests

@@ -645,7 +645,7 @@
     <p>
         Commands:
         <a href="#game_altered">altered</a>
-        / <a href="#game_crosstable">crosstable</a>
+        / <a href="#game_setaltered">setaltered</a>
         / <a href="#game_eco">eco</a>
         / <a href="#game_find">find</a>
         / <a href="#game_firstMoves">firstMoves</a>
@@ -681,18 +681,15 @@
         been altered.
     </p>
 
-    <h4><a name="game_crosstable">sc_game crosstable plain|html|hypertext|filter
-            [name|rating|score] [allplay|swiss|knockout]
-            [(+|-)(colors|countries|ratings|titles|groups)]</a></h4>
+    <h4><a name="game_setaltered">sc_game setaltered [0|1]</a></h4>
     <p>
-        Returns the crosstable for the current game, in plain text, HTML, or color
-        hypertext format. The "filter" option produces no returned result but
-        instead it adds all games in the current tournament to the filter.
+        Sets the boolean value indicating whether the current game has
+        been altered.
     </p>
 
     <h4><a name="game_eco">sc_game eco [ply]</a></h4>
     <p>
-        This is equivalent to <a href="#eco-game">sc_eco game</a>.
+        This is equivalent to <a href="#eco_game">sc_eco game</a>.
     </p>
 
     <h4><a name="game_firstMoves">sc_game firstMoves <i>gameNumber</i> <i>numHalfMoves</i></a></h4>

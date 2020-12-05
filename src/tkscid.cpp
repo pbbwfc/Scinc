@@ -4460,7 +4460,7 @@ int
 sc_game (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 {
     static const char * options [] = {
-        "altered",    "setaltered", "crosstable", "eco",        "find",
+        "altered",    "setaltered", "eco",        "find",
         "firstMoves", "flag",       "import",     "info",
         "load",       "list",       "merge",      "moves",
         "new",        "novelty",    "number",     "pgn",
@@ -4469,7 +4469,7 @@ sc_game (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
         "truncate", "truncatefree", "undo",      "undoPoint",   "redo",  NULL
     };
     enum {
-        GAME_ALTERED,    GAME_SET_ALTERED, GAME_CROSSTABLE, GAME_ECO,        GAME_FIND,
+        GAME_ALTERED,    GAME_SET_ALTERED,  GAME_ECO,        GAME_FIND,
         GAME_FIRSTMOVES, GAME_FLAG,       GAME_IMPORT,     GAME_INFO,
         GAME_LOAD,       GAME_LIST,       GAME_MERGE,      GAME_MOVES,
         GAME_NEW,        GAME_NOVELTY,    GAME_NUMBER,     GAME_PGN,
@@ -4678,32 +4678,6 @@ sc_game (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
     }
 
     return TCL_OK;
-}
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// isCrosstableGame:
-//    Returns true if the game with the specified index entry
-//    is considered a crosstable game. It must have the specified
-//    Event and Site, and a Date within the specified range or
-//    have the specified non-zero EventDate.
-static inline bool
-isCrosstableGame (IndexEntry * ie, idNumberT siteID, idNumberT eventID,
-                  dateT startDate, dateT endDate, dateT eventDate)
-{
-    if (ie->GetSite() != siteID  ||  ie->GetEvent() != eventID) {
-      return false;
-    }
-    if (eventDate != ZERO_DATE  &&  ie->GetEventDate() == eventDate) {
-      return true;
-    }
-
-    dateT date = ie->GetDate();
-
-    if (date_GetMonthDay (date) == 0) {
-      return (date_GetYear(date) == date_GetYear((startDate+endDate)/2));
-    }
-
-    return (date >= startDate && date <= endDate);
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -8932,12 +8906,11 @@ sc_name_edit (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
         if (argc != 6) { return errorResult (ti, usage); }
     }
 
-    enum { EDIT_ALL, EDIT_FILTER, EDIT_CTABLE };
+    enum { EDIT_ALL, EDIT_FILTER };
     int editSelection = EDIT_ALL;
     switch (argv[3][0]) {
     case 'a': editSelection = EDIT_ALL; break;
     case 'f': editSelection = EDIT_FILTER; break;
-    case 'c': editSelection = EDIT_CTABLE; break;
     default:
         return errorResult (ti, usage);
     }
@@ -8978,29 +8951,6 @@ sc_name_edit (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
         }
     }
 
-    // Set up crosstable game criteria if necessary:
-    idNumberT eventId = 0, siteId = 0;
-    dateT firstDate = 0, lastDate = 0, eventDate = 0;
-    if (editSelection == EDIT_CTABLE) {
-        Game * g = db->game;
-        if (db->nb->FindExactName (NAME_EVENT, g->GetEventStr(), &eventId) != OK) {
-            return errorResult (ti, "There are no crosstable games.");
-        }
-        if (db->nb->FindExactName (NAME_SITE, g->GetSiteStr(), &siteId) != OK) {
-            return errorResult (ti, "There are no crosstable games.");
-        }
-
-        if (date_GetMonthDay (g->GetDate()) == 0) {
-          // no month/day, so match games in calender year
-	  firstDate = g->GetDate();
-	  lastDate = date_AddMonths (g->GetDate(), 12) - 1;
-        } else {
-	  firstDate = date_AddMonths (g->GetDate(), -3);
-	  lastDate = date_AddMonths (g->GetDate(), 3);
-        }
-        eventDate = g->GetEventDate();
-    }
-
     // Add the new name to the namebase:
     idNumberT newID = 0;
     if (option != OPT_RATING  &&  option != OPT_DATE  &&  option != OPT_EVENTDATE) {
@@ -9025,10 +8975,6 @@ sc_name_edit (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
             continue;
         }
         ie = db->idx->FetchEntry (i);
-        if (editSelection == EDIT_CTABLE
-            && !isCrosstableGame (ie, siteId, eventId, firstDate, lastDate, eventDate)) {
-            continue;
-        }
 
         // Fetch the index entry and see if any editing is required:
         newIE = *ie;
