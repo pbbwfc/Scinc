@@ -4461,7 +4461,7 @@ sc_game (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 {
     static const char * options [] = {
         "altered",    "setaltered", "eco", 
-        "firstMoves", "flag",       "import",     "info",
+        "flag",       "import",     "info",
         "load",       "list",       "merge",      "moves",
         "new",        "novelty",    "number",     "pgn",
         "pop",        "push",       "save",       "scores",
@@ -4470,7 +4470,7 @@ sc_game (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
     };
     enum {
         GAME_ALTERED,    GAME_SET_ALTERED,  GAME_ECO, 
-        GAME_FIRSTMOVES, GAME_FLAG,       GAME_IMPORT,     GAME_INFO,
+        GAME_FLAG,       GAME_IMPORT,     GAME_INFO,
         GAME_LOAD,       GAME_LIST,       GAME_MERGE,      GAME_MOVES,
         GAME_NEW,        GAME_NOVELTY,    GAME_NUMBER,     GAME_PGN,
         GAME_POP,        GAME_PUSH,       GAME_SAVE,       GAME_SCORES,
@@ -4504,9 +4504,6 @@ sc_game (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 
     case GAME_ECO:  // "sc_game eco" is equivalent to "sc_eco game"
         return sc_eco_game (cd, ti, argc, argv);
-
-    case GAME_FIRSTMOVES:
-        return sc_game_firstMoves (cd, ti, argc, argv);
 
     case GAME_FLAG:
         return sc_game_flag (cd, ti, argc, argv);
@@ -4674,59 +4671,6 @@ sc_game (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
         return InvalidCommand (ti, "sc_game", options);
     }
 
-    return TCL_OK;
-}
-
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// sc_game_firstMoves:
-//    get the first few moves of the specified game as  a text line.
-//    A game number 0 indicates to use the current active game.
-//    E.g., "sc_game firstMoves 0 4" might return "1.e4 e5 2.Nf3 Nf6"
-int
-sc_game_firstMoves (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
-{
-    if (argc != 4) {
-        return errorResult (ti, "Usage: sc_game firstMoves <gameNum> <numMoves>");
-    }
-    if (!db->inUse) {
-        return errorResult (ti, errMsgNotOpen(ti));
-    }
-
-    uint gNum = strGetUnsigned (argv[2]);
-    if (gNum < 0  ||  gNum > db->numGames) {
-        return errorResult (ti, "Invalid game number.");
-    }
-
-    int plyCount = strGetInteger (argv[3]);
-    Game * g = scratchGame;
-
-    if (gNum == 0) {
-        g = db->game;
-    } else {
-        db->bbuf->Empty();
-        IndexEntry * ie = db->idx->FetchEntry (gNum - 1);
-        if (ie->GetLength() == 0) {
-            return setResult (ti, "(This game has no move data)");
-        }
-
-        if (db->gfile->ReadGame (db->bbuf, ie->GetOffset(),
-                                 ie->GetLength()) != OK) {
-            return errorResult (ti, "Error reading game.");
-        }
-
-        g->Clear();
-        if (g->Decode (db->bbuf, GAME_DECODE_NONE) != OK) {
-            return errorResult (ti, "Error decoding game.");
-        }
-    }
-
-    // Check plyCount is a reasonable value, or set it to current plycount.
-    if (plyCount < 0  ||  plyCount > 80) { plyCount = g->GetCurrentPly(); }
-    DString * dstr = new DString;
-    g->GetPartialMoveList (dstr, plyCount);
-    Tcl_AppendResult (ti, dstr->Data(), NULL);
-    delete dstr;
     return TCL_OK;
 }
 
