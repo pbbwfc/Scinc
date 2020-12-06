@@ -171,8 +171,6 @@ class OpTable
     bool IsRowMergable (uint rownum);
     void MergeRow (uint rownum);
     bool HasNotes (OpLine * line, uint movenum);
-    uint NoteCount (uint note);
-    uint NoteScore (uint note);
     void PrintNotes (DString * dstr, uint format);
 
   public:

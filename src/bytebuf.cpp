@@ -91,23 +91,6 @@ ByteBuffer::ProvideExternal (byte * data, uint length)
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// ByteBuffer::Get2Bytes(), Get3Bytes(), Get4Bytes():
-
-uint
-ByteBuffer::Get2Bytes ()
-{
-
-    ASSERT(Current != NULL);
-    if (ReadPos + 2 > ByteCount) { Err = ERROR_BufferRead; return 0; }
-    uint val;
-    val = *Current;  Current++;
-    val = val << 8;
-    val += *Current;  Current++;
-    ReadPos += 2;
-    return val;
-}
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ByteBuffer::Skip():
 //      Skips over a specified number of bytes.
 void

@@ -146,7 +146,6 @@ public:
     void        Init();
     void        Clear();        // No pieces on board
     void        StdStart();     // Standard chess starting position
-    bool        IsStdStart();
     errorT      AddPiece (pieceT p, squareT sq);
 
     // Set and Get attributes -- one-liners
@@ -188,8 +187,7 @@ public:
     inline uint SquareColorCount (pieceT p, colorT sqColor) {
         return NumOnSquareColor[p][sqColor];
     }
-    uint        GetSquares (pieceT p, SquareList * sqlist);
-
+    
     pieceT *    GetBoard () {
         Board[COLOR_SQUARE] = COLOR_CHAR[ToMove];
         return Board;
@@ -227,8 +225,7 @@ public:
     void  GenerateMoves (MoveList * mlist, pieceT mask) { GenerateMoves (mlist, mask, GEN_ALL_MOVES, true); }
     void  GenerateMoves (MoveList * mlist, genMovesT genType) { GenerateMoves (mlist, EMPTY, genType, true); }
     void  GenerateCaptures (MoveList * mlist) { GenerateMoves (mlist, EMPTY, GEN_CAPTURES, true); }
-    bool  IsLegalMove (simpleMoveT * sm);
-
+    
     void        GenCheckEvasions (MoveList * mlist, pieceT mask, genMovesT genType, SquareList * checkSquares);
     void        MatchLegalMove (MoveList * mlist, pieceT mask, squareT target);
     errorT      MatchPawnMove (MoveList * mlist, fyleT fromFyle, squareT to, pieceT promote);
@@ -245,7 +242,6 @@ public:
                     return CalcAttacks (1-ToMove, kingSq, checkSquares);
                 }
 
-    uint        Mobility (pieceT p, colorT color, squareT from);
     bool        IsKingInCheck () { return (CalcNumChecks() > 0); }
     bool        IsKingInCheckDir (directionT dir);
     bool        IsKingInCheck (simpleMoveT * sm);
@@ -265,7 +261,6 @@ public:
 
     errorT      ReadCoordMove (simpleMoveT * m, const char * s, bool reverse);
     errorT      ReadMove (simpleMoveT * m, const char * s, tokenT t);
-    errorT      ParseMove (simpleMoveT * sm, const char * s);
     errorT      ReadLine (const char * s);
 
     // Board I/O

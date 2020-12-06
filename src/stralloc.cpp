@@ -58,27 +58,6 @@ StrAllocator::Duplicate (const char * original)
     return newStr;
 }
 
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// StrAllocator::MemoryUsed():
-//      Return the amount of memory used in bytes.
-uint
-StrAllocator::MemoryUsed ()
-{
-    uint memUsed = 0;
-    bucketT * bucket = FirstBucket;
-    while (bucket != NULL) {
-        memUsed += sizeof(bucketT) + BucketSize;
-        bucket = bucket->next;
-    }
-    largeStrT * large = LargeList;
-    while (large != NULL) {
-        memUsed += sizeof(largeStrT) + large->size;
-        large = large->next;
-    }
-    return memUsed;
-}
-
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // StrAllocator::DeleteAll():
 //      Delete all strings.

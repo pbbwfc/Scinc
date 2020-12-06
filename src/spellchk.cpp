@@ -894,36 +894,6 @@ SpellChecker::GetTitle (const char * comment)
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// SpellChecker::GetLastCountry:
-//    Scan the player comment string for the country field (which
-//    is the second field, after the title), then return the
-//    last three letters in the country field, or the empty string
-//    if the country field is less than 3 characters long.
-const char *
-SpellChecker::GetLastCountry (const char * comment)
-{
-    static char country[4];
-    country[0] = 0;
-
-    if (comment == NULL) { return country; }
-
-    const char * start = comment;
-    // Skip over the title field:
-    while (*start != ' '  &&  *start != 0) { start++; }
-    while (*start == ' ') { start++; }
-
-    const char * end = start;
-    int length = 0;
-    while (*end != ' '  &&  *end != 0) { end++; length++; }
-    // Return the final three characters of the country field:
-    if (length >= 3) {
-        for (int i=0; i < 3; i++) { country[i] = start[length-3 + i]; }
-        country[3] = 0;
-    }
-    return country;
-}
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // SpellChecker::GetPeakRating:
 //    Scan the player comment string for the peak rating
 //    field (which is contained in brackets), convert it

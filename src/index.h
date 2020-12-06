@@ -635,8 +635,7 @@ class Index
 
     void        Init ();
     void        Clear ();
-    void        InitEntries (IndexEntry * ie, uint count);
-
+    
     // CalcIndexEntrySize: useful if the index entry size needs to grow in
     // a future version of Scid. Currently, all versions use same size.
     inline void CalcIndexEntrySize (void) {

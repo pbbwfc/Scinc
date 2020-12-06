@@ -84,7 +84,6 @@ if (AllocatedBuffer) { delete[] AllocatedBuffer; }
         Current++; ByteCount++;
     }
 
-    uint        Get2Bytes ();
     void        Skip (uint value);
 
     void        GetFixedString (char *str, uint length);

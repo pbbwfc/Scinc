@@ -74,11 +74,9 @@ public:
     inline simpleMoveT * Get (uint index);
     inline void Remove (uint index);
 
-    void MoveToFront (uint index);
     int  Find (simpleMoveT * sm);
     void FindBest (uint index);
     void Sort (void);
-    bool IsSorted (void);
     uint SelectBySquare (squareT sq);
 };
 

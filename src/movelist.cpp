@@ -16,22 +16,6 @@
 #include "misc.h"
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// MoveList::MoveToFront
-//   Promotes a move to the front of the list, pushing
-//   all moves that were ahead of it down one place.
-void
-MoveList::MoveToFront (uint index)
-{
-    ASSERT (index < ListSize);
-    if (index == 0) { return; }
-    simpleMoveT smTemp = Moves[index];
-    for (int i = index; i > 0; i--) {
-        Moves[i] = Moves[i-1];
-    }
-    Moves[0] = smTemp;
-}
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // MoveList::Find
 //   Searches for a move in the list.
 //   Returns the index of the move with the same from-square,
@@ -117,16 +101,6 @@ MoveList::Sort (void)
     for (uint i=0; i < ListSize; i++) {
         FindBest (i);
     }
-}
-
-bool
-MoveList::IsSorted (void)
-{
-    if (ListSize < 2) { return true; }
-    for (uint i = 0; i < ListSize - 1; i++) {
-        if (Moves[i].score < Moves[i+1].score) { return false; }
-    }
-    return true;
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

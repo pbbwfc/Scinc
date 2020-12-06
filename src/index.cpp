@@ -854,20 +854,6 @@ Index::Init ()
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Index::InitEntries():
-//      Initialise an array of IndexEntry objects.
-//
-void
-Index::InitEntries (IndexEntry * ie, uint count)
-{
-    while (count > 0) {
-        ie->Init();
-        count--;
-        ie++;
-    }
-}
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Index::FreeEntries(): frees all memory in Entries array.
 //
 void

@@ -95,7 +95,6 @@ class StrAllocator
     inline char * New (uint numBytes);  // Allocates a new string.
     char *  Duplicate (const char * original);  // Duplicates a string.
 
-    uint   MemoryUsed ();    // Returns total allocated memory.
 };
 
 inline void

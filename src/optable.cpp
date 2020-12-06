@@ -1075,21 +1075,6 @@ OpTable::PrintLaTeX (DString * dstr, const char * title, const char * comment)
                 dstr->Append ("$^{", NumNotes, "}");
                 // Compile following section to indicate number of games
                 // and score in each note:
-#if 0
-                uint ncount = NoteCount(NumNotes);
-                uint nscore = NoteScore(NumNotes);
-                dstr->Append ("_{\\mbox{\\tiny ", ncount, ":");
-                if (ncount == 1) {
-                    switch (nscore) {
-                    case 100: dstr->Append ("+"); break;
-                    case  50: dstr->Append ("="); break;
-                    case   0: dstr->Append ("--"); break;
-                    }
-                } else {
-                    dstr->Append (nscore, "\\%");
-                }
-                dstr->Append ("}}");
-#endif
                 dstr->Append ("$");
       //          lastNote = NumNotes;
             } else {
@@ -1341,33 +1326,6 @@ OpTable::HasNotes (OpLine * line, uint movenum)
         subline = subline->Next;
     }
     return noteSeen;
-}
-
-uint
-OpTable::NoteCount (uint note)
-{
-    uint count = 0;
-    for (uint n = 0; n < NumTableLines; n++) {
-        if (Line[n]->NoteNumber == note) { count++; }
-    }
-    return count;
-}
-
-uint
-OpTable::NoteScore (uint note)
-{
-    uint count = 0;
-    uint score = 0;
-    for (uint n = 0; n < NumTableLines; n++) {
-        if (Line[n]->NoteNumber == note) {
-            count++;
-            score += RESULT_SCORE[Line[n]->Result];
-        }
-    }
-    if (count > 0) {
-        score = (score * 50 + (count/2)) / count;
-    }
-    return score;
 }
 
 void

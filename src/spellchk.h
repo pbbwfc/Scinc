@@ -109,7 +109,6 @@ class SpellChecker
     eloT GetElo (const char * name, dateT date, bool exact);
 
     static const char * GetTitle (const char * comment);
-    static const char * GetLastCountry (const char * comment);
     static eloT GetPeakRating (const char * comment);
     static dateT GetBirthdate (const char * comment);
     static dateT GetDeathdate (const char * comment);

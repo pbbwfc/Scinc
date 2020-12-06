@@ -672,24 +672,6 @@ Position::StdStart (void)
     return;
 }
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Position::IsStdStart
-//   Returns true if the position is the standard starting position.
-bool
-Position::IsStdStart ()
-{
-    if (ToMove != WHITE
-          ||  Hash != stdStartHash  ||  PawnHash != stdStartPawnHash
-          ||  GetCount(WHITE) != 16  ||  GetCount(BLACK) != 16
-          ||  RankCount(WP,RANK_2) != 8  ||  RankCount(BP,RANK_7) != 8
-          ||  RankCount(WN,RANK_1) != 2  ||  RankCount(BN,RANK_8) != 2
-          ||  !GetCastling(WHITE,KSIDE)  ||  !GetCastling(WHITE,QSIDE)
-          ||  !GetCastling(BLACK,KSIDE)  ||  !GetCastling(BLACK,QSIDE)) {
-        return false;
-    }
-    return true;
-}
-
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Position::AddPiece():
 //      Add a piece to the board and piecelist.
@@ -903,95 +885,6 @@ Position::GenerateMoves (MoveList * mlist, pieceT pieceType,
 
 	if (pieceType == EMPTY && genType == GEN_ALL_MOVES && mlist != NULL)
 		memcpy (&LegalMoves, mlist, sizeof(MoveList));
-}
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Position::IsLegalMove
-//   Determines whether the specified move is legal in this position,
-//   without requiring move generation (except for castling moves).
-bool
-Position::IsLegalMove (simpleMoveT * sm) {
-    squareT from = sm->from;
-    squareT to = sm->to;
-    if (from > H8  ||  to > H8) { return false; }
-    if (from == to) { return false; }
-    pieceT mover = Board[from];
-    pieceT captured = Board[to];
-    if (piece_Color(mover) != ToMove) { return false; }
-    if (piece_Color(captured) == ToMove) { return false; }
-    if (sm->movingPiece != mover) { return false; }
-    mover = piece_Type (mover);
-    if (sm->promote != EMPTY  &&  mover != PAWN) { return false; }
-
-    if (mover == PAWN) {
-        rankT rfrom = square_Rank(from);
-        rankT rto = square_Rank(to);
-        if (ToMove == BLACK) { rfrom = RANK_8 - rfrom; rto = RANK_8 - rto; }
-        int rdiff = (int)rto - (int)rfrom;
-        int fdiff = (int)square_Fyle(to) - (int)square_Fyle(from);
-        if (rdiff < 1  ||  rdiff > 2) { return false; }
-        if (fdiff < -1  ||  fdiff > 1) { return false; }
-        if (fdiff == 0) {  // Pawn push:
-            if (captured != EMPTY) { return false; }
-            if (rdiff == 2) {  // Two-square push:
-                if (rfrom != RANK_2) { return false; }
-                // Make sure the square in between is empty:
-                squareT midsquare = from + ((to - from) / 2);
-                if (Board[midsquare] != EMPTY) { return false; }
-            }
-        } else {  // Pawn capture:
-            if (rdiff != 1) { return false; }
-            if (captured == EMPTY) {
-                // It must be en passant, or illegal
-                if (to != EPTarget) { return false; }
-            }
-        }
-        // Check the promotion piece:
-        if (rto == RANK_8) {
-            pieceT p = sm->promote;
-            if (p != QUEEN  &&  p != ROOK  &&  p != BISHOP  &&  p != KNIGHT) {
-                return false;
-            }
-        } else {
-            if (sm->promote != EMPTY) { return false; }
-        }
-
-    } else if (piece_IsSlider(mover)) {
-        // Make sure the direction is valid:
-        directionT dir = sqDir[from][to];
-        if (dir == NULL_DIR) { return false; }
-        if (mover == ROOK  &&  direction_IsDiagonal(dir)) { return false; }
-        if (mover == BISHOP  &&  !direction_IsDiagonal(dir)) { return false; }
-        int delta = direction_Delta (dir);
-        // Make sure all the in-between squares are empty:
-        squareT dest = from + delta;
-        while (dest != to) {
-            if (Board[dest] != EMPTY) { return false; }
-            dest += delta;
-        }
-
-    } else if (mover == KNIGHT) {
-        if (! square_IsKnightHop (from, to)) { return false; }
-
-    } else /* (mover == KING) */ {
-        colorT enemy = color_Flip(ToMove);
-        if (square_Adjacent (to, GetKingSquare(enemy))) { return false; }
-        if (! square_Adjacent (from, to)) {
-            // The move must be castling, or illegal.
-            if (IsKingInCheck()) { return false; }
-            MoveList mlist;
-            GenCastling (&mlist);
-            return (mlist.Find(sm) >= 0);
-        }
-    }
-
-    // The move looks good, but does it leave the king in check?
-    squareT kingSq = (mover == KING) ? to : GetKingSquare(ToMove);
-    colorT enemy = color_Flip(ToMove);
-    DoSimpleMove (sm);
-    uint nchecks = CalcAttacks (enemy, kingSq, NULL);
-    UndoSimpleMove (sm);
-    return (nchecks == 0);
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1682,42 +1575,6 @@ Position::IsKingInCheck (simpleMoveT * sm)
 
     ASSERT (IsKingInCheck() == false);
     return false;
-}
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Position::Mobility
-//    Returns the number of squares a rook or bishop of the specified
-//    color would attack from the specified square.
-uint
-Position::Mobility (pieceT p, colorT color, squareT from)
-{
-    ASSERT (p == ROOK  ||  p == BISHOP);
-    uint mobility = 0;
-    directionT rookDirs[4] = { UP, DOWN, LEFT, RIGHT };
-    directionT bishopDirs[4]
-        = { UP_LEFT, UP_RIGHT, DOWN_LEFT, DOWN_RIGHT };
-    directionT * dirPtr = (p == ROOK ? rookDirs : bishopDirs);
-
-    for (uint i=0; i < 4; i++) {
-        directionT dir = dirPtr[i];
-        int delta = direction_Delta (dir);
-        squareT dest = from;
-        squareT last = square_Last (from, dir);
-
-        while (dest != last) {
-            dest += delta;
-            pieceT p = Board[dest];
-            if (p == EMPTY) {  // Empty square
-                mobility++;
-            } else if (piece_Color(p) == color) {  // Friendly piece
-                break;  // Finished with this direction.
-            } else {  // Enemy piece
-                mobility++;
-                break;  // Finished with this direction.
-            }
-        }
-    }
-    return mobility;
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2450,69 +2307,6 @@ Position::ReadMove (simpleMoveT * m, const char * str, tokenT token)
     return ERROR_InvalidMove;
 }
 
-
-//  Parse a single move from SAN-style notation.
-//  Only used by scidlet - S.A
-
-errorT
-Position::ParseMove (simpleMoveT * sm, const char * line)
-{
-    const char * s;
-    char * s2;
-    char mStr [255];
-    uint length = 0;
-    tokenT token = TOKEN_Invalid;
-    errorT err = OK;
-
-    s = line;
-    ASSERT (line != NULL);
-
-    // First, strip the move string down to its raw form with no
-    // 'x' (capture symbols), etc:
-
-    while (*s != 0  &&  !isalpha(*s)) { s++; }
-    if (*s == '\0') { return ERROR_InvalidMove; }
-    s2 = mStr; length = 0;
-    while (!isspace(*s)  &&  *s != '\0') {
-        if ((isalpha(*s)  && (*s != 'x'))  ||  isdigit(*s)  ||  *s == '=') {
-            *s2 = *s;  s2++;  length++;
-            if (length >= 10) { return ERROR_InvalidMove; }
-        }
-        s++;
-    }
-    if (length == 0 ||  length > 10) { return ERROR_InvalidMove; }
-    *s2 = '\0';
-    if (mStr[0] == 'O') {
-        if (mStr[1] == 'O'  &&  mStr[2] == 'O' && mStr[3] == 0) {
-            token = TOKEN_Move_Castle_Queen;
-        } else if (mStr[1] == 'O'  &&  mStr[2] == 0) {
-            token = TOKEN_Move_Castle_King;
-        } else { return ERROR_InvalidMove; }
-    } else if (mStr[0] == 'K'  ||  mStr[0] == 'Q'  ||  mStr[0] == 'R'  ||
-               mStr[0] == 'B'  ||  mStr[0] == 'N'  ||  mStr[0] == 'r'  ||
-               mStr[0] == 'k'  ||  mStr[0] == 'q'  ||  mStr[0] == 'n') {
-        mStr[0] = toupper(mStr[0]);
-        token = TOKEN_Move_Piece;
-    } else if (mStr[0] >= 'a'  &&  mStr[0] <= 'h') {
-        token = TOKEN_Move_Pawn;
-        if (!isdigit (mStr[length - 1])) {
-            token = TOKEN_Move_Promote;
-        }
-    } else { return ERROR_InvalidMove; }
-    err = ReadMove (sm, mStr, token);
-    // If not successful, and the move started with a lower case letter,
-    // try treating it as a piece move instead. This only affects Bishop
-    // moves where a lower-case 'b' is used instead of 'B'.
-    if (err != OK  &&  token == TOKEN_Move_Pawn) {
-        mStr[0] = toupper(mStr[0]);
-        token = TOKEN_Move_Piece;
-         err = ReadMove (sm, mStr, token);
-    }
-    if (err != OK) { return ERROR_InvalidMove; }
-    return err;
-}
-
-
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Position::ReadLine():
 //      Parse a sequence of moves separated by whitespace and
@@ -3151,24 +2945,6 @@ void
 Position::CopyFrom (Position * src)
 {
   memcpy (this, src, sizeof(Position));
-}
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Position::GetSquares
-//    Adds to the provided square list all squares containing the specified
-//    piece, and return the number of pieces of that type on the board.
-uint
-Position::GetSquares (pieceT piece, SquareList * sqlist)
-{
-    colorT color = piece_Color(piece);
-    squareT * squares = GetList(color);
-    uint npieces = GetCount(color);
-    for (uint i=0; i < npieces; i++) {
-        squareT sq = squares[i];
-        pieceT p = Board[sq];
-        if (p == piece) { sqlist->Add (sq); }
-    }
-    return Material[piece];
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~
