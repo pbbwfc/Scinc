@@ -24,29 +24,6 @@
 
 #include "matsig.h"
 
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// matsig_makeString(): Make a string representation of a matsig.
-//      Example: "12228.12228" for the starting position.
-// Currently unused
-// Altered in fulvio's gamelist to show string representation (eg QRRBBNN8:QRRBBNN8 for start position)
-void
-matsig_makeString (char * s, matSigT m)
-{
-    *s++ = (char) MATSIG_Count_WQ(m) + '0';
-    *s++ = (char) MATSIG_Count_WR(m) + '0';
-    *s++ = (char) MATSIG_Count_WB(m) + '0';
-    *s++ = (char) MATSIG_Count_WN(m) + '0';
-    *s++ = (char) MATSIG_Count_WP(m) + '0';
-    *s++ = '.';
-    *s++ = (char) MATSIG_Count_BQ(m) + '0';
-    *s++ = (char) MATSIG_Count_BR(m) + '0';
-    *s++ = (char) MATSIG_Count_BB(m) + '0';
-    *s++ = (char) MATSIG_Count_BN(m) + '0';
-    *s++ = (char) MATSIG_Count_BP(m) + '0';
-    *s = 0;
-}
-
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // matsig_isReachable(): 
 //      Return 1 if start could transform into target with

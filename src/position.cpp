@@ -2034,64 +2034,6 @@ Position::UndoSimpleMove (simpleMoveT * m)
     return;
 }
 
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Position::RelocatePiece():
-//    Given a from-square and to-square, modifies the position so
-//    the piece on the from-square is relocated to the to-square.
-//    Returns an error if the from square is empty, or the target
-//    square is not empty, or the relocation would otherwise
-//    produce an illegal position (e.g. pawn on the 1st or 8th rank
-//    or a King in check).
-//
-errorT
-Position::RelocatePiece (squareT fromSq, squareT toSq)
-{
-    // Must have on-board squares:
-    if (fromSq == NS ||  toSq == NS) { return ERROR; }
-
-    // If squares are identical, just return success:
-    if (fromSq == toSq) { return OK; }
-
-	LegalMoves.Clear();
-
-    pieceT piece = Board[fromSq];
-    pieceT ptype = piece_Type(piece);
-    colorT pcolor = piece_Color(piece);
-
-    // Must be relocating a nonempty piece to an empty square:
-    if (piece == EMPTY  ||  Board[toSq] != EMPTY) { return ERROR; }
-
-    // Pawns cannot relocate to the first or last rank:
-    if (ptype == PAWN) {
-        rankT toRank = square_Rank(toSq);
-        if (toRank == RANK_1  ||  toRank == RANK_8) { return ERROR; }
-    }
-
-    // Locate the piece index in the appropriate list of pieces:
-    uint index = ListPos[fromSq];
-    ASSERT(List[pcolor][index] == fromSq);
-
-    // Relocate the piece:
-    List[pcolor][index] = toSq;
-    ListPos[toSq] = index;
-    RemoveFromBoard (piece, fromSq);
-    AddToBoard (piece, toSq);
-
-    // Check for adjacent kings or side to move giving check:
-    if (! IsLegal()) {
-        // Undo the relocation and return error:
-        List[pcolor][index] = fromSq;
-        RemoveFromBoard (piece, toSq);
-        AddToBoard (piece, fromSq);
-        return ERROR;
-    }
-
-    // Relocation successful:
-    return OK;
-}
-
-
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Position::MaterialValue():
 //    Returns the sum value of material for a particular side,

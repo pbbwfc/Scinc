@@ -32,20 +32,6 @@ MoveList::MoveToFront (uint index)
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// MoveList::SwapWithFirst
-//   Swaps the specified move with the move at the start of the list.
-//   All other moves remain in their original location.
-void
-MoveList::SwapWithFirst (uint index)
-{
-    ASSERT (index < ListSize);
-    if (index == 0) { return; }
-    simpleMoveT smTemp = Moves[index];
-    Moves[index] = Moves[0];
-    Moves[0] = smTemp;
-}
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // MoveList::Find
 //   Searches for a move in the list.
 //   Returns the index of the move with the same from-square,

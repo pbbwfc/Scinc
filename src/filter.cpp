@@ -91,12 +91,6 @@ Filter::SetCapacity(uint size)
         oldDataTree = newOldDataTree;
     }
 }
-void
-Filter::SetFilterSize(uint size)
-{
-	FilterSize = size;
-}
-
 
 uint
 Filter::IndexToFilteredCount (uint index)

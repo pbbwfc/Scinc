@@ -1348,17 +1348,6 @@ calcHomePawnMask (pieceT pawn, pieceT * board)
     return result;
 }
 
-// updateHomePawnMask:
-//      Clears one fyle from a home pawn mask.
-//
-inline uint
-updateHomePawnMask (uint oldMask, fyleT f)
-{
-    register uint newMask = oldMask;
-    newMask &= ~((uint) 1 << f);
-    return newMask;
-}
-
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // patternsMatch():
 //      Used by Game::MaterialMatch() to test patterns.
@@ -3566,20 +3555,6 @@ Game::ClearStandardTags ()
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Game::WriteExtraTags():
-//      Print the nonstandard tags in PGN notation to a file.
-//
-errorT
-Game::WriteExtraTags (FILE * fp)
-{
-    for (uint i=0; i < NumTags; i++) {
-        fprintf (fp, "[%s \"%s\"]\n",
-                 TagList[i].tag, TagList[i].value);
-    }
-    return OK;
-}
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // makeMoveByte(): inline routine used for encoding most moves.
 //
 static inline byte
@@ -3918,16 +3893,6 @@ decodePawn (byte val, simpleMoveT * sm, colorT toMove)
 // The end-game and end-variation tokens could be the same single token,
 // but having two different tokens allows for detecting corruption, since
 // a game must end with the end-game token.
-
-
-// The inline routine  isSpecialMoveCode() returns true is a byte value
-// has the value of a special non-move token:
-inline bool
-isSpecialMoveCode (byte val)
-{
-    return (val <= ENCODE_LAST  &&  val >= ENCODE_FIRST);
-}
-
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // decodeMove():

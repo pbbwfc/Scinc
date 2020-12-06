@@ -177,21 +177,6 @@ IndexEntry::SetEventDate (dateT edate)
     Dates = u32_set_high_12 (Dates, codedDate);
 }
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// IndexEntry::ValidEventDate():
-//    Given an event date, checks if it is close enough to the
-//    date to be encoded. Due to a compact encoding format,
-//    the EventDate must be within a few years of the Date.
-//    Returns true if the event date is encodable.
-bool
-IndexEntry::ValidEventDate (dateT edate)
-{
-    uint eyear = date_GetYear (edate);
-    uint dyear = date_GetYear (GetDate());
-    if (eyear < (dyear - 3)  ||  eyear > (dyear + 3)) { return false; }
-    return true;
-}
-
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // IndexEntry::Read():
 //      Reads a single entrys values from an open index file.
@@ -1362,12 +1347,6 @@ static inline int
 heapLeftChild (int hnode)
 {
     return hnode << 1;
-}
-
-static inline int
-heapRightChild (int hnode)
-{
-    return (hnode << 1) + 1;
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

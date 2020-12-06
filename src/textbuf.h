@@ -76,8 +76,7 @@ public:
     void     ClearTranslations () { HasTranslations = false; }
     void     PauseTranslations () { PausedTranslations = true; }
     void     ResumeTranslations () { PausedTranslations = false; }
-    errorT   ReplaceContent(const char * newContent, uint size);
-
+    
     errorT   NewLine();
     errorT   Indent();
     errorT   PrintLine (const char * str);

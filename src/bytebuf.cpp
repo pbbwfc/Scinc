@@ -91,19 +91,7 @@ ByteBuffer::ProvideExternal (byte * data, uint length)
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// ByteBuffer::RemoveExternal():
-//      Removes the external buffer previously provided.
-//
-void
-ByteBuffer::RemoveExternal ()
-{
-    Empty();
-}
-
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// ByteBuffer::Get2Bytes(), Put2Bytes(),
-//      Get3Bytes(), Put3Bytes(), Get4Bytes(), Put4Bytes():
+// ByteBuffer::Get2Bytes(), Get3Bytes(), Get4Bytes():
 
 uint
 ByteBuffer::Get2Bytes ()
@@ -117,36 +105,6 @@ ByteBuffer::Get2Bytes ()
     val += *Current;  Current++;
     ReadPos += 2;
     return val;
-}
-
-void
-ByteBuffer::Put2Bytes (uint value)
-{
-    ASSERT(Current != NULL);
-    *Current = ((value >> 8) & 255);  Current++;
-    *Current = (value & 255);  Current++;
-    ByteCount += 2;
-}
-
-void
-ByteBuffer::Put3Bytes (uint value)
-{
-    ASSERT(Current != NULL);
-    *Current = (value & 255); Current++;
-    *Current = ((value >> 8) & 255); Current++;
-    *Current = ((value >> 16) & 255); Current++;
-    ByteCount += 3;
-}
-
-void
-ByteBuffer::Put4Bytes (uint value)
-{
-    ASSERT(Current != NULL);
-    *Current = (value & 255); Current++;
-    *Current = ((value >> 8) & 255); Current++;
-    *Current = ((value >> 16) & 255); Current++;
-    *Current = ((value >> 24) & 255); Current++;
-    ByteCount += 4;
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

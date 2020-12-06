@@ -1081,20 +1081,6 @@ strGetUnsigneds (const char * str, uint * results, uint nResults)
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// strGetBooleans:
-//    Extracts the specified number of boolean values
-//    from a whitespace-separated string.
-void
-strGetBooleans (const char * str, bool * results, uint nResults)
-{
-    for (uint i=0; i < nResults; i++) {
-        while (*str != 0  &&  isspace(*str)) { str++; }
-        results[i] = strGetBoolean (str);
-        while (*str != 0  &&  !isspace(*str)) { str++; }
-    }
-}
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // strGetResult:
 //    Extracts a game result value from a string.
 resultT
@@ -1140,19 +1126,6 @@ strGetFlag (const char * str)
     }
     // default: return empty.
     return FLAG_EMPTY;
-}
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// strGetSquare():
-//   Extracts a square value from a string, such as "a2".
-squareT
-strGetSquare (const char * str)
-{
-    char chFyle = str[0];
-    if (chFyle < 'a'  ||  chFyle > 'h') { return NULL_SQUARE; }
-    char chRank = str[1];
-    if (chRank < '1'  ||  chRank > '8') { return NULL_SQUARE; }
-    return square_Make (fyle_FromChar(chFyle), rank_FromChar(chRank));
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1276,39 +1249,6 @@ removeFile (const char * name, const char * suffix)
     }
     return OK;
 }
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// createFile():
-//      Creates (and immediately closes) an empty file.
-//      Returns OK if successfull, ERROR_FileOpen otherwise.
-errorT
-createFile (const char * name, const char * suffix)
-{
-    fileNameT fname;
-    strCopy (fname, name);
-    strAppend (fname, suffix);
-    FILE * fp = fopen (fname, "w");
-    if (!fp) { return ERROR_FileOpen; }
-    fclose (fp);
-    return OK;
-}
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// fileExists():
-//      Returns true if the file exists, false otherwise.
-bool
-fileExists (const char * name, const char * suffix)
-{
-    struct stat statBuf;    // Defined in <sys/stat.h>
-    fileNameT fname;
-    strCopy (fname, name);
-    strAppend (fname, suffix);
-    if (stat (fname, &statBuf) != 0) {
-        return false;
-    }
-    return true;
-}
-
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // writeString(), readString():

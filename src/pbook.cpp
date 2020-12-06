@@ -397,59 +397,6 @@ PBook::EcoSummary (const char * ecoPrefix, DString * dstr)
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// PBook::StripOpcode:
-//    Strips the specified opcode from every position in the book.
-//    Only the first occurrence of an opcode is removed for any position,
-//    but opcodes are not supposed to occur more than once anyway.
-//    Returns the number of positions where an opcode was removed.
-uint
-PBook::StripOpcode (const char * opcode)
-{
-    char * searchCode = new char [strLength(opcode) + 2];
-    strCopy (searchCode, opcode);
-    strAppend (searchCode, " ");
-    DString dstr;
-    uint countFound = 0;
-
-    for (uint i=0; i < NodeListCount; i++) {
-        bookNodeT * node = NodeList[i];
-        if (node == NULL) { continue; }
-        const char * s = node->data.comment;
-        int startIndex = -1;
-        int index = 0;
-        // Look for a line with a matching opcode:
-        while (*s != 0) {
-            while (*s == '\n'  ||  *s == ' ') { s++; index++; }
-            if (strIsPrefix (searchCode, s)) {
-                startIndex = index;
-                countFound++;
-                break;
-            }
-            while (*s != 0  &&  *s != '\n') { s++; index++; }
-        }
-        if (startIndex > -1) {
-            s = node->data.comment;
-            index = 0;
-            // Add all characters before the line to be stripped:
-            dstr.Clear();
-            while (index < startIndex) {
-                dstr.AddChar (s[index]);
-                index++;
-            }
-            // Now find the end of this line:
-            s = &(s[startIndex + 1]);
-            while (*s != 0  &&  *s != '\n') { s++; }
-            if (*s == '\n') { s++; }
-            while (*s != 0) { dstr.AddChar (*s);  s++; }
-        delete[] node->data.comment;
-            node->data.comment = strDuplicate (dstr.Data());
-        }
-    }
-    delete[] searchCode;
-    return countFound;
-}
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // PBook::ReadEcoFile():
 //    Read an ECO (not EPD) format file.
 errorT

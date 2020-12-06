@@ -258,8 +258,6 @@ public:
     void        DoSimpleMove (simpleMoveT * sm);    // move execution ...
     void        UndoSimpleMove (simpleMoveT * sm);  // ... and taking back
 
-    errorT      RelocatePiece (squareT fromSq, squareT toSq);
-
     void        MakeSANString (simpleMoveT * sm, char * s, sanFlagT flag);
     void        MakeUCIString (simpleMoveT * sm, char * s);
     void        CalcSANStrings (sanListT *sanList, sanFlagT flag);

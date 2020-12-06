@@ -472,7 +472,6 @@ public:
     errorT    WritePGNGraphToLatex(TextBuffer * tb);
     errorT    WriteToPGN (TextBuffer * tb);
     errorT    MoveToLocationInPGN (TextBuffer * tb, uint stopLocation);
-    errorT    WriteExtraTags (FILE * fp);
     uint      GetPgnOffset (byte nextMoveFlag) {
         return (nextMoveFlag ? PgnNextMovePos : PgnLastMovePos);
     }

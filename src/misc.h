@@ -146,7 +146,6 @@ int    strGetInteger (const char * str);
 uint   strGetUnsigned (const char * str);
 void   strGetIntegers (const char * str, int * results, uint nResults);
 void   strGetUnsigneds (const char * str, uint * results, uint nResults);
-void   strGetBooleans (const char * str, bool * results, uint nResults);
 resultT strGetResult (const char * str);
 
 typedef uint flagT;
@@ -157,8 +156,6 @@ const flagT FLAG_BOTH = 3;
 inline bool flag_Yes (flagT t) { return (t & FLAG_YES); }
 inline bool flag_No (flagT t) { return (t & FLAG_NO); }
 flagT  strGetFlag (const char * str);
-
-squareT strGetSquare (const char * str);
 
 inline uint
 strTrimFileSuffix (char * target) { return strTrimSuffix (target, '.'); }
@@ -246,11 +243,9 @@ isPowerOf2 (uint x)
 uint    fileSize (const char * name, const char * suffix);
 uint    rawFileSize (const char * name);
 
-bool    fileExists (const char * fname, const char * suffix);
 errorT  renameFile (const char * oldName, const char * newName,
                     const char * suffix);
 errorT  removeFile (const char * fname, const char * suffix);
-errorT  createFile (const char * fname, const char * suffix);
 
 errorT  writeString (FILE * fp, const char * str, uint length);
 errorT  readString  (FILE * fp, char * str, uint length);

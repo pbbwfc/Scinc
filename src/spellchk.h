@@ -98,7 +98,6 @@ class SpellChecker
     uint Corrections (const char * name, const char ** corrections,
                       uint maxCorrections);
     void SetRenderName (spellCheckNodeT * node, const char * name);
-    const char * RenderName (const char * name);
     const char * GetComment (const char * name);
     const char * GetCommentExact (const char * name);
     errorT ReadSpellCheckFile (const char * filename, bool checkPlayerOrder);

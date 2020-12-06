@@ -51,8 +51,6 @@ const uint YEAR_MAX = 2047;  // 2^11 - 1
 void   date_DecodeToString (dateT date, char * str);
 dateT  date_EncodeFromString (const char * str);
 bool   date_ValidString (const char * str);
-dateT  date_AddMonths (dateT date, int numMonths);
-
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // date_GetYear():

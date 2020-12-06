@@ -75,7 +75,6 @@ public:
     inline void Remove (uint index);
 
     void MoveToFront (uint index);
-    void SwapWithFirst (uint index);
     int  Find (simpleMoveT * sm);
     void FindBest (uint index);
     void Sort (void);

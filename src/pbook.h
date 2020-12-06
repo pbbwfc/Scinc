@@ -110,7 +110,6 @@ class PBook
     errorT  Delete (Position * pos);
     errorT  FindOpcode (Position * pos, const char * opcode, DString * target);
     errorT  FindSummary (Position * pos, DString * target);
-    uint    StripOpcode (const char * opcode);
     void    EcoSummary (const char * ecoPrefix, DString * dstr);
     void    DumpStats (FILE * fp);
     uint    NumPositionBytes () { return Stats_PositionBytes; }

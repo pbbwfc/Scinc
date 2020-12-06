@@ -355,7 +355,6 @@ error:
 extern "C" {
 #endif
 DLLEXPORT int Tkdnd_Init(Tcl_Interp *interp);
-DLLEXPORT int Tkdnd_SafeInit(Tcl_Interp *interp);
 #ifdef __cplusplus
 }
 #endif
@@ -428,6 +427,3 @@ int DLLEXPORT Tkdnd_Init(Tcl_Interp *interp) {
   return TCL_OK;
 } /* Tkdnd_Init */
 
-int DLLEXPORT Tkdnd_SafeInit(Tcl_Interp *interp) {
-  return Tkdnd_Init(interp);
-} /* Tkdnd_SafeInit */

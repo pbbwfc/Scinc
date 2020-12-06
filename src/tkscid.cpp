@@ -2570,9 +2570,6 @@ sc_base_tag (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
     return TCL_OK;
 }
 
-inline static idNumberT
-safeNameId(idNumberT id, idNumberT numEntries) { return id < numEntries ? id : 0; }
-
 //////////////////////////////////////////////////////////////////////
 /// CLIPBASE functions
 

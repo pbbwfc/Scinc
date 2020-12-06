@@ -183,13 +183,6 @@ const matSigT MATSIG_StdStart =
 // Public functions found in matsig.cpp:
 //
 
-
-// matsig_makeString: sets s to be a string representation of the sig,
-//      for example: "12228.12228" for the starting position.
-void
-matsig_makeString (char * s, matSigT matsig);
-
-
 // matsig_isReachable: returns true if a game currently
 //     at a position with the signature <start>, could possibly reach
 //     the signature <target>. This is useful for quick tests for material

@@ -122,25 +122,6 @@ SpellChecker::SetRenderName (spellCheckNodeT * node, const char * name)
     node->renderName = strDuplicate (name);
 }
 
-const char *
-SpellChecker::RenderName (const char * name) {
-    char searchName [512];
-    strCopyExclude (searchName, name, ExcludeChars);
-    spellCheckNodeT * node = Names[(byte) *searchName];
-
-    while (node != NULL) {
-        if (strEqual (name, node->correctName)) {
-            if (node->renderName != NULL) { return node->renderName; }
-            break;
-        }
-        node = node->next;
-    }
-
-    // Render spelling not found, so just return the original name:
-    return name;
-}
-
-
 // This data has been imported from spelling.ssp comment fields by S.A.
 // use: grep '^#   [[:upper:]][[:upper:]][[:upper:]]  ' spelling.ssp
 

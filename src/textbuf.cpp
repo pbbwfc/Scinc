@@ -229,20 +229,6 @@ TextBuffer::PrintInt (uint i, const char * str)
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//### TextBuffer::ReplaceContent(): Setup new buffer content, the size must include
-//      the nul byte.
-errorT
-TextBuffer::ReplaceContent(const char * newContent, uint size)
-{
-    if (size >= BufferSize)  { return ERROR_BufferFull; }
-
-    ByteCount = size;
-    ::memcpy(Buffer, newContent, size + 1);
-	 return OK;
-}
-
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //### TextBuffer::DumpToFile(): Output a textbuffer to an open file.
 errorT
 TextBuffer::DumpToFile (FILE * fp)

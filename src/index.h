@@ -368,7 +368,6 @@ class IndexEntry
         Dates = u32_set_low_20 (Dates, date);
     }
     void   SetEventDate (dateT date);
-    bool   ValidEventDate (dateT date);
 
     inline void SetResult (resultT res) {
         VarCounts = (VarCounts & 0x0FFF) | (((ushort)res) << 12);

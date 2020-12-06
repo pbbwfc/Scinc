@@ -125,37 +125,6 @@ date_ValidString (const char * str)
     return false;
 }
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// date_AddMonths:
-//      Returns the date incremented by the specified number of months.
-//
-dateT
-date_AddMonths (dateT date, int numMonths)
-{
-    uint year = date_GetYear (date);
-    uint month = date_GetMonth (date);
-    uint day = date_GetDay (date);
-
-    while (numMonths < 0) {
-        if (month == 0  ||  month == 1) {
-            year--;
-            month = 12;
-        } else {
-            month--;
-        }
-        numMonths++;
-    }
-    while (numMonths > 0) {
-        month++;
-        if (month > 12) {
-            year++;
-            month = 1;
-        }
-        numMonths--;
-    }
-    return ((year << YEAR_SHIFT) | (month << MONTH_SHIFT) | day);
-}
-
 //////////////////////////////////////////////////////////////////////
 //  EOF: date.cpp
 //////////////////////////////////////////////////////////////////////

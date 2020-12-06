@@ -64,8 +64,7 @@ if (AllocatedBuffer) { delete[] AllocatedBuffer; }
     byte *      GetBuffer ()        { return Buffer; }
 
     void        ProvideExternal (byte * data, uint length);
-    void        RemoveExternal ();
-
+    
     byte
     GetByte () {
         ASSERT(Current != NULL);
@@ -86,9 +85,6 @@ if (AllocatedBuffer) { delete[] AllocatedBuffer; }
     }
 
     uint        Get2Bytes ();
-    void        Put2Bytes (uint value);
-    void        Put3Bytes (uint value);
-    void        Put4Bytes (uint value);
     void        Skip (uint value);
 
     void        GetFixedString (char *str, uint length);
