@@ -121,10 +121,10 @@ src\stralloc.h:80:5: style: Class 'StrAllocator' has a constructor with 1 argume
 src\sqset.h:29:5: style: Class 'SquareSet' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
     SquareSet(squareT * squares) {
     ^
-src\pgnparse.h:90:5: style: Class 'PgnParser' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
+src\pgnparse.h:89:5: style: Class 'PgnParser' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
     PgnParser (MFile * infile) { Init (infile); }
     ^
-src\pgnparse.h:91:5: style: Class 'PgnParser' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
+src\pgnparse.h:90:5: style: Class 'PgnParser' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
     PgnParser (const char * inbuffer) { Init (inbuffer); }
     ^
 src\stored.h:32:2: style: Class 'StoredLine' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
@@ -313,7 +313,7 @@ src\index.cpp:464:25: warning: %d in format string (no. 2) requires 'int' but th
 src\index.cpp:527:17: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
                 sprintf (temp, "%4d", date_GetYear (GetDate()));
                 ^
-src\index.cpp:1588:22: style: The scope of the variable 'ie' can be reduced. [variableScope]
+src\index.cpp:1574:22: style: The scope of the variable 'ie' can be reduced. [variableScope]
         IndexEntry * ie;
                      ^
 src\index.cpp:477:27: style: Local variable 's' shadows outer variable [shadowVariable]
@@ -334,13 +334,13 @@ src\index.cpp:412:18: note: Shadowed declaration
 src\index.cpp:628:28: note: Shadow variable
                     char * s = flags;
                            ^
-src\index.cpp:1590:19: style: Local variable 'count' shadows outer variable [shadowVariable]
+src\index.cpp:1576:19: style: Local variable 'count' shadows outer variable [shadowVariable]
         for (uint count=1; count <= Header.numGames; count++) {
                   ^
-src\index.cpp:1555:10: note: Shadowed declaration
+src\index.cpp:1541:10: note: Shadowed declaration
     uint count;
          ^
-src\index.cpp:1590:19: note: Shadow variable
+src\index.cpp:1576:19: note: Shadow variable
         for (uint count=1; count <= Header.numGames; count++) {
                   ^
 src\index.cpp:189:13: style: Variable 'version' is assigned a value that is never used. [unreadVariable]
@@ -397,58 +397,52 @@ src\namebase.h:139:5: warning: Member variable 'NameBase::MostFrequent' is not i
 src\namebase.cpp:441:13: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
             fprintf (f, "%6d\t%s\n", node->data.frequency, node->name);
             ^
-src\optable.h:179:5: warning: Member variable 'OpTable::MaxThemeMoveNumber' is not initialized in the constructor. [uninitMemberVar]
+src\optable.h:177:5: warning: Member variable 'OpTable::MaxThemeMoveNumber' is not initialized in the constructor. [uninitMemberVar]
     OpTable (uint base, const char * type, Game * g, PBook * ecoBook) {
     ^
-src\optable.h:179:5: warning: Member variable 'OpTable::NumNotes' is not initialized in the constructor. [uninitMemberVar]
+src\optable.h:177:5: warning: Member variable 'OpTable::NumNotes' is not initialized in the constructor. [uninitMemberVar]
     OpTable (uint base, const char * type, Game * g, PBook * ecoBook) {
     ^
-src\optable.h:179:5: warning: Member variable 'OpTable::Line' is not initialized in the constructor. [uninitMemberVar]
+src\optable.h:177:5: warning: Member variable 'OpTable::Line' is not initialized in the constructor. [uninitMemberVar]
     OpTable (uint base, const char * type, Game * g, PBook * ecoBook) {
     ^
-src\optable.h:179:5: warning: Member variable 'OpTable::MoveOrder' is not initialized in the constructor. [uninitMemberVar]
+src\optable.h:177:5: warning: Member variable 'OpTable::MoveOrder' is not initialized in the constructor. [uninitMemberVar]
     OpTable (uint base, const char * type, Game * g, PBook * ecoBook) {
     ^
-src\optable.h:179:5: warning: Member variable 'OpTable::Row' is not initialized in the constructor. [uninitMemberVar]
+src\optable.h:177:5: warning: Member variable 'OpTable::Row' is not initialized in the constructor. [uninitMemberVar]
     OpTable (uint base, const char * type, Game * g, PBook * ecoBook) {
     ^
-src\optable.h:179:5: warning: Member variable 'OpTable::NLines' is not initialized in the constructor. [uninitMemberVar]
+src\optable.h:177:5: warning: Member variable 'OpTable::NLines' is not initialized in the constructor. [uninitMemberVar]
     OpTable (uint base, const char * type, Game * g, PBook * ecoBook) {
     ^
-src\optable.h:179:5: warning: Member variable 'OpTable::RowScore' is not initialized in the constructor. [uninitMemberVar]
+src\optable.h:177:5: warning: Member variable 'OpTable::RowScore' is not initialized in the constructor. [uninitMemberVar]
     OpTable (uint base, const char * type, Game * g, PBook * ecoBook) {
     ^
-src\optable.h:182:5: warning: Member variable 'OpTable::MaxThemeMoveNumber' is not initialized in the constructor. [uninitMemberVar]
+src\optable.h:180:5: warning: Member variable 'OpTable::MaxThemeMoveNumber' is not initialized in the constructor. [uninitMemberVar]
     OpTable (uint base, const char * type, Game * g) { Init (base, type, g, NULL); }
     ^
-src\optable.h:182:5: warning: Member variable 'OpTable::NumNotes' is not initialized in the constructor. [uninitMemberVar]
+src\optable.h:180:5: warning: Member variable 'OpTable::NumNotes' is not initialized in the constructor. [uninitMemberVar]
     OpTable (uint base, const char * type, Game * g) { Init (base, type, g, NULL); }
     ^
-src\optable.h:182:5: warning: Member variable 'OpTable::Line' is not initialized in the constructor. [uninitMemberVar]
+src\optable.h:180:5: warning: Member variable 'OpTable::Line' is not initialized in the constructor. [uninitMemberVar]
     OpTable (uint base, const char * type, Game * g) { Init (base, type, g, NULL); }
     ^
-src\optable.h:182:5: warning: Member variable 'OpTable::MoveOrder' is not initialized in the constructor. [uninitMemberVar]
+src\optable.h:180:5: warning: Member variable 'OpTable::MoveOrder' is not initialized in the constructor. [uninitMemberVar]
     OpTable (uint base, const char * type, Game * g) { Init (base, type, g, NULL); }
     ^
-src\optable.h:182:5: warning: Member variable 'OpTable::Row' is not initialized in the constructor. [uninitMemberVar]
+src\optable.h:180:5: warning: Member variable 'OpTable::Row' is not initialized in the constructor. [uninitMemberVar]
     OpTable (uint base, const char * type, Game * g) { Init (base, type, g, NULL); }
     ^
-src\optable.h:182:5: warning: Member variable 'OpTable::NLines' is not initialized in the constructor. [uninitMemberVar]
+src\optable.h:180:5: warning: Member variable 'OpTable::NLines' is not initialized in the constructor. [uninitMemberVar]
     OpTable (uint base, const char * type, Game * g) { Init (base, type, g, NULL); }
     ^
-src\optable.h:182:5: warning: Member variable 'OpTable::RowScore' is not initialized in the constructor. [uninitMemberVar]
+src\optable.h:180:5: warning: Member variable 'OpTable::RowScore' is not initialized in the constructor. [uninitMemberVar]
     OpTable (uint base, const char * type, Game * g) { Init (base, type, g, NULL); }
     ^
 src\optable.h:108:10: style: Unused private function: 'OpLine::Destroy' [unusedPrivateFunction]
     void Destroy (void);
          ^
-src\optable.h:174:10: style: Unused private function: 'OpTable::NoteCount' [unusedPrivateFunction]
-    uint NoteCount (uint note);
-         ^
-src\optable.h:175:10: style: Unused private function: 'OpTable::NoteScore' [unusedPrivateFunction]
-    uint NoteScore (uint note);
-         ^
-src\optable.cpp:2157:27: style: Condition 'NUM_POSTHEMES%2==1' is always false [knownConditionTrueFalse]
+src\optable.cpp:2087:27: style: Condition 'NUM_POSTHEMES%2==1' is always false [knownConditionTrueFalse]
     if (NUM_POSTHEMES % 2 == 1) { dstr->Append (endRow); }
                           ^
 src\optable.cpp:27:31: style: Redundant initialization for 'idx'. The initialized value is overwritten before it is read. [redundantInitialization]
@@ -469,55 +463,55 @@ src\optable.cpp:392:18: note: Shadowed declaration
 src\optable.cpp:468:16: note: Shadow variable
         char * s = (char *) strFirstChar (dateStr+4, '?');
                ^
-src\optable.cpp:1102:14: style: Local variable 'score' shadows outer variable [shadowVariable]
+src\optable.cpp:1059:14: style: Local variable 'score' shadows outer variable [shadowVariable]
         uint score = 0;
              ^
-src\optable.cpp:1042:10: note: Shadowed declaration
+src\optable.cpp:1014:10: note: Shadowed declaration
     uint score = TheoryScore();
          ^
-src\optable.cpp:1102:14: note: Shadow variable
+src\optable.cpp:1059:14: note: Shadow variable
         uint score = 0;
              ^
-src\optable.cpp:1164:14: style: Local variable 'score' shadows outer variable [shadowVariable]
+src\optable.cpp:1121:14: style: Local variable 'score' shadows outer variable [shadowVariable]
         uint score = 0;
              ^
-src\optable.cpp:1130:10: note: Shadowed declaration
+src\optable.cpp:1087:10: note: Shadowed declaration
     uint score = TheoryScore();
          ^
-src\optable.cpp:1164:14: note: Shadow variable
+src\optable.cpp:1121:14: note: Shadow variable
         uint score = 0;
              ^
-src\optable.cpp:1287:14: style: Local variable 'score' shadows outer variable [shadowVariable]
+src\optable.cpp:1244:14: style: Local variable 'score' shadows outer variable [shadowVariable]
         uint score = 0;
              ^
-src\optable.cpp:1205:10: note: Shadowed declaration
+src\optable.cpp:1162:10: note: Shadowed declaration
     uint score = TheoryScore();
          ^
-src\optable.cpp:1287:14: note: Shadow variable
+src\optable.cpp:1244:14: note: Shadow variable
         uint score = 0;
              ^
-src\optable.cpp:1733:18: style: Local variable 'maxElo' shadows outer variable [shadowVariable]
+src\optable.cpp:1663:18: style: Local variable 'maxElo' shadows outer variable [shadowVariable]
             uint maxElo = pf[index].maxElo;
                  ^
-src\optable.cpp:1689:14: note: Shadowed declaration
+src\optable.cpp:1619:14: note: Shadowed declaration
         uint maxElo = 0;
              ^
-src\optable.cpp:1733:18: note: Shadow variable
+src\optable.cpp:1663:18: note: Shadow variable
             uint maxElo = pf[index].maxElo;
                  ^
-src\optable.cpp:1751:27: style: Local variable 'n' shadows outer variable [shadowVariable]
+src\optable.cpp:1681:27: style: Local variable 'n' shadows outer variable [shadowVariable]
                 for (uint n=0; n < PLAYERFREQ_MAXNOTES; n++) {
                           ^
-src\optable.cpp:1687:15: note: Shadowed declaration
+src\optable.cpp:1617:15: note: Shadowed declaration
     for (uint n=1; n <= count; n++) {
               ^
-src\optable.cpp:1751:27: note: Shadow variable
+src\optable.cpp:1681:27: note: Shadow variable
                 for (uint n=0; n < PLAYERFREQ_MAXNOTES; n++) {
                           ^
-src\optable.cpp:975:11: style: Variable 'count' is assigned a value that is never used. [unreadVariable]
+src\optable.cpp:947:11: style: Variable 'count' is assigned a value that is never used. [unreadVariable]
     count = 0;
           ^
-src\optable.cpp:2115:9: style: Variable 'argc' is assigned a value that is never used. [unreadVariable]
+src\optable.cpp:2045:9: style: Variable 'argc' is assigned a value that is never used. [unreadVariable]
     argc--;
         ^
 src\pbook.h:84:5: warning: Member variable 'PBook::LineCount' is not initialized in the constructor. [uninitMemberVar]
@@ -526,82 +520,70 @@ src\pbook.h:84:5: warning: Member variable 'PBook::LineCount' is not initialized
 src\pbook.h:84:5: warning: Member variable 'PBook::StrAlloc' is not initialized in the constructor. [uninitMemberVar]
     PBook()   { Init(); }
     ^
-src\pbook.cpp:653:5: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
-    fprintf (fp, "%d\n", LeastMaterial);
-    ^
-src\pbook.cpp:655:9: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
-        fprintf (fp, "%4d %8d (%5.2f%%)   ", i, Stats_Lookups[i],
-        ^
-src\pbook.cpp:655:9: warning: %d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
-        fprintf (fp, "%4d %8d (%5.2f%%)   ", i, Stats_Lookups[i],
-        ^
-src\pbook.cpp:657:9: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
-        fprintf (fp, "%8d (%5.2f%%)\n", Stats_Inserts[i],
-        ^
 src\pbook.cpp:40:17: style: The scope of the variable 'node' can be reduced. [variableScope]
     bookNodeT * node;
                 ^
 src\pbook.cpp:123:17: style: The scope of the variable 'node' can be reduced. [variableScope]
     bookNodeT * node;
                 ^
-src\pgnparse.h:89:5: warning: Member variable 'PgnParser::ParseMode' is not initialized in the constructor. [uninitMemberVar]
+src\pgnparse.h:88:5: warning: Member variable 'PgnParser::ParseMode' is not initialized in the constructor. [uninitMemberVar]
     PgnParser (void) { Init ((const char *) ""); }
+    ^
+src\pgnparse.h:88:5: warning: Member variable 'PgnParser::IgnoredTags' is not initialized in the constructor. [uninitMemberVar]
+    PgnParser (void) { Init ((const char *) ""); }
+    ^
+src\pgnparse.h:88:5: warning: Member variable 'PgnParser::UnGetCh' is not initialized in the constructor. [uninitMemberVar]
+    PgnParser (void) { Init ((const char *) ""); }
+    ^
+src\pgnparse.h:89:5: warning: Member variable 'PgnParser::ParseMode' is not initialized in the constructor. [uninitMemberVar]
+    PgnParser (MFile * infile) { Init (infile); }
     ^
 src\pgnparse.h:89:5: warning: Member variable 'PgnParser::IgnoredTags' is not initialized in the constructor. [uninitMemberVar]
-    PgnParser (void) { Init ((const char *) ""); }
+    PgnParser (MFile * infile) { Init (infile); }
     ^
 src\pgnparse.h:89:5: warning: Member variable 'PgnParser::UnGetCh' is not initialized in the constructor. [uninitMemberVar]
-    PgnParser (void) { Init ((const char *) ""); }
+    PgnParser (MFile * infile) { Init (infile); }
     ^
 src\pgnparse.h:90:5: warning: Member variable 'PgnParser::ParseMode' is not initialized in the constructor. [uninitMemberVar]
-    PgnParser (MFile * infile) { Init (infile); }
+    PgnParser (const char * inbuffer) { Init (inbuffer); }
     ^
 src\pgnparse.h:90:5: warning: Member variable 'PgnParser::IgnoredTags' is not initialized in the constructor. [uninitMemberVar]
-    PgnParser (MFile * infile) { Init (infile); }
+    PgnParser (const char * inbuffer) { Init (inbuffer); }
     ^
 src\pgnparse.h:90:5: warning: Member variable 'PgnParser::UnGetCh' is not initialized in the constructor. [uninitMemberVar]
-    PgnParser (MFile * infile) { Init (infile); }
-    ^
-src\pgnparse.h:91:5: warning: Member variable 'PgnParser::ParseMode' is not initialized in the constructor. [uninitMemberVar]
     PgnParser (const char * inbuffer) { Init (inbuffer); }
     ^
-src\pgnparse.h:91:5: warning: Member variable 'PgnParser::IgnoredTags' is not initialized in the constructor. [uninitMemberVar]
-    PgnParser (const char * inbuffer) { Init (inbuffer); }
-    ^
-src\pgnparse.h:91:5: warning: Member variable 'PgnParser::UnGetCh' is not initialized in the constructor. [uninitMemberVar]
-    PgnParser (const char * inbuffer) { Init (inbuffer); }
-    ^
-src\pgnparse.cpp:668:47: style: Condition 'nextCh=='p'' is always false [knownConditionTrueFalse]
+src\pgnparse.cpp:632:47: style: Condition 'nextCh=='p'' is always false [knownConditionTrueFalse]
                 if (nextCh == 'p'  ||  nextCh == 'p') { continue; }
                                               ^
-src\pgnparse.cpp:668:28: note: Assuming that condition 'nextCh=='p'' is not redundant
+src\pgnparse.cpp:632:28: note: Assuming that condition 'nextCh=='p'' is not redundant
                 if (nextCh == 'p'  ||  nextCh == 'p') { continue; }
                            ^
-src\pgnparse.cpp:668:47: note: Condition 'nextCh=='p'' is always false
+src\pgnparse.cpp:632:47: note: Condition 'nextCh=='p'' is always false
                 if (nextCh == 'p'  ||  nextCh == 'p') { continue; }
                                               ^
-src\pgnparse.cpp:488:9: warning: %u in format string (no. 1) requires 'unsigned int' but the argument type is 'signed int'. [invalidPrintfArgType_uint]
+src\pgnparse.cpp:452:9: warning: %u in format string (no. 1) requires 'unsigned int' but the argument type is 'signed int'. [invalidPrintfArgType_uint]
         sprintf (tempStr, "started on line %u\n", startLine);
         ^
-src\pgnparse.cpp:668:36: style: Same expression on both sides of '||'. [duplicateExpression]
+src\pgnparse.cpp:632:36: style: Same expression on both sides of '||'. [duplicateExpression]
                 if (nextCh == 'p'  ||  nextCh == 'p') { continue; }
                                    ^
-src\pgnparse.cpp:332:14: style: The scope of the variable 'elo' can be reduced. [variableScope]
+src\pgnparse.cpp:296:14: style: The scope of the variable 'elo' can be reduced. [variableScope]
         uint elo = 0;
              ^
-src\pgnparse.cpp:352:14: style: The scope of the variable 'elo' can be reduced. [variableScope]
+src\pgnparse.cpp:316:14: style: The scope of the variable 'elo' can be reduced. [variableScope]
         uint elo = 0;
              ^
-src\pgnparse.cpp:552:9: style: The scope of the variable 'ch' can be reduced. [variableScope]
+src\pgnparse.cpp:516:9: style: The scope of the variable 'ch' can be reduced. [variableScope]
     int ch;
         ^
-src\pgnparse.cpp:593:9: style: The scope of the variable 'ch' can be reduced. [variableScope]
+src\pgnparse.cpp:557:9: style: The scope of the variable 'ch' can be reduced. [variableScope]
     int ch;
         ^
-src\pgnparse.cpp:332:18: style: Variable 'elo' is assigned a value that is never used. [unreadVariable]
+src\pgnparse.cpp:296:18: style: Variable 'elo' is assigned a value that is never used. [unreadVariable]
         uint elo = 0;
                  ^
-src\pgnparse.cpp:352:18: style: Variable 'elo' is assigned a value that is never used. [unreadVariable]
+src\pgnparse.cpp:316:18: style: Variable 'elo' is assigned a value that is never used. [unreadVariable]
         uint elo = 0;
                  ^
 src\position.h:142:5: warning: Member variable 'Position::Count' is not initialized in the constructor. [uninitMemberVar]
@@ -658,76 +640,58 @@ src\position.h:142:5: warning: Member variable 'Position::PawnHash' is not initi
 src\position.h:136:17: style: Unused private function: 'Position::AssertPos' [unusedPrivateFunction]
     errorT      AssertPos ();   //  Checks for errors in board etc.
                 ^
-src\position.cpp:1149:21: style: Redundant initialization for 'promoteRank'. The initialized value is overwritten before it is read. [redundantInitialization]
+src\position.cpp:1042:21: style: Redundant initialization for 'promoteRank'. The initialized value is overwritten before it is read. [redundantInitialization]
         promoteRank = RANK_8;
                     ^
-src\position.cpp:1140:23: note: promoteRank is initialized
+src\position.cpp:1033:23: note: promoteRank is initialized
     rankT promoteRank = (ToMove == WHITE ? RANK_8 : RANK_1);
                       ^
-src\position.cpp:1149:21: note: promoteRank is overwritten
+src\position.cpp:1042:21: note: promoteRank is overwritten
         promoteRank = RANK_8;
                     ^
-src\position.cpp:2405:8: style: Redundant initialization for 'to'. The initialized value is overwritten before it is read. [redundantInitialization]
+src\position.cpp:2262:8: style: Redundant initialization for 'to'. The initialized value is overwritten before it is read. [redundantInitialization]
     to = square_Make(toFyle, toRank);
        ^
-src\position.cpp:2284:16: note: to is initialized
+src\position.cpp:2141:16: note: to is initialized
     squareT to = NS;
                ^
-src\position.cpp:2405:8: note: to is overwritten
+src\position.cpp:2262:8: note: to is overwritten
     to = square_Make(toFyle, toRank);
        ^
-src\position.cpp:2502:9: style: Redundant initialization for 'err'. The initialized value is overwritten before it is read. [redundantInitialization]
-    err = ReadMove (sm, mStr, token);
-        ^
-src\position.cpp:2465:16: note: err is initialized
-    errorT err = OK;
-               ^
-src\position.cpp:2502:9: note: err is overwritten
-    err = ReadMove (sm, mStr, token);
-        ^
-src\position.cpp:1021:15: style: The scope of the variable 'pt' can be reduced. [variableScope]
+src\position.cpp:914:15: style: The scope of the variable 'pt' can be reduced. [variableScope]
     pieceT p, pt, captured;
               ^
-src\position.cpp:2526:12: style: The scope of the variable 's2' can be reduced. [variableScope]
+src\position.cpp:2320:12: style: The scope of the variable 's2' can be reduced. [variableScope]
     char * s2;
            ^
-src\position.cpp:2527:10: style: The scope of the variable 'length' can be reduced. [variableScope]
+src\position.cpp:2321:10: style: The scope of the variable 'length' can be reduced. [variableScope]
     uint length = 0;
          ^
-src\position.cpp:2530:12: style: The scope of the variable 'err' can be reduced. [variableScope]
+src\position.cpp:2324:12: style: The scope of the variable 'err' can be reduced. [variableScope]
     errorT err;
            ^
-src\position.cpp:2954:10: style: The scope of the variable 'emptyRun' can be reduced. [variableScope]
+src\position.cpp:2748:10: style: The scope of the variable 'emptyRun' can be reduced. [variableScope]
     uint emptyRun, iRank, iFyle;
          ^
-src\position.cpp:3039:14: style: The scope of the variable 'pBoard' can be reduced. [variableScope]
+src\position.cpp:2833:14: style: The scope of the variable 'pBoard' can be reduced. [variableScope]
     pieceT * pBoard;
              ^
-src\position.cpp:3107:14: style: The scope of the variable 'pBoard' can be reduced. [variableScope]
+src\position.cpp:2901:14: style: The scope of the variable 'pBoard' can be reduced. [variableScope]
     pieceT * pBoard;
              ^
-src\position.cpp:1709:20: style: Local variable 'p' shadows outer argument [shadowArgument]
-            pieceT p = Board[dest];
-                   ^
-src\position.cpp:1692:28: note: Shadowed declaration
-Position::Mobility (pieceT p, colorT color, squareT from)
-                           ^
-src\position.cpp:1709:20: note: Shadow variable
-            pieceT p = Board[dest];
-                   ^
-src\position.cpp:3023:10: style: struct member 'htmlStyleT::transparent' is never used. [unusedStructMember]
+src\position.cpp:2817:10: style: struct member 'htmlStyleT::transparent' is never used. [unusedStructMember]
     bool transparent;  // True if the style uses transparent images,
          ^
-src\position.cpp:1025:18: style: Variable 'tryMove' is assigned a value that is never used. [unreadVariable]
+src\position.cpp:918:18: style: Variable 'tryMove' is assigned a value that is never used. [unreadVariable]
     uint tryMove = 0;
                  ^
-src\position.cpp:2283:18: style: Variable 'from' is assigned a value that is never used. [unreadVariable]
+src\position.cpp:2140:18: style: Variable 'from' is assigned a value that is never used. [unreadVariable]
     squareT from = NS;
                  ^
-src\position.cpp:2527:17: style: Variable 'length' is assigned a value that is never used. [unreadVariable]
+src\position.cpp:2321:17: style: Variable 'length' is assigned a value that is never used. [unreadVariable]
     uint length = 0;
                 ^
-src\position.cpp:2955:21: style: Variable 'pBoard' is assigned a value that is never used. [unreadVariable]
+src\position.cpp:2749:21: style: Variable 'pBoard' is assigned a value that is never used. [unreadVariable]
     pieceT * pBoard = Board;
                     ^
 src\progbar.h:29:5: style: Class 'ProgBar' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
@@ -1207,68 +1171,5 @@ src\tree.h:114:5: warning: Member variable 'TreeCache::LowestTotal' is not initi
 src\tree.h:114:5: warning: Member variable 'TreeCache::LowestTotalIndex' is not initialized in the constructor. [uninitMemberVar]
     TreeCache() { Init(); }
     ^
-src\pgnparse.cpp:120:0: style: The function 'AddIgnoredTag' is never used. [unusedFunction]
-
-^
-src\dstring.cpp:67:0: style: The function 'AppendInt' is never used. [unusedFunction]
-
-^
-src\pgnparse.cpp:93:0: style: The function 'CheckUTF8BOM' is never used. [unusedFunction]
-
-^
-src\spellchk.cpp:860:0: style: The function 'Dump' is never used. [unusedFunction]
-
-^
-src\optable.cpp:749:0: style: The function 'DumpLines' is never used. [unusedFunction]
-
-^
-src\pbook.cpp:651:0: style: The function 'DumpStats' is never used. [unusedFunction]
-
-^
-src\pbook.cpp:274:0: style: The function 'FindNext' is never used. [unusedFunction]
-
-^
-src\pbook.cpp:235:0: style: The function 'FindSummary' is never used. [unusedFunction]
-
-^
-src\bytebuf.cpp:97:0: style: The function 'Get2Bytes' is never used. [unusedFunction]
-
-^
-src\spellchk.cpp:903:0: style: The function 'GetLastCountry' is never used. [unusedFunction]
-
-^
-src\position.cpp:3161:0: style: The function 'GetSquares' is never used. [unusedFunction]
-
-^
-src\index.cpp:861:0: style: The function 'InitEntries' is never used. [unusedFunction]
-
-^
-src\position.cpp:913:0: style: The function 'IsLegalMove' is never used. [unusedFunction]
-
-^
-src\movelist.cpp:123:0: style: The function 'IsSorted' is never used. [unusedFunction]
-
-^
-src\position.cpp:679:0: style: The function 'IsStdStart' is never used. [unusedFunction]
-
-^
-src\stralloc.cpp:66:0: style: The function 'MemoryUsed' is never used. [unusedFunction]
-
-^
-src\position.cpp:1692:0: style: The function 'Mobility' is never used. [unusedFunction]
-
-^
-src\movelist.cpp:23:0: style: The function 'MoveToFront' is never used. [unusedFunction]
-
-^
-src\optable.cpp:1347:0: style: The function 'NoteCount' is never used. [unusedFunction]
-
-^
-src\optable.cpp:1357:0: style: The function 'NoteScore' is never used. [unusedFunction]
-
-^
-src\position.cpp:2458:0: style: The function 'ParseMove' is never used. [unusedFunction]
-
-^
 nofile:0:0: information: Cppcheck cannot find all the include files (use --check-config for details) [missingIncludeSystem]
 

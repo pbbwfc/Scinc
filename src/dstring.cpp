@@ -64,14 +64,6 @@ DString::AppendUint (uint i)
 }
 
 void
-DString::AppendInt (int i)
-{
-    char s[16];
-    sprintf (s, "%d", i);
-    Append (s);
-}
-
-void
 DString::Append (const char * str)
 {
     uint addLength = strLength (str);

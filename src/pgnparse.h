@@ -65,7 +65,6 @@ class PgnParser
 
     void   Init();
     void   Reset();
-    bool   CheckUTF8BOM();
     void   LogError (const char * errMessage, const char * text);
     void   GetLine (char * buffer, uint bufSize);
     void   GetComment (char * buffer, uint bufSize);
@@ -109,7 +108,6 @@ class PgnParser
     void   SetResultWarnings (bool b) { ResultWarnings = b; }
     void   SetNewlinesToSpaces (bool b) { NewlinesToSpaces = b; }
 
-    void   AddIgnoredTag (const char * tag);
     void   ClearIgnoredTags ();
     bool   IsIgnoredTag (const char * tag);
 

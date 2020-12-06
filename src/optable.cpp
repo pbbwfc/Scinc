@@ -745,34 +745,6 @@ OpTable::GuessNumRows (void)
     SetNumRows (int_sqrt((NumTableLines * 3) / 4) + 3);
 }
 
-void
-OpTable::DumpLines (FILE * fp)
-{
-    MakeRows();
-    DString * dstr = new DString;
-    for (uint i=0; i < NumRows; i++) {
-        bool first = true;
-        OpLine * line = Row[i];
-        OpLine * prevLine = NULL;
-        while (line != NULL) {
-            dstr->Clear();
-            if (first) {
-                first = false;
-                line->PrintNote (dstr, (StartLength + 2) / 2, 0, OPTABLE_Text);
-                fprintf (fp, "ROW %u[%u]: ", i+1, NLines[i]);
-            } else {
-                fprintf (fp, "   %u-NOTE: ", i+1);
-                line->PrintNote (dstr, (StartLength + 2) / 2,
-                            line->CommonLength(prevLine), OPTABLE_Text);
-            }
-            fprintf (fp, "%s\n", dstr->Data());
-            prevLine = line;
-            line = line->Next;
-        }
-    }
-    delete dstr;
-}
-
 bool
 OpTable::IsRowMergable (uint rownum)
 {

@@ -112,8 +112,6 @@ class SpellChecker
     static eloT GetPeakRating (const char * comment);
     static dateT GetBirthdate (const char * comment);
     static dateT GetDeathdate (const char * comment);
-
-    void Dump (FILE * fp);
 };
 
 #endif  // SCID_SPELLCHK_H

@@ -50,7 +50,6 @@ delete[] Start;
 
     void AddChar (char ch);
     void AppendUint (uint i);
-    void AppendInt (int i);
     void Append (const char * str);
     void Append (uint i);
     void Append (const char * s1, const char * s2);

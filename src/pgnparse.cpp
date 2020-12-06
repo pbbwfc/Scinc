@@ -89,42 +89,6 @@ PgnParser::Reset (const char * inbuffer)
     EndChar = 0;
 }
 
-bool
-PgnParser::CheckUTF8BOM()
-{
-    int ch = GetChar();
-
-    if (ch == 0xEF)
-    {
-        if ((ch = GetChar()) == 0xBB)
-        {
-            if ((ch = GetChar()) == 0xBF)
-                return true;
-
-            UnGetChar(ch);
-        }
-        else
-        {
-            UnGetChar(ch);
-        }
-    }
-    else
-    {
-        UnGetChar(ch);
-    }
-
-    return false;
-}
-
-void
-PgnParser::AddIgnoredTag (const char * tag)
-{
-    if (NumIgnoredTags >= MAX_IGNORED_TAGS) { return; }
-    if (tag == NULL  ||  tag[0] == 0) { return; }
-    IgnoredTags [NumIgnoredTags] = strDuplicate (tag);
-    NumIgnoredTags++;
-}
-
 void
 PgnParser::ClearIgnoredTags ()
 {

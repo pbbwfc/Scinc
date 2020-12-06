@@ -855,20 +855,6 @@ SpellChecker::GetElo (const char * name, dateT date, bool exact)
     return 0;
 }
 
-
-void
-SpellChecker::Dump (FILE * fp)
-{
-    for (uint i=0; i < 256; i++) {
-        spellCheckNodeT * node = Names[i];
-        while (node != NULL) {
-            fprintf (fp, "%s: %s (%s)\n",
-                     node->name, node->correctName, node->comment);
-            node = node->next;
-        }
-    }
-}
-
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // SpellChecker::GetTitle:
 //    Extract the first title appearing in the player

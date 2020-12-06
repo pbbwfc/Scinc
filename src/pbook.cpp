@@ -231,85 +231,6 @@ PBook::FindOpcode (Position * pos, const char * opcode, DString * target)
     return OK;
 }
 
-errorT
-PBook::FindSummary (Position * pos, DString * target)
-{
-    const char * comment = NULL;
-    errorT err = Find (pos, &comment);
-    if (err != OK) { return ERROR_NotFound; }
-
-    const char * s = epd_findOpcode (comment, "ce");
-    if (s != NULL) {
-        int ce = strGetInteger (s);
-        if (pos->GetToMove() == BLACK) { ce = -ce; }
-        char temp[20];
-        sprintf (temp, "%+.2f", ((double) ce) / 100.0);
-        target->Append (temp);
-        return OK;
-    }
-    static const char * opcodes[] = {
-        "eco", "nic", "pv", "pm", "bm", "id", NULL
-    };
-    for (const char ** opcode = opcodes; *opcode != NULL; opcode++) {
-        s = epd_findOpcode (comment, *opcode);
-        if (s != NULL) {
-            while (*s != 0  &&  *s != '\n') {
-                target->AddChar (*s);
-                s++;
-            }
-            return OK;
-        }
-    }
-    return ERROR_NotFound;    
-}
-
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// PBook::FindNext():
-//    Finds the next position in order after the current one, and
-//    sets it.
-//    If the flag <forwards> is false, the previous position is found
-//    instead.
-errorT
-PBook::FindNext (Position * pos, bool forwards)
-{
-    ASSERT (pos != NULL);
-    uint totalSize = Size();
-    if (totalSize == 0) { return ERROR_NotFound; }
-    if (forwards) {
-        do {
-            NextIndex++;
-            if (NextIndex >= NodeListCount) { NextIndex = 0; }
-        } while (NodeList[NextIndex] == NULL);
-    } else {
-        do {
-            if (NextIndex == 0) {
-                NextIndex = NodeListCount - 1;
-            } else {
-                NextIndex--;
-            }
-        } while (NodeList[NextIndex] == NULL);
-    }
-
-
-    bookNodeT * node = NodeList[NextIndex];
-    ASSERT (node != NULL);
-    errorT err = pos->ReadFromCompactStr ((const byte *) node->name);
-    if (err != OK) { return err; }
-    pos->SetEPTarget (node->data.enpassant);
-
-    // Now print to FEN and re-read, to ensure the piece lists are in
-    // the order produced by a FEN specification -- this is necessary
-    // since a game with a specified start position has the piece lists
-    // in the FEN-generated order:
-
-    char temp[200];
-    pos->PrintFEN (temp, FEN_CASTLING_EP);
-    err = pos->ReadFromFEN (temp);
-    return err;
-}
-
-
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // PBook::Insert(): Insert a position. Returns OK if a new position
 //      was inserted, or updates the comment and returns ERROR_Exists if
@@ -645,18 +566,6 @@ PBook::WriteFile ()
     delete pos;
     Altered = false;
     return OK;
-}
-
-void
-PBook::DumpStats (FILE * fp)
-{
-    fprintf (fp, "%d\n", LeastMaterial);
-    for (uint i=LeastMaterial; i <= PBOOK_MAX_MATERIAL; i++) {
-        fprintf (fp, "%4d %8d (%5.2f%%)   ", i, Stats_Lookups[i],
-                 (float)Stats_Lookups[i] * 100.0 / Stats_TotalLookups);
-        fprintf (fp, "%8d (%5.2f%%)\n", Stats_Inserts[i],
-                 (float)Stats_Inserts[i] * 100.0 / Stats_TotalInserts);
-    }
 }
 
 //////////////////////////////////////////////////////////////////////

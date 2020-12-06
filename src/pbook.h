@@ -105,13 +105,10 @@ class PBook
     errorT  ReadEcoFile ();
 
     errorT  Find (Position * pos, const char ** ptrComment);
-    errorT  FindNext (Position * pos, bool forwards);
     errorT  Insert (Position * pos, const char * comment);
     errorT  Delete (Position * pos);
     errorT  FindOpcode (Position * pos, const char * opcode, DString * target);
-    errorT  FindSummary (Position * pos, DString * target);
     void    EcoSummary (const char * ecoPrefix, DString * dstr);
-    void    DumpStats (FILE * fp);
     uint    NumPositionBytes () { return Stats_PositionBytes; }
     uint    NumCommentBytes ()  { return Stats_CommentBytes; }
 

@@ -224,7 +224,6 @@ class OpTable
     void   PrintStemLine (DString * dstr, uint format, bool exclude);
     void   PrintStemLine (DString * dstr) { PrintStemLine (dstr, Format, false); }
     void   MakeRows (void);
-    void   DumpLines (FILE * fp);
     void   PrintTable (DString * dstr, const char *title, const char *comment);
     void   PrintLaTeX (DString * dstr,const char *title, const char *comment);
     void   PrintHTML (DString * str, const char *title, const char *comment);
