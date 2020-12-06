@@ -76,7 +76,7 @@ test freqmove1 {} -setup {
     sc_filter freq move 104 104 } -cleanup {
     sc_base close
     file delete {*}[glob temp/test.*] 
-    } -result "6 6"
+    } -result "5 5"
 
 test freqmove2 {} -setup {
     file copy {*}[glob data/test.*] {temp}

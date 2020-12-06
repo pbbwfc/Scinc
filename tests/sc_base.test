@@ -51,12 +51,12 @@ test duplicates {} -setup {
     sc_base duplicates } -cleanup {
     sc_base close
     file delete {*}[glob temp/test.*] 
-    } -result 5
+    } -result 4
 
 test ecoStats {} -setup {
     sc_base open "data/test" } -body {
     sc_base ecoStats D } -cleanup {
-    sc_base close } -result "4 0 0 4 0 0.0"
+    sc_base close } -result "3 0 0 3 0 0.0"
 
 test exportPGN {} -setup {
     sc_base open "data/test" } -body {

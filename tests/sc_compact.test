@@ -19,7 +19,7 @@ test names {} -setup {
 test statsgames {} -setup {
     sc_base open "data/test" } -body {
     sc_compact stats games } -cleanup {
-    sc_base close } -result "6 659 6 659"
+    sc_base close } -result "6 718 6 718"
 
 test statsnames {} -setup {
     sc_base open "data/test" } -body {

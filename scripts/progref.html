@@ -660,10 +660,8 @@
         / <a href="#game_pgn">pgn</a>
         / <a href="#game_pop">pop</a>
         / <a href="#game_push">push</a>
-        / <a href="#game_reloadTags">reloadTags</a>
         / <a href="#game_save">save</a>
         / <a href="#game_scores">scores</a>
-        / <a href="#game_setTags">setTags</a>
         / <a href="#game_startBoard">startBoard</a>
         / <a href="#game_strip">strip</a>
         / <a href="#game_truncate">truncate</a>
@@ -814,19 +812,13 @@
 
     <h4><a name="game_pop">sc_game pop</a></h4>
     <p>
-        Pops the current game, returning to the previous oe on the stack.
+        Pops the current game, returning to the previous one on the stack.
     </p>
 
     <h4><a name="game_push">sc_game push</a></h4>
     <p>
         Saves the current game to a stack so it can be restored, and sets up a new
         empty game.
-    </p>
-
-    <h4><a name="game_reloadTags">sc_game reloadTags</a></h4>
-    <p>
-        Reloads the tags (White, Black, Event, etc) for a game.
-        Useful when a name that may occur in the current game has been edited.
     </p>
 
     <h4><a name="game_save">sc_game save <i>gameNumber</i></a></h4>
@@ -861,16 +853,6 @@
     <p>
         The parameter <i>maxScore</i> (defaults to 10.0) trims all scores
         to a maximum absolute value, to prevent plotting of extreme values.
-    </p>
-
-    <h4><a name="game_setTags">sc_game setTags <i>tagValues</i>...</a></h4>
-    <p>
-        Sets all the tags (White, Black, Event, etc) for the current game.
-        There should be tag value 13 parameters:
-        Event, Site, Date, Round, White, Black, Result,
-        WhiteElo, WhiteRatingType, BlackElo, BlackRatingType, Eco and Extra.
-        The final value is a string of lines in the format: <br>
-        <code>[TagName "TagValue"]</code>
     </p>
 
     <h4><a name="game_startBoard">sc_game startBoard [<i>fen</i>]</a></h4>
