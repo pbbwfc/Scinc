@@ -1,0 +1,1175 @@
+..\src\bytebuf.h:48:5: warning: Member variable 'ByteBuffer::ReadOnly' is not initialized in the constructor. [uninitMemberVar]
+    ByteBuffer()    { Init(); }
+    ^
+..\src\misc.h:365:13: error: Uninitialized variable: result [uninitvar]
+    return (result == EOF ? ERROR_FileWrite : OK);
+            ^
+..\src\win_mmap.h:86:5: warning: Class 'WinMMap' does not have a copy constructor which is recommended since it has dynamic memory/resource allocation(s). [noCopyConstructor]
+    m_address = MapViewOfFile(m_mapping, FILE_MAP_READ, 0, 0, 0);
+    ^
+..\src\win_mmap.h:86:5: warning: Class 'WinMMap' does not have a operator= which is recommended since it has dynamic memory/resource allocation(s). [noOperatorEq]
+    m_address = MapViewOfFile(m_mapping, FILE_MAP_READ, 0, 0, 0);
+    ^
+..\src\dstring.h:42:5: style: Class 'DString' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
+    DString (uint size) { Init (size); }
+    ^
+..\src\win_mmap.h:32:5: style: Class 'WinMMap' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
+    WinMMap(char const* filename);
+    ^
+..\src\filter.h:46:5: warning: Member variable 'Filter::oldDataTreePly' is not initialized in the constructor. [uninitMemberVar]
+    Filter ()           { Init (0); }
+    ^
+..\src\filter.h:47:5: warning: Member variable 'Filter::oldDataTreePly' is not initialized in the constructor. [uninitMemberVar]
+    Filter (uint size)  { Init (size); }
+    ^
+..\src\filter.h:47:5: style: Class 'Filter' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
+    Filter (uint size)  { Init (size); }
+    ^
+..\src\filter.cpp:358:13: style: Unsigned expression 'CODE_RunLength' can't be negative so it is unnecessary to test it. [unsignedPositive]
+            ENCODE_CONTROL_BITS (CODE_RunLength);
+            ^
+..\src\filter.cpp:378:13: style: Unsigned expression 'CODE_PrevLiteral' can't be negative so it is unnecessary to test it. [unsignedPositive]
+            ENCODE_CONTROL_BITS (CODE_PrevLiteral);
+            ^
+..\src\filter.cpp:382:13: style: Unsigned expression 'CODE_NewLiteral' can't be negative so it is unnecessary to test it. [unsignedPositive]
+            ENCODE_CONTROL_BITS (CODE_NewLiteral);
+            ^
+..\src\stralloc.h:73:5: warning: Member variable 'StrAllocator::LastAllocSize' is not initialized in the constructor. [uninitMemberVar]
+    StrAllocator () {
+    ^
+..\src\stralloc.h:80:5: warning: Member variable 'StrAllocator::LastAllocSize' is not initialized in the constructor. [uninitMemberVar]
+    StrAllocator (uint bucketSize) {
+    ^
+..\src\index.h:255:5: warning: Member variable 'IndexEntry::Offset' is not initialized in the constructor. [uninitMemberVar]
+    IndexEntry() {}
+    ^
+..\src\index.h:255:5: warning: Member variable 'IndexEntry::WhiteID_Low' is not initialized in the constructor. [uninitMemberVar]
+    IndexEntry() {}
+    ^
+..\src\index.h:255:5: warning: Member variable 'IndexEntry::BlackID_Low' is not initialized in the constructor. [uninitMemberVar]
+    IndexEntry() {}
+    ^
+..\src\index.h:255:5: warning: Member variable 'IndexEntry::EventID_Low' is not initialized in the constructor. [uninitMemberVar]
+    IndexEntry() {}
+    ^
+..\src\index.h:255:5: warning: Member variable 'IndexEntry::SiteID_Low' is not initialized in the constructor. [uninitMemberVar]
+    IndexEntry() {}
+    ^
+..\src\index.h:255:5: warning: Member variable 'IndexEntry::RoundID_Low' is not initialized in the constructor. [uninitMemberVar]
+    IndexEntry() {}
+    ^
+..\src\index.h:255:5: warning: Member variable 'IndexEntry::WhiteBlack_High' is not initialized in the constructor. [uninitMemberVar]
+    IndexEntry() {}
+    ^
+..\src\index.h:255:5: warning: Member variable 'IndexEntry::EventSiteRnd_High' is not initialized in the constructor. [uninitMemberVar]
+    IndexEntry() {}
+    ^
+..\src\index.h:255:5: warning: Member variable 'IndexEntry::EcoCode' is not initialized in the constructor. [uninitMemberVar]
+    IndexEntry() {}
+    ^
+..\src\index.h:255:5: warning: Member variable 'IndexEntry::Dates' is not initialized in the constructor. [uninitMemberVar]
+    IndexEntry() {}
+    ^
+..\src\index.h:255:5: warning: Member variable 'IndexEntry::WhiteElo' is not initialized in the constructor. [uninitMemberVar]
+    IndexEntry() {}
+    ^
+..\src\index.h:255:5: warning: Member variable 'IndexEntry::BlackElo' is not initialized in the constructor. [uninitMemberVar]
+    IndexEntry() {}
+    ^
+..\src\index.h:255:5: warning: Member variable 'IndexEntry::FinalMatSig' is not initialized in the constructor. [uninitMemberVar]
+    IndexEntry() {}
+    ^
+..\src\index.h:255:5: warning: Member variable 'IndexEntry::Flags' is not initialized in the constructor. [uninitMemberVar]
+    IndexEntry() {}
+    ^
+..\src\index.h:255:5: warning: Member variable 'IndexEntry::VarCounts' is not initialized in the constructor. [uninitMemberVar]
+    IndexEntry() {}
+    ^
+..\src\index.h:255:5: warning: Member variable 'IndexEntry::NumHalfMoves' is not initialized in the constructor. [uninitMemberVar]
+    IndexEntry() {}
+    ^
+..\src\index.h:255:5: warning: Member variable 'IndexEntry::HomePawnData' is not initialized in the constructor. [uninitMemberVar]
+    IndexEntry() {}
+    ^
+..\src\index.h:255:5: warning: Member variable 'IndexEntry::Length_Low' is not initialized in the constructor. [uninitMemberVar]
+    IndexEntry() {}
+    ^
+..\src\index.h:255:5: warning: Member variable 'IndexEntry::Length_High' is not initialized in the constructor. [uninitMemberVar]
+    IndexEntry() {}
+    ^
+..\src\movelist.h:67:5: warning: Member variable 'MoveList::Moves' is not initialized in the constructor. [uninitMemberVar]
+    MoveList() { ListSize = 0; }
+    ^
+..\src\sqlist.h:30:5: warning: Member variable 'SquareList::Squares' is not initialized in the constructor. [uninitMemberVar]
+    SquareList() { ListSize = 0; }
+    ^
+..\src\game.h:309:5: warning: Member variable 'Game::FenString' is not initialized in the constructor. [uninitMemberVar]
+    Game()      { Init(); }
+    ^
+..\src\game.h:309:5: warning: Member variable 'Game::TagList' is not initialized in the constructor. [uninitMemberVar]
+    Game()      { Init(); }
+    ^
+..\src\game.h:309:5: warning: Member variable 'Game::NumMovesPrinted' is not initialized in the constructor. [uninitMemberVar]
+    Game()      { Init(); }
+    ^
+..\src\game.h:309:5: warning: Member variable 'Game::StopLocation' is not initialized in the constructor. [uninitMemberVar]
+    Game()      { Init(); }
+    ^
+..\src\stralloc.h:80:5: style: Class 'StrAllocator' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
+    StrAllocator (uint bucketSize) {
+    ^
+..\src\sqset.h:29:5: style: Class 'SquareSet' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
+    SquareSet(squareT * squares) {
+    ^
+..\src\pgnparse.h:89:5: style: Class 'PgnParser' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
+    PgnParser (MFile * infile) { Init (infile); }
+    ^
+..\src\pgnparse.h:90:5: style: Class 'PgnParser' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
+    PgnParser (const char * inbuffer) { Init (inbuffer); }
+    ^
+..\src\stored.h:32:2: style: Class 'StoredLine' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
+ StoredLine(Position* pos);
+ ^
+..\src\game.cpp:2365:25: style: Condition '!endedColumn' is always true [knownConditionTrueFalse]
+                    if (! endedColumn) {
+                        ^
+..\src\game.cpp:2323:28: note: Assignment 'endedColumn=false', assigned value is 0
+        bool endedColumn = false;
+                           ^
+..\src\game.cpp:2365:25: note: Condition '!endedColumn' is always true
+                    if (! endedColumn) {
+                        ^
+..\src\game.cpp:3043:21: style: Condition 'finalTick' is always false [knownConditionTrueFalse]
+                if (finalTick) {
+                    ^
+..\src\game.cpp:2970:26: note: Assignment 'finalTick=false', assigned value is 0
+        bool finalTick = false;
+                         ^
+..\src\game.cpp:3043:21: note: Condition 'finalTick' is always false
+                if (finalTick) {
+                    ^
+..\src\game.cpp:3267:29: style: Condition 'printDiagrams' is always true [knownConditionTrueFalse]
+                        if (printDiagrams && m->nags[i] == NAG_Diagram) {
+                            ^
+..\src\game.cpp:3114:30: note: Assignment 'printDiagrams=true', assigned value is 1
+        bool printDiagrams = true;
+                             ^
+..\src\game.cpp:3267:29: note: Condition 'printDiagrams' is always true
+                        if (printDiagrams && m->nags[i] == NAG_Diagram) {
+                            ^
+..\src\game.cpp:1148:12: warning: Either the condition 'm!=NULL' is redundant or there is possible null pointer dereference: m. [nullPointerRedundantCheck]
+    while (m->marker != END_MARKER && m != NULL) {
+           ^
+..\src\game.cpp:1154:11: note: Assuming that condition 'm!=NULL' is not redundant
+    if (m != NULL)
+          ^
+..\src\game.cpp:1148:12: note: Null pointer dereference
+    while (m->marker != END_MARKER && m != NULL) {
+           ^
+..\src\game.cpp:1199:12: warning: Either the condition 'move!=NULL' is redundant or there is possible null pointer dereference: move. [nullPointerRedundantCheck]
+    while (move->marker != END_MARKER && move != NULL) {
+           ^
+..\src\game.cpp:1213:14: note: Assuming that condition 'move!=NULL' is not redundant
+    if (move != NULL)
+             ^
+..\src\game.cpp:1199:12: note: Null pointer dereference
+    while (move->marker != END_MARKER && move != NULL) {
+           ^
+..\src\game.cpp:3015:68: style: Same expression on both sides of '-'. [duplicateExpression]
+                sprintf(temp, "\\pspicture[](%d,%d)(%d,%d)\n", minX-1, minY, ((lastX > maxX) ? lastX : maxX), maxY);
+                                                                   ^
+..\src\game.cpp:2979:20: note: 'minX' is assigned value '1' here.
+        int minX = 1;
+                   ^
+..\src\game.cpp:3015:68: note: Same expression on both sides of '-'.
+                sprintf(temp, "\\pspicture[](%d,%d)(%d,%d)\n", minX-1, minY, ((lastX > maxX) ? lastX : maxX), maxY);
+                                                                   ^
+..\src\game.cpp:1282:17: style: The scope of the variable 'hpNew' can be reduced. [variableScope]
+    uint hpOld, hpNew;
+                ^
+..\src\game.cpp:2970:14: style: The scope of the variable 'finalTick' can be reduced. [variableScope]
+        bool finalTick = false;
+             ^
+..\src\game.cpp:2979:13: style: The scope of the variable 'minX' can be reduced. [variableScope]
+        int minX = 1;
+            ^
+..\src\game.cpp:3110:22: style: The scope of the variable 'diagramStr' can be reduced. [variableScope]
+        const char * diagramStr = "\\begin{center}\n\\vspace{1ex}\n\\chessboard\n\\vspace{1ex}\n\\end{center}\n";
+                     ^
+..\src\game.cpp:3115:14: style: The scope of the variable 'diagramPrinted' can be reduced. [variableScope]
+        bool diagramPrinted = false;
+             ^
+..\src\game.cpp:4401:10: style: The scope of the variable 'b' can be reduced. [variableScope]
+    byte b;
+         ^
+..\src\game.cpp:2202:16: style: Local variable 'm' shadows outer variable [shadowVariable]
+        moveT *m = CurrentMove;
+               ^
+..\src\game.cpp:2172:13: note: Shadowed declaration
+    moveT * m = CurrentMove;
+            ^
+..\src\game.cpp:2202:16: note: Shadow variable
+        moveT *m = CurrentMove;
+               ^
+..\src\game.cpp:3047:26: style: Local variable 'x' shadows outer variable [shadowVariable]
+                for (int x = 1; x < NumHalfMoves; x++) {
+                         ^
+..\src\game.cpp:2867:13: note: Shadowed declaration
+        int x = 0;
+            ^
+..\src\game.cpp:3047:26: note: Shadow variable
+                for (int x = 1; x < NumHalfMoves; x++) {
+                         ^
+..\src\game.cpp:3058:26: style: Local variable 'x' shadows outer variable [shadowVariable]
+                for (int x = 1; x < scoreHalfMoves; x++) {
+                         ^
+..\src\game.cpp:2867:13: note: Shadowed declaration
+        int x = 0;
+            ^
+..\src\game.cpp:3058:26: note: Shadow variable
+                for (int x = 1; x < scoreHalfMoves; x++) {
+                         ^
+..\src\game.cpp:3385:51: style: Local variable 'i' shadows outer variable [shadowVariable]
+                                        for (uint i = 0; i < (uint)v->nagCount; i++) {
+                                                  ^
+..\src\game.cpp:3361:31: note: Shadowed declaration
+                    for (uint i=0; i < m->numVariations; i++) {
+                              ^
+..\src\game.cpp:3385:51: note: Shadow variable
+                                        for (uint i = 0; i < (uint)v->nagCount; i++) {
+                                                  ^
+..\src\sqset.h:48:25: portability: Shifting signed 32-bit value by 31 bits is implementation-defined behaviour. See condition at line 47. [shiftTooManyBitsSigned]
+        Bits_a1h4 |= (1 << sq);
+                        ^
+..\src\sqset.h:47:12: note: Assuming that condition 'sq<=H4' is not redundant
+    if (sq <= H4) {
+           ^
+..\src\sqset.h:48:25: note: Shift
+        Bits_a1h4 |= (1 << sq);
+                        ^
+..\src\sqset.h:63:29: portability: Shifting signed 32-bit value by 31 bits is implementation-defined behaviour. See condition at line 62. [shiftTooManyBitsSigned]
+            Bits_a1h4 |= (1 << sq);
+                            ^
+..\src\sqset.h:62:16: note: Assuming that condition 'sq<=H4' is not redundant
+        if (sq <= H4) {
+               ^
+..\src\sqset.h:63:29: note: Shift
+            Bits_a1h4 |= (1 << sq);
+                            ^
+..\src\sqset.h:75:32: portability: Shifting signed 32-bit value by 31 bits is implementation-defined behaviour. See condition at line 74. [shiftTooManyBitsSigned]
+        return (Bits_a1h4 & (1 << sq)) != 0;
+                               ^
+..\src\sqset.h:74:12: note: Assuming that condition 'sq<=H4' is not redundant
+    if (sq <= H4) {
+           ^
+..\src\sqset.h:75:32: note: Shift
+        return (Bits_a1h4 & (1 << sq)) != 0;
+                               ^
+..\src\sqset.h:86:26: portability: Shifting signed 32-bit value by 31 bits is implementation-defined behaviour. See condition at line 85. [shiftTooManyBitsSigned]
+        Bits_a1h4 &= ~(1 << sq);
+                         ^
+..\src\sqset.h:85:12: note: Assuming that condition 'sq<=H4' is not redundant
+    if (sq <= H4) {
+           ^
+..\src\sqset.h:86:26: note: Shift
+        Bits_a1h4 &= ~(1 << sq);
+                         ^
+..\src\game.cpp:3115:29: style: Variable 'diagramPrinted' is assigned a value that is never used. [unreadVariable]
+        bool diagramPrinted = false;
+                            ^
+..\src\game.cpp:3416:28: style: Variable 'inMainline' is assigned a value that is never used. [unreadVariable]
+                inMainline = false;
+                           ^
+..\src\index.h:355:7: style: Unsigned expression 'length' can't be negative so it is unnecessary to test it. [unsignedPositive]
+      ASSERT(length >= 0 && length < 131072);
+      ^
+..\src\gfile.h:59:5: warning: Member variable 'GFile::FileName' is not initialized in the constructor. [uninitMemberVar]
+    GFile()      { Init(); }
+    ^
+..\src\gfile.h:59:5: warning: Member variable 'GFile::Reads' is not initialized in the constructor. [uninitMemberVar]
+    GFile()      { Init(); }
+    ^
+..\src\gfile.h:59:5: warning: Member variable 'GFile::Writes' is not initialized in the constructor. [uninitMemberVar]
+    GFile()      { Init(); }
+    ^
+..\src\gfile.h:59:5: warning: Member variable 'GFile::LastBlockSize' is not initialized in the constructor. [uninitMemberVar]
+    GFile()      { Init(); }
+    ^
+..\src\index.cpp:437:17: warning: %d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+                sprintf (temp, "%*d", width, gnFiltered);
+                ^
+..\src\index.cpp:442:17: warning: %d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+                sprintf (temp, "%*d", width, gnReal);
+                ^
+..\src\index.cpp:447:17: warning: %d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+                sprintf (temp, "%*d", width, Offset);
+                ^
+..\src\index.cpp:452:15: warning: %d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+              sprintf (temp, "%*d", width, GetLength() );
+              ^
+..\src\index.cpp:464:25: warning: %d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+                        sprintf (temp, "%*d", width, m);
+                        ^
+..\src\index.cpp:527:17: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+                sprintf (temp, "%4d", date_GetYear (GetDate()));
+                ^
+..\src\index.cpp:1574:22: style: The scope of the variable 'ie' can be reduced. [variableScope]
+        IndexEntry * ie;
+                     ^
+..\src\index.cpp:477:27: style: Local variable 's' shadows outer variable [shadowVariable]
+                    char *s = temp;
+                          ^
+..\src\index.cpp:412:18: note: Shadowed declaration
+    const char * s = format;
+                 ^
+..\src\index.cpp:477:27: note: Shadow variable
+                    char *s = temp;
+                          ^
+..\src\index.cpp:628:28: style: Local variable 's' shadows outer variable [shadowVariable]
+                    char * s = flags;
+                           ^
+..\src\index.cpp:412:18: note: Shadowed declaration
+    const char * s = format;
+                 ^
+..\src\index.cpp:628:28: note: Shadow variable
+                    char * s = flags;
+                           ^
+..\src\index.cpp:1576:19: style: Local variable 'count' shadows outer variable [shadowVariable]
+        for (uint count=1; count <= Header.numGames; count++) {
+                  ^
+..\src\index.cpp:1541:10: note: Shadowed declaration
+    uint count;
+         ^
+..\src\index.cpp:1576:19: note: Shadow variable
+        for (uint count=1; count <= Header.numGames; count++) {
+                  ^
+..\src\index.cpp:189:13: style: Variable 'version' is assigned a value that is never used. [unreadVariable]
+    version = 0; // We dont have any other version-specific code.
+            ^
+..\src\index.cpp:258:13: style: Variable 'version' is assigned a value that is never used. [unreadVariable]
+    version = 0;  // We dont have any version-specific code.
+            ^
+..\src\mfile.cpp:179:13: error: Uninitialized variable: result [uninitvar]
+    return (result == 0 ? OK : ERROR);
+            ^
+..\src\mfile.cpp:179:13: error: Uninitialized variable: result [uninitvar]
+    return (result == 0 ? OK : ERROR);
+            ^
+..\src\mfile.cpp:163:14: note: Assuming condition is true
+    if (Type == MFILE_MMAP) {
+             ^
+..\src\mfile.cpp:179:13: note: Uninitialized variable: result
+    return (result == 0 ? OK : ERROR);
+            ^
+..\src\mfile.cpp:109:25: style: Variable 'suffix' is assigned a value that is never used. [unreadVariable]
+    const char * suffix = strFileSuffix (name);
+                        ^
+..\src\mfile.cpp:188:16: style: Variable 'err' is assigned a value that is never used. [unreadVariable]
+    errorT err = OK;
+               ^
+..\src\misc.cpp:596:27: warning: Possible null pointer dereference: startLocation [nullPointer]
+                *out++ = *startLocation;
+                          ^
+..\src\misc.cpp:587:28: note: Assignment 'startLocation=NULL', assigned value is 0
+    char * startLocation = NULL;
+                           ^
+..\src\misc.cpp:596:27: note: Null pointer dereference
+                *out++ = *startLocation;
+                          ^
+..\src\misc.cpp:615:11: error: Pointer addition with NULL pointer. [nullPointerArithmetic]
+        in++;
+          ^
+..\src\misc.cpp:587:28: note: Assignment 'startLocation=NULL', assigned value is 0
+    char * startLocation = NULL;
+                           ^
+..\src\misc.cpp:598:22: note: Assignment 'in=startLocation', assigned value is 0
+                in = startLocation;
+                     ^
+..\src\misc.cpp:615:11: note: Null pointer addition
+        in++;
+          ^
+..\src\misc.cpp:1198:29: style: Variable 'lastSuffix' is assigned a value that is never used. [unreadVariable]
+    const char * lastSuffix = strFileSuffix (fname);
+                            ^
+..\src\namebase.h:139:5: warning: Member variable 'NameBase::MostFrequent' is not initialized in the constructor. [uninitMemberVar]
+    NameBase()  { Init(); }
+    ^
+..\src\namebase.cpp:441:13: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+            fprintf (f, "%6d\t%s\n", node->data.frequency, node->name);
+            ^
+..\src\optable.h:177:5: warning: Member variable 'OpTable::MaxThemeMoveNumber' is not initialized in the constructor. [uninitMemberVar]
+    OpTable (uint base, const char * type, Game * g, PBook * ecoBook) {
+    ^
+..\src\optable.h:177:5: warning: Member variable 'OpTable::NumNotes' is not initialized in the constructor. [uninitMemberVar]
+    OpTable (uint base, const char * type, Game * g, PBook * ecoBook) {
+    ^
+..\src\optable.h:177:5: warning: Member variable 'OpTable::Line' is not initialized in the constructor. [uninitMemberVar]
+    OpTable (uint base, const char * type, Game * g, PBook * ecoBook) {
+    ^
+..\src\optable.h:177:5: warning: Member variable 'OpTable::MoveOrder' is not initialized in the constructor. [uninitMemberVar]
+    OpTable (uint base, const char * type, Game * g, PBook * ecoBook) {
+    ^
+..\src\optable.h:177:5: warning: Member variable 'OpTable::Row' is not initialized in the constructor. [uninitMemberVar]
+    OpTable (uint base, const char * type, Game * g, PBook * ecoBook) {
+    ^
+..\src\optable.h:177:5: warning: Member variable 'OpTable::NLines' is not initialized in the constructor. [uninitMemberVar]
+    OpTable (uint base, const char * type, Game * g, PBook * ecoBook) {
+    ^
+..\src\optable.h:177:5: warning: Member variable 'OpTable::RowScore' is not initialized in the constructor. [uninitMemberVar]
+    OpTable (uint base, const char * type, Game * g, PBook * ecoBook) {
+    ^
+..\src\optable.h:180:5: warning: Member variable 'OpTable::MaxThemeMoveNumber' is not initialized in the constructor. [uninitMemberVar]
+    OpTable (uint base, const char * type, Game * g) { Init (base, type, g, NULL); }
+    ^
+..\src\optable.h:180:5: warning: Member variable 'OpTable::NumNotes' is not initialized in the constructor. [uninitMemberVar]
+    OpTable (uint base, const char * type, Game * g) { Init (base, type, g, NULL); }
+    ^
+..\src\optable.h:180:5: warning: Member variable 'OpTable::Line' is not initialized in the constructor. [uninitMemberVar]
+    OpTable (uint base, const char * type, Game * g) { Init (base, type, g, NULL); }
+    ^
+..\src\optable.h:180:5: warning: Member variable 'OpTable::MoveOrder' is not initialized in the constructor. [uninitMemberVar]
+    OpTable (uint base, const char * type, Game * g) { Init (base, type, g, NULL); }
+    ^
+..\src\optable.h:180:5: warning: Member variable 'OpTable::Row' is not initialized in the constructor. [uninitMemberVar]
+    OpTable (uint base, const char * type, Game * g) { Init (base, type, g, NULL); }
+    ^
+..\src\optable.h:180:5: warning: Member variable 'OpTable::NLines' is not initialized in the constructor. [uninitMemberVar]
+    OpTable (uint base, const char * type, Game * g) { Init (base, type, g, NULL); }
+    ^
+..\src\optable.h:180:5: warning: Member variable 'OpTable::RowScore' is not initialized in the constructor. [uninitMemberVar]
+    OpTable (uint base, const char * type, Game * g) { Init (base, type, g, NULL); }
+    ^
+..\src\optable.h:108:10: style: Unused private function: 'OpLine::Destroy' [unusedPrivateFunction]
+    void Destroy (void);
+         ^
+..\src\optable.cpp:2087:27: style: Condition 'NUM_POSTHEMES%2==1' is always false [knownConditionTrueFalse]
+    if (NUM_POSTHEMES % 2 == 1) { dstr->Append (endRow); }
+                          ^
+..\src\optable.cpp:27:31: style: Redundant initialization for 'idx'. The initialized value is overwritten before it is read. [redundantInitialization]
+            if (minors) { idx = EGTHEME_QRM; } else { idx = EGTHEME_QR; }
+                              ^
+..\src\optable.cpp:23:14: note: idx is initialized
+    uint idx = EGTHEME_P;
+             ^
+..\src\optable.cpp:27:31: note: idx is overwritten
+            if (minors) { idx = EGTHEME_QRM; } else { idx = EGTHEME_QR; }
+                              ^
+..\src\optable.cpp:468:16: style: Local variable 's' shadows outer variable [shadowVariable]
+        char * s = (char *) strFirstChar (dateStr+4, '?');
+               ^
+..\src\optable.cpp:392:18: note: Shadowed declaration
+    const char * s = White;
+                 ^
+..\src\optable.cpp:468:16: note: Shadow variable
+        char * s = (char *) strFirstChar (dateStr+4, '?');
+               ^
+..\src\optable.cpp:1059:14: style: Local variable 'score' shadows outer variable [shadowVariable]
+        uint score = 0;
+             ^
+..\src\optable.cpp:1014:10: note: Shadowed declaration
+    uint score = TheoryScore();
+         ^
+..\src\optable.cpp:1059:14: note: Shadow variable
+        uint score = 0;
+             ^
+..\src\optable.cpp:1121:14: style: Local variable 'score' shadows outer variable [shadowVariable]
+        uint score = 0;
+             ^
+..\src\optable.cpp:1087:10: note: Shadowed declaration
+    uint score = TheoryScore();
+         ^
+..\src\optable.cpp:1121:14: note: Shadow variable
+        uint score = 0;
+             ^
+..\src\optable.cpp:1244:14: style: Local variable 'score' shadows outer variable [shadowVariable]
+        uint score = 0;
+             ^
+..\src\optable.cpp:1162:10: note: Shadowed declaration
+    uint score = TheoryScore();
+         ^
+..\src\optable.cpp:1244:14: note: Shadow variable
+        uint score = 0;
+             ^
+..\src\optable.cpp:1663:18: style: Local variable 'maxElo' shadows outer variable [shadowVariable]
+            uint maxElo = pf[index].maxElo;
+                 ^
+..\src\optable.cpp:1619:14: note: Shadowed declaration
+        uint maxElo = 0;
+             ^
+..\src\optable.cpp:1663:18: note: Shadow variable
+            uint maxElo = pf[index].maxElo;
+                 ^
+..\src\optable.cpp:1681:27: style: Local variable 'n' shadows outer variable [shadowVariable]
+                for (uint n=0; n < PLAYERFREQ_MAXNOTES; n++) {
+                          ^
+..\src\optable.cpp:1617:15: note: Shadowed declaration
+    for (uint n=1; n <= count; n++) {
+              ^
+..\src\optable.cpp:1681:27: note: Shadow variable
+                for (uint n=0; n < PLAYERFREQ_MAXNOTES; n++) {
+                          ^
+..\src\optable.cpp:947:11: style: Variable 'count' is assigned a value that is never used. [unreadVariable]
+    count = 0;
+          ^
+..\src\optable.cpp:2045:9: style: Variable 'argc' is assigned a value that is never used. [unreadVariable]
+    argc--;
+        ^
+..\src\pbook.h:84:5: warning: Member variable 'PBook::LineCount' is not initialized in the constructor. [uninitMemberVar]
+    PBook()   { Init(); }
+    ^
+..\src\pbook.h:84:5: warning: Member variable 'PBook::StrAlloc' is not initialized in the constructor. [uninitMemberVar]
+    PBook()   { Init(); }
+    ^
+..\src\pbook.cpp:40:17: style: The scope of the variable 'node' can be reduced. [variableScope]
+    bookNodeT * node;
+                ^
+..\src\pbook.cpp:123:17: style: The scope of the variable 'node' can be reduced. [variableScope]
+    bookNodeT * node;
+                ^
+..\src\pgnparse.h:88:5: warning: Member variable 'PgnParser::ParseMode' is not initialized in the constructor. [uninitMemberVar]
+    PgnParser (void) { Init ((const char *) ""); }
+    ^
+..\src\pgnparse.h:88:5: warning: Member variable 'PgnParser::IgnoredTags' is not initialized in the constructor. [uninitMemberVar]
+    PgnParser (void) { Init ((const char *) ""); }
+    ^
+..\src\pgnparse.h:88:5: warning: Member variable 'PgnParser::UnGetCh' is not initialized in the constructor. [uninitMemberVar]
+    PgnParser (void) { Init ((const char *) ""); }
+    ^
+..\src\pgnparse.h:89:5: warning: Member variable 'PgnParser::ParseMode' is not initialized in the constructor. [uninitMemberVar]
+    PgnParser (MFile * infile) { Init (infile); }
+    ^
+..\src\pgnparse.h:89:5: warning: Member variable 'PgnParser::IgnoredTags' is not initialized in the constructor. [uninitMemberVar]
+    PgnParser (MFile * infile) { Init (infile); }
+    ^
+..\src\pgnparse.h:89:5: warning: Member variable 'PgnParser::UnGetCh' is not initialized in the constructor. [uninitMemberVar]
+    PgnParser (MFile * infile) { Init (infile); }
+    ^
+..\src\pgnparse.h:90:5: warning: Member variable 'PgnParser::ParseMode' is not initialized in the constructor. [uninitMemberVar]
+    PgnParser (const char * inbuffer) { Init (inbuffer); }
+    ^
+..\src\pgnparse.h:90:5: warning: Member variable 'PgnParser::IgnoredTags' is not initialized in the constructor. [uninitMemberVar]
+    PgnParser (const char * inbuffer) { Init (inbuffer); }
+    ^
+..\src\pgnparse.h:90:5: warning: Member variable 'PgnParser::UnGetCh' is not initialized in the constructor. [uninitMemberVar]
+    PgnParser (const char * inbuffer) { Init (inbuffer); }
+    ^
+..\src\pgnparse.cpp:632:47: style: Condition 'nextCh=='p'' is always false [knownConditionTrueFalse]
+                if (nextCh == 'p'  ||  nextCh == 'p') { continue; }
+                                              ^
+..\src\pgnparse.cpp:632:28: note: Assuming that condition 'nextCh=='p'' is not redundant
+                if (nextCh == 'p'  ||  nextCh == 'p') { continue; }
+                           ^
+..\src\pgnparse.cpp:632:47: note: Condition 'nextCh=='p'' is always false
+                if (nextCh == 'p'  ||  nextCh == 'p') { continue; }
+                                              ^
+..\src\pgnparse.cpp:452:9: warning: %u in format string (no. 1) requires 'unsigned int' but the argument type is 'signed int'. [invalidPrintfArgType_uint]
+        sprintf (tempStr, "started on line %u\n", startLine);
+        ^
+..\src\pgnparse.cpp:632:36: style: Same expression on both sides of '||'. [duplicateExpression]
+                if (nextCh == 'p'  ||  nextCh == 'p') { continue; }
+                                   ^
+..\src\pgnparse.cpp:296:14: style: The scope of the variable 'elo' can be reduced. [variableScope]
+        uint elo = 0;
+             ^
+..\src\pgnparse.cpp:316:14: style: The scope of the variable 'elo' can be reduced. [variableScope]
+        uint elo = 0;
+             ^
+..\src\pgnparse.cpp:516:9: style: The scope of the variable 'ch' can be reduced. [variableScope]
+    int ch;
+        ^
+..\src\pgnparse.cpp:557:9: style: The scope of the variable 'ch' can be reduced. [variableScope]
+    int ch;
+        ^
+..\src\pgnparse.cpp:296:18: style: Variable 'elo' is assigned a value that is never used. [unreadVariable]
+        uint elo = 0;
+                 ^
+..\src\pgnparse.cpp:316:18: style: Variable 'elo' is assigned a value that is never used. [unreadVariable]
+        uint elo = 0;
+                 ^
+..\src\position.h:142:5: warning: Member variable 'Position::Count' is not initialized in the constructor. [uninitMemberVar]
+    Position()   { Init(); }
+    ^
+..\src\position.h:142:5: warning: Member variable 'Position::Material' is not initialized in the constructor. [uninitMemberVar]
+    Position()   { Init(); }
+    ^
+..\src\position.h:142:5: warning: Member variable 'Position::ListPos' is not initialized in the constructor. [uninitMemberVar]
+    Position()   { Init(); }
+    ^
+..\src\position.h:142:5: warning: Member variable 'Position::List' is not initialized in the constructor. [uninitMemberVar]
+    Position()   { Init(); }
+    ^
+..\src\position.h:142:5: warning: Member variable 'Position::NumOnRank' is not initialized in the constructor. [uninitMemberVar]
+    Position()   { Init(); }
+    ^
+..\src\position.h:142:5: warning: Member variable 'Position::NumOnFyle' is not initialized in the constructor. [uninitMemberVar]
+    Position()   { Init(); }
+    ^
+..\src\position.h:142:5: warning: Member variable 'Position::NumOnLeftDiag' is not initialized in the constructor. [uninitMemberVar]
+    Position()   { Init(); }
+    ^
+..\src\position.h:142:5: warning: Member variable 'Position::NumOnRightDiag' is not initialized in the constructor. [uninitMemberVar]
+    Position()   { Init(); }
+    ^
+..\src\position.h:142:5: warning: Member variable 'Position::NumOnSquareColor' is not initialized in the constructor. [uninitMemberVar]
+    Position()   { Init(); }
+    ^
+..\src\position.h:142:5: warning: Member variable 'Position::Pinned' is not initialized in the constructor. [uninitMemberVar]
+    Position()   { Init(); }
+    ^
+..\src\position.h:142:5: warning: Member variable 'Position::EPTarget' is not initialized in the constructor. [uninitMemberVar]
+    Position()   { Init(); }
+    ^
+..\src\position.h:142:5: warning: Member variable 'Position::ToMove' is not initialized in the constructor. [uninitMemberVar]
+    Position()   { Init(); }
+    ^
+..\src\position.h:142:5: warning: Member variable 'Position::HalfMoveClock' is not initialized in the constructor. [uninitMemberVar]
+    Position()   { Init(); }
+    ^
+..\src\position.h:142:5: warning: Member variable 'Position::PlyCounter' is not initialized in the constructor. [uninitMemberVar]
+    Position()   { Init(); }
+    ^
+..\src\position.h:142:5: warning: Member variable 'Position::Castling' is not initialized in the constructor. [uninitMemberVar]
+    Position()   { Init(); }
+    ^
+..\src\position.h:142:5: warning: Member variable 'Position::Hash' is not initialized in the constructor. [uninitMemberVar]
+    Position()   { Init(); }
+    ^
+..\src\position.h:142:5: warning: Member variable 'Position::PawnHash' is not initialized in the constructor. [uninitMemberVar]
+    Position()   { Init(); }
+    ^
+..\src\position.h:136:17: style: Unused private function: 'Position::AssertPos' [unusedPrivateFunction]
+    errorT      AssertPos ();   //  Checks for errors in board etc.
+                ^
+..\src\position.cpp:1042:21: style: Redundant initialization for 'promoteRank'. The initialized value is overwritten before it is read. [redundantInitialization]
+        promoteRank = RANK_8;
+                    ^
+..\src\position.cpp:1033:23: note: promoteRank is initialized
+    rankT promoteRank = (ToMove == WHITE ? RANK_8 : RANK_1);
+                      ^
+..\src\position.cpp:1042:21: note: promoteRank is overwritten
+        promoteRank = RANK_8;
+                    ^
+..\src\position.cpp:2262:8: style: Redundant initialization for 'to'. The initialized value is overwritten before it is read. [redundantInitialization]
+    to = square_Make(toFyle, toRank);
+       ^
+..\src\position.cpp:2141:16: note: to is initialized
+    squareT to = NS;
+               ^
+..\src\position.cpp:2262:8: note: to is overwritten
+    to = square_Make(toFyle, toRank);
+       ^
+..\src\position.cpp:914:15: style: The scope of the variable 'pt' can be reduced. [variableScope]
+    pieceT p, pt, captured;
+              ^
+..\src\position.cpp:2320:12: style: The scope of the variable 's2' can be reduced. [variableScope]
+    char * s2;
+           ^
+..\src\position.cpp:2321:10: style: The scope of the variable 'length' can be reduced. [variableScope]
+    uint length = 0;
+         ^
+..\src\position.cpp:2324:12: style: The scope of the variable 'err' can be reduced. [variableScope]
+    errorT err;
+           ^
+..\src\position.cpp:2748:10: style: The scope of the variable 'emptyRun' can be reduced. [variableScope]
+    uint emptyRun, iRank, iFyle;
+         ^
+..\src\position.cpp:2833:14: style: The scope of the variable 'pBoard' can be reduced. [variableScope]
+    pieceT * pBoard;
+             ^
+..\src\position.cpp:2901:14: style: The scope of the variable 'pBoard' can be reduced. [variableScope]
+    pieceT * pBoard;
+             ^
+..\src\position.cpp:2817:10: style: struct member 'htmlStyleT::transparent' is never used. [unusedStructMember]
+    bool transparent;  // True if the style uses transparent images,
+         ^
+..\src\position.cpp:918:18: style: Variable 'tryMove' is assigned a value that is never used. [unreadVariable]
+    uint tryMove = 0;
+                 ^
+..\src\position.cpp:2140:18: style: Variable 'from' is assigned a value that is never used. [unreadVariable]
+    squareT from = NS;
+                 ^
+..\src\position.cpp:2321:17: style: Variable 'length' is assigned a value that is never used. [unreadVariable]
+    uint length = 0;
+                ^
+..\src\position.cpp:2749:21: style: Variable 'pBoard' is assigned a value that is never used. [unreadVariable]
+    pieceT * pBoard = Board;
+                    ^
+..\src\progbar.h:29:5: style: Class 'ProgBar' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
+    ProgBar (FILE * fp) {
+    ^
+..\src\scidt.cpp:334:5: warning: %d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+    printf ("Database %s: %d players, %d events, %d sites, %d rounds.\n",
+    ^
+..\src\scidt.cpp:334:5: warning: %d in format string (no. 3) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+    printf ("Database %s: %d players, %d events, %d sites, %d rounds.\n",
+    ^
+..\src\scidt.cpp:334:5: warning: %d in format string (no. 4) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+    printf ("Database %s: %d players, %d events, %d sites, %d rounds.\n",
+    ^
+..\src\scidt.cpp:334:5: warning: %d in format string (no. 5) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+    printf ("Database %s: %d players, %d events, %d sites, %d rounds.\n",
+    ^
+..\src\scidt.cpp:369:9: warning: %d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+        printf ("\n%s section:    %d names, %d unused, %d disk bytes\n",
+        ^
+..\src\scidt.cpp:369:9: warning: %d in format string (no. 3) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+        printf ("\n%s section:    %d names, %d unused, %d disk bytes\n",
+        ^
+..\src\scidt.cpp:369:9: warning: %d in format string (no. 4) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+        printf ("\n%s section:    %d names, %d unused, %d disk bytes\n",
+        ^
+..\src\scidt.cpp:638:9: warning: %d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+        printf("Database \"%s\": %d %s.\nAverage length = %.2f bytes, "
+        ^
+..\src\scidt.cpp:643:9: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+        printf("[%d names matched the supplied prefix string]\n", matches);
+        ^
+..\src\scidt.cpp:681:9: warning: %d in format string (no. 3) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+        printf ("Database \"%s\": %s\n%d games\n",
+        ^
+..\src\scidt.cpp:683:9: warning: %u in format string (no. 1) requires 'unsigned int' but the argument type is 'signed int'. [invalidPrintfArgType_uint]
+        printf ("Version: %u.%u",
+        ^
+..\src\scidt.cpp:683:9: warning: %u in format string (no. 2) requires 'unsigned int' but the argument type is 'signed int'. [invalidPrintfArgType_uint]
+        printf ("Version: %u.%u",
+        ^
+..\src\scidt.cpp:686:13: warning: %u in format string (no. 1) requires 'unsigned int' but the argument type is 'signed int'. [invalidPrintfArgType_uint]
+            printf (" (warning: version too old! This is Scid %u.%u).",
+            ^
+..\src\scidt.cpp:686:13: warning: %u in format string (no. 2) requires 'unsigned int' but the argument type is 'signed int'. [invalidPrintfArgType_uint]
+            printf (" (warning: version too old! This is Scid %u.%u).",
+            ^
+..\src\scidt.cpp:695:9: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+        printf ("\nNamebase: %d players, %d events, %d sites, %d rounds.\n",
+        ^
+..\src\scidt.cpp:695:9: warning: %d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+        printf ("\nNamebase: %d players, %d events, %d sites, %d rounds.\n",
+        ^
+..\src\scidt.cpp:695:9: warning: %d in format string (no. 3) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+        printf ("\nNamebase: %d players, %d events, %d sites, %d rounds.\n",
+        ^
+..\src\scidt.cpp:695:9: warning: %d in format string (no. 4) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+        printf ("\nNamebase: %d players, %d events, %d sites, %d rounds.\n",
+        ^
+..\src\scidt.cpp:349:34: style: The scope of the variable 'prevID' can be reduced. [variableScope]
+        idNumberT currentID = 0, prevID = 0;
+                                 ^
+..\src\scidt.cpp:622:19: style: The scope of the variable 'prev' can be reduced. [variableScope]
+        idNumberT prev = 0;
+                  ^
+..\src\scidt.cpp:193:12: style: Local variable 'err' shadows outer variable [shadowVariable]
+    errorT err = nb->ReadNameFile();
+           ^
+..\src\scidt.cpp:37:8: note: Shadowed declaration
+errorT err;
+       ^
+..\src\scidt.cpp:193:12: note: Shadow variable
+    errorT err = nb->ReadNameFile();
+           ^
+..\src\scidt.cpp:321:12: style: Local variable 'err' shadows outer variable [shadowVariable]
+    errorT err;
+           ^
+..\src\scidt.cpp:37:8: note: Shadowed declaration
+errorT err;
+       ^
+..\src\scidt.cpp:321:12: note: Shadow variable
+    errorT err;
+           ^
+..\src\scidt.cpp:397:12: style: Local variable 'err' shadows outer variable [shadowVariable]
+    errorT err;
+           ^
+..\src\scidt.cpp:37:8: note: Shadowed declaration
+errorT err;
+       ^
+..\src\scidt.cpp:397:12: note: Shadow variable
+    errorT err;
+           ^
+..\src\scidt.cpp:457:12: style: Local variable 'err' shadows outer variable [shadowVariable]
+    errorT err;
+           ^
+..\src\scidt.cpp:37:8: note: Shadowed declaration
+errorT err;
+       ^
+..\src\scidt.cpp:457:12: note: Shadow variable
+    errorT err;
+           ^
+..\src\scidt.cpp:567:12: style: Local variable 'err' shadows outer variable [shadowVariable]
+    errorT err;
+           ^
+..\src\scidt.cpp:37:8: note: Shadowed declaration
+errorT err;
+       ^
+..\src\scidt.cpp:567:12: note: Shadow variable
+    errorT err;
+           ^
+..\src\scidt.cpp:622:24: style: Variable 'prev' is assigned a value that is never used. [unreadVariable]
+        idNumberT prev = 0;
+                       ^
+..\src\spellchk.h:81:5: warning: Member variable 'SpellChecker::NameType' is not initialized in the constructor. [uninitMemberVar]
+    SpellChecker ()  { Init(); }
+    ^
+..\src\spellchk.cpp:581:9: error: Memory leak: node [memleak]
+        return ERROR;
+        ^
+..\src\spellchk.cpp:75:28: style: Local variable 'next' shadows outer variable [shadowVariable]
+                bioNoteT * next = node->bioData->next;
+                           ^
+..\src\spellchk.cpp:69:31: note: Shadowed declaration
+            spellCheckNodeT * next = node->next;
+                              ^
+..\src\spellchk.cpp:75:28: note: Shadow variable
+                bioNoteT * next = node->bioData->next;
+                           ^
+..\src\textbuf.h:53:5: warning: Member variable 'TextBuffer::Translation' is not initialized in the constructor. [uninitMemberVar]
+    TextBuffer()    { Init(); }
+    ^
+..\src\textbuf.cpp:227:5: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+    sprintf(temp, "%d%s", i, str);
+    ^
+..\src\textbuf.cpp:196:12: style: The scope of the variable 'err' can be reduced. [variableScope]
+    errorT err;
+           ^
+..\src\tkdnd\win\TkDND_OleDND.cpp:279:27: portability: Assigning an integer to a pointer is not portable. [AssignmentIntegerToAddress]
+              CurPosition = 1 + _tcschr(pszFileName, '\0');
+                          ^
+..\src\tkdnd\win\OleDND.h:377:5: warning: Member variable 'TkDND_DataObject::szTempStr' is not initialized in the constructor. [uninitMemberVar]
+    TkDND_DataObject(FORMATETC *fmtetc, STGMEDIUM *stgmed, int count) {
+    ^
+..\src\tkdnd\win\OleDND.h:478:5: warning: Member variable 'TkDND_DropTarget::szTempStr' is not initialized in the constructor. [uninitMemberVar]
+    TkDND_DropTarget(Tcl_Interp *_interp, Tk_Window _tkwin) :
+    ^
+..\src\tkdnd\win\OleDND.h:936:26: warning: Either the condition 'NULL==hdrop' is redundant or there is possible null pointer dereference: hdrop. [nullPointerRedundantCheck]
+            GlobalUnlock(hdrop);
+                         ^
+..\src\tkdnd\win\OleDND.h:935:21: note: Assuming that condition 'NULL==hdrop' is not redundant
+          if ( NULL == hdrop ) {
+                    ^
+..\src\tkdnd\win\OleDND.h:936:26: note: Null pointer dereference
+            GlobalUnlock(hdrop);
+                         ^
+..\src\tkdnd\win\OleDND.h:936:26: error: Null pointer dereference [nullPointer]
+            GlobalUnlock(hdrop);
+                         ^
+..\src\tkdnd\win\OleDND.h:526:12: style: The scope of the variable 'tmp' can be reduced. [variableScope]
+      char tmp[64];
+           ^
+..\src\tkdnd\win\OleDND.h:527:56: style: The scope of the variable 'element' can be reduced. [variableScope]
+      Tcl_Obj *typelist    = Tcl_NewListObj(0, NULL), *element,
+                                                       ^
+..\src\tkdnd\win\OleDND.h:529:56: style: The scope of the variable 'result' can be reduced. [variableScope]
+              *pressedkeys = Tcl_NewListObj(0, NULL), *result,
+                                                       ^
+..\src\tkdnd\win\OleDND.h:532:26: style: The scope of the variable 'DropActions' can be reduced. [variableScope]
+      static const char *DropActions[] = {
+                         ^
+..\src\tkdnd\win\OleDND.h:614:66: style: The scope of the variable 'result' can be reduced. [variableScope]
+      Tcl_Obj *objv[5], *pressedkeys = Tcl_NewListObj(0, NULL), *result;
+                                                                 ^
+..\src\tkdnd\win\OleDND.h:616:26: style: The scope of the variable 'DropActions' can be reduced. [variableScope]
+      static const char *DropActions[] = {
+                         ^
+..\src\tkdnd\win\OleDND.h:693:26: style: The scope of the variable 'DropActions' can be reduced. [variableScope]
+      static const char *DropActions[] = {
+                         ^
+..\src\tkdnd\win\OleDND.h:982:11: style: The scope of the variable 'bytes_written' can be reduced. [variableScope]
+      int bytes_written = 0;
+          ^
+..\src\tkdnd\win\OleDND.h:1081:11: style: The scope of the variable 'bytes_written' can be reduced. [variableScope]
+      int bytes_written = 0;
+          ^
+..\src\tkdnd\win\OleDND.h:997:20: style: Variable 'error' is assigned a value that is never used. [unreadVariable]
+        if ((error = GetLastError()) == 0L) error = _doserrno;
+                   ^
+..\src\tkdnd\win\OleDND.h:1097:20: style: Variable 'error' is assigned a value that is never used. [unreadVariable]
+        if ((error = GetLastError()) == 0L) error = _doserrno;
+                   ^
+..\src\tkscid.cpp:9974:5: style: Struct 'SortNamebaseNodes' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
+    SortNamebaseNodes (Comp comp_) :comp(comp_) {}
+    ^
+..\src\tkscid.cpp:1535:24: style: Condition 'exportFilter' is always true [knownConditionTrueFalse]
+    uint numToExport = exportFilter ? db->filter->Count() : 1;
+                       ^
+..\src\tkscid.cpp:1521:9: note: Assuming that condition '!exportFilter' is not redundant
+    if (!exportFilter) {
+        ^
+..\src\tkscid.cpp:1535:24: note: Condition 'exportFilter' is always true
+    uint numToExport = exportFilter ? db->filter->Count() : 1;
+                       ^
+..\src\tkscid.cpp:5613:13: style: Condition 'listFormat' is always false [knownConditionTrueFalse]
+        if (listFormat) {
+            ^
+..\src\tkscid.cpp:5542:23: note: Assignment 'listFormat=false', assigned value is 0
+    bool listFormat = false;
+                      ^
+..\src\tkscid.cpp:5613:13: note: Condition 'listFormat' is always false
+        if (listFormat) {
+            ^
+..\src\tkscid.cpp:12230:21: style: Condition 'ply==0' is always true [knownConditionTrueFalse]
+            if (ply == 0  &&  possibleMatch) {
+                    ^
+..\src\tkscid.cpp:12226:20: note: Assignment 'ply=0', assigned value is 0
+        uint ply = 0;
+                   ^
+..\src\tkscid.cpp:12230:21: note: Condition 'ply==0' is always true
+            if (ply == 0  &&  possibleMatch) {
+                    ^
+..\src\tkscid.cpp:13801:17: style: Condition 'match' is always true [knownConditionTrueFalse]
+            if (match  &&  db->gfile->ReadGame (db->bbuf, ie->GetOffset(),
+                ^
+..\src\tkscid.cpp:13800:13: note: Assuming that condition 'match' is not redundant
+        if (match  &&  (pgnTextCount > 0 || gameEnd == 'S' || gameEnd == 'C')) {
+            ^
+..\src\tkscid.cpp:13801:17: note: Condition 'match' is always true
+            if (match  &&  db->gfile->ReadGame (db->bbuf, ie->GetOffset(),
+                ^
+..\src\tkscid.cpp:105:5: warning: %u in format string (no. 4) requires 'unsigned int' but the argument type is 'signed int'. [invalidPrintfArgType_uint]
+    sprintf (tempStr, "%s coords %s 0 0 %u %u", progBar.canvName,
+    ^
+..\src\tkscid.cpp:1299:13: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+            sprintf( gameNumber, "%d", gameNum + 1);
+            ^
+..\src\tkscid.cpp:1305:13: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+            sprintf( gameNumber, "%d", gameNum + 1);
+            ^
+..\src\tkscid.cpp:1312:13: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+            sprintf( gameNumber, "%d", gameNum + 1);
+            ^
+..\src\tkscid.cpp:3343:5: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+    sprintf (tempStr, "Classified %d game%s in %d%c%02d seconds",
+    ^
+..\src\tkscid.cpp:4426:6: warning: %i in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+     sprintf (flagName, "(%i)", custom);
+     ^
+..\src\tkscid.cpp:5157:7: warning: %u in format string (no. 2) requires 'unsigned int' but the argument type is 'signed int'. [invalidPrintfArgType_uint]
+      sprintf (temp, "\t\t%s: %u   ", "Length", (db->game->GetNumHalfMoves() + 1) / 2);
+      ^
+..\src\tkscid.cpp:11738:13: warning: %d in format string (no. 4) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+            sprintf (temp, "%2u %-6s%7u %3d%c%1d %3d%c%1d",
+            ^
+..\src\tkscid.cpp:11738:13: warning: %d in format string (no. 6) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+            sprintf (temp, "%2u %-6s%7u %3d%c%1d %3d%c%1d",
+            ^
+..\src\tkscid.cpp:11738:13: warning: %d in format string (no. 7) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+            sprintf (temp, "%2u %-6s%7u %3d%c%1d %3d%c%1d",
+            ^
+..\src\tkscid.cpp:11738:13: warning: %d in format string (no. 9) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+            sprintf (temp, "%2u %-6s%7u %3d%c%1d %3d%c%1d",
+            ^
+..\src\tkscid.cpp:11750:13: warning: %d in format string (no. 4) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+            sprintf (temp, "\n%2u: %-6s%7u:%3d%c%1d%%  %3d%c%1d%%",
+            ^
+..\src\tkscid.cpp:11750:13: warning: %d in format string (no. 6) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+            sprintf (temp, "\n%2u: %-6s%7u:%3d%c%1d%%  %3d%c%1d%%",
+            ^
+..\src\tkscid.cpp:11750:13: warning: %d in format string (no. 7) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+            sprintf (temp, "\n%2u: %-6s%7u:%3d%c%1d%%  %3d%c%1d%%",
+            ^
+..\src\tkscid.cpp:11750:13: warning: %d in format string (no. 9) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+            sprintf (temp, "\n%2u: %-6s%7u:%3d%c%1d%%  %3d%c%1d%%",
+            ^
+..\src\tkscid.cpp:11763:9: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+        sprintf (temp, " %3d%%", (pctDraws + 5) / 10);
+        ^
+..\src\tkscid.cpp:11861:9: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+        sprintf (temp, " %3d%%", (pctDraws + 5) / 10);
+        ^
+..\src\tkscid.cpp:12280:5: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+    sprintf (temp, "%d / %d  (%d%c%02d s)",
+    ^
+..\src\tkscid.cpp:12280:5: warning: %d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+    sprintf (temp, "%d / %d  (%d%c%02d s)",
+    ^
+..\src\tkscid.cpp:12422:5: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+    sprintf (temp, "%d / %d  (%d%c%02d s)",
+    ^
+..\src\tkscid.cpp:12422:5: warning: %d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+    sprintf (temp, "%d / %d  (%d%c%02d s)",
+    ^
+..\src\tkscid.cpp:12932:5: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+    sprintf (temp, "%d / %d  (%d%c%02d s)",
+    ^
+..\src\tkscid.cpp:12932:5: warning: %d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+    sprintf (temp, "%d / %d  (%d%c%02d s)",
+    ^
+..\src\tkscid.cpp:13873:5: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+    sprintf (temp, "%d / %d  (%d%c%02d s)",
+    ^
+..\src\tkscid.cpp:13873:5: warning: %d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+    sprintf (temp, "%d / %d  (%d%c%02d s)",
+    ^
+..\src\tkscid.cpp:7011:29: warning: sscanf() without field width limits can crash with huge input data. [invalidscanf]
+                        if (sscanf (largv[i], "%s \"%[^\"]\"\n", tagStr, valueStr) == 2) {
+                            ^
+..\src\tkscid.cpp:8568:13: warning: sscanf() without field width limits can crash with huge input data. [invalidscanf]
+        if (sscanf (line, "\"%[^\"]\" >> \"%[^\"]\" (%d)  %[0-9.?]--%[0-9.?]",
+            ^
+..\src\tkscid.cpp:9139:10: warning: sscanf() without field width limits can crash with huge input data. [invalidscanf]
+     i = sscanf (text, " %s %s %s %s", t_title , t_country, t_elo, t_year);
+         ^
+..\src\tkscid.cpp:11953:7: warning: Possible null pointer dereference: base [nullPointer]
+  if (base->inUse)
+      ^
+..\src\tkscid.cpp:11947:22: note: Assignment 'base=NULL', assigned value is 0
+  scidBaseT * base = NULL;
+                     ^
+..\src\tkscid.cpp:11949:21: note: Assuming condition is false
+  if (baseNum >= 1  &&  baseNum <= MAX_BASES) {
+                    ^
+..\src\tkscid.cpp:11953:7: note: Null pointer dereference
+  if (base->inUse)
+      ^
+..\src\tkscid.cpp:11971:7: warning: Possible null pointer dereference: base [nullPointer]
+  if (base->inUse) {
+      ^
+..\src\tkscid.cpp:11966:22: note: Assignment 'base=NULL', assigned value is 0
+  scidBaseT * base = NULL;
+                     ^
+..\src\tkscid.cpp:11968:21: note: Assuming condition is false
+  if (baseNum >= 1  &&  baseNum <= MAX_BASES) {
+                    ^
+..\src\tkscid.cpp:11971:7: note: Null pointer dereference
+  if (base->inUse) {
+      ^
+..\src\tkscid.cpp:4269:14: style: Redundant initialization for 'gnum'. The initialized value is overwritten before it is read. [redundantInitialization]
+        gnum = strGetUnsigned (argv[3]);
+             ^
+..\src\tkscid.cpp:4260:15: note: gnum is initialized
+    uint gnum = base->gameNumber;
+              ^
+..\src\tkscid.cpp:4269:14: note: gnum is overwritten
+        gnum = strGetUnsigned (argv[3]);
+             ^
+..\src\tkscid.cpp:4630:14: style: Variable 'db->undoMax' is reassigned a value before the old one has been used. [redundantAssignment]
+ db->undoMax = db->undoIndex;
+             ^
+..\src\tkscid.cpp:4621:18: note: db->undoMax is assigned
+     db->undoMax = UNDO_MAX-1;
+                 ^
+..\src\tkscid.cpp:4630:14: note: db->undoMax is overwritten
+ db->undoMax = db->undoIndex;
+             ^
+..\src\tkscid.cpp:11705:13: warning: Redundant assignment of 'titleRow' to itself. [selfAssignment]
+   titleRow = titleRow;
+            ^
+..\src\tkscid.cpp:11707:13: warning: Redundant assignment of 'titleRow' to itself. [selfAssignment]
+   titleRow = titleRow;
+            ^
+..\src\tkscid.cpp:1208:25: style: The scope of the variable 'options' can be reduced. [variableScope]
+    static const char * options [] = { "free", "used", "total" };
+                        ^
+..\src\tkscid.cpp:2331:26: style: The scope of the variable 'copiedRatings' can be reduced. [variableScope]
+                    bool copiedRatings = false;
+                         ^
+..\src\tkscid.cpp:2438:18: style: The scope of the variable 'options' can be reduced. [variableScope]
+    const char * options[] = {
+                 ^
+..\src\tkscid.cpp:3442:10: style: The scope of the variable 'inMoveList' can be reduced. [variableScope]
+    bool inMoveList = false;
+         ^
+..\src\tkscid.cpp:3740:18: style: The scope of the variable 'options' can be reduced. [variableScope]
+    const char * options[] = { "date", "elo", "move", NULL };
+                 ^
+..\src\tkscid.cpp:4404:13: style: The scope of the variable 'custom' can be reduced. [variableScope]
+       uint custom;
+            ^
+..\src\tkscid.cpp:4828:10: style: The scope of the variable 'showTB' can be reduced. [variableScope]
+    uint showTB = 2;  // 0 = no TB output, 1 = score only, 2 = best moves.
+         ^
+..\src\tkscid.cpp:5170:7: style: The scope of the variable 'ch' can be reduced. [variableScope]
+ char ch;
+      ^
+..\src\tkscid.cpp:5395:18: style: The scope of the variable 'usage' can be reduced. [variableScope]
+    const char * usage = "Usage: sc_game merge <baseNum> <gameNum> [<endPly>]";
+                 ^
+..\src\tkscid.cpp:5649:18: style: The scope of the variable 'noNoveltyStr' can be reduced. [variableScope]
+    const char * noNoveltyStr =
+                 ^
+..\src\tkscid.cpp:5652:18: style: The scope of the variable 'usage' can be reduced. [variableScope]
+    const char * usage =
+                 ^
+..\src\tkscid.cpp:6473:18: style: The scope of the variable 'comment' can be reduced. [variableScope]
+    const char * comment;
+                 ^
+..\src\tkscid.cpp:6553:18: style: The scope of the variable 'options' can be reduced. [variableScope]
+    const char * options[] = { "comments", "variations", NULL };
+                 ^
+..\src\tkscid.cpp:8087:18: style: The scope of the variable 'usage' can be reduced. [variableScope]
+    const char * usage = "Usage: sc_pos html [-flip <boolean>] [-path <path>] [<style:0|1>]";
+                 ^
+..\src\tkscid.cpp:8122:25: style: The scope of the variable 'options' can be reduced. [variableScope]
+    static const char * options [] = {
+                        ^
+..\src\tkscid.cpp:8744:18: style: The scope of the variable 'options' can be reduced. [variableScope]
+    const char * options[] = {
+                 ^
+..\src\tkscid.cpp:8955:18: style: The scope of the variable 'usageStr' can be reduced. [variableScope]
+    const char * usageStr = "Usage: sc_name retrievename <player>";
+                 ^
+..\src\tkscid.cpp:9123:8: style: The scope of the variable 'i' can be reduced. [variableScope]
+   int i;
+       ^
+..\src\tkscid.cpp:9992:18: style: The scope of the variable 'usage' can be reduced. [variableScope]
+    const char * usage = "Usage: sc_name plist [-<option> <value> ...]";
+                 ^
+..\src\tkscid.cpp:3389:24: style: Local variable 'ecoStr' shadows outer variable [shadowVariable]
+            ecoStringT ecoStr;
+                       ^
+..\src\tkscid.cpp:3372:13: note: Shadowed declaration
+    DString ecoStr;
+            ^
+..\src\tkscid.cpp:3389:24: note: Shadow variable
+            ecoStringT ecoStr;
+                       ^
+..\src\tkscid.cpp:5192:18: style: Local variable 'ch' shadows outer variable [shadowVariable]
+            char ch = *s;
+                 ^
+..\src\tkscid.cpp:5170:7: note: Shadowed declaration
+ char ch;
+      ^
+..\src\tkscid.cpp:5192:18: note: Shadow variable
+            char ch = *s;
+                 ^
+..\src\tkscid.cpp:11148:22: style: Local variable 'ie' shadows outer variable [shadowVariable]
+        IndexEntry * ie = base->idx->FetchEntry (bestIndex[i]);
+                     ^
+..\src\tkscid.cpp:11085:18: note: Shadowed declaration
+    IndexEntry * ie;
+                 ^
+..\src\tkscid.cpp:11148:22: note: Shadow variable
+        IndexEntry * ie = base->idx->FetchEntry (bestIndex[i]);
+                     ^
+..\src\tkscid.cpp:2038:32: style: Variable 'lenA' is assigned a value that is never used. [unreadVariable]
+        uint temp = lenA; lenA = lenB; lenB = temp;
+                               ^
+..\src\tkscid.cpp:2038:45: style: Variable 'lenB' is assigned a value that is never used. [unreadVariable]
+        uint temp = lenA; lenA = lenB; lenB = temp;
+                                            ^
+..\src\tkscid.cpp:4827:22: style: Variable 'fullComment' is assigned a value that is never used. [unreadVariable]
+    bool fullComment = false;
+                     ^
+..\src\tkscid.cpp:4828:17: style: Variable 'showTB' is assigned a value that is never used. [unreadVariable]
+    uint showTB = 2;  // 0 = no TB output, 1 = score only, 2 = best moves.
+                ^
+..\src\tkscid.cpp:4847:24: style: Variable 'showTB' is assigned a value that is never used. [unreadVariable]
+                showTB = strGetUnsigned(argv[arg]);
+                       ^
+..\src\tkscid.cpp:11443:20: style: Variable 'skipcount' is assigned a value that is never used. [unreadVariable]
+    uint skipcount = 0;
+                   ^
+..\src\tkscid.cpp:11833:74: style: Variable 'score' is assigned a value that is never used. [unreadVariable]
+            if (db->game->GetCurrentPos()->GetToMove() == BLACK) { score = 100 - score; }
+                                                                         ^
+..\src\tkscid.cpp:364:0: information: Skipping configuration 'SOURCE_TCL_FILE' since the value of 'SOURCE_TCL_FILE' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly. [ConfigurationNotChecked]
+    if (end != NULL) { strCopy (end + 1, SOURCE_TCL_FILE); }
+^
+..\src\tree.h:114:5: warning: Member variable 'TreeCache::Policy' is not initialized in the constructor. [uninitMemberVar]
+    TreeCache() { Init(); }
+    ^
+..\src\tree.h:114:5: warning: Member variable 'TreeCache::LowestTotal' is not initialized in the constructor. [uninitMemberVar]
+    TreeCache() { Init(); }
+    ^
+..\src\tree.h:114:5: warning: Member variable 'TreeCache::LowestTotalIndex' is not initialized in the constructor. [uninitMemberVar]
+    TreeCache() { Init(); }
+    ^
+nofile:0:0: information: Cppcheck cannot find all the include files (use --check-config for details) [missingIncludeSystem]
+
