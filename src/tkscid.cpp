@@ -371,9 +371,7 @@ main (int argc, char * argv[])
 }
 
 #ifndef TCL_ONLY
-#ifndef __APPLE__
 extern "C" int Tkdnd_Init (Tcl_Interp*);
-#endif
 #endif
 
 int
@@ -486,10 +484,8 @@ scid_InitTclTk (Tcl_Interp * ti)
     db = &(dbList[currentBase]);
 
 #ifndef TCL_ONLY
-#ifndef __APPLE__
     // Drag and Drop init
     Tkdnd_Init (ti);
-#endif
 #endif
 
     return TCL_OK;
@@ -11879,24 +11875,6 @@ sc_tree_search (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
         }
     }
 
-    // Print timing and other information:
-#if 0
-    if (showTimeStats  &&  !listMode) {
-        int csecs = timer.CentiSecs();
-        sprintf (temp, "\n  Time: %d%c%02d s",
-                 csecs / 100, decimalPointChar, csecs % 100);
-        output->Append (temp);
-
-        if (foundInCache) {
-            output->Append ("  (Found in cache)");
-        } else {
-#ifdef SHOW_SKIPPED_STATS
-            output->Append ("  Skipped: ", skipcount, " games.");
-#endif
-        }
-    }
-#endif
-
     if (! listMode) {
     	Tcl_AppendResult (ti, output->Data(), NULL);
     }
@@ -12263,10 +12241,6 @@ sc_search_board (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
              db->dbFilter->Count(), startFilterCount,
              centisecs / 100, decimalPointChar, centisecs % 100);
     Tcl_AppendResult (ti, temp, NULL);
-#ifdef SHOW_SKIPPED_STATS
-    sprintf(temp, "  Skipped %u games.", skipcount);
-    Tcl_AppendResult (ti, temp, NULL);
-#endif
 
     setMainFilter(db);
     if (searchInRefBase ) {
@@ -12405,10 +12379,6 @@ sc_search_moves (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
              db->dbFilter->Count(), startFilterCount,
              centisecs / 100, decimalPointChar, centisecs % 100);
     Tcl_AppendResult (ti, temp, NULL);
-#ifdef SHOW_SKIPPED_STATS
-    sprintf(temp, "  Skipped %u games.", skipcount);
-    Tcl_AppendResult (ti, temp, NULL);
-#endif
     Tcl_Free((char *) m_argv);
 
     return TCL_OK;
@@ -12915,10 +12885,6 @@ sc_search_material (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv
              db->dbFilter->Count(), startFilterCount,
              centisecs / 100, decimalPointChar, centisecs % 100);
     Tcl_AppendResult (ti, temp, NULL);
-#ifdef SHOW_SKIPPED_STATS
-    sprintf(temp, "  Skipped %u games.", skipcount);
-    Tcl_AppendResult (ti, temp, NULL);
-#endif
 
     return TCL_OK;
 }
@@ -13856,10 +13822,6 @@ sc_search_header (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
              db->dbFilter->Count(), startFilterCount,
              centisecs / 100, decimalPointChar, centisecs % 100);
     Tcl_AppendResult (ti, temp, NULL);
-#ifdef SHOW_SKIPPED_STATS
-    sprintf(temp, "  Skipped %u games.", skipcount);
-    Tcl_AppendResult (ti, temp, NULL);
-#endif
 
     return TCL_OK;
 }
