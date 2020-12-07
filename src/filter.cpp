@@ -398,14 +398,6 @@ packBytemap (const byte * inBuffer, byte * outBuffer, uint inLength)
         return (inLength + 1);
     }
 
-#ifdef COMPRESSION_STATS
-    printf ("Runs:%u  ZeroLits:%u  PrevLits:%u  DiffLits: %u\n",
-            stats[CODE_RunLength], stats[CODE_ZeroLiteral],
-            stats[CODE_PrevLiteral], stats[CODE_NewLiteral]);
-    printf ("RLE: %u -> %u (%.2f%%)\n", inLength, outBytes,
-            (float)outBytes * 100.0 / inLength);
-#endif
-
     return outBytes;
 }
 

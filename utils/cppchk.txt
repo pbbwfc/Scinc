@@ -130,112 +130,115 @@
 ..\src\stored.h:32:2: style: Class 'StoredLine' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
  StoredLine(Position* pos);
  ^
-..\src\game.cpp:2365:25: style: Condition '!endedColumn' is always true [knownConditionTrueFalse]
+..\src\game.cpp:2361:25: style: Condition '!endedColumn' is always true [knownConditionTrueFalse]
                     if (! endedColumn) {
                         ^
-..\src\game.cpp:2323:28: note: Assignment 'endedColumn=false', assigned value is 0
+..\src\game.cpp:2319:28: note: Assignment 'endedColumn=false', assigned value is 0
         bool endedColumn = false;
                            ^
-..\src\game.cpp:2365:25: note: Condition '!endedColumn' is always true
+..\src\game.cpp:2361:25: note: Condition '!endedColumn' is always true
                     if (! endedColumn) {
                         ^
-..\src\game.cpp:3043:21: style: Condition 'finalTick' is always false [knownConditionTrueFalse]
+..\src\game.cpp:3035:21: style: Condition 'finalTick' is always false [knownConditionTrueFalse]
                 if (finalTick) {
                     ^
-..\src\game.cpp:2970:26: note: Assignment 'finalTick=false', assigned value is 0
+..\src\game.cpp:2962:26: note: Assignment 'finalTick=false', assigned value is 0
         bool finalTick = false;
                          ^
-..\src\game.cpp:3043:21: note: Condition 'finalTick' is always false
+..\src\game.cpp:3035:21: note: Condition 'finalTick' is always false
                 if (finalTick) {
                     ^
-..\src\game.cpp:3267:29: style: Condition 'printDiagrams' is always true [knownConditionTrueFalse]
+..\src\game.cpp:3259:29: style: Condition 'printDiagrams' is always true [knownConditionTrueFalse]
                         if (printDiagrams && m->nags[i] == NAG_Diagram) {
                             ^
-..\src\game.cpp:3114:30: note: Assignment 'printDiagrams=true', assigned value is 1
+..\src\game.cpp:3106:30: note: Assignment 'printDiagrams=true', assigned value is 1
         bool printDiagrams = true;
                              ^
-..\src\game.cpp:3267:29: note: Condition 'printDiagrams' is always true
+..\src\game.cpp:3259:29: note: Condition 'printDiagrams' is always true
                         if (printDiagrams && m->nags[i] == NAG_Diagram) {
                             ^
-..\src\game.cpp:1148:12: warning: Either the condition 'm!=NULL' is redundant or there is possible null pointer dereference: m. [nullPointerRedundantCheck]
+..\src\game.cpp:1144:12: warning: Either the condition 'm!=NULL' is redundant or there is possible null pointer dereference: m. [nullPointerRedundantCheck]
     while (m->marker != END_MARKER && m != NULL) {
            ^
-..\src\game.cpp:1154:11: note: Assuming that condition 'm!=NULL' is not redundant
+..\src\game.cpp:1150:11: note: Assuming that condition 'm!=NULL' is not redundant
     if (m != NULL)
           ^
-..\src\game.cpp:1148:12: note: Null pointer dereference
+..\src\game.cpp:1144:12: note: Null pointer dereference
     while (m->marker != END_MARKER && m != NULL) {
            ^
-..\src\game.cpp:1199:12: warning: Either the condition 'move!=NULL' is redundant or there is possible null pointer dereference: move. [nullPointerRedundantCheck]
+..\src\game.cpp:1195:12: warning: Either the condition 'move!=NULL' is redundant or there is possible null pointer dereference: move. [nullPointerRedundantCheck]
     while (move->marker != END_MARKER && move != NULL) {
            ^
-..\src\game.cpp:1213:14: note: Assuming that condition 'move!=NULL' is not redundant
+..\src\game.cpp:1209:14: note: Assuming that condition 'move!=NULL' is not redundant
     if (move != NULL)
              ^
-..\src\game.cpp:1199:12: note: Null pointer dereference
+..\src\game.cpp:1195:12: note: Null pointer dereference
     while (move->marker != END_MARKER && move != NULL) {
            ^
-..\src\game.cpp:3015:68: style: Same expression on both sides of '-'. [duplicateExpression]
+..\src\game.cpp:3007:68: style: Same expression on both sides of '-'. [duplicateExpression]
                 sprintf(temp, "\\pspicture[](%d,%d)(%d,%d)\n", minX-1, minY, ((lastX > maxX) ? lastX : maxX), maxY);
                                                                    ^
-..\src\game.cpp:2979:20: note: 'minX' is assigned value '1' here.
+..\src\game.cpp:2971:20: note: 'minX' is assigned value '1' here.
         int minX = 1;
                    ^
-..\src\game.cpp:3015:68: note: Same expression on both sides of '-'.
+..\src\game.cpp:3007:68: note: Same expression on both sides of '-'.
                 sprintf(temp, "\\pspicture[](%d,%d)(%d,%d)\n", minX-1, minY, ((lastX > maxX) ? lastX : maxX), maxY);
                                                                    ^
-..\src\game.cpp:1282:17: style: The scope of the variable 'hpNew' can be reduced. [variableScope]
+..\src\game.cpp:1278:17: style: The scope of the variable 'hpNew' can be reduced. [variableScope]
     uint hpOld, hpNew;
                 ^
-..\src\game.cpp:2970:14: style: The scope of the variable 'finalTick' can be reduced. [variableScope]
+..\src\game.cpp:2838:14: style: The scope of the variable 'temp' can be reduced. [variableScope]
+        char temp [256];
+             ^
+..\src\game.cpp:2962:14: style: The scope of the variable 'finalTick' can be reduced. [variableScope]
         bool finalTick = false;
              ^
-..\src\game.cpp:2979:13: style: The scope of the variable 'minX' can be reduced. [variableScope]
+..\src\game.cpp:2971:13: style: The scope of the variable 'minX' can be reduced. [variableScope]
         int minX = 1;
             ^
-..\src\game.cpp:3110:22: style: The scope of the variable 'diagramStr' can be reduced. [variableScope]
+..\src\game.cpp:3102:22: style: The scope of the variable 'diagramStr' can be reduced. [variableScope]
         const char * diagramStr = "\\begin{center}\n\\vspace{1ex}\n\\chessboard\n\\vspace{1ex}\n\\end{center}\n";
                      ^
-..\src\game.cpp:3115:14: style: The scope of the variable 'diagramPrinted' can be reduced. [variableScope]
+..\src\game.cpp:3107:14: style: The scope of the variable 'diagramPrinted' can be reduced. [variableScope]
         bool diagramPrinted = false;
              ^
-..\src\game.cpp:4401:10: style: The scope of the variable 'b' can be reduced. [variableScope]
+..\src\game.cpp:4393:10: style: The scope of the variable 'b' can be reduced. [variableScope]
     byte b;
          ^
-..\src\game.cpp:2202:16: style: Local variable 'm' shadows outer variable [shadowVariable]
+..\src\game.cpp:2198:16: style: Local variable 'm' shadows outer variable [shadowVariable]
         moveT *m = CurrentMove;
                ^
-..\src\game.cpp:2172:13: note: Shadowed declaration
+..\src\game.cpp:2168:13: note: Shadowed declaration
     moveT * m = CurrentMove;
             ^
-..\src\game.cpp:2202:16: note: Shadow variable
+..\src\game.cpp:2198:16: note: Shadow variable
         moveT *m = CurrentMove;
                ^
-..\src\game.cpp:3047:26: style: Local variable 'x' shadows outer variable [shadowVariable]
+..\src\game.cpp:3039:26: style: Local variable 'x' shadows outer variable [shadowVariable]
                 for (int x = 1; x < NumHalfMoves; x++) {
                          ^
-..\src\game.cpp:2867:13: note: Shadowed declaration
+..\src\game.cpp:2859:13: note: Shadowed declaration
         int x = 0;
             ^
-..\src\game.cpp:3047:26: note: Shadow variable
+..\src\game.cpp:3039:26: note: Shadow variable
                 for (int x = 1; x < NumHalfMoves; x++) {
                          ^
-..\src\game.cpp:3058:26: style: Local variable 'x' shadows outer variable [shadowVariable]
+..\src\game.cpp:3050:26: style: Local variable 'x' shadows outer variable [shadowVariable]
                 for (int x = 1; x < scoreHalfMoves; x++) {
                          ^
-..\src\game.cpp:2867:13: note: Shadowed declaration
+..\src\game.cpp:2859:13: note: Shadowed declaration
         int x = 0;
             ^
-..\src\game.cpp:3058:26: note: Shadow variable
+..\src\game.cpp:3050:26: note: Shadow variable
                 for (int x = 1; x < scoreHalfMoves; x++) {
                          ^
-..\src\game.cpp:3385:51: style: Local variable 'i' shadows outer variable [shadowVariable]
+..\src\game.cpp:3377:51: style: Local variable 'i' shadows outer variable [shadowVariable]
                                         for (uint i = 0; i < (uint)v->nagCount; i++) {
                                                   ^
-..\src\game.cpp:3361:31: note: Shadowed declaration
+..\src\game.cpp:3353:31: note: Shadowed declaration
                     for (uint i=0; i < m->numVariations; i++) {
                               ^
-..\src\game.cpp:3385:51: note: Shadow variable
+..\src\game.cpp:3377:51: note: Shadow variable
                                         for (uint i = 0; i < (uint)v->nagCount; i++) {
                                                   ^
 ..\src\sqset.h:48:25: portability: Shifting signed 32-bit value by 31 bits is implementation-defined behaviour. See condition at line 47. [shiftTooManyBitsSigned]
@@ -274,10 +277,10 @@
 ..\src\sqset.h:86:26: note: Shift
         Bits_a1h4 &= ~(1 << sq);
                          ^
-..\src\game.cpp:3115:29: style: Variable 'diagramPrinted' is assigned a value that is never used. [unreadVariable]
+..\src\game.cpp:3107:29: style: Variable 'diagramPrinted' is assigned a value that is never used. [unreadVariable]
         bool diagramPrinted = false;
                             ^
-..\src\game.cpp:3416:28: style: Variable 'inMainline' is assigned a value that is never used. [unreadVariable]
+..\src\game.cpp:3408:28: style: Variable 'inMainline' is assigned a value that is never used. [unreadVariable]
                 inMainline = false;
                            ^
 ..\src\index.h:355:7: style: Unsigned expression 'length' can't be negative so it is unnecessary to test it. [unsignedPositive]
@@ -883,293 +886,206 @@ errorT err;
 ..\src\tkdnd\win\OleDND.h:1097:20: style: Variable 'error' is assigned a value that is never used. [unreadVariable]
         if ((error = GetLastError()) == 0L) error = _doserrno;
                    ^
-..\src\tkscid.cpp:9974:5: style: Struct 'SortNamebaseNodes' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
+..\src\tkscid.cpp:9967:5: style: Struct 'SortNamebaseNodes' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
     SortNamebaseNodes (Comp comp_) :comp(comp_) {}
     ^
-..\src\tkscid.cpp:1535:24: style: Condition 'exportFilter' is always true [knownConditionTrueFalse]
+..\src\tkscid.cpp:1525:24: style: Condition 'exportFilter' is always true [knownConditionTrueFalse]
     uint numToExport = exportFilter ? db->filter->Count() : 1;
                        ^
-..\src\tkscid.cpp:1521:9: note: Assuming that condition '!exportFilter' is not redundant
+..\src\tkscid.cpp:1511:9: note: Assuming that condition '!exportFilter' is not redundant
     if (!exportFilter) {
         ^
-..\src\tkscid.cpp:1535:24: note: Condition 'exportFilter' is always true
+..\src\tkscid.cpp:1525:24: note: Condition 'exportFilter' is always true
     uint numToExport = exportFilter ? db->filter->Count() : 1;
                        ^
-..\src\tkscid.cpp:5613:13: style: Condition 'listFormat' is always false [knownConditionTrueFalse]
+..\src\tkscid.cpp:5600:13: style: Condition 'listFormat' is always false [knownConditionTrueFalse]
         if (listFormat) {
             ^
-..\src\tkscid.cpp:5542:23: note: Assignment 'listFormat=false', assigned value is 0
+..\src\tkscid.cpp:5529:23: note: Assignment 'listFormat=false', assigned value is 0
     bool listFormat = false;
                       ^
-..\src\tkscid.cpp:5613:13: note: Condition 'listFormat' is always false
+..\src\tkscid.cpp:5600:13: note: Condition 'listFormat' is always false
         if (listFormat) {
             ^
-..\src\tkscid.cpp:12230:21: style: Condition 'ply==0' is always true [knownConditionTrueFalse]
+..\src\tkscid.cpp:12173:21: style: Condition 'ply==0' is always true [knownConditionTrueFalse]
             if (ply == 0  &&  possibleMatch) {
                     ^
-..\src\tkscid.cpp:12226:20: note: Assignment 'ply=0', assigned value is 0
+..\src\tkscid.cpp:12169:20: note: Assignment 'ply=0', assigned value is 0
         uint ply = 0;
                    ^
-..\src\tkscid.cpp:12230:21: note: Condition 'ply==0' is always true
+..\src\tkscid.cpp:12173:21: note: Condition 'ply==0' is always true
             if (ply == 0  &&  possibleMatch) {
                     ^
-..\src\tkscid.cpp:13801:17: style: Condition 'match' is always true [knownConditionTrueFalse]
+..\src\tkscid.cpp:13734:17: style: Condition 'match' is always true [knownConditionTrueFalse]
             if (match  &&  db->gfile->ReadGame (db->bbuf, ie->GetOffset(),
                 ^
-..\src\tkscid.cpp:13800:13: note: Assuming that condition 'match' is not redundant
+..\src\tkscid.cpp:13733:13: note: Assuming that condition 'match' is not redundant
         if (match  &&  (pgnTextCount > 0 || gameEnd == 'S' || gameEnd == 'C')) {
             ^
-..\src\tkscid.cpp:13801:17: note: Condition 'match' is always true
+..\src\tkscid.cpp:13734:17: note: Condition 'match' is always true
             if (match  &&  db->gfile->ReadGame (db->bbuf, ie->GetOffset(),
                 ^
-..\src\tkscid.cpp:105:5: warning: %u in format string (no. 4) requires 'unsigned int' but the argument type is 'signed int'. [invalidPrintfArgType_uint]
+..\src\tkscid.cpp:101:5: warning: %u in format string (no. 4) requires 'unsigned int' but the argument type is 'signed int'. [invalidPrintfArgType_uint]
     sprintf (tempStr, "%s coords %s 0 0 %u %u", progBar.canvName,
     ^
-..\src\tkscid.cpp:1299:13: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+..\src\tkscid.cpp:1289:13: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
             sprintf( gameNumber, "%d", gameNum + 1);
             ^
-..\src\tkscid.cpp:1305:13: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+..\src\tkscid.cpp:1295:13: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
             sprintf( gameNumber, "%d", gameNum + 1);
             ^
-..\src\tkscid.cpp:1312:13: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+..\src\tkscid.cpp:1302:13: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
             sprintf( gameNumber, "%d", gameNum + 1);
             ^
-..\src\tkscid.cpp:3343:5: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+..\src\tkscid.cpp:3332:5: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
     sprintf (tempStr, "Classified %d game%s in %d%c%02d seconds",
     ^
-..\src\tkscid.cpp:4426:6: warning: %i in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+..\src\tkscid.cpp:4415:6: warning: %i in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
      sprintf (flagName, "(%i)", custom);
      ^
-..\src\tkscid.cpp:5157:7: warning: %u in format string (no. 2) requires 'unsigned int' but the argument type is 'signed int'. [invalidPrintfArgType_uint]
+..\src\tkscid.cpp:5144:7: warning: %u in format string (no. 2) requires 'unsigned int' but the argument type is 'signed int'. [invalidPrintfArgType_uint]
       sprintf (temp, "\t\t%s: %u   ", "Length", (db->game->GetNumHalfMoves() + 1) / 2);
       ^
-..\src\tkscid.cpp:11738:13: warning: %d in format string (no. 4) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+..\src\tkscid.cpp:11727:13: warning: %d in format string (no. 4) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
             sprintf (temp, "%2u %-6s%7u %3d%c%1d %3d%c%1d",
             ^
-..\src\tkscid.cpp:11738:13: warning: %d in format string (no. 6) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+..\src\tkscid.cpp:11727:13: warning: %d in format string (no. 6) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
             sprintf (temp, "%2u %-6s%7u %3d%c%1d %3d%c%1d",
             ^
-..\src\tkscid.cpp:11738:13: warning: %d in format string (no. 7) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+..\src\tkscid.cpp:11727:13: warning: %d in format string (no. 7) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
             sprintf (temp, "%2u %-6s%7u %3d%c%1d %3d%c%1d",
             ^
-..\src\tkscid.cpp:11738:13: warning: %d in format string (no. 9) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+..\src\tkscid.cpp:11727:13: warning: %d in format string (no. 9) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
             sprintf (temp, "%2u %-6s%7u %3d%c%1d %3d%c%1d",
             ^
-..\src\tkscid.cpp:11750:13: warning: %d in format string (no. 4) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+..\src\tkscid.cpp:11739:13: warning: %d in format string (no. 4) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
             sprintf (temp, "\n%2u: %-6s%7u:%3d%c%1d%%  %3d%c%1d%%",
             ^
-..\src\tkscid.cpp:11750:13: warning: %d in format string (no. 6) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+..\src\tkscid.cpp:11739:13: warning: %d in format string (no. 6) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
             sprintf (temp, "\n%2u: %-6s%7u:%3d%c%1d%%  %3d%c%1d%%",
             ^
-..\src\tkscid.cpp:11750:13: warning: %d in format string (no. 7) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+..\src\tkscid.cpp:11739:13: warning: %d in format string (no. 7) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
             sprintf (temp, "\n%2u: %-6s%7u:%3d%c%1d%%  %3d%c%1d%%",
             ^
-..\src\tkscid.cpp:11750:13: warning: %d in format string (no. 9) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+..\src\tkscid.cpp:11739:13: warning: %d in format string (no. 9) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
             sprintf (temp, "\n%2u: %-6s%7u:%3d%c%1d%%  %3d%c%1d%%",
             ^
-..\src\tkscid.cpp:11763:9: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+..\src\tkscid.cpp:11752:9: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
         sprintf (temp, " %3d%%", (pctDraws + 5) / 10);
         ^
-..\src\tkscid.cpp:11861:9: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+..\src\tkscid.cpp:11833:9: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
         sprintf (temp, " %3d%%", (pctDraws + 5) / 10);
         ^
-..\src\tkscid.cpp:12280:5: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+..\src\tkscid.cpp:12223:5: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
     sprintf (temp, "%d / %d  (%d%c%02d s)",
     ^
-..\src\tkscid.cpp:12280:5: warning: %d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+..\src\tkscid.cpp:12223:5: warning: %d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
     sprintf (temp, "%d / %d  (%d%c%02d s)",
     ^
-..\src\tkscid.cpp:12422:5: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+..\src\tkscid.cpp:12363:5: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
     sprintf (temp, "%d / %d  (%d%c%02d s)",
     ^
-..\src\tkscid.cpp:12422:5: warning: %d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+..\src\tkscid.cpp:12363:5: warning: %d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
     sprintf (temp, "%d / %d  (%d%c%02d s)",
     ^
-..\src\tkscid.cpp:12932:5: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+..\src\tkscid.cpp:12869:5: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
     sprintf (temp, "%d / %d  (%d%c%02d s)",
     ^
-..\src\tkscid.cpp:12932:5: warning: %d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+..\src\tkscid.cpp:12869:5: warning: %d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
     sprintf (temp, "%d / %d  (%d%c%02d s)",
     ^
-..\src\tkscid.cpp:13873:5: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+..\src\tkscid.cpp:13806:5: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
     sprintf (temp, "%d / %d  (%d%c%02d s)",
     ^
-..\src\tkscid.cpp:13873:5: warning: %d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+..\src\tkscid.cpp:13806:5: warning: %d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
     sprintf (temp, "%d / %d  (%d%c%02d s)",
     ^
-..\src\tkscid.cpp:7011:29: warning: sscanf() without field width limits can crash with huge input data. [invalidscanf]
+..\src\tkscid.cpp:6998:29: warning: sscanf() without field width limits can crash with huge input data. [invalidscanf]
                         if (sscanf (largv[i], "%s \"%[^\"]\"\n", tagStr, valueStr) == 2) {
                             ^
-..\src\tkscid.cpp:8568:13: warning: sscanf() without field width limits can crash with huge input data. [invalidscanf]
+..\src\tkscid.cpp:8558:13: warning: sscanf() without field width limits can crash with huge input data. [invalidscanf]
         if (sscanf (line, "\"%[^\"]\" >> \"%[^\"]\" (%d)  %[0-9.?]--%[0-9.?]",
             ^
-..\src\tkscid.cpp:9139:10: warning: sscanf() without field width limits can crash with huge input data. [invalidscanf]
-     i = sscanf (text, " %s %s %s %s", t_title , t_country, t_elo, t_year);
-         ^
-..\src\tkscid.cpp:11953:7: warning: Possible null pointer dereference: base [nullPointer]
+..\src\tkscid.cpp:9132:14: warning: sscanf() without field width limits can crash with huge input data. [invalidscanf]
+     int i = sscanf (text, " %s %s %s %s", t_title , t_country, t_elo, t_year);
+             ^
+..\src\tkscid.cpp:11899:7: warning: Possible null pointer dereference: base [nullPointer]
   if (base->inUse)
       ^
-..\src\tkscid.cpp:11947:22: note: Assignment 'base=NULL', assigned value is 0
+..\src\tkscid.cpp:11893:22: note: Assignment 'base=NULL', assigned value is 0
   scidBaseT * base = NULL;
                      ^
-..\src\tkscid.cpp:11949:21: note: Assuming condition is false
+..\src\tkscid.cpp:11895:21: note: Assuming condition is false
   if (baseNum >= 1  &&  baseNum <= MAX_BASES) {
                     ^
-..\src\tkscid.cpp:11953:7: note: Null pointer dereference
+..\src\tkscid.cpp:11899:7: note: Null pointer dereference
   if (base->inUse)
       ^
-..\src\tkscid.cpp:11971:7: warning: Possible null pointer dereference: base [nullPointer]
+..\src\tkscid.cpp:11917:7: warning: Possible null pointer dereference: base [nullPointer]
   if (base->inUse) {
       ^
-..\src\tkscid.cpp:11966:22: note: Assignment 'base=NULL', assigned value is 0
+..\src\tkscid.cpp:11912:22: note: Assignment 'base=NULL', assigned value is 0
   scidBaseT * base = NULL;
                      ^
-..\src\tkscid.cpp:11968:21: note: Assuming condition is false
+..\src\tkscid.cpp:11914:21: note: Assuming condition is false
   if (baseNum >= 1  &&  baseNum <= MAX_BASES) {
                     ^
-..\src\tkscid.cpp:11971:7: note: Null pointer dereference
+..\src\tkscid.cpp:11917:7: note: Null pointer dereference
   if (base->inUse) {
       ^
-..\src\tkscid.cpp:4269:14: style: Redundant initialization for 'gnum'. The initialized value is overwritten before it is read. [redundantInitialization]
+..\src\tkscid.cpp:4258:14: style: Redundant initialization for 'gnum'. The initialized value is overwritten before it is read. [redundantInitialization]
         gnum = strGetUnsigned (argv[3]);
              ^
-..\src\tkscid.cpp:4260:15: note: gnum is initialized
+..\src\tkscid.cpp:4249:15: note: gnum is initialized
     uint gnum = base->gameNumber;
               ^
-..\src\tkscid.cpp:4269:14: note: gnum is overwritten
+..\src\tkscid.cpp:4258:14: note: gnum is overwritten
         gnum = strGetUnsigned (argv[3]);
              ^
-..\src\tkscid.cpp:4630:14: style: Variable 'db->undoMax' is reassigned a value before the old one has been used. [redundantAssignment]
+..\src\tkscid.cpp:4619:14: style: Variable 'db->undoMax' is reassigned a value before the old one has been used. [redundantAssignment]
  db->undoMax = db->undoIndex;
              ^
-..\src\tkscid.cpp:4621:18: note: db->undoMax is assigned
+..\src\tkscid.cpp:4610:18: note: db->undoMax is assigned
      db->undoMax = UNDO_MAX-1;
                  ^
-..\src\tkscid.cpp:4630:14: note: db->undoMax is overwritten
+..\src\tkscid.cpp:4619:14: note: db->undoMax is overwritten
  db->undoMax = db->undoIndex;
              ^
-..\src\tkscid.cpp:11705:13: warning: Redundant assignment of 'titleRow' to itself. [selfAssignment]
+..\src\tkscid.cpp:11694:13: warning: Redundant assignment of 'titleRow' to itself. [selfAssignment]
    titleRow = titleRow;
             ^
-..\src\tkscid.cpp:11707:13: warning: Redundant assignment of 'titleRow' to itself. [selfAssignment]
+..\src\tkscid.cpp:11696:13: warning: Redundant assignment of 'titleRow' to itself. [selfAssignment]
    titleRow = titleRow;
             ^
-..\src\tkscid.cpp:1208:25: style: The scope of the variable 'options' can be reduced. [variableScope]
+..\src\tkscid.cpp:1198:25: style: The scope of the variable 'options' can be reduced. [variableScope]
     static const char * options [] = { "free", "used", "total" };
                         ^
-..\src\tkscid.cpp:2331:26: style: The scope of the variable 'copiedRatings' can be reduced. [variableScope]
+..\src\tkscid.cpp:2320:26: style: The scope of the variable 'copiedRatings' can be reduced. [variableScope]
                     bool copiedRatings = false;
                          ^
-..\src\tkscid.cpp:2438:18: style: The scope of the variable 'options' can be reduced. [variableScope]
+..\src\tkscid.cpp:2427:18: style: The scope of the variable 'options' can be reduced. [variableScope]
     const char * options[] = {
                  ^
-..\src\tkscid.cpp:3442:10: style: The scope of the variable 'inMoveList' can be reduced. [variableScope]
+..\src\tkscid.cpp:3431:10: style: The scope of the variable 'inMoveList' can be reduced. [variableScope]
     bool inMoveList = false;
          ^
-..\src\tkscid.cpp:3740:18: style: The scope of the variable 'options' can be reduced. [variableScope]
+..\src\tkscid.cpp:3729:18: style: The scope of the variable 'options' can be reduced. [variableScope]
     const char * options[] = { "date", "elo", "move", NULL };
                  ^
-..\src\tkscid.cpp:4404:13: style: The scope of the variable 'custom' can be reduced. [variableScope]
+..\src\tkscid.cpp:4393:13: style: The scope of the variable 'custom' can be reduced. [variableScope]
        uint custom;
             ^
-..\src\tkscid.cpp:4828:10: style: The scope of the variable 'showTB' can be reduced. [variableScope]
-    uint showTB = 2;  // 0 = no TB output, 1 = score only, 2 = best moves.
-         ^
-..\src\tkscid.cpp:5170:7: style: The scope of the variable 'ch' can be reduced. [variableScope]
- char ch;
-      ^
-..\src\tkscid.cpp:5395:18: style: The scope of the variable 'usage' can be reduced. [variableScope]
+..\src\tkscid.cpp:5382:18: style: The scope of the variable 'usage' can be reduced. [variableScope]
     const char * usage = "Usage: sc_game merge <baseNum> <gameNum> [<endPly>]";
                  ^
-..\src\tkscid.cpp:5649:18: style: The scope of the variable 'noNoveltyStr' can be reduced. [variableScope]
+..\src\tkscid.cpp:5636:18: style: The scope of the variable 'noNoveltyStr' can be reduced. [variableScope]
     const char * noNoveltyStr =
                  ^
-..\src\tkscid.cpp:5652:18: style: The scope of the variable 'usage' can be reduced. [variableScope]
+..\src\tkscid.cpp:5639:18: style: The scope of the variable 'usage' can be reduced. [variableScope]
     const char * usage =
                  ^
-..\src\tkscid.cpp:6473:18: style: The scope of the variable 'comment' can be reduced. [variableScope]
-    const char * comment;
-                 ^
-..\src\tkscid.cpp:6553:18: style: The scope of the variable 'options' can be reduced. [variableScope]
-    const char * options[] = { "comments", "variations", NULL };
-                 ^
-..\src\tkscid.cpp:8087:18: style: The scope of the variable 'usage' can be reduced. [variableScope]
-    const char * usage = "Usage: sc_pos html [-flip <boolean>] [-path <path>] [<style:0|1>]";
-                 ^
-..\src\tkscid.cpp:8122:25: style: The scope of the variable 'options' can be reduced. [variableScope]
-    static const char * options [] = {
-                        ^
-..\src\tkscid.cpp:8744:18: style: The scope of the variable 'options' can be reduced. [variableScope]
-    const char * options[] = {
-                 ^
-..\src\tkscid.cpp:8955:18: style: The scope of the variable 'usageStr' can be reduced. [variableScope]
-    const char * usageStr = "Usage: sc_name retrievename <player>";
-                 ^
-..\src\tkscid.cpp:9123:8: style: The scope of the variable 'i' can be reduced. [variableScope]
-   int i;
-       ^
-..\src\tkscid.cpp:9992:18: style: The scope of the variable 'usage' can be reduced. [variableScope]
-    const char * usage = "Usage: sc_name plist [-<option> <value> ...]";
-                 ^
-..\src\tkscid.cpp:3389:24: style: Local variable 'ecoStr' shadows outer variable [shadowVariable]
-            ecoStringT ecoStr;
-                       ^
-..\src\tkscid.cpp:3372:13: note: Shadowed declaration
-    DString ecoStr;
-            ^
-..\src\tkscid.cpp:3389:24: note: Shadow variable
-            ecoStringT ecoStr;
-                       ^
-..\src\tkscid.cpp:5192:18: style: Local variable 'ch' shadows outer variable [shadowVariable]
-            char ch = *s;
-                 ^
-..\src\tkscid.cpp:5170:7: note: Shadowed declaration
- char ch;
-      ^
-..\src\tkscid.cpp:5192:18: note: Shadow variable
-            char ch = *s;
-                 ^
-..\src\tkscid.cpp:11148:22: style: Local variable 'ie' shadows outer variable [shadowVariable]
-        IndexEntry * ie = base->idx->FetchEntry (bestIndex[i]);
-                     ^
-..\src\tkscid.cpp:11085:18: note: Shadowed declaration
-    IndexEntry * ie;
-                 ^
-..\src\tkscid.cpp:11148:22: note: Shadow variable
-        IndexEntry * ie = base->idx->FetchEntry (bestIndex[i]);
-                     ^
-..\src\tkscid.cpp:2038:32: style: Variable 'lenA' is assigned a value that is never used. [unreadVariable]
-        uint temp = lenA; lenA = lenB; lenB = temp;
-                               ^
-..\src\tkscid.cpp:2038:45: style: Variable 'lenB' is assigned a value that is never used. [unreadVariable]
-        uint temp = lenA; lenA = lenB; lenB = temp;
-                                            ^
-..\src\tkscid.cpp:4827:22: style: Variable 'fullComment' is assigned a value that is never used. [unreadVariable]
-    bool fullComment = false;
-                     ^
-..\src\tkscid.cpp:4828:17: style: Variable 'showTB' is assigned a value that is never used. [unreadVariable]
-    uint showTB = 2;  // 0 = no TB output, 1 = score only, 2 = best moves.
-                ^
-..\src\tkscid.cpp:4847:24: style: Variable 'showTB' is assigned a value that is never used. [unreadVariable]
-                showTB = strGetUnsigned(argv[arg]);
-                       ^
-..\src\tkscid.cpp:11443:20: style: Variable 'skipcount' is assigned a value that is never used. [unreadVariable]
-    uint skipcount = 0;
-                   ^
-..\src\tkscid.cpp:11833:74: style: Variable 'score' is assigned a value that is never used. [unreadVariable]
-            if (db->game->GetCurrentPos()->GetToMove() == BLACK) { score = 100 - score; }
-                                                                         ^
-..\src\tkscid.cpp:364:0: information: Skipping configuration 'SOURCE_TCL_FILE' since the value of 'SOURCE_TCL_FILE' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly. [ConfigurationNotChecked]
+..\src\tkscid.cpp:360:0: information: Skipping configuration 'SOURCE_TCL_FILE' since the value of 'SOURCE_TCL_FILE' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly. [ConfigurationNotChecked]
     if (end != NULL) { strCopy (end + 1, SOURCE_TCL_FILE); }
 ^
-..\src\tree.h:114:5: warning: Member variable 'TreeCache::Policy' is not initialized in the constructor. [uninitMemberVar]
-    TreeCache() { Init(); }
-    ^
-..\src\tree.h:114:5: warning: Member variable 'TreeCache::LowestTotal' is not initialized in the constructor. [uninitMemberVar]
-    TreeCache() { Init(); }
-    ^
-..\src\tree.h:114:5: warning: Member variable 'TreeCache::LowestTotalIndex' is not initialized in the constructor. [uninitMemberVar]
-    TreeCache() { Init(); }
-    ^
 nofile:0:0: information: Cppcheck cannot find all the include files (use --check-config for details) [missingIncludeSystem]
 

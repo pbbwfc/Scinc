@@ -2025,7 +2025,6 @@ gamesHaveSameMoves (scidBaseT * base, IndexEntry * ieA, IndexEntry * ieB)
     uint lenA = ieA->GetNumHalfMoves();
     uint lenB = ieB->GetNumHalfMoves();
     if (lenB < lenA) {  // Swap the order of the two games:
-        uint temp = lenA; lenA = lenB; lenB = temp;
         IndexEntry * ie = ieA; ieA = ieB; ieB = ie;
     }
 
@@ -3376,9 +3375,9 @@ sc_eco_game (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
             setUintResult (ti, ply);
         } else {
             ecoT ecoCode = eco_FromString (ecoStr.Data());
-            ecoStringT ecoStr;
-            eco_ToExtendedString (ecoCode, ecoStr);
-            Tcl_AppendResult (ti, ecoStr, NULL);
+            ecoStringT eecoStr;
+            eco_ToExtendedString (ecoCode, eecoStr);
+            Tcl_AppendResult (ti, eecoStr, NULL);
         }
     }
     db->game->RestoreState ();
@@ -4814,8 +4813,6 @@ sc_game_info (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
     uint commentWidth = 70;
     // Making it too large means the x xscrollbar is shown, sometimes obscuring the comment line altogether
     uint commentHeight = 1;
-    bool fullComment = false;
-    uint showTB = 2;  // 0 = no TB output, 1 = score only, 2 = best moves.
     char temp[1024];
     char tempTrans[10];
 
@@ -4834,7 +4831,7 @@ sc_game_info (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
         } else if  (strIsPrefix (argv[arg], "-tb")) {
             if (arg+1 < argc) {
                 arg++;
-                showTB = strGetUnsigned(argv[arg]);
+                //not supported
             }
         } else if  (strIsPrefix (argv[arg], "-fen")) {
             if (arg+1 < argc) {
@@ -4846,7 +4843,7 @@ sc_game_info (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
             // Show full comment:
             if (arg+1 < argc) {
                 arg++;
-                fullComment = strGetBoolean(argv[arg]);
+                bool fullComment = strGetBoolean(argv[arg]);
                 if (fullComment) {
                     // unused
                     commentWidth = 99999;
@@ -5157,7 +5154,7 @@ sc_game_info (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
         const char * s = str;
         uint len;
         uint lines = 0;
-	char ch;
+	    char ch;
 
         // Add the first commentWidth characters of the comment. Newlines are converted to space.
         for (len = 0; len < commentWidth; len++, s++) {
@@ -5179,7 +5176,7 @@ sc_game_info (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
         }
         // Complete the current comment word and add "..." if necessary:
         if (len == commentWidth) {
-            char ch = *s;
+            ch = *s;
             while (ch != ' '  &&  ch != '\n'  &&  ch != 0) {
                 appendCharResult (ti, ch);
                 s++;
@@ -6460,12 +6457,11 @@ sc_game_scores (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
     }
 
     Game * g = db->game;
-    const char * comment;
     g->SaveState ();
     g->MoveToPly (0);
     while (g->MoveForward() == OK) {
         moveCounter++;
-        comment = g->GetMoveComment();
+        const char * comment = g->GetMoveComment();
         // Klimmek: use invertflags
         addScoreToList (ti, moveCounter, comment, moveCounter % 2 ? inv_b : inv_w, min, max);
     }
@@ -6539,8 +6535,6 @@ sc_game_strip (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 {
     const char * usage =
         "Usage: sc_game strip [comments|variations]";
-
-    const char * options[] = { "comments", "variations", NULL };
     enum { OPT_COMS, OPT_VARS };
 
     // we need to switch off short header style or PGN parsing will not work
@@ -6555,7 +6549,10 @@ sc_game_strip (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
     db->game->SetPgnFormat (PGN_FORMAT_Plain);
 
     int index = -1;
-    if (argc == 3) { index = strUniqueMatch (argv[2], options); }
+    if (argc == 3) { 
+        const char * options[] = { "comments", "variations", NULL };
+        index = strUniqueMatch (argv[2], options); 
+        }
 
     switch (index) {
         case OPT_COMS: db->game->RemovePgnStyle (PGN_STYLE_COMMENTS); break;
@@ -8074,7 +8071,7 @@ sc_pos_hash (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 int
 sc_pos_html (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 {
-    const char * usage = "Usage: sc_pos html [-flip <boolean>] [-path <path>] [<style:0|1>]";
+    
     uint style = htmlDiagStyle;
     bool flip = false;
     int arg = 2;
@@ -8089,6 +8086,7 @@ sc_pos_html (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
         arg += 2;
     }
     if (argc < arg ||  argc > arg+1) {
+        const char * usage = "Usage: sc_pos html [-flip <boolean>] [-path <path>] [<style:0|1>]";
         return errorResult (ti, usage);
     }
     if (argc == arg+1) { style = strGetUnsigned (argv[arg]); }
@@ -8109,14 +8107,16 @@ sc_pos_html (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 int
 sc_pos_isAt (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 {
-    static const char * options [] = {
-        "start", "end", "vstart", "vend", NULL
-    };
     enum {
         OPT_START, OPT_END, OPT_VSTART, OPT_VEND
     };
     int index = -1;
-    if (argc == 3) { index = strUniqueMatch(argv[2], options); }
+    if (argc == 3) { 
+        static const char * options [] = {
+            "start", "end", "vstart", "vend", NULL
+            };
+        index = strUniqueMatch(argv[2], options); 
+        }
 
     switch (index) {
     case OPT_START:
@@ -8731,17 +8731,19 @@ sc_name_edit (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
         return errorResult (ti, errMsgReadOnly(ti));
     }
 
-    const char * options[] = {
-        "player", "event", "site", "round", "rating",
-        "date", "edate", NULL
-    };
     enum {
         OPT_PLAYER, OPT_EVENT, OPT_SITE, OPT_ROUND, OPT_RATING,
         OPT_DATE, OPT_EVENTDATE
     };
 
     int option = -1;
-    if (argc > 2) { option = strUniqueMatch (argv[2], options); }
+    if (argc > 2) { 
+        const char * options[] = {
+            "player", "event", "site", "round", "rating",
+            "date", "edate", NULL
+            };
+        option = strUniqueMatch (argv[2], options); 
+        }
 
     nameT nt = NAME_PLAYER;
     switch (option) {
@@ -8942,10 +8944,12 @@ sc_name_edit (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 int
 sc_name_retrievename (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 {
-    const char * usageStr = "Usage: sc_name retrievename <player>";
     SpellChecker * spChecker = spellChecker[NAME_PLAYER];
 
-    if (argc != 3 ) { return errorResult (ti, usageStr); }
+    if (argc != 3 ) { 
+        const char * usageStr = "Usage: sc_name retrievename <player>";
+        return errorResult (ti, usageStr); 
+        }
     const char * playerName = argv[argc-1];
     if (!db->inUse) {
         return errorResult (ti, errMsgNotOpen(ti));
@@ -9110,7 +9114,6 @@ sc_name_info (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
       SpellChecker * spChecker = spellChecker[NAME_PLAYER];
       if (spChecker != NULL) {
 	  const char *text;
-	  int i;
 
 	  if ((text = spChecker->GetComment (playerName))) {
 
@@ -9126,7 +9129,7 @@ sc_name_info (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 	    // For debugging
 	    // Tcl_AppendResult (ti, "  ", text, newline, NULL);
 
-	    i = sscanf (text, " %s %s %s %s", t_title , t_country, t_elo, t_year);
+	    int i = sscanf (text, " %s %s %s %s", t_title , t_country, t_elo, t_year);
 
 	    // title
 
@@ -9979,8 +9982,6 @@ struct SortNamebaseNodes
 int
 sc_name_plist (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 {
-    const char * usage = "Usage: sc_name plist [-<option> <value> ...]";
-
     const char * namePrefix = "";
     uint minGames = 0;
     uint maxGames = db->numGames;
@@ -10032,7 +10033,10 @@ sc_name_plist (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
         }
     }
 
-    if (arg != argc) { return errorResult (ti, usage); }
+    if (arg != argc) { 
+        const char * usage = "Usage: sc_name plist [-<option> <value> ...]";
+        return errorResult (ti, usage);
+        }
 
     // C++: 'auto' will deduce the correct type from assigned value.
     auto comp = SortNamebaseNodes::compareNewest;
@@ -11135,15 +11139,14 @@ sc_tree_best (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
     char tempStr[128];
 
     for (uint i=0; i < count; i++) {
-        IndexEntry * ie = base->idx->FetchEntry (bestIndex[i]);
-
-	// We need the gamenumber for the tree(bestList) and gbrowser
-	sprintf (tempStr, "%u ", bestIndex[i] + 1);
+        IndexEntry * bie = base->idx->FetchEntry (bestIndex[i]);
+        // We need the gamenumber for the tree(bestList) and gbrowser
+        sprintf (tempStr, "%u ", bestIndex[i] + 1);
 
         // This seems solid, but we should be wary, as in sc_game_list PrintGameInfo
         // is only used on current base, but here we are using it for any open base
-	ie->PrintGameInfo (temp, 0, bestIndex[i]+1, base->nb, formatStr);
-	Tcl_AppendResult (ti, tempStr, temp, "\n", NULL);
+        bie->PrintGameInfo (temp, 0, bestIndex[i]+1, base->nb, formatStr);
+        Tcl_AppendResult (ti, tempStr, temp, "\n", NULL);
     }
 
     delete[] bestIndex;
@@ -11430,8 +11433,6 @@ sc_tree_search (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 
     Timer timer;  // Start timing this search.
 
-    uint skipcount = 0;
-
     // 1. Cache Search
     bool foundInCache = false;
     // Check if there is a TreeCache file to open:
@@ -11484,7 +11485,7 @@ sc_tree_search (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
     	uint hpSig = pos->GetHPSig();
     	simpleMoveT sm;
     	base->treeFilter->Fill (0); // Reset the filter to be empty
-    	skipcount = 0;
+    	uint skipcount = 0;
     	uint updateStart = 5000;  // Update progress bar every 5000 games
     	uint update = 1;
 
@@ -11518,8 +11519,6 @@ sc_tree_search (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 
     		IndexEntry* ie = base->idx->FetchEntry (i);
     		if (ie->GetLength() == 0) { skipcount++; continue; }
-    		// We do not skip deleted games, so next line is commented out:
-    		// if (ie->GetDeleteFlag()) { skipcount++; continue; }
 
     		bool foundMatch = false;
     		uint ply = 0;
@@ -11815,23 +11814,10 @@ sc_tree_search (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
         uint perf = 0;
         if (perfCount >= 10) {
             perf = perfSum / perfCount;
-            uint score = (totalScore + 5) / 10;
-            if (db->game->GetCurrentPos()->GetToMove() == BLACK) { score = 100 - score; }
         }
 
         if (listMode) {
-            /* malformed but unused. (listMode is for pocket i think S.A.)
-
-            sprintf (temp, "%2u %-6s%7u %3d%c%1d %3d%c%1d",
-                     0,
-                     "TOTAL",
-                     "{}",
-                     tree->totalCount,
-                     100, decimalPointChar, 0,
-                     totalScore / 10, decimalPointChar, totalScore % 10);
-            output->Append (temp);
-
-            */
+            // malformed but unused. (listMode is for pocket i think S.A.)
         } else {
             const char * totalString = "TOTAL:";
             if (shortDisplay)
@@ -12052,13 +12038,10 @@ sc_search_board (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 
     Position * pos = db->game->GetCurrentPos();
 
-    int baseNum = -1;
     int oldCurrentBase = currentBase;
     bool searchInRefBase = false;
     if (argc == 7) {
-//                   0        1          2                        3
-//       set str [sc_search board $::search::filter::operation $sBoardSearchType $searchInVars $sBoardIgnoreCols $base]
-      baseNum = strGetUnsigned( argv[6] );
+      int baseNum = strGetUnsigned( argv[6] );
       searchInRefBase = true;
       currentBase = baseNum - 1;
       db = &(dbList[currentBase]);
@@ -12257,8 +12240,6 @@ sc_search_board (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 int
 sc_search_moves (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 {
-    const char * usageStr =
-	"Usage: sc_search moves <filterOp> <moves> <checkTest> <sideToMove>";
     bool showProgress = startProgressBar();
     char **m_argv;
     int m_argc;
@@ -12267,7 +12248,11 @@ sc_search_moves (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
         return errorResult (ti, errMsgNotOpen(ti));
     }
 
-    if (argc != 6) { return errorResult (ti, usageStr); }
+    if (argc != 6) { 
+        const char * usageStr =
+        "Usage: sc_search moves <filterOp> <moves> <checkTest> <sideToMove>";
+        return errorResult (ti, usageStr); 
+        }
 
     filterOpT filterOp = strGetFilterOp (argv[2]);
 

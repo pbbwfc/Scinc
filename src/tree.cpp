@@ -57,6 +57,9 @@ TreeCache::Init ()
     NumInUse = 0;
     Cache = NULL;
     MostRecentIndex = 0;
+    Policy = TREECACHE_Smallest;
+    LowestTotal = 0;
+    LowestTotalIndex = 0;
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
