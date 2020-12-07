@@ -898,13 +898,13 @@ errorT err;
 ..\src\tkscid.cpp:1525:24: note: Condition 'exportFilter' is always true
     uint numToExport = exportFilter ? db->filter->Count() : 1;
                        ^
-..\src\tkscid.cpp:5600:13: style: Condition 'listFormat' is always false [knownConditionTrueFalse]
+..\src\tkscid.cpp:5602:13: style: Condition 'listFormat' is always false [knownConditionTrueFalse]
         if (listFormat) {
             ^
-..\src\tkscid.cpp:5529:23: note: Assignment 'listFormat=false', assigned value is 0
+..\src\tkscid.cpp:5531:23: note: Assignment 'listFormat=false', assigned value is 0
     bool listFormat = false;
                       ^
-..\src\tkscid.cpp:5600:13: note: Condition 'listFormat' is always false
+..\src\tkscid.cpp:5602:13: note: Condition 'listFormat' is always false
         if (listFormat) {
             ^
 ..\src\tkscid.cpp:12173:21: style: Condition 'ply==0' is always true [knownConditionTrueFalse]
@@ -937,7 +937,7 @@ errorT err;
 ..\src\tkscid.cpp:1302:13: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
             sprintf( gameNumber, "%d", gameNum + 1);
             ^
-..\src\tkscid.cpp:3332:5: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
+..\src\tkscid.cpp:3333:5: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
     sprintf (tempStr, "Classified %d game%s in %d%c%02d seconds",
     ^
 ..\src\tkscid.cpp:4415:6: warning: %i in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
@@ -1033,13 +1033,13 @@ errorT err;
 ..\src\tkscid.cpp:11917:7: note: Null pointer dereference
   if (base->inUse) {
       ^
-..\src\tkscid.cpp:4258:14: style: Redundant initialization for 'gnum'. The initialized value is overwritten before it is read. [redundantInitialization]
+..\src\tkscid.cpp:4259:14: style: Redundant initialization for 'gnum'. The initialized value is overwritten before it is read. [redundantInitialization]
         gnum = strGetUnsigned (argv[3]);
              ^
-..\src\tkscid.cpp:4249:15: note: gnum is initialized
+..\src\tkscid.cpp:4250:15: note: gnum is initialized
     uint gnum = base->gameNumber;
               ^
-..\src\tkscid.cpp:4258:14: note: gnum is overwritten
+..\src\tkscid.cpp:4259:14: note: gnum is overwritten
         gnum = strGetUnsigned (argv[3]);
              ^
 ..\src\tkscid.cpp:4619:14: style: Variable 'db->undoMax' is reassigned a value before the old one has been used. [redundantAssignment]
@@ -1057,33 +1057,6 @@ errorT err;
 ..\src\tkscid.cpp:11696:13: warning: Redundant assignment of 'titleRow' to itself. [selfAssignment]
    titleRow = titleRow;
             ^
-..\src\tkscid.cpp:1198:25: style: The scope of the variable 'options' can be reduced. [variableScope]
-    static const char * options [] = { "free", "used", "total" };
-                        ^
-..\src\tkscid.cpp:2320:26: style: The scope of the variable 'copiedRatings' can be reduced. [variableScope]
-                    bool copiedRatings = false;
-                         ^
-..\src\tkscid.cpp:2427:18: style: The scope of the variable 'options' can be reduced. [variableScope]
-    const char * options[] = {
-                 ^
-..\src\tkscid.cpp:3431:10: style: The scope of the variable 'inMoveList' can be reduced. [variableScope]
-    bool inMoveList = false;
-         ^
-..\src\tkscid.cpp:3729:18: style: The scope of the variable 'options' can be reduced. [variableScope]
-    const char * options[] = { "date", "elo", "move", NULL };
-                 ^
-..\src\tkscid.cpp:4393:13: style: The scope of the variable 'custom' can be reduced. [variableScope]
-       uint custom;
-            ^
-..\src\tkscid.cpp:5382:18: style: The scope of the variable 'usage' can be reduced. [variableScope]
-    const char * usage = "Usage: sc_game merge <baseNum> <gameNum> [<endPly>]";
-                 ^
-..\src\tkscid.cpp:5636:18: style: The scope of the variable 'noNoveltyStr' can be reduced. [variableScope]
-    const char * noNoveltyStr =
-                 ^
-..\src\tkscid.cpp:5639:18: style: The scope of the variable 'usage' can be reduced. [variableScope]
-    const char * usage =
-                 ^
 ..\src\tkscid.cpp:360:0: information: Skipping configuration 'SOURCE_TCL_FILE' since the value of 'SOURCE_TCL_FILE' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly. [ConfigurationNotChecked]
     if (end != NULL) { strCopy (end + 1, SOURCE_TCL_FILE); }
 ^

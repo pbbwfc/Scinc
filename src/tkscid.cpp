@@ -1195,11 +1195,11 @@ sc_base_close (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 int
 sc_base_count (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 {
-    static const char * options [] = { "free", "used", "total" };
     enum { OPT_FREE, OPT_USED, OPT_TOTAL };
     int optionMode = OPT_USED;
 
     if (argc > 2) {
+        static const char * options [] = { "free", "used", "total" };
         optionMode = strUniqueMatch (argv[2], options);
 
         if (optionMode < OPT_FREE || argc > 3) {
@@ -2317,7 +2317,6 @@ sc_base_duplicates (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv
                     bool headImmune = false;
                     bool compImmune = false;
                     bool doDeletion = false;
-                    bool copiedRatings = false;
                     gameNumberT gnumKeep, gnumDelete;
                     IndexEntry * ieDelete, * ieKeep;
 
@@ -2359,6 +2358,7 @@ sc_base_duplicates (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv
                     if (doDeletion) {
                         deletedCount++;
                         ieDelete->SetDeleteFlag (true);
+                        bool copiedRatings = false;
                         if (copyRatings  &&  ieKeep->GetWhiteElo() == 0) {
                             eloT elo = ieDelete->GetWhiteElo();
                             byte rtype = ieDelete->GetWhiteRatingType();
@@ -2424,9 +2424,6 @@ int
 sc_base_tag (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 {
     const char * usage = "Usage: sc_base tag [find <tagname> | list | strip <tagname> [filter|all]]";
-    const char * options[] = {
-        "find", "list", "strip", NULL
-    };
     enum {
         TAG_FIND, TAG_LIST, TAG_STRIP
     };
@@ -2442,7 +2439,11 @@ sc_base_tag (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
     }
 
     int cmd = -1;
-    if (argc >= 3) { cmd = strUniqueMatch (argv[2], options); }
+    if (argc >= 3) { 
+        const char * options[] = {
+            "find", "list", "strip", NULL };
+        cmd = strUniqueMatch (argv[2], options); 
+        }
     bool limitToFilter = false;
 
     switch (cmd) {
@@ -3428,12 +3429,12 @@ sc_eco_summary (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
     if (!ecoBook) { return TCL_OK; }
     DString * dstr = new DString;
     DString * temp = new DString;
-    bool inMoveList = false;
     ecoBook->EcoSummary (argv[2], dstr);
     if (color) {
         DString * oldstr = dstr;
         dstr = new DString;
         const char * s = oldstr->Data();
+        bool inMoveList = false;
         while (*s) {
             char ch = *s;
             switch (ch) {
@@ -3726,10 +3727,10 @@ sc_filter_freq (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
     bool eloMode = false;
     bool moveMode = false;
     bool guessElo = true;
-    const char * options[] = { "date", "elo", "move", NULL };
     enum { OPT_DATE, OPT_ELO, OPT_MOVE };
     int option = -1;
     if (argc >= 4  &&  argc <= 6) {
+        const char * options[] = { "date", "elo", "move", NULL };
         option = strUniqueMatch (argv[2], options);
     }
     switch (option) {
@@ -4390,11 +4391,10 @@ sc_flags (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 
 	  if (*flagStr != 0) {
 	      char flagName[100];
-	      uint custom;
 	      Tcl_AppendResult (ti, "flags", ": ", NULL); // , flagStr
 	      while (*flagStr != 0) {
 		  flagName[0] = 0;
-		  custom = 0;
+		  uint custom = 0;
 		  switch (*flagStr) {
 		      case 'W': strcpy (flagName, "WhiteOpFlag"); break;
 		      case 'B': strcpy (flagName, "BlackOpFlag"); break;
@@ -5379,9 +5379,11 @@ sc_game_load (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 int
 sc_game_merge (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
 {
-    const char * usage = "Usage: sc_game merge <baseNum> <gameNum> [<endPly>]";
     scidBaseT * base = db;
-    if (argc < 4  ||  argc > 5) { return errorResult (ti, usage); }
+    if (argc < 4  ||  argc > 5) { 
+        const char * usage = "Usage: sc_game merge <baseNum> <gameNum> [<endPly>]";
+        return errorResult (ti, usage); 
+        }
 
     int baseNum = strGetInteger (argv[2]);
     if (baseNum >= 1  &&  baseNum <= MAX_BASES) {
@@ -5633,12 +5635,6 @@ sc_game_novelty (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
     const char * updateLabel = NULL;
     const char * interruptedStr =
         "Novelty search interrupted";
-    const char * noNoveltyStr =
-        "No novelty was found for this game";
-
-    const char * usage =
-        "Usage: sc_game novelty [-older|-all] [-updatelabel <label>] [base]";
-
     bool olderGamesOnly = false;
     dateT currentDate = db->game->GetDate();
 
@@ -5663,6 +5659,8 @@ sc_game_novelty (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
         baseArg += 2;
     }
     if (argc < baseArg  ||  argc > baseArg+1) {
+        const char * usage =
+        "Usage: sc_game novelty [-older|-all] [-updatelabel <label>] [base]";
         return errorResult (ti, usage);
     }
     if (argc == baseArg+1) {
@@ -5795,6 +5793,8 @@ sc_game_novelty (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
     }
 
     if (foundMatch) {
+        const char * noNoveltyStr =
+        "No novelty was found for this game";
         return errorResult (ti, noNoveltyStr);
     }
 
