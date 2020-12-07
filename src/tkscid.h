@@ -28,20 +28,7 @@
 #include "optable.h"
 #include "stored.h"
 
-#ifndef _MSC_VER
 #include <unistd.h>
-#endif
-
-// Include header files for finding directory of executable program
-// in Windows if necessary.
-#ifdef _WIN32
-#  ifndef WIN32_LEAN_AND_MEAN
-#  define WIN32_LEAN_AND_MEAN
-#  endif
-#  include <windows.h>
-#else
-#  include <sys/resource.h>   // For getpriority() and setpriority().
-#endif
 
 #include <stdio.h>
 #include <ctype.h>

@@ -26,10 +26,6 @@
 #include "textbuf.h"
 #include "stored.h"
 
-#ifdef _MSC_VER
-#include <intrin.h> /* for _alloca(), etc.. */
-#endif
-
 #include <math.h>
 #include <string.h>
 
@@ -2846,13 +2842,9 @@ Game::WritePGNGraphToLatex(TextBuffer * tb)
         moveT * m = CurrentMove;
 
         const uint arrcnt = (!NumHalfMoves)? 1 : NumHalfMoves;
-#ifdef _MSC_VER /* no support for C99 VLAs */
-        double * scores = (double *) _alloca(arrcnt * sizeof(double));
-        char   * events = (char   *) _alloca(arrcnt * sizeof(char));
-#else
         double scores[arrcnt];
         char   events[arrcnt];
-#endif
+
         for (uint i = 0; i < arrcnt; i++) {
                 scores[i] = 0;
                 events[i] = ' ';

@@ -19,11 +19,11 @@ LINK=$(CXX)
 
 WARNINGS = -Wall
 
-CXXFLAGS = -fno-rtti -DWIN32 -O2 $(WARNINGS) 
+CXXFLAGS = -fno-rtti -O2 $(WARNINGS) 
 # Debug
-# CXXFLAGS = -fno-rtti -DWIN32 -O0 $(WARNINGS) -g3 -ggdb
+# CXXFLAGS = -fno-rtti -O0 $(WARNINGS) -g3 -ggdb
 # Asserts
-# CXXFLAGS = -fno-rtti -DWIN32 -O2 $(WARNINGS) -DASSERTIONS
+# CXXFLAGS = -fno-rtti -O2 $(WARNINGS) -DASSERTIONS
 
 LDFLAGS = -m64
 RCFLAGS = --output-format=coff --target=pe-x86-64
@@ -83,11 +83,11 @@ scidt.exe: src/scidt.o $(OBJS)
 
 scinc.exe: src/scid.o $(OBJS) src/tree.o src/filter.o \
             src/pbook.o src/spellchk.o  \
-            src/optable.o src/tkdnd/TkDND_OleDND.o src/tk_selection.o scid.res
+            src/optable.o src/tkdnd/TkDND_OleDND.o scid.res
 	$(LINK) $(LDFLAGS) -o rel/bin/scinc.exe src/scid.o $(OBJS) \
             src/tree.o src/filter.o src/pbook.o \
             src/spellchk.o \
-            src/optable.o src/tkdnd/TkDND_OleDND.o src/tk_selection.o rel/bin/scid.res \
+            src/optable.o src/tkdnd/TkDND_OleDND.o rel/bin/scid.res \
 	    -mwindows -lole32 -luuid -L$(TCL_DIR)/lib -ltk$(TCL_VERSION) -ltcl$(TCL_VERSION)
 
 tcscid.exe: src/tcscid.o $(OBJS) src/tree.o src/filter.o \

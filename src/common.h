@@ -24,10 +24,6 @@
 #include "myassert.h"
 #include "error.h"
 
-#ifdef _MSC_VER
-#define snprintf _snprintf
-#endif
-
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // CONSTANTS:
 

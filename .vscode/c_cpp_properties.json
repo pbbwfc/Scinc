@@ -6,7 +6,6 @@
                 "${workspaceFolder}/**"
             ],
             "defines": [
-                "WIN32",
                 "SOURCE_TCL_FILE=\"scinc.gui\""
             ],
             "windowsSdkVersion": "10.0.18362.0",

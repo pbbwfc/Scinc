@@ -11,10 +11,6 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-#ifdef _WIN32
-#define NOMINMAX
-#endif
-
 #include "tkscid.h"
 
 #include <fcntl.h>
@@ -377,7 +373,6 @@ main (int argc, char * argv[])
 #ifndef TCL_ONLY
 #ifndef __APPLE__
 extern "C" int Tkdnd_Init (Tcl_Interp*);
-extern void Tk_Selection_Init (Tcl_Interp*);
 #endif
 #endif
 
@@ -494,7 +489,6 @@ scid_InitTclTk (Tcl_Interp * ti)
 #ifndef __APPLE__
     // Drag and Drop init
     Tkdnd_Init (ti);
-    Tk_Selection_Init (ti);
 #endif
 #endif
 
@@ -11780,11 +11774,7 @@ sc_tree_search (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
         if (avgYear == 0) {
             strCopy (temp, listMode ? " {}" : "      ");
         } else {
-#ifdef _WIN32
-	    sprintf (temp, "  %4I64u", avgYear);
-#else
 	    sprintf (temp, "  %4llu", avgYear);
-#endif
         }
         output->Append (temp);
 
@@ -11865,11 +11855,7 @@ sc_tree_search (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
         if (avgElo == 0) {
             output->Append (listMode ? " {}" : "      ");
         } else {
-#ifdef _WIN32
-            sprintf (temp, "  %4I64u", avgElo);
-#else
             sprintf (temp, "  %4llu", avgElo);
-#endif
             output->Append (temp);
         }
         if (perf == 0) {
@@ -11881,11 +11867,7 @@ sc_tree_search (ClientData cd, Tcl_Interp * ti, int argc, const char ** argv)
         if (yearCount == 0) {
             output->Append (listMode ? " {}" : "      ");
         } else {
-#ifdef _WIN32
-            sprintf (temp, "  %4I64u", (yearSum + (yearCount/2)) / yearCount);
-#else
             sprintf (temp, "  %4llu", (yearSum + (yearCount/2)) / yearCount);
-#endif
             output->Append (temp);
         }
       }

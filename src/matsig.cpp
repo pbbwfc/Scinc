@@ -18,10 +18,6 @@
 // that a game with an unusual number of promotions might break.
 // The maximum count for a non-pawn piece is three.
 
-#ifdef _WIN32
-#define NOMINMAX
-#endif
-
 #include "matsig.h"
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
