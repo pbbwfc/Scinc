@@ -70,8 +70,6 @@ public:
     void     NewlinesToSpaces (bool b) { ConvertNewlines = b; }
 
     void     AddTranslation (char ch, const char * str);
-    // void     ClearTranslation (char ch) { Translation[ch] = NULL; }
-    // Changed ch to int, to avoid compiler warnings. 
     void     ClearTranslation (int ch) { Translation[ch] = NULL; }
     void     ClearTranslations () { HasTranslations = false; }
     void     PauseTranslations () { PausedTranslations = true; }

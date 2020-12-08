@@ -72,11 +72,11 @@ SpellChecker::Destroy (void)
             }
             if (node->renderName != NULL) { delete[] node->renderName; }
             while (node->bioData != NULL) {
-                bioNoteT * next = node->bioData->next;
+                bioNoteT * bnext = node->bioData->next;
                 delete[] node->bioData->text;
                 delete[] node->bioData;
 
-                node->bioData = next;
+                node->bioData = bnext;
             }
             delete node;
             node = next;
@@ -578,6 +578,7 @@ SpellChecker::AddPrefixSuffix (char * str)
         node->next = Infixes;
         Infixes = node;
     } else {
+        delete node;
         return ERROR;
     }
     node->name = strDuplicate (q1);

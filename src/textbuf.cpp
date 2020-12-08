@@ -193,8 +193,6 @@ TextBuffer::PrintChar (char b)
 errorT
 TextBuffer::PrintString (const char * str)
 {
-    errorT err;
-
     while (*str != 0) {
         CurrentWord.clear();
         // get next word and print it:
@@ -202,6 +200,7 @@ TextBuffer::PrintString (const char * str)
             CurrentWord.push_back(*str++);
         }
         // end of word/line/text reached
+        errorT err;
         err = PrintWord (CurrentWord.c_str());
         if (err != OK) { return err; }
         if (*str == '\0') { return OK; }
@@ -224,7 +223,7 @@ errorT
 TextBuffer::PrintInt (uint i, const char * str)
 {
     char temp[255];
-    sprintf(temp, "%d%s", i, str);
+    sprintf(temp, "%u%s", i, str);
     return PrintWord(temp);
 }
 

@@ -811,27 +811,9 @@ errorT err;
 ..\src\spellchk.h:81:5: warning: Member variable 'SpellChecker::NameType' is not initialized in the constructor. [uninitMemberVar]
     SpellChecker ()  { Init(); }
     ^
-..\src\spellchk.cpp:581:9: error: Memory leak: node [memleak]
-        return ERROR;
-        ^
-..\src\spellchk.cpp:75:28: style: Local variable 'next' shadows outer variable [shadowVariable]
-                bioNoteT * next = node->bioData->next;
-                           ^
-..\src\spellchk.cpp:69:31: note: Shadowed declaration
-            spellCheckNodeT * next = node->next;
-                              ^
-..\src\spellchk.cpp:75:28: note: Shadow variable
-                bioNoteT * next = node->bioData->next;
-                           ^
 ..\src\textbuf.h:53:5: warning: Member variable 'TextBuffer::Translation' is not initialized in the constructor. [uninitMemberVar]
     TextBuffer()    { Init(); }
     ^
-..\src\textbuf.cpp:227:5: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
-    sprintf(temp, "%d%s", i, str);
-    ^
-..\src\textbuf.cpp:196:12: style: The scope of the variable 'err' can be reduced. [variableScope]
-    errorT err;
-           ^
 ..\src\tkdnd\win\TkDND_OleDND.cpp:279:27: portability: Assigning an integer to a pointer is not portable. [AssignmentIntegerToAddress]
               CurPosition = 1 + _tcschr(pszFileName, '\0');
                           ^
