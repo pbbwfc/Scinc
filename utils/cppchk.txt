@@ -835,57 +835,6 @@ errorT err;
 ..\src\tkdnd\win\TkDND_OleDND.cpp:279:27: portability: Assigning an integer to a pointer is not portable. [AssignmentIntegerToAddress]
               CurPosition = 1 + _tcschr(pszFileName, '\0');
                           ^
-..\src\tkdnd\win\OleDND.h:377:5: warning: Member variable 'TkDND_DataObject::szTempStr' is not initialized in the constructor. [uninitMemberVar]
-    TkDND_DataObject(FORMATETC *fmtetc, STGMEDIUM *stgmed, int count) {
-    ^
-..\src\tkdnd\win\OleDND.h:478:5: warning: Member variable 'TkDND_DropTarget::szTempStr' is not initialized in the constructor. [uninitMemberVar]
-    TkDND_DropTarget(Tcl_Interp *_interp, Tk_Window _tkwin) :
-    ^
-..\src\tkdnd\win\OleDND.h:936:26: warning: Either the condition 'NULL==hdrop' is redundant or there is possible null pointer dereference: hdrop. [nullPointerRedundantCheck]
-            GlobalUnlock(hdrop);
-                         ^
-..\src\tkdnd\win\OleDND.h:935:21: note: Assuming that condition 'NULL==hdrop' is not redundant
-          if ( NULL == hdrop ) {
-                    ^
-..\src\tkdnd\win\OleDND.h:936:26: note: Null pointer dereference
-            GlobalUnlock(hdrop);
-                         ^
-..\src\tkdnd\win\OleDND.h:936:26: error: Null pointer dereference [nullPointer]
-            GlobalUnlock(hdrop);
-                         ^
-..\src\tkdnd\win\OleDND.h:526:12: style: The scope of the variable 'tmp' can be reduced. [variableScope]
-      char tmp[64];
-           ^
-..\src\tkdnd\win\OleDND.h:527:56: style: The scope of the variable 'element' can be reduced. [variableScope]
-      Tcl_Obj *typelist    = Tcl_NewListObj(0, NULL), *element,
-                                                       ^
-..\src\tkdnd\win\OleDND.h:529:56: style: The scope of the variable 'result' can be reduced. [variableScope]
-              *pressedkeys = Tcl_NewListObj(0, NULL), *result,
-                                                       ^
-..\src\tkdnd\win\OleDND.h:532:26: style: The scope of the variable 'DropActions' can be reduced. [variableScope]
-      static const char *DropActions[] = {
-                         ^
-..\src\tkdnd\win\OleDND.h:614:66: style: The scope of the variable 'result' can be reduced. [variableScope]
-      Tcl_Obj *objv[5], *pressedkeys = Tcl_NewListObj(0, NULL), *result;
-                                                                 ^
-..\src\tkdnd\win\OleDND.h:616:26: style: The scope of the variable 'DropActions' can be reduced. [variableScope]
-      static const char *DropActions[] = {
-                         ^
-..\src\tkdnd\win\OleDND.h:693:26: style: The scope of the variable 'DropActions' can be reduced. [variableScope]
-      static const char *DropActions[] = {
-                         ^
-..\src\tkdnd\win\OleDND.h:982:11: style: The scope of the variable 'bytes_written' can be reduced. [variableScope]
-      int bytes_written = 0;
-          ^
-..\src\tkdnd\win\OleDND.h:1081:11: style: The scope of the variable 'bytes_written' can be reduced. [variableScope]
-      int bytes_written = 0;
-          ^
-..\src\tkdnd\win\OleDND.h:997:20: style: Variable 'error' is assigned a value that is never used. [unreadVariable]
-        if ((error = GetLastError()) == 0L) error = _doserrno;
-                   ^
-..\src\tkdnd\win\OleDND.h:1097:20: style: Variable 'error' is assigned a value that is never used. [unreadVariable]
-        if ((error = GetLastError()) == 0L) error = _doserrno;
-                   ^
 ..\src\tkscid.cpp:415:0: information: Skipping configuration 'SOURCE_TCL_FILE' since the value of 'SOURCE_TCL_FILE' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly. [ConfigurationNotChecked]
         strCopy(end + 1, SOURCE_TCL_FILE);
 ^
