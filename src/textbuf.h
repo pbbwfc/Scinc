@@ -12,7 +12,6 @@
 //
 ///////////////////////////////////////////////////////////////////////////
 
-
 #ifndef SCID_TEXTBUF_H
 #define SCID_TEXTBUF_H
 
@@ -20,84 +19,84 @@
 #include "error.h"
 #include <string>
 
-
 class TextBuffer
 {
 private:
     //----------------------------------
     //  TextBuffer:  Data Structures
-    
-    uint   Column;
-    uint   IndentColumn;
-    uint   WrapColumn;
-    uint   LineIsEmpty;  // true if current line is empty.
-    uint   LineCount;
-    uint   ByteCount;
-    uint   BufferSize;
-    bool   ConvertNewlines;  // If true, convert newlines to spaces.
-    char * Buffer;
-    char * Current;
+
+    uint Column;
+    uint IndentColumn;
+    uint WrapColumn;
+    uint LineIsEmpty; // true if current line is empty.
+    uint LineCount;
+    uint ByteCount;
+    uint BufferSize;
+    bool ConvertNewlines; // If true, convert newlines to spaces.
+    char *Buffer;
+    char *Current;
 
     std::string CurrentWord;
 
-    bool   PausedTranslations;
-    bool   HasTranslations;
-    const char * Translation [256];
+    bool PausedTranslations;
+    bool HasTranslations;
+    const char *Translation[256];
 
-    inline void   AddChar (char ch);
+    inline void AddChar(char ch);
 
     //----------------------------------
     //  TextBuffer:  Public Functions
 public:
-    
-    TextBuffer()    { Init(); }
-    ~TextBuffer()   { Free(); }
-    
-    void     Init ();
-    void     Free ();
-    void     Empty ();
-    
-    void     SetBufferSize (uint length);
-    uint     GetBufferSize()     { return BufferSize; }
-    uint     GetByteCount()      { return ByteCount; }
-    uint     GetLineCount()      { return LineCount; }
-    uint     GetColumn()         { return Column; }
-    uint     GetWrapColumn ()    { return WrapColumn; }
-    void     SetWrapColumn (uint column) { WrapColumn = column; }
-    uint     GetIndent ()        { return IndentColumn; }
-    void     SetIndent (uint column) { IndentColumn = column; }
-    char *   GetBuffer ()        { return Buffer; }
-    void     NewlinesToSpaces (bool b) { ConvertNewlines = b; }
+    TextBuffer() { Init(); }
+    ~TextBuffer() { Free(); }
 
-    void     AddTranslation (char ch, const char * str);
-    void     ClearTranslation (int ch) { Translation[ch] = NULL; }
-    void     ClearTranslations () { HasTranslations = false; }
-    void     PauseTranslations () { PausedTranslations = true; }
-    void     ResumeTranslations () { PausedTranslations = false; }
-    
-    errorT   NewLine();
-    errorT   Indent();
-    errorT   PrintLine (const char * str);
-    errorT   PrintWord (const char * str);
-    errorT   PrintString (const char * str);
-    errorT   PrintSpace ();
-    errorT   PrintChar (char b);
-    errorT   DumpToFile (FILE * fp);
+    void Init();
+    void Free();
+    void Empty();
 
-    errorT   PrintInt (uint i, const char * str);
-    inline errorT PrintInt (uint i) { return PrintInt (i, ""); }
+    void SetBufferSize(uint length);
+    uint GetBufferSize() { return BufferSize; }
+    uint GetByteCount() { return ByteCount; }
+    uint GetLineCount() { return LineCount; }
+    uint GetColumn() { return Column; }
+    uint GetWrapColumn() { return WrapColumn; }
+    void SetWrapColumn(uint column) { WrapColumn = column; }
+    uint GetIndent() { return IndentColumn; }
+    void SetIndent(uint column) { IndentColumn = column; }
+    char *GetBuffer() { return Buffer; }
+    void NewlinesToSpaces(bool b) { ConvertNewlines = b; }
 
+    void AddTranslation(char ch, const char *str);
+    void ClearTranslation(int ch) { Translation[ch] = NULL; }
+    void ClearTranslations() { HasTranslations = false; }
+    void PauseTranslations() { PausedTranslations = true; }
+    void ResumeTranslations() { PausedTranslations = false; }
+
+    errorT NewLine();
+    errorT Indent();
+    errorT PrintLine(const char *str);
+    errorT PrintWord(const char *str);
+    errorT PrintString(const char *str);
+    errorT PrintSpace();
+    errorT PrintChar(char b);
+    errorT DumpToFile(FILE *fp);
+
+    errorT PrintInt(uint i, const char *str);
+    inline errorT PrintInt(uint i) { return PrintInt(i, ""); }
 };
 
 inline void
-TextBuffer::AddChar (char ch)
+TextBuffer::AddChar(char ch)
 {
-    if (HasTranslations  &&  !PausedTranslations) {
-        byte b = (byte) ch;
-        const char * str = Translation[b];
-        if (str != NULL) {
-            const char * s = str;
-            while (*s) {
+    if (HasTranslations && !PausedTranslations)
+    {
+        byte b = (byte)ch;
+        const char *str = Translation[b];
+        if (str != NULL)
+        {
+            const char *s = str;
+            while (*s)
+            {
                 *Current++ = *s++;
                 ByteCount++;
             }
@@ -109,9 +108,8 @@ TextBuffer::AddChar (char ch)
     ByteCount++;
 }
 
-#endif  // SCID_TEXTBUF_H
+#endif // SCID_TEXTBUF_H
 
 ///////////////////////////////////////////////////////////////////////////
 //  EOF: textbuf.h
 ///////////////////////////////////////////////////////////////////////////
-

@@ -22,8 +22,7 @@
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //### TextBuffer::Init(): Initialise the textbuffer.
-void
-TextBuffer::Init (void)
+void TextBuffer::Init(void)
 {
     BufferSize = Column = IndentColumn = LineCount = ByteCount = 0;
     LineIsEmpty = 1;
@@ -32,14 +31,18 @@ TextBuffer::Init (void)
     ConvertNewlines = true;
     HasTranslations = false;
     PausedTranslations = false;
+    for (uint i = 0; i < 256; i++)
+    {
+        Translation[i] = NULL;
+    }
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //### TextBuffer::Free(): Free the TextBuffer.
-void
-TextBuffer::Free (void)
+void TextBuffer::Free(void)
 {
-    if (Buffer != NULL) {
+    if (Buffer != NULL)
+    {
         delete[] Buffer;
         Buffer = NULL;
         BufferSize = 0;
@@ -48,11 +51,11 @@ TextBuffer::Free (void)
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //### TextBuffer::Empty(): Empty the TextBuffer.
-void
-TextBuffer::Empty (void)
+void TextBuffer::Empty(void)
 {
     ASSERT(Buffer != NULL);
-    ByteCount = Column = LineCount = 0; LineIsEmpty = 1;
+    ByteCount = Column = LineCount = 0;
+    LineIsEmpty = 1;
     Current = Buffer;
     *Current = 0;
     ConvertNewlines = true;
@@ -63,27 +66,31 @@ TextBuffer::Empty (void)
 // TextBuffer::AddTranslation():
 //   Adds a translation for a character.
 //   The translation string will be printed in place of that character.
-void
-TextBuffer::AddTranslation (char ch, const char * str)
+void TextBuffer::AddTranslation(char ch, const char *str)
 {
-    if (! HasTranslations) {
+    if (!HasTranslations)
+    {
         HasTranslations = true;
-        for (uint i=0; i < 256; i++) {
-            Translation [i] = NULL;
+        for (uint i = 0; i < 256; i++)
+        {
+            Translation[i] = NULL;
         }
     }
-    Translation [(byte) ch] = str;
+    Translation[(byte)ch] = str;
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //### TextBuffer::SetBufferSize(): Set the buffer size.
-void
-TextBuffer::SetBufferSize (uint length)
+void TextBuffer::SetBufferSize(uint length)
 {
-    if (Buffer != NULL) { delete[] Buffer; }
+    if (Buffer != NULL)
+    {
+        delete[] Buffer;
+    }
     Buffer = new char[length];
     BufferSize = length;
-    ByteCount = Column = LineCount = 0; LineIsEmpty = 1;
+    ByteCount = Column = LineCount = 0;
+    LineIsEmpty = 1;
     Current = Buffer;
     *Current = 0;
 }
@@ -91,16 +98,27 @@ TextBuffer::SetBufferSize (uint length)
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //### TextBuffer::NewLine(): Add a newline.
 errorT
-TextBuffer::NewLine ()
+TextBuffer::NewLine()
 {
-    ASSERT (Current != NULL);
-    if (ByteCount >= BufferSize) { return ERROR_BufferFull; }
-    *Current++ = '\n'; 
-    LineCount++; ByteCount++; LineIsEmpty = 1;
-    Column = 0; 
-    while (Column < IndentColumn) {
-        if (ByteCount >= BufferSize) { return ERROR_BufferFull; }
-        *Current++ = ' '; Column++; ByteCount++;
+    ASSERT(Current != NULL);
+    if (ByteCount >= BufferSize)
+    {
+        return ERROR_BufferFull;
+    }
+    *Current++ = '\n';
+    LineCount++;
+    ByteCount++;
+    LineIsEmpty = 1;
+    Column = 0;
+    while (Column < IndentColumn)
+    {
+        if (ByteCount >= BufferSize)
+        {
+            return ERROR_BufferFull;
+        }
+        *Current++ = ' ';
+        Column++;
+        ByteCount++;
     }
     *Current = 0;
     return OK;
@@ -109,15 +127,24 @@ TextBuffer::NewLine ()
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //### TextBuffer::Indent(): Indent to the current Indentation level..
 errorT
-TextBuffer::Indent ()
+TextBuffer::Indent()
 {
-    ASSERT (Current != NULL);
-    if (!LineIsEmpty) {
+    ASSERT(Current != NULL);
+    if (!LineIsEmpty)
+    {
         return NewLine();
-    } else {
-        while (Column < IndentColumn) {
-            if (ByteCount >= BufferSize) { return ERROR_BufferFull; }
-            *Current++ = ' '; Column++; ByteCount++;
+    }
+    else
+    {
+        while (Column < IndentColumn)
+        {
+            if (ByteCount >= BufferSize)
+            {
+                return ERROR_BufferFull;
+            }
+            *Current++ = ' ';
+            Column++;
+            ByteCount++;
         }
         *Current = 0;
     }
@@ -128,12 +155,16 @@ TextBuffer::Indent ()
 //### TextBuffer::PrintLine(): Print a string then newline. Does not
 //          check for the line going past WrapColumn.
 errorT
-TextBuffer::PrintLine (const char * str)
+TextBuffer::PrintLine(const char *str)
 {
     ASSERT(Current != NULL);
-    while (*str != 0) {
-        if (ByteCount > BufferSize) { return ERROR_BufferFull; }
-        AddChar (*str);
+    while (*str != 0)
+    {
+        if (ByteCount > BufferSize)
+        {
+            return ERROR_BufferFull;
+        }
+        AddChar(*str);
         str++;
     }
     return NewLine();
@@ -144,17 +175,24 @@ TextBuffer::PrintLine (const char * str)
 //     It does NOT add a space, since that is left to the caller to
 //     provide in the string.
 errorT
-TextBuffer::PrintWord (const char * str)
+TextBuffer::PrintWord(const char *str)
 {
     ASSERT(Current != NULL);
-    uint length = strLength (str);
-    if (Column + length >= WrapColumn)    { NewLine(); }
-    if (ByteCount + length >= BufferSize) { return ERROR_BufferFull; }
-    while (*str != 0) {
-        AddChar (*str++);
+    uint length = strLength(str);
+    if (Column + length >= WrapColumn)
+    {
+        NewLine();
+    }
+    if (ByteCount + length >= BufferSize)
+    {
+        return ERROR_BufferFull;
+    }
+    while (*str != 0)
+    {
+        AddChar(*str++);
         Column++;
     }
-    *Current = 0;  // add trailing end-of-string to buffer
+    *Current = 0; // add trailing end-of-string to buffer
     LineIsEmpty = 0;
     return OK;
 }
@@ -163,13 +201,23 @@ TextBuffer::PrintWord (const char * str)
 //### TextBuffer::PrintSpace(): Prints a space OR a newline character,
 //     but not both.
 errorT
-TextBuffer::PrintSpace (void)
+TextBuffer::PrintSpace(void)
 {
-    if (ByteCount + 1 >= BufferSize)  { return ERROR_BufferFull; }
-    if (Column + 1 >= WrapColumn) {
+    if (ByteCount + 1 >= BufferSize)
+    {
+        return ERROR_BufferFull;
+    }
+    if (Column + 1 >= WrapColumn)
+    {
         NewLine();
-    } else {
-        *Current = ' '; Current++; ByteCount++; Column++; LineIsEmpty = 0;
+    }
+    else
+    {
+        *Current = ' ';
+        Current++;
+        ByteCount++;
+        Column++;
+        LineIsEmpty = 0;
     }
     return OK;
 }
@@ -178,12 +226,19 @@ TextBuffer::PrintSpace (void)
 //### TextBuffer::PrintChar(): prints a single char, adding a newline
 //      first if necessary.
 errorT
-TextBuffer::PrintChar (char b)
+TextBuffer::PrintChar(char b)
 {
-    if (Column + 1 >= WrapColumn)  { NewLine(); }
-    if (ByteCount + 1 >= BufferSize)  { return ERROR_BufferFull; }
-    AddChar (b);
-    Column++; LineIsEmpty = 0;
+    if (Column + 1 >= WrapColumn)
+    {
+        NewLine();
+    }
+    if (ByteCount + 1 >= BufferSize)
+    {
+        return ERROR_BufferFull;
+    }
+    AddChar(b);
+    Column++;
+    LineIsEmpty = 0;
     return OK;
 }
 
@@ -191,25 +246,39 @@ TextBuffer::PrintChar (char b)
 //### TextBuffer::PrintString(): Print a string, wrapping at spaces.
 //      Also converts newlines in the string into spaces.
 errorT
-TextBuffer::PrintString (const char * str)
+TextBuffer::PrintString(const char *str)
 {
-    while (*str != 0) {
+    while (*str != 0)
+    {
         CurrentWord.clear();
         // get next word and print it:
-        while (*str != ' '  && *str != '\n'  &&  *str != '\0') {
+        while (*str != ' ' && *str != '\n' && *str != '\0')
+        {
             CurrentWord.push_back(*str++);
         }
         // end of word/line/text reached
         errorT err;
-        err = PrintWord (CurrentWord.c_str());
-        if (err != OK) { return err; }
-        if (*str == '\0') { return OK; }
-        if (*str == '\n'  &&  !ConvertNewlines) {
+        err = PrintWord(CurrentWord.c_str());
+        if (err != OK)
+        {
+            return err;
+        }
+        if (*str == '\0')
+        {
+            return OK;
+        }
+        if (*str == '\n' && !ConvertNewlines)
+        {
             err = NewLine();
-        } else {
+        }
+        else
+        {
             err = PrintSpace();
         }
-        if (err != OK) { return err; }
+        if (err != OK)
+        {
+            return err;
+        }
         str++;
     }
     return OK;
@@ -220,7 +289,7 @@ TextBuffer::PrintString (const char * str)
 //      as a word (so it appends a space at the end and wraps if
 //      necessary).
 errorT
-TextBuffer::PrintInt (uint i, const char * str)
+TextBuffer::PrintInt(uint i, const char *str)
 {
     char temp[255];
     sprintf(temp, "%u%s", i, str);
@@ -230,10 +299,10 @@ TextBuffer::PrintInt (uint i, const char * str)
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //### TextBuffer::DumpToFile(): Output a textbuffer to an open file.
 errorT
-TextBuffer::DumpToFile (FILE * fp)
+TextBuffer::DumpToFile(FILE *fp)
 {
-    ASSERT (fp != NULL);
-	 fwrite(Buffer, 1, ByteCount, fp);
+    ASSERT(fp != NULL);
+    fwrite(Buffer, 1, ByteCount, fp);
     return OK;
 }
 
