@@ -394,12 +394,6 @@ class MoveList
 ..\src\misc.cpp:1198:29: style: Variable 'lastSuffix' is assigned a value that is never used. [unreadVariable]
     const char * lastSuffix = strFileSuffix (fname);
                             ^
-..\src\namebase.h:139:5: warning: Member variable 'NameBase::MostFrequent' is not initialized in the constructor. [uninitMemberVar]
-    NameBase()  { Init(); }
-    ^
-..\src\namebase.cpp:441:13: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
-            fprintf (f, "%6d\t%s\n", node->data.frequency, node->name);
-            ^
 ..\src\position.h:131:12: style: Unused private function: 'Position::AssertPos' [unusedPrivateFunction]
     errorT AssertPos(); //  Checks for errors in board etc.
            ^
