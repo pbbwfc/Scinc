@@ -12,7 +12,6 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-
 #include "error.h"
 #include "bytebuf.h"
 #include <stdio.h>
@@ -22,22 +21,21 @@
 // ByteBuffer::Init():
 //      Initialises the ByteBuffer.
 //
-void
-ByteBuffer::Init()
+void ByteBuffer::Init()
 {
     BufferSize = ReadPos = ByteCount = 0;
     Buffer = Current = NULL;
     AllocatedBuffer = NULL;
     ExternalBuffer = NULL;
     Err = OK;
+    ReadOnly = 0;
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ByteBuffer::Empty():
 //      Empties the ByteBuffer.
 //
-void
-ByteBuffer::Empty()
+void ByteBuffer::Empty()
 {
     ReadPos = ByteCount = 0;
     ExternalBuffer = NULL;
@@ -50,10 +48,12 @@ ByteBuffer::Empty()
 // ByteBuffer::SetBufferSize():
 //      Sets the ByteBuffer's allocated buffer size.
 //
-void
-ByteBuffer::SetBufferSize (uint length)
+void ByteBuffer::SetBufferSize(uint length)
 {
-    if (AllocatedBuffer) { delete[] AllocatedBuffer; }
+    if (AllocatedBuffer)
+    {
+        delete[] AllocatedBuffer;
+    }
     AllocatedBuffer = new byte[length];
     Buffer = AllocatedBuffer;
     Current = Buffer;
@@ -65,8 +65,7 @@ ByteBuffer::SetBufferSize (uint length)
 // ByteBuffer::BackToStart():
 //      Sets the ByteBuffer's read position back to the buffer start.
 //
-void
-ByteBuffer::BackToStart()
+void ByteBuffer::BackToStart()
 {
     ReadPos = 0;
     Current = Buffer;
@@ -80,8 +79,7 @@ ByteBuffer::BackToStart()
 //      and it would waste time (and degrade performance) to copy the
 //      data to the buffer's allocated space first.
 //
-void
-ByteBuffer::ProvideExternal (byte * data, uint length)
+void ByteBuffer::ProvideExternal(byte *data, uint length)
 {
     ExternalBuffer = data;
     ByteCount = length;
@@ -93,12 +91,15 @@ ByteBuffer::ProvideExternal (byte * data, uint length)
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ByteBuffer::Skip():
 //      Skips over a specified number of bytes.
-void
-ByteBuffer::Skip (uint length)
+void ByteBuffer::Skip(uint length)
 {
-    ASSERT (Current != NULL);
+    ASSERT(Current != NULL);
 
-    if (ReadPos + length > ByteCount) { Err = ERROR_BufferRead; return; }
+    if (ReadPos + length > ByteCount)
+    {
+        Err = ERROR_BufferRead;
+        return;
+    }
     ReadPos += length;
     Current += length;
 }
@@ -107,16 +108,25 @@ ByteBuffer::Skip (uint length)
 // ByteBuffer::GetFixedString():
 //      Reads a fixed-length string from the buffer. A terminating
 //      null character is not added.
-void
-ByteBuffer::GetFixedString (char * str, uint length)
+void ByteBuffer::GetFixedString(char *str, uint length)
 {
-    ASSERT(Current != NULL  &&  str != NULL);
+    ASSERT(Current != NULL && str != NULL);
 
-    if (Err != OK) { return; }
-    if (ReadPos + length > ByteCount) { Err = ERROR_BufferRead; return; }
+    if (Err != OK)
+    {
+        return;
+    }
+    if (ReadPos + length > ByteCount)
+    {
+        Err = ERROR_BufferRead;
+        return;
+    }
     ReadPos += length;
-    while (length > 0) {
-        *str = *Current; Current++; str++;
+    while (length > 0)
+    {
+        *str = *Current;
+        Current++;
+        str++;
         length--;
     }
 }
@@ -125,14 +135,20 @@ ByteBuffer::GetFixedString (char * str, uint length)
 // ByteBuffer::PutFixedString():
 //      Writes a fixed-length string to the buffer. A terminating null
 //      character is not written, unless it was part of the string.
-void
-ByteBuffer::PutFixedString (const char * str, uint length)
+void ByteBuffer::PutFixedString(const char *str, uint length)
 {
-    ASSERT(Current != NULL  &&  str != NULL);
-    if (ByteCount + length > BufferSize) { Err = ERROR_BufferFull; return; }
+    ASSERT(Current != NULL && str != NULL);
+    if (ByteCount + length > BufferSize)
+    {
+        Err = ERROR_BufferFull;
+        return;
+    }
     ByteCount += length;
-    while (length > 0) {
-        *Current = *str; Current++; str++;
+    while (length > 0)
+    {
+        *Current = *str;
+        Current++;
+        str++;
         length--;
     }
 }
@@ -144,14 +160,14 @@ ByteBuffer::PutFixedString (const char * str, uint length)
 //    to the end of the string, so the calling function can to
 //    duplicate the string itself if it needs to.
 //    The length returned does not include the trailing '\0'.
-uint
-ByteBuffer::GetTerminatedString (char ** str)
+uint ByteBuffer::GetTerminatedString(char **str)
 {
-    ASSERT(Current != NULL  &&  str != NULL);
+    ASSERT(Current != NULL && str != NULL);
 
     uint length = 0;
-    *str = (char *) Current;
-    while (*Current) {
+    *str = (char *)Current;
+    while (*Current)
+    {
         Current++;
         length++;
         ReadPos++;
@@ -159,7 +175,10 @@ ByteBuffer::GetTerminatedString (char ** str)
     Current++;
     length++;
     ReadPos++;
-    if (ReadPos > ByteCount) { Err = ERROR_BufferRead; }
+    if (ReadPos > ByteCount)
+    {
+        Err = ERROR_BufferRead;
+    }
     return length;
 }
 
@@ -167,56 +186,62 @@ ByteBuffer::GetTerminatedString (char ** str)
 // ByteBuffer::PutTerminatedString():
 //      Writes a null-terminated string to the buffer, including
 //      the null character.
-void
-ByteBuffer::PutTerminatedString (const char * str)
+void ByteBuffer::PutTerminatedString(const char *str)
 {
-    ASSERT(Current != NULL  &&  str != NULL);
-    while (*str) {
-        if (ByteCount >= BufferSize) { Err = ERROR_BufferFull; return; }
-        *Current = *str; Current++; str++;
+    ASSERT(Current != NULL && str != NULL);
+    while (*str)
+    {
+        if (ByteCount >= BufferSize)
+        {
+            Err = ERROR_BufferFull;
+            return;
+        }
+        *Current = *str;
+        Current++;
+        str++;
         ByteCount++;
     }
-    *Current = 0; Current++; ByteCount++;
+    *Current = 0;
+    Current++;
+    ByteCount++;
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ByteBuffer::CopyTo():
 //      Write the buffer to an area of memory.
-void
-ByteBuffer::CopyTo (byte * target)
+void ByteBuffer::CopyTo(byte *target)
 {
-    ASSERT (Current != NULL  &&  target != NULL);
-//     register byte * from, * to;
-//     register uint i = ByteCount;
-//     from = Buffer;
-//     to = target;
-    memcpy( target , Buffer, ByteCount);
-    
-//     while (i) {
-//         *to++ = *from++;
-//         i--;
-//     }
+    ASSERT(Current != NULL && target != NULL);
+    //     register byte * from, * to;
+    //     register uint i = ByteCount;
+    //     from = Buffer;
+    //     to = target;
+    memcpy(target, Buffer, ByteCount);
+
+    //     while (i) {
+    //         *to++ = *from++;
+    //         i--;
+    //     }
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ByteBuffer::CopyFrom():
 //      Read the buffer from an area of memory.
-void
-ByteBuffer::CopyFrom (byte * source, uint length)
+void ByteBuffer::CopyFrom(byte *source, uint length)
 {
-    ASSERT (Current != NULL  &&  source != NULL);
-    ASSERT (BufferSize >= length);
+    ASSERT(Current != NULL && source != NULL);
+    ASSERT(BufferSize >= length);
     Current = Buffer;
     ReadPos = 0;
-//     register byte * from, * to;
-//     register uint i = length;
-//     from = source; to = Buffer;
-    
-    memcpy( Buffer , source, ByteCount);
-//     while (i) {
-//         *to++ = *from++;
-//         i--;
-//     }
+    //     register byte * from, * to;
+    //     register uint i = length;
+    //     from = source; to = Buffer;
+
+    memcpy(Buffer, source, ByteCount);
+    //     while (i) {
+    //         *to++ = *from++;
+    //         i--;
+    //     }
     ByteCount = length;
     Err = OK;
 }
@@ -225,34 +250,35 @@ ByteBuffer::CopyFrom (byte * source, uint length)
 // ByteBuffer::CopyFrom():
 //      Read the buffer from an area of memory.
 // offset is the place where to start copying data
-void
-ByteBuffer::CopyFrom (byte * source, uint length, uint offset)
+void ByteBuffer::CopyFrom(byte *source, uint length, uint offset)
 {
-    ASSERT (Current != NULL  &&  source != NULL);
-    ASSERT (BufferSize >= length+offset);
+    ASSERT(Current != NULL && source != NULL);
+    ASSERT(BufferSize >= length + offset);
     Current = Buffer;
     ReadPos = 0;
-    register byte * from, * to;
+    register byte *from, *to;
     register uint i = length;
-    from = source; to = Buffer+offset;
-    while (i) {
+    from = source;
+    to = Buffer + offset;
+    while (i)
+    {
         *to++ = *from++;
         i--;
     }
-    ByteCount = length+offset;
+    ByteCount = length + offset;
     Err = OK;
 }
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ByteBuffer::DumpToFile():
 //      Writes the buffer to an open file.
 //
-void
-ByteBuffer::DumpToFile (FILE * fp)
+void ByteBuffer::DumpToFile(FILE *fp)
 {
-    ASSERT (Current != NULL  &&  fp != NULL);
+    ASSERT(Current != NULL && fp != NULL);
     byte *b = Buffer;
-    for (uint count = 0; count < ByteCount; count++) {
-        putc (*b, fp);
+    for (uint count = 0; count < ByteCount; count++)
+    {
+        putc(*b, fp);
         b++;
     }
 }
@@ -262,17 +288,19 @@ ByteBuffer::DumpToFile (FILE * fp)
 //      Reads the buffer from an open file, overwriting the existing
 //      contents of the buffer.
 //
-void
-ByteBuffer::ReadFromFile (FILE * fp, uint length)
+void ByteBuffer::ReadFromFile(FILE *fp, uint length)
 {
-    ASSERT (Current != NULL  &&  fp != NULL);
+    ASSERT(Current != NULL && fp != NULL);
     Err = OK;
     Current = Buffer;
-    byte * b = Current;
-    ReadPos = 0; ByteCount = 0;
-    for (uint count = 0; count < length; count++) {
-        *b = getc (fp);
-        b++; ByteCount++;
+    byte *b = Current;
+    ReadPos = 0;
+    ByteCount = 0;
+    for (uint count = 0; count < length; count++)
+    {
+        *b = getc(fp);
+        b++;
+        ByteCount++;
     }
 }
 //////////////////////////////////////////////////////////////////////

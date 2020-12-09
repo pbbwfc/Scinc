@@ -1,9 +1,3 @@
-..\src\bytebuf.h:48:5: warning: Member variable 'ByteBuffer::ReadOnly' is not initialized in the constructor. [uninitMemberVar]
-    ByteBuffer()    { Init(); }
-    ^
-..\src\misc.h:397:13: error: Uninitialized variable: result [uninitvar]
-    return (result == EOF ? ERROR_FileWrite : OK);
-            ^
 ..\src\win_mmap.h:79:5: warning: Class 'WinMMap' does not have a copy constructor which is recommended since it has dynamic memory/resource allocation(s). [noCopyConstructor]
     m_address = MapViewOfFile(m_mapping, FILE_MAP_READ, 0, 0, 0);
     ^

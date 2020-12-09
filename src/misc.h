@@ -383,7 +383,7 @@ inline errorT
 writeCompactUint(FILE *fp, uint value)
 {
     ASSERT(fp != NULL);
-    int result;
+    int result = 0;
     while (true)
     {
         if (value < 128)

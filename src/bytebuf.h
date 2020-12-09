@@ -16,7 +16,6 @@
 // It is primarily used in Scid for storing in-memory the contents of
 // a game as it is represented on-disk in the gamedata file (gfile).
 
-
 #ifndef SCID_BYTEBUF_H
 #define SCID_BYTEBUF_H
 
@@ -25,80 +24,94 @@
 
 class ByteBuffer
 {
- private:
+private:
     //----------------------------------
     //  TextBuffer:  Data Structures
     //----------------------------------
 
-    uint   ReadPos;
-    uint   ByteCount;
-    uint   BufferSize;
-    byte * Buffer;
-    byte * Current;
-    byte * AllocatedBuffer;
-    byte * ExternalBuffer;
+    uint ReadPos;
+    uint ByteCount;
+    uint BufferSize;
+    byte *Buffer;
+    byte *Current;
+    byte *AllocatedBuffer;
+    byte *ExternalBuffer;
 
-    byte  ReadOnly;  // True if Buffer set to an existing byte array.
+    byte ReadOnly; // True if Buffer set to an existing byte array.
     errorT Err;
-    
+
     //----------------------------------
     //  TextBuffer:  Public Functions
     //----------------------------------
- public:
-    ByteBuffer()    { Init(); }
-    ~ByteBuffer()   {
-if (AllocatedBuffer) { delete[] AllocatedBuffer; }
-}
-    
-    void        Init ();
-    void        Free ();
-    void        Empty ();
-    void        BackToStart ();
+public:
+    ByteBuffer() { Init(); }
+    ~ByteBuffer()
+    {
+        if (AllocatedBuffer)
+        {
+            delete[] AllocatedBuffer;
+        }
+    }
 
-    errorT      Status ()   { return Err; }
-    void        ResetStatus() { Err = OK; }
-    
-    void        SetBufferSize (uint length);
-    uint        GetBufferSize()     { return BufferSize; }
-    uint        GetByteCount()      { return ByteCount; }
-    byte *      GetBuffer ()        { return Buffer; }
+    void Init();
+    void Free();
+    void Empty();
+    void BackToStart();
 
-    void        ProvideExternal (byte * data, uint length);
-    
+    errorT Status() { return Err; }
+    void ResetStatus() { Err = OK; }
+
+    void SetBufferSize(uint length);
+    uint GetBufferSize() { return BufferSize; }
+    uint GetByteCount() { return ByteCount; }
+    byte *GetBuffer() { return Buffer; }
+
+    void ProvideExternal(byte *data, uint length);
+
     byte
-    GetByte () {
+    GetByte()
+    {
         ASSERT(Current != NULL);
-        if (ReadPos >= ByteCount) { Err = ERROR_BufferRead; return 0; }
+        if (ReadPos >= ByteCount)
+        {
+            Err = ERROR_BufferRead;
+            return 0;
+        }
         byte b = *Current;
-        Current++; ReadPos++;
+        Current++;
+        ReadPos++;
         return b;
     }
 
     void
-    PutByte (byte value) {
+    PutByte(byte value)
+    {
         ASSERT(Current != NULL);
-        if (Buffer == AllocatedBuffer  && ByteCount >= BufferSize) {
-            Err = ERROR_BufferFull; return;
+        if (Buffer == AllocatedBuffer && ByteCount >= BufferSize)
+        {
+            Err = ERROR_BufferFull;
+            return;
         }
         *Current = value;
-        Current++; ByteCount++;
+        Current++;
+        ByteCount++;
     }
 
-    void        Skip (uint value);
+    void Skip(uint value);
 
-    void        GetFixedString (char *str, uint length);
-    void        PutFixedString (const char *str, uint length);
-    uint        GetTerminatedString (char **str);
-    void        PutTerminatedString (const char *str);
+    void GetFixedString(char *str, uint length);
+    void PutFixedString(const char *str, uint length);
+    uint GetTerminatedString(char **str);
+    void PutTerminatedString(const char *str);
 
-    void        CopyTo (byte * target);
-    void        CopyFrom (byte * source, uint length);
-    void        CopyFrom (byte * source, uint length, uint offset);
-    void        DumpToFile (FILE * fp);
-    void        ReadFromFile (FILE * fp, uint length);
+    void CopyTo(byte *target);
+    void CopyFrom(byte *source, uint length);
+    void CopyFrom(byte *source, uint length, uint offset);
+    void DumpToFile(FILE *fp);
+    void ReadFromFile(FILE *fp, uint length);
 };
 
-#endif  // #ifndef SCID_BYTEBUF_H
+#endif // #ifndef SCID_BYTEBUF_H
 
 //////////////////////////////////////////////////////////////////////
 //  EOF: bytebuf.h
