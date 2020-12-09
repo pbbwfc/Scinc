@@ -1,4 +1,4 @@
-# Analysis Engines configuration for Scinc 0.05
+# Analysis Engines configuration for Scinc 0.06
 
 engine {
   Name stockfish
