@@ -103,17 +103,17 @@ class MoveList
 ..\src\sqlist.h:30:5: warning: Member variable 'SquareList::Squares' is not initialized in the constructor. [uninitMemberVar]
     SquareList() { ListSize = 0; }
     ^
-..\src\game.h:309:5: warning: Member variable 'Game::FenString' is not initialized in the constructor. [uninitMemberVar]
-    Game()      { Init(); }
+..\src\game.h:305:5: warning: Member variable 'Game::FenString' is not initialized in the constructor. [uninitMemberVar]
+    Game() { Init(); }
     ^
-..\src\game.h:309:5: warning: Member variable 'Game::TagList' is not initialized in the constructor. [uninitMemberVar]
-    Game()      { Init(); }
+..\src\game.h:305:5: warning: Member variable 'Game::TagList' is not initialized in the constructor. [uninitMemberVar]
+    Game() { Init(); }
     ^
-..\src\game.h:309:5: warning: Member variable 'Game::NumMovesPrinted' is not initialized in the constructor. [uninitMemberVar]
-    Game()      { Init(); }
+..\src\game.h:305:5: warning: Member variable 'Game::NumMovesPrinted' is not initialized in the constructor. [uninitMemberVar]
+    Game() { Init(); }
     ^
-..\src\game.h:309:5: warning: Member variable 'Game::StopLocation' is not initialized in the constructor. [uninitMemberVar]
-    Game()      { Init(); }
+..\src\game.h:305:5: warning: Member variable 'Game::StopLocation' is not initialized in the constructor. [uninitMemberVar]
+    Game() { Init(); }
     ^
 ..\src\stralloc.h:80:5: style: Class 'StrAllocator' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
     StrAllocator (uint bucketSize) {
@@ -130,117 +130,117 @@ class MoveList
 ..\src\stored.h:32:2: style: Class 'StoredLine' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
  StoredLine(Position* pos);
  ^
-..\src\game.cpp:2361:25: style: Condition '!endedColumn' is always true [knownConditionTrueFalse]
-                    if (! endedColumn) {
+..\src\game.cpp:3017:25: style: Condition '!endedColumn' is always true [knownConditionTrueFalse]
+                    if (!endedColumn)
                         ^
-..\src\game.cpp:2319:28: note: Assignment 'endedColumn=false', assigned value is 0
+..\src\game.cpp:2963:28: note: Assignment 'endedColumn=false', assigned value is 0
         bool endedColumn = false;
                            ^
-..\src\game.cpp:2361:25: note: Condition '!endedColumn' is always true
-                    if (! endedColumn) {
+..\src\game.cpp:3017:25: note: Condition '!endedColumn' is always true
+                    if (!endedColumn)
                         ^
-..\src\game.cpp:3035:21: style: Condition 'finalTick' is always false [knownConditionTrueFalse]
-                if (finalTick) {
-                    ^
-..\src\game.cpp:2962:26: note: Assignment 'finalTick=false', assigned value is 0
-        bool finalTick = false;
+..\src\game.cpp:3893:13: style: Condition 'finalTick' is always false [knownConditionTrueFalse]
+        if (finalTick)
+            ^
+..\src\game.cpp:3807:22: note: Assignment 'finalTick=false', assigned value is 0
+    bool finalTick = false;
+                     ^
+..\src\game.cpp:3893:13: note: Condition 'finalTick' is always false
+        if (finalTick)
+            ^
+..\src\game.cpp:4140:17: style: Condition 'printDiagrams' is always true [knownConditionTrueFalse]
+            if (printDiagrams && m->nags[i] == NAG_Diagram)
+                ^
+..\src\game.cpp:3970:26: note: Assignment 'printDiagrams=true', assigned value is 1
+    bool printDiagrams = true;
                          ^
-..\src\game.cpp:3035:21: note: Condition 'finalTick' is always false
-                if (finalTick) {
-                    ^
-..\src\game.cpp:3259:29: style: Condition 'printDiagrams' is always true [knownConditionTrueFalse]
-                        if (printDiagrams && m->nags[i] == NAG_Diagram) {
-                            ^
-..\src\game.cpp:3106:30: note: Assignment 'printDiagrams=true', assigned value is 1
-        bool printDiagrams = true;
-                             ^
-..\src\game.cpp:3259:29: note: Condition 'printDiagrams' is always true
-                        if (printDiagrams && m->nags[i] == NAG_Diagram) {
-                            ^
-..\src\game.cpp:1144:12: warning: Either the condition 'm!=NULL' is redundant or there is possible null pointer dereference: m. [nullPointerRedundantCheck]
-    while (m->marker != END_MARKER && m != NULL) {
+..\src\game.cpp:4140:17: note: Condition 'printDiagrams' is always true
+            if (printDiagrams && m->nags[i] == NAG_Diagram)
+                ^
+..\src\game.cpp:1410:12: warning: Either the condition 'm!=NULL' is redundant or there is possible null pointer dereference: m. [nullPointerRedundantCheck]
+    while (m->marker != END_MARKER && m != NULL)
            ^
-..\src\game.cpp:1150:11: note: Assuming that condition 'm!=NULL' is not redundant
+..\src\game.cpp:1417:11: note: Assuming that condition 'm!=NULL' is not redundant
     if (m != NULL)
           ^
-..\src\game.cpp:1144:12: note: Null pointer dereference
-    while (m->marker != END_MARKER && m != NULL) {
+..\src\game.cpp:1410:12: note: Null pointer dereference
+    while (m->marker != END_MARKER && m != NULL)
            ^
-..\src\game.cpp:1195:12: warning: Either the condition 'move!=NULL' is redundant or there is possible null pointer dereference: move. [nullPointerRedundantCheck]
-    while (move->marker != END_MARKER && move != NULL) {
+..\src\game.cpp:1459:12: warning: Either the condition 'move!=NULL' is redundant or there is possible null pointer dereference: move. [nullPointerRedundantCheck]
+    while (move->marker != END_MARKER && move != NULL)
            ^
-..\src\game.cpp:1209:14: note: Assuming that condition 'move!=NULL' is not redundant
+..\src\game.cpp:1475:14: note: Assuming that condition 'move!=NULL' is not redundant
     if (move != NULL)
              ^
-..\src\game.cpp:1195:12: note: Null pointer dereference
-    while (move->marker != END_MARKER && move != NULL) {
+..\src\game.cpp:1459:12: note: Null pointer dereference
+    while (move->marker != END_MARKER && move != NULL)
            ^
-..\src\game.cpp:3007:68: style: Same expression on both sides of '-'. [duplicateExpression]
-                sprintf(temp, "\\pspicture[](%d,%d)(%d,%d)\n", minX-1, minY, ((lastX > maxX) ? lastX : maxX), maxY);
-                                                                   ^
-..\src\game.cpp:2971:20: note: 'minX' is assigned value '1' here.
-        int minX = 1;
-                   ^
-..\src\game.cpp:3007:68: note: Same expression on both sides of '-'.
-                sprintf(temp, "\\pspicture[](%d,%d)(%d,%d)\n", minX-1, minY, ((lastX > maxX) ? lastX : maxX), maxY);
-                                                                   ^
-..\src\game.cpp:1278:17: style: The scope of the variable 'hpNew' can be reduced. [variableScope]
+..\src\game.cpp:3861:61: style: Same expression on both sides of '-'. [duplicateExpression]
+        sprintf(temp, "\\pspicture[](%d,%d)(%d,%d)\n", minX - 1, minY, ((lastX > maxX) ? lastX : maxX), maxY);
+                                                            ^
+..\src\game.cpp:3816:16: note: 'minX' is assigned value '1' here.
+    int minX = 1;
+               ^
+..\src\game.cpp:3861:61: note: Same expression on both sides of '-'.
+        sprintf(temp, "\\pspicture[](%d,%d)(%d,%d)\n", minX - 1, minY, ((lastX > maxX) ? lastX : maxX), maxY);
+                                                            ^
+..\src\game.cpp:1547:17: style: The scope of the variable 'hpNew' can be reduced. [variableScope]
     uint hpOld, hpNew;
                 ^
-..\src\game.cpp:2838:14: style: The scope of the variable 'temp' can be reduced. [variableScope]
-        char temp [256];
-             ^
-..\src\game.cpp:2962:14: style: The scope of the variable 'finalTick' can be reduced. [variableScope]
-        bool finalTick = false;
-             ^
-..\src\game.cpp:2971:13: style: The scope of the variable 'minX' can be reduced. [variableScope]
-        int minX = 1;
-            ^
-..\src\game.cpp:3102:22: style: The scope of the variable 'diagramStr' can be reduced. [variableScope]
-        const char * diagramStr = "\\begin{center}\n\\vspace{1ex}\n\\chessboard\n\\vspace{1ex}\n\\end{center}\n";
-                     ^
-..\src\game.cpp:3107:14: style: The scope of the variable 'diagramPrinted' can be reduced. [variableScope]
-        bool diagramPrinted = false;
-             ^
-..\src\game.cpp:4393:10: style: The scope of the variable 'b' can be reduced. [variableScope]
+..\src\game.cpp:3660:10: style: The scope of the variable 'temp' can be reduced. [variableScope]
+    char temp[256];
+         ^
+..\src\game.cpp:3807:10: style: The scope of the variable 'finalTick' can be reduced. [variableScope]
+    bool finalTick = false;
+         ^
+..\src\game.cpp:3816:9: style: The scope of the variable 'minX' can be reduced. [variableScope]
+    int minX = 1;
+        ^
+..\src\game.cpp:3966:17: style: The scope of the variable 'diagramStr' can be reduced. [variableScope]
+    const char *diagramStr = "\\begin{center}\n\\vspace{1ex}\n\\chessboard\n\\vspace{1ex}\n\\end{center}\n";
+                ^
+..\src\game.cpp:3971:10: style: The scope of the variable 'diagramPrinted' can be reduced. [variableScope]
+    bool diagramPrinted;
+         ^
+..\src\game.cpp:5455:10: style: The scope of the variable 'b' can be reduced. [variableScope]
     byte b;
          ^
-..\src\game.cpp:2198:16: style: Local variable 'm' shadows outer variable [shadowVariable]
+..\src\game.cpp:2795:16: style: Local variable 'm' shadows outer variable [shadowVariable]
         moveT *m = CurrentMove;
                ^
-..\src\game.cpp:2168:13: note: Shadowed declaration
-    moveT * m = CurrentMove;
-            ^
-..\src\game.cpp:2198:16: note: Shadow variable
+..\src\game.cpp:2758:12: note: Shadowed declaration
+    moveT *m = CurrentMove;
+           ^
+..\src\game.cpp:2795:16: note: Shadow variable
         moveT *m = CurrentMove;
                ^
-..\src\game.cpp:3039:26: style: Local variable 'x' shadows outer variable [shadowVariable]
-                for (int x = 1; x < NumHalfMoves; x++) {
-                         ^
-..\src\game.cpp:2859:13: note: Shadowed declaration
-        int x = 0;
-            ^
-..\src\game.cpp:3039:26: note: Shadow variable
-                for (int x = 1; x < NumHalfMoves; x++) {
-                         ^
-..\src\game.cpp:3050:26: style: Local variable 'x' shadows outer variable [shadowVariable]
-                for (int x = 1; x < scoreHalfMoves; x++) {
-                         ^
-..\src\game.cpp:2859:13: note: Shadowed declaration
-        int x = 0;
-            ^
-..\src\game.cpp:3050:26: note: Shadow variable
-                for (int x = 1; x < scoreHalfMoves; x++) {
-                         ^
-..\src\game.cpp:3377:51: style: Local variable 'i' shadows outer variable [shadowVariable]
-                                        for (uint i = 0; i < (uint)v->nagCount; i++) {
-                                                  ^
-..\src\game.cpp:3353:31: note: Shadowed declaration
-                    for (uint i=0; i < m->numVariations; i++) {
+..\src\game.cpp:3898:18: style: Local variable 'x' shadows outer variable [shadowVariable]
+        for (int x = 1; x < NumHalfMoves; x++)
+                 ^
+..\src\game.cpp:3682:9: note: Shadowed declaration
+    int x = 0;
+        ^
+..\src\game.cpp:3898:18: note: Shadow variable
+        for (int x = 1; x < NumHalfMoves; x++)
+                 ^
+..\src\game.cpp:3912:18: style: Local variable 'x' shadows outer variable [shadowVariable]
+        for (int x = 1; x < scoreHalfMoves; x++)
+                 ^
+..\src\game.cpp:3682:9: note: Shadowed declaration
+    int x = 0;
+        ^
+..\src\game.cpp:3912:18: note: Shadow variable
+        for (int x = 1; x < scoreHalfMoves; x++)
+                 ^
+..\src\game.cpp:4278:31: style: Local variable 'i' shadows outer variable [shadowVariable]
+                    for (uint i = 0; i < (uint)v->nagCount; i++)
                               ^
-..\src\game.cpp:3377:51: note: Shadow variable
-                                        for (uint i = 0; i < (uint)v->nagCount; i++) {
-                                                  ^
+..\src\game.cpp:4250:23: note: Shadowed declaration
+            for (uint i = 0; i < m->numVariations; i++)
+                      ^
+..\src\game.cpp:4278:31: note: Shadow variable
+                    for (uint i = 0; i < (uint)v->nagCount; i++)
+                              ^
 ..\src\sqset.h:48:25: portability: Shifting signed 32-bit value by 31 bits is implementation-defined behaviour. See condition at line 47. [shiftTooManyBitsSigned]
         Bits_a1h4 |= (1 << sq);
                         ^
@@ -277,12 +277,6 @@ class MoveList
 ..\src\sqset.h:86:26: note: Shift
         Bits_a1h4 &= ~(1 << sq);
                          ^
-..\src\game.cpp:3107:29: style: Variable 'diagramPrinted' is assigned a value that is never used. [unreadVariable]
-        bool diagramPrinted = false;
-                            ^
-..\src\game.cpp:3408:28: style: Variable 'inMainline' is assigned a value that is never used. [unreadVariable]
-                inMainline = false;
-                           ^
 ..\src\position.h:131:12: style: Unused private function: 'Position::AssertPos' [unusedPrivateFunction]
     errorT AssertPos(); //  Checks for errors in board etc.
            ^
