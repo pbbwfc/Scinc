@@ -97,9 +97,9 @@
 ..\src\index.h:255:5: warning: Member variable 'IndexEntry::Length_High' is not initialized in the constructor. [uninitMemberVar]
     IndexEntry() {}
     ^
-..\src\movelist.h:67:5: warning: Member variable 'MoveList::Moves' is not initialized in the constructor. [uninitMemberVar]
-    MoveList() { ListSize = 0; }
-    ^
+..\src\movelist.h:60:1: style: The class 'MoveList' does not have a constructor although it has private member variables. [noConstructor]
+class MoveList
+^
 ..\src\sqlist.h:30:5: warning: Member variable 'SquareList::Squares' is not initialized in the constructor. [uninitMemberVar]
     SquareList() { ListSize = 0; }
     ^
@@ -589,117 +589,9 @@
 ..\src\pgnparse.cpp:316:18: style: Variable 'elo' is assigned a value that is never used. [unreadVariable]
         uint elo = 0;
                  ^
-..\src\position.h:142:5: warning: Member variable 'Position::Count' is not initialized in the constructor. [uninitMemberVar]
-    Position()   { Init(); }
-    ^
-..\src\position.h:142:5: warning: Member variable 'Position::Material' is not initialized in the constructor. [uninitMemberVar]
-    Position()   { Init(); }
-    ^
-..\src\position.h:142:5: warning: Member variable 'Position::ListPos' is not initialized in the constructor. [uninitMemberVar]
-    Position()   { Init(); }
-    ^
-..\src\position.h:142:5: warning: Member variable 'Position::List' is not initialized in the constructor. [uninitMemberVar]
-    Position()   { Init(); }
-    ^
-..\src\position.h:142:5: warning: Member variable 'Position::NumOnRank' is not initialized in the constructor. [uninitMemberVar]
-    Position()   { Init(); }
-    ^
-..\src\position.h:142:5: warning: Member variable 'Position::NumOnFyle' is not initialized in the constructor. [uninitMemberVar]
-    Position()   { Init(); }
-    ^
-..\src\position.h:142:5: warning: Member variable 'Position::NumOnLeftDiag' is not initialized in the constructor. [uninitMemberVar]
-    Position()   { Init(); }
-    ^
-..\src\position.h:142:5: warning: Member variable 'Position::NumOnRightDiag' is not initialized in the constructor. [uninitMemberVar]
-    Position()   { Init(); }
-    ^
-..\src\position.h:142:5: warning: Member variable 'Position::NumOnSquareColor' is not initialized in the constructor. [uninitMemberVar]
-    Position()   { Init(); }
-    ^
-..\src\position.h:142:5: warning: Member variable 'Position::Pinned' is not initialized in the constructor. [uninitMemberVar]
-    Position()   { Init(); }
-    ^
-..\src\position.h:142:5: warning: Member variable 'Position::EPTarget' is not initialized in the constructor. [uninitMemberVar]
-    Position()   { Init(); }
-    ^
-..\src\position.h:142:5: warning: Member variable 'Position::ToMove' is not initialized in the constructor. [uninitMemberVar]
-    Position()   { Init(); }
-    ^
-..\src\position.h:142:5: warning: Member variable 'Position::HalfMoveClock' is not initialized in the constructor. [uninitMemberVar]
-    Position()   { Init(); }
-    ^
-..\src\position.h:142:5: warning: Member variable 'Position::PlyCounter' is not initialized in the constructor. [uninitMemberVar]
-    Position()   { Init(); }
-    ^
-..\src\position.h:142:5: warning: Member variable 'Position::Castling' is not initialized in the constructor. [uninitMemberVar]
-    Position()   { Init(); }
-    ^
-..\src\position.h:142:5: warning: Member variable 'Position::Hash' is not initialized in the constructor. [uninitMemberVar]
-    Position()   { Init(); }
-    ^
-..\src\position.h:142:5: warning: Member variable 'Position::PawnHash' is not initialized in the constructor. [uninitMemberVar]
-    Position()   { Init(); }
-    ^
-..\src\position.h:136:17: style: Unused private function: 'Position::AssertPos' [unusedPrivateFunction]
-    errorT      AssertPos ();   //  Checks for errors in board etc.
-                ^
-..\src\position.cpp:1042:21: style: Redundant initialization for 'promoteRank'. The initialized value is overwritten before it is read. [redundantInitialization]
-        promoteRank = RANK_8;
-                    ^
-..\src\position.cpp:1033:23: note: promoteRank is initialized
-    rankT promoteRank = (ToMove == WHITE ? RANK_8 : RANK_1);
-                      ^
-..\src\position.cpp:1042:21: note: promoteRank is overwritten
-        promoteRank = RANK_8;
-                    ^
-..\src\position.cpp:2262:8: style: Redundant initialization for 'to'. The initialized value is overwritten before it is read. [redundantInitialization]
-    to = square_Make(toFyle, toRank);
-       ^
-..\src\position.cpp:2141:16: note: to is initialized
-    squareT to = NS;
-               ^
-..\src\position.cpp:2262:8: note: to is overwritten
-    to = square_Make(toFyle, toRank);
-       ^
-..\src\position.cpp:914:15: style: The scope of the variable 'pt' can be reduced. [variableScope]
-    pieceT p, pt, captured;
-              ^
-..\src\position.cpp:2320:12: style: The scope of the variable 's2' can be reduced. [variableScope]
-    char * s2;
+..\src\position.h:131:12: style: Unused private function: 'Position::AssertPos' [unusedPrivateFunction]
+    errorT AssertPos(); //  Checks for errors in board etc.
            ^
-..\src\position.cpp:2321:10: style: The scope of the variable 'length' can be reduced. [variableScope]
-    uint length = 0;
-         ^
-..\src\position.cpp:2324:12: style: The scope of the variable 'err' can be reduced. [variableScope]
-    errorT err;
-           ^
-..\src\position.cpp:2748:10: style: The scope of the variable 'emptyRun' can be reduced. [variableScope]
-    uint emptyRun, iRank, iFyle;
-         ^
-..\src\position.cpp:2833:14: style: The scope of the variable 'pBoard' can be reduced. [variableScope]
-    pieceT * pBoard;
-             ^
-..\src\position.cpp:2901:14: style: The scope of the variable 'pBoard' can be reduced. [variableScope]
-    pieceT * pBoard;
-             ^
-..\src\position.cpp:2817:10: style: struct member 'htmlStyleT::transparent' is never used. [unusedStructMember]
-    bool transparent;  // True if the style uses transparent images,
-         ^
-..\src\position.cpp:918:18: style: Variable 'tryMove' is assigned a value that is never used. [unreadVariable]
-    uint tryMove = 0;
-                 ^
-..\src\position.cpp:2140:18: style: Variable 'from' is assigned a value that is never used. [unreadVariable]
-    squareT from = NS;
-                 ^
-..\src\position.cpp:2321:17: style: Variable 'length' is assigned a value that is never used. [unreadVariable]
-    uint length = 0;
-                ^
-..\src\position.cpp:2749:21: style: Variable 'pBoard' is assigned a value that is never used. [unreadVariable]
-    pieceT * pBoard = Board;
-                    ^
-..\src\progbar.h:29:5: style: Class 'ProgBar' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
-    ProgBar (FILE * fp) {
-    ^
 ..\src\tkdnd\win\TkDND_OleDND.cpp:279:27: portability: Assigning an integer to a pointer is not portable. [AssignmentIntegerToAddress]
               CurPosition = 1 + _tcschr(pszFileName, '\0');
                           ^

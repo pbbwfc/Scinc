@@ -64,8 +64,8 @@ private:
     simpleMoveT Moves [MAX_LEGAL_MOVES];
 
 public:
-    MoveList() { ListSize = 0; }
-    ~MoveList() {}
+    //MoveList() {}
+    //~MoveList() {}
 
     inline uint Size() { return ListSize; }
     inline void Clear() { ListSize = 0; }

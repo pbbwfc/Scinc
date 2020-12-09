@@ -18,61 +18,65 @@ const uint PROGBAR_WIDTH = 50;
 
 class ProgBar
 {
-  private:
-
+private:
     uint PercentShown;
     uint PercentDone;
-    FILE * FilePtr;
+    FILE *FilePtr;
     char ProgressChar;
 
-  public:
-    ProgBar (FILE * fp) {
+public:
+    explicit ProgBar(FILE *fp)
+    {
         FilePtr = fp;
-        setbuf (FilePtr, NULL);  // Make the file unbuffered.
+        setbuf(FilePtr, NULL); // Make the file unbuffered.
         PercentDone = PercentShown = 0;
         ProgressChar = '.';
     }
 
     ~ProgBar() {}
 
-    inline void Start (void);
-    inline void Update (uint percent);
-    inline void Finish (void);
+    inline void Start(void);
+    inline void Update(uint percent);
+    inline void Finish(void);
 };
 
 inline void
-ProgBar::Start (void)
+ProgBar::Start(void)
 {
-    fputs ("  [0% 10   20   30   40   50   60   70   80   90  100]\n  [",
-           FilePtr);
+    fputs("  [0% 10   20   30   40   50   60   70   80   90  100]\n  [",
+          FilePtr);
     PercentDone = PercentShown = 0;
 }
 
 inline void
-ProgBar::Update (uint percent)
+ProgBar::Update(uint percent)
 {
     // Internally, PercentDone is in range 0..50 since the progress
     // bar is 50 characters wide.
     PercentDone = percent * PROGBAR_WIDTH / 100;
-    if (PercentDone > PROGBAR_WIDTH) { PercentDone = PROGBAR_WIDTH; }
-    while (PercentDone > PercentShown) {
-        putc ('.', FilePtr);
+    if (PercentDone > PROGBAR_WIDTH)
+    {
+        PercentDone = PROGBAR_WIDTH;
+    }
+    while (PercentDone > PercentShown)
+    {
+        putc('.', FilePtr);
         PercentShown++;
     }
 }
 
 inline void
-ProgBar::Finish (void)
+ProgBar::Finish(void)
 {
     PercentDone = PROGBAR_WIDTH;
-    while (PercentShown < PROGBAR_WIDTH) {
-        putc (ProgressChar, FilePtr);
+    while (PercentShown < PROGBAR_WIDTH)
+    {
+        putc(ProgressChar, FilePtr);
         PercentShown++;
     }
-    fputs ("]\n", FilePtr);
+    fputs("]\n", FilePtr);
 }
 
 //////////////////////////////////////////////////////////////////////
 //  EOF: progbar.h
 //////////////////////////////////////////////////////////////////////
-
