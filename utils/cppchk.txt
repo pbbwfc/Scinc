@@ -529,66 +529,6 @@ class MoveList
 ..\src\pbook.cpp:123:17: style: The scope of the variable 'node' can be reduced. [variableScope]
     bookNodeT * node;
                 ^
-..\src\pgnparse.h:88:5: warning: Member variable 'PgnParser::ParseMode' is not initialized in the constructor. [uninitMemberVar]
-    PgnParser (void) { Init ((const char *) ""); }
-    ^
-..\src\pgnparse.h:88:5: warning: Member variable 'PgnParser::IgnoredTags' is not initialized in the constructor. [uninitMemberVar]
-    PgnParser (void) { Init ((const char *) ""); }
-    ^
-..\src\pgnparse.h:88:5: warning: Member variable 'PgnParser::UnGetCh' is not initialized in the constructor. [uninitMemberVar]
-    PgnParser (void) { Init ((const char *) ""); }
-    ^
-..\src\pgnparse.h:89:5: warning: Member variable 'PgnParser::ParseMode' is not initialized in the constructor. [uninitMemberVar]
-    PgnParser (MFile * infile) { Init (infile); }
-    ^
-..\src\pgnparse.h:89:5: warning: Member variable 'PgnParser::IgnoredTags' is not initialized in the constructor. [uninitMemberVar]
-    PgnParser (MFile * infile) { Init (infile); }
-    ^
-..\src\pgnparse.h:89:5: warning: Member variable 'PgnParser::UnGetCh' is not initialized in the constructor. [uninitMemberVar]
-    PgnParser (MFile * infile) { Init (infile); }
-    ^
-..\src\pgnparse.h:90:5: warning: Member variable 'PgnParser::ParseMode' is not initialized in the constructor. [uninitMemberVar]
-    PgnParser (const char * inbuffer) { Init (inbuffer); }
-    ^
-..\src\pgnparse.h:90:5: warning: Member variable 'PgnParser::IgnoredTags' is not initialized in the constructor. [uninitMemberVar]
-    PgnParser (const char * inbuffer) { Init (inbuffer); }
-    ^
-..\src\pgnparse.h:90:5: warning: Member variable 'PgnParser::UnGetCh' is not initialized in the constructor. [uninitMemberVar]
-    PgnParser (const char * inbuffer) { Init (inbuffer); }
-    ^
-..\src\pgnparse.cpp:632:47: style: Condition 'nextCh=='p'' is always false [knownConditionTrueFalse]
-                if (nextCh == 'p'  ||  nextCh == 'p') { continue; }
-                                              ^
-..\src\pgnparse.cpp:632:28: note: Assuming that condition 'nextCh=='p'' is not redundant
-                if (nextCh == 'p'  ||  nextCh == 'p') { continue; }
-                           ^
-..\src\pgnparse.cpp:632:47: note: Condition 'nextCh=='p'' is always false
-                if (nextCh == 'p'  ||  nextCh == 'p') { continue; }
-                                              ^
-..\src\pgnparse.cpp:452:9: warning: %u in format string (no. 1) requires 'unsigned int' but the argument type is 'signed int'. [invalidPrintfArgType_uint]
-        sprintf (tempStr, "started on line %u\n", startLine);
-        ^
-..\src\pgnparse.cpp:632:36: style: Same expression on both sides of '||'. [duplicateExpression]
-                if (nextCh == 'p'  ||  nextCh == 'p') { continue; }
-                                   ^
-..\src\pgnparse.cpp:296:14: style: The scope of the variable 'elo' can be reduced. [variableScope]
-        uint elo = 0;
-             ^
-..\src\pgnparse.cpp:316:14: style: The scope of the variable 'elo' can be reduced. [variableScope]
-        uint elo = 0;
-             ^
-..\src\pgnparse.cpp:516:9: style: The scope of the variable 'ch' can be reduced. [variableScope]
-    int ch;
-        ^
-..\src\pgnparse.cpp:557:9: style: The scope of the variable 'ch' can be reduced. [variableScope]
-    int ch;
-        ^
-..\src\pgnparse.cpp:296:18: style: Variable 'elo' is assigned a value that is never used. [unreadVariable]
-        uint elo = 0;
-                 ^
-..\src\pgnparse.cpp:316:18: style: Variable 'elo' is assigned a value that is never used. [unreadVariable]
-        uint elo = 0;
-                 ^
 ..\src\position.h:131:12: style: Unused private function: 'Position::AssertPos' [unusedPrivateFunction]
     errorT AssertPos(); //  Checks for errors in board etc.
            ^

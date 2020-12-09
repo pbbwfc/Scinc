@@ -50,7 +50,10 @@ PgnParser::Reset()
     EndOfInputWarnings = true;
     ResultWarnings = true;
     NewlinesToSpaces = true;
+    IgnoredTags[MAX_IGNORED_TAGS-1] = {0};
     NumIgnoredTags = 0;
+    UnGetCh[MAX_UNGETCHARS-1] = {0};
+    ParseMode = PARSE_Searching;
 }
 
 void
@@ -293,13 +296,12 @@ PgnParser::ExtractPgnTag (const char * buffer, Game * game)
         if (length == 0) { return ERROR_PGNTagNull; }
         standardPlayerName (value);
         // Check for a rating in parentheses at the end of the player name:
-        uint elo = 0;
         if (length > 7  &&  value[length-1] == ')'
             &&  isdigit(value[length-2])  &&  isdigit(value[length-3])
             &&  isdigit(value[length-4])  &&  isdigit(value[length-5])
             &&  value[length-6] == '('  &&  value[length-7] == ' ') {
             value[length-7] = 0;
-            elo = strGetUnsigned (&(value[length-5]));
+            uint elo = strGetUnsigned (&(value[length-5]));
             if (elo > MAX_ELO) {
                 LogError ("Warning: rating too large: ", value);
                 elo = MAX_ELO;
@@ -313,13 +315,12 @@ PgnParser::ExtractPgnTag (const char * buffer, Game * game)
         if (length == 0) { return ERROR_PGNTagNull; }
         standardPlayerName (value);
         // Check for a rating in parentheses at the end of the player name:
-        uint elo = 0;
         if (length > 7  &&  value[length-1] == ')'
             &&  isdigit(value[length-2])  &&  isdigit(value[length-3])
             &&  isdigit(value[length-4])  &&  isdigit(value[length-5])
             &&  value[length-6] == '('  &&  value[length-7] == ' ') {
             value[length-7] = 0;
-            elo = strGetUnsigned (&(value[length-5]));
+            uint elo = strGetUnsigned (&(value[length-5]));
             if (elo > MAX_ELO) {
                 LogError ("Warning: rating too large: ", value);
                 elo = MAX_ELO;
@@ -449,7 +450,7 @@ PgnParser::GetComment (char * buffer, uint bufSize)
     *outPtr = 0; // must be nul-terminated
     if (ch == EndChar) {
         char tempStr[80];
-        sprintf (tempStr, "started on line %u\n", startLine);
+        sprintf (tempStr, "started on line %d\n", startLine);
         LogError ("Error: Open Comment at end of input", tempStr);
     }
 }
@@ -513,10 +514,9 @@ PgnParser::GetRestOfWord_Letters (char * buffer)
 tokenT
 PgnParser::GetRestOfCastling (char * buffer)
 {
-    int ch;
     int numOhsSeen = 1;
     while (true) {
-        ch = GetChar();
+        int ch = GetChar();
         if (ch == 'O'  ||  ch == 'o'  ||  ch == '0') {
             numOhsSeen++;
             ADDCHAR (buffer, ch);
@@ -554,9 +554,8 @@ tokenT
 PgnParser::GetRestOfMove (char * buffer)
 {
     int moveLength = 1;
-    int ch;
     while (true) {
-        ch = GetChar();
+        int ch = GetChar();
         if (charIsSpace(ch)) {
             UnGetChar (ch);
             return (moveLength == 1 ? TOKEN_Suffix : TOKEN_Move_Piece);
@@ -629,7 +628,7 @@ PgnParser::GetRestOfPawnMove (char * buffer)
             if (ch == 'e') {
                 char nextCh = GetChar ();
                 UnGetChar (nextCh);
-                if (nextCh == 'p'  ||  nextCh == 'p') { continue; }
+                if (nextCh == 'p') { continue; }
             }
             if (ch == 'p'  ||  ch == '.') { continue; }
         }
