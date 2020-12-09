@@ -702,6 +702,9 @@ void Game::Init()
     PgnFormat = PGN_FORMAT_Plain;
     HtmlStyle = 0;
     PgnLastMovePos = PgnNextMovePos = 0;
+    NumMovesPrinted = 0;
+    StopLocation = 0;
+    TagList[MAX_TAGS-1] = {0,0};
 
     Clear();
 }

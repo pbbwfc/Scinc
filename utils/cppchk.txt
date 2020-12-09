@@ -103,18 +103,6 @@ class MoveList
 ..\src\sqlist.h:30:5: warning: Member variable 'SquareList::Squares' is not initialized in the constructor. [uninitMemberVar]
     SquareList() { ListSize = 0; }
     ^
-..\src\game.h:305:5: warning: Member variable 'Game::FenString' is not initialized in the constructor. [uninitMemberVar]
-    Game() { Init(); }
-    ^
-..\src\game.h:305:5: warning: Member variable 'Game::TagList' is not initialized in the constructor. [uninitMemberVar]
-    Game() { Init(); }
-    ^
-..\src\game.h:305:5: warning: Member variable 'Game::NumMovesPrinted' is not initialized in the constructor. [uninitMemberVar]
-    Game() { Init(); }
-    ^
-..\src\game.h:305:5: warning: Member variable 'Game::StopLocation' is not initialized in the constructor. [uninitMemberVar]
-    Game() { Init(); }
-    ^
 ..\src\position.h:131:12: style: Unused private function: 'Position::AssertPos' [unusedPrivateFunction]
     errorT AssertPos(); //  Checks for errors in board etc.
            ^
