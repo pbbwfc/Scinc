@@ -40,61 +40,61 @@
 ..\src\stralloc.h:80:5: warning: Member variable 'StrAllocator::LastAllocSize' is not initialized in the constructor. [uninitMemberVar]
     StrAllocator (uint bucketSize) {
     ^
-..\src\index.h:255:5: warning: Member variable 'IndexEntry::Offset' is not initialized in the constructor. [uninitMemberVar]
+..\src\index.h:252:5: warning: Member variable 'IndexEntry::Offset' is not initialized in the constructor. [uninitMemberVar]
     IndexEntry() {}
     ^
-..\src\index.h:255:5: warning: Member variable 'IndexEntry::WhiteID_Low' is not initialized in the constructor. [uninitMemberVar]
+..\src\index.h:252:5: warning: Member variable 'IndexEntry::WhiteID_Low' is not initialized in the constructor. [uninitMemberVar]
     IndexEntry() {}
     ^
-..\src\index.h:255:5: warning: Member variable 'IndexEntry::BlackID_Low' is not initialized in the constructor. [uninitMemberVar]
+..\src\index.h:252:5: warning: Member variable 'IndexEntry::BlackID_Low' is not initialized in the constructor. [uninitMemberVar]
     IndexEntry() {}
     ^
-..\src\index.h:255:5: warning: Member variable 'IndexEntry::EventID_Low' is not initialized in the constructor. [uninitMemberVar]
+..\src\index.h:252:5: warning: Member variable 'IndexEntry::EventID_Low' is not initialized in the constructor. [uninitMemberVar]
     IndexEntry() {}
     ^
-..\src\index.h:255:5: warning: Member variable 'IndexEntry::SiteID_Low' is not initialized in the constructor. [uninitMemberVar]
+..\src\index.h:252:5: warning: Member variable 'IndexEntry::SiteID_Low' is not initialized in the constructor. [uninitMemberVar]
     IndexEntry() {}
     ^
-..\src\index.h:255:5: warning: Member variable 'IndexEntry::RoundID_Low' is not initialized in the constructor. [uninitMemberVar]
+..\src\index.h:252:5: warning: Member variable 'IndexEntry::RoundID_Low' is not initialized in the constructor. [uninitMemberVar]
     IndexEntry() {}
     ^
-..\src\index.h:255:5: warning: Member variable 'IndexEntry::WhiteBlack_High' is not initialized in the constructor. [uninitMemberVar]
+..\src\index.h:252:5: warning: Member variable 'IndexEntry::WhiteBlack_High' is not initialized in the constructor. [uninitMemberVar]
     IndexEntry() {}
     ^
-..\src\index.h:255:5: warning: Member variable 'IndexEntry::EventSiteRnd_High' is not initialized in the constructor. [uninitMemberVar]
+..\src\index.h:252:5: warning: Member variable 'IndexEntry::EventSiteRnd_High' is not initialized in the constructor. [uninitMemberVar]
     IndexEntry() {}
     ^
-..\src\index.h:255:5: warning: Member variable 'IndexEntry::EcoCode' is not initialized in the constructor. [uninitMemberVar]
+..\src\index.h:252:5: warning: Member variable 'IndexEntry::EcoCode' is not initialized in the constructor. [uninitMemberVar]
     IndexEntry() {}
     ^
-..\src\index.h:255:5: warning: Member variable 'IndexEntry::Dates' is not initialized in the constructor. [uninitMemberVar]
+..\src\index.h:252:5: warning: Member variable 'IndexEntry::Dates' is not initialized in the constructor. [uninitMemberVar]
     IndexEntry() {}
     ^
-..\src\index.h:255:5: warning: Member variable 'IndexEntry::WhiteElo' is not initialized in the constructor. [uninitMemberVar]
+..\src\index.h:252:5: warning: Member variable 'IndexEntry::WhiteElo' is not initialized in the constructor. [uninitMemberVar]
     IndexEntry() {}
     ^
-..\src\index.h:255:5: warning: Member variable 'IndexEntry::BlackElo' is not initialized in the constructor. [uninitMemberVar]
+..\src\index.h:252:5: warning: Member variable 'IndexEntry::BlackElo' is not initialized in the constructor. [uninitMemberVar]
     IndexEntry() {}
     ^
-..\src\index.h:255:5: warning: Member variable 'IndexEntry::FinalMatSig' is not initialized in the constructor. [uninitMemberVar]
+..\src\index.h:252:5: warning: Member variable 'IndexEntry::FinalMatSig' is not initialized in the constructor. [uninitMemberVar]
     IndexEntry() {}
     ^
-..\src\index.h:255:5: warning: Member variable 'IndexEntry::Flags' is not initialized in the constructor. [uninitMemberVar]
+..\src\index.h:252:5: warning: Member variable 'IndexEntry::Flags' is not initialized in the constructor. [uninitMemberVar]
     IndexEntry() {}
     ^
-..\src\index.h:255:5: warning: Member variable 'IndexEntry::VarCounts' is not initialized in the constructor. [uninitMemberVar]
+..\src\index.h:252:5: warning: Member variable 'IndexEntry::VarCounts' is not initialized in the constructor. [uninitMemberVar]
     IndexEntry() {}
     ^
-..\src\index.h:255:5: warning: Member variable 'IndexEntry::NumHalfMoves' is not initialized in the constructor. [uninitMemberVar]
+..\src\index.h:252:5: warning: Member variable 'IndexEntry::NumHalfMoves' is not initialized in the constructor. [uninitMemberVar]
     IndexEntry() {}
     ^
-..\src\index.h:255:5: warning: Member variable 'IndexEntry::HomePawnData' is not initialized in the constructor. [uninitMemberVar]
+..\src\index.h:252:5: warning: Member variable 'IndexEntry::HomePawnData' is not initialized in the constructor. [uninitMemberVar]
     IndexEntry() {}
     ^
-..\src\index.h:255:5: warning: Member variable 'IndexEntry::Length_Low' is not initialized in the constructor. [uninitMemberVar]
+..\src\index.h:252:5: warning: Member variable 'IndexEntry::Length_Low' is not initialized in the constructor. [uninitMemberVar]
     IndexEntry() {}
     ^
-..\src\index.h:255:5: warning: Member variable 'IndexEntry::Length_High' is not initialized in the constructor. [uninitMemberVar]
+..\src\index.h:252:5: warning: Member variable 'IndexEntry::Length_High' is not initialized in the constructor. [uninitMemberVar]
     IndexEntry() {}
     ^
 ..\src\movelist.h:60:1: style: The class 'MoveList' does not have a constructor although it has private member variables. [noConstructor]
@@ -283,9 +283,9 @@ class MoveList
 ..\src\game.cpp:3408:28: style: Variable 'inMainline' is assigned a value that is never used. [unreadVariable]
                 inMainline = false;
                            ^
-..\src\index.h:355:7: style: Unsigned expression 'length' can't be negative so it is unnecessary to test it. [unsignedPositive]
-      ASSERT(length >= 0 && length < 131072);
-      ^
+..\src\index.h:376:9: style: Unsigned expression 'length' can't be negative so it is unnecessary to test it. [unsignedPositive]
+        ASSERT(length >= 0 && length < 131072);
+        ^
 ..\src\gfile.h:59:5: warning: Member variable 'GFile::FileName' is not initialized in the constructor. [uninitMemberVar]
     GFile()      { Init(); }
     ^
@@ -298,68 +298,3 @@ class MoveList
 ..\src\gfile.h:59:5: warning: Member variable 'GFile::LastBlockSize' is not initialized in the constructor. [uninitMemberVar]
     GFile()      { Init(); }
     ^
-..\src\index.cpp:437:17: warning: %d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
-                sprintf (temp, "%*d", width, gnFiltered);
-                ^
-..\src\index.cpp:442:17: warning: %d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
-                sprintf (temp, "%*d", width, gnReal);
-                ^
-..\src\index.cpp:447:17: warning: %d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
-                sprintf (temp, "%*d", width, Offset);
-                ^
-..\src\index.cpp:452:15: warning: %d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
-              sprintf (temp, "%*d", width, GetLength() );
-              ^
-..\src\index.cpp:464:25: warning: %d in format string (no. 2) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
-                        sprintf (temp, "%*d", width, m);
-                        ^
-..\src\index.cpp:527:17: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
-                sprintf (temp, "%4d", date_GetYear (GetDate()));
-                ^
-..\src\index.cpp:1574:22: style: The scope of the variable 'ie' can be reduced. [variableScope]
-        IndexEntry * ie;
-                     ^
-..\src\index.cpp:477:27: style: Local variable 's' shadows outer variable [shadowVariable]
-                    char *s = temp;
-                          ^
-..\src\index.cpp:412:18: note: Shadowed declaration
-    const char * s = format;
-                 ^
-..\src\index.cpp:477:27: note: Shadow variable
-                    char *s = temp;
-                          ^
-..\src\index.cpp:628:28: style: Local variable 's' shadows outer variable [shadowVariable]
-                    char * s = flags;
-                           ^
-..\src\index.cpp:412:18: note: Shadowed declaration
-    const char * s = format;
-                 ^
-..\src\index.cpp:628:28: note: Shadow variable
-                    char * s = flags;
-                           ^
-..\src\index.cpp:1576:19: style: Local variable 'count' shadows outer variable [shadowVariable]
-        for (uint count=1; count <= Header.numGames; count++) {
-                  ^
-..\src\index.cpp:1541:10: note: Shadowed declaration
-    uint count;
-         ^
-..\src\index.cpp:1576:19: note: Shadow variable
-        for (uint count=1; count <= Header.numGames; count++) {
-                  ^
-..\src\index.cpp:189:13: style: Variable 'version' is assigned a value that is never used. [unreadVariable]
-    version = 0; // We dont have any other version-specific code.
-            ^
-..\src\index.cpp:258:13: style: Variable 'version' is assigned a value that is never used. [unreadVariable]
-    version = 0;  // We dont have any version-specific code.
-            ^
-..\src\position.h:131:12: style: Unused private function: 'Position::AssertPos' [unusedPrivateFunction]
-    errorT AssertPos(); //  Checks for errors in board etc.
-           ^
-..\src\tkdnd\win\TkDND_OleDND.cpp:279:27: portability: Assigning an integer to a pointer is not portable. [AssignmentIntegerToAddress]
-              CurPosition = 1 + _tcschr(pszFileName, '\0');
-                          ^
-..\src\tkscid.cpp:415:0: information: Skipping configuration 'SOURCE_TCL_FILE' since the value of 'SOURCE_TCL_FILE' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly. [ConfigurationNotChecked]
-        strCopy(end + 1, SOURCE_TCL_FILE);
-^
-nofile:0:0: information: Cppcheck cannot find all the include files (use --check-config for details) [missingIncludeSystem]
-
