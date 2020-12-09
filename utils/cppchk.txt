@@ -517,18 +517,9 @@ class MoveList
 ..\src\optable.cpp:2045:9: style: Variable 'argc' is assigned a value that is never used. [unreadVariable]
     argc--;
         ^
-..\src\pbook.h:84:5: warning: Member variable 'PBook::LineCount' is not initialized in the constructor. [uninitMemberVar]
-    PBook()   { Init(); }
-    ^
-..\src\pbook.h:84:5: warning: Member variable 'PBook::StrAlloc' is not initialized in the constructor. [uninitMemberVar]
-    PBook()   { Init(); }
-    ^
-..\src\pbook.cpp:40:17: style: The scope of the variable 'node' can be reduced. [variableScope]
-    bookNodeT * node;
-                ^
-..\src\pbook.cpp:123:17: style: The scope of the variable 'node' can be reduced. [variableScope]
-    bookNodeT * node;
-                ^
+..\src\pbook.cpp:59:44: error: Syntax Error: AST broken, binary operator '>' doesn't have two operands. [internalAstError]
+        for (uint i = 0; i<PBOOK_HASH_BYTES> > 3; i++)
+                                           ^
 ..\src\position.h:131:12: style: Unused private function: 'Position::AssertPos' [unusedPrivateFunction]
     errorT AssertPos(); //  Checks for errors in board etc.
            ^
@@ -537,6 +528,9 @@ class MoveList
                           ^
 ..\src\tkscid.cpp:415:0: information: Skipping configuration 'SOURCE_TCL_FILE' since the value of 'SOURCE_TCL_FILE' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly. [ConfigurationNotChecked]
         strCopy(end + 1, SOURCE_TCL_FILE);
+^
+..\src\movelist.cpp:26:0: style: The function 'Find' is never used. [unusedFunction]
+
 ^
 nofile:0:0: information: Cppcheck cannot find all the include files (use --check-config for details) [missingIncludeSystem]
 

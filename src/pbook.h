@@ -27,91 +27,91 @@
 #define PBOOK_SUFFIX ".epd"
 #define PBOOK_MAX_MATERIAL 32
 
-struct bookDataT {
-    uint    id;
-    char *  comment;
-    squareT enpassant;   // Original en passant square.
+struct bookDataT
+{
+  uint id;
+  char *comment;
+  squareT enpassant; // Original en passant square.
 };
 
-typedef nodeT<bookDataT>  bookNodeT;
+typedef nodeT<bookDataT> bookNodeT;
 
-typedef bookNodeT * bookNodePtrT;
+typedef bookNodeT *bookNodePtrT;
 
 class PBook
 {
-  private:
+private:
+  // We store 33 Trees, one for each possible total material count.
+  // This way, the average number of position comparisons is greatly
+  // reduced.
+  StrTree<bookDataT> *Tree[PBOOK_MAX_MATERIAL + 1];
 
-    // We store 33 Trees, one for each possible total material count.
-    // This way, the average number of position comparisons is greatly
-    // reduced.
-    StrTree<bookDataT> * Tree [PBOOK_MAX_MATERIAL + 1];
+  bool Altered; // True if book is altered since loading or saving.
+  bool ReadOnly;
+  char *FileName;
+  uint LineCount;
+  bookNodeT **NodeList;
+  uint NodeListCapacity;
+  uint NodeListCount;
+  uint NextIndex;     // For jumping to next pbook position.
+  uint SkipCount;     // Number of searches saved by LeastMaterial
+                      // comparison.
+  uint LeastMaterial; // The smallest amount of material in any
+                      // position in the book. In the range 0..32.
+                      // It is a lower bound, and may be lower than
+                      // the actual value if nodes are deleted.
 
-    bool    Altered;   // True if book is altered since loading or saving.
-    bool    ReadOnly;
-    char *  FileName;
-    uint    LineCount;
-    bookNodeT ** NodeList;
-    uint    NodeListCapacity;
-    uint    NodeListCount;
-    uint    NextIndex;   // For jumping to next pbook position.
-    StrAllocator * StrAlloc;
-    uint SkipCount;      // Number of searches saved by LeastMaterial
-                         // comparison.
-    uint LeastMaterial;  // The smallest amount of material in any
-                         // position in the book. In the range 0..32.
-                         // It is a lower bound, and may be lower than
-                         // the actual value if nodes are deleted.
+  byte *HashFlags;
 
-    byte * HashFlags;
+  uint Stats_PositionBytes; // Bytes in .epd file used for positions.
+  uint Stats_CommentBytes;  // Bytes in .epd file used for comments.
 
-    uint Stats_PositionBytes;  // Bytes in .epd file used for positions.
-    uint Stats_CommentBytes;   // Bytes in .epd file used for comments.
+  uint Stats_Lookups[PBOOK_MAX_MATERIAL + 1];
+  uint Stats_TotalLookups;
+  uint Stats_Inserts[PBOOK_MAX_MATERIAL + 1];
+  uint Stats_TotalInserts;
 
-    uint Stats_Lookups [PBOOK_MAX_MATERIAL + 1];
-    uint Stats_TotalLookups;
-    uint Stats_Inserts [PBOOK_MAX_MATERIAL + 1];
-    uint Stats_TotalInserts;
+  void SetHashFlag(Position *pos);
+  bool GetHashFlag(Position *pos);
 
-    void SetHashFlag (Position * pos);
-    bool GetHashFlag (Position * pos);
+  void AddNodeToList(bookNodeT *node);
 
-    void AddNodeToList (bookNodeT * node);
+public:
+  void Init();
+  void Clear();
 
-  public:
-    void    Init();
-    void    Clear();
+  PBook() { Init(); }
+  ~PBook();
+  const char *GetFileName() { return (FileName == NULL ? "" : FileName); }
+  void SetFileName(const char *filename);
+  bool IsAltered() { return Altered; }
+  bool IsReadOnly() { return ReadOnly; }
 
-    PBook()   { Init(); }
-    ~PBook();
-    const char *  GetFileName () { return (FileName == NULL ? "" : FileName); }
-    void    SetFileName (const char * filename);
-    bool    IsAltered() { return Altered; }
-    bool    IsReadOnly() { return ReadOnly; }
+  uint GetLineNumber(void) { return LineCount; }
 
-    uint    GetLineNumber (void) { return LineCount; }
-
-    uint    Size () {
-        uint total = 0;
-        for (uint i=0; i <= PBOOK_MAX_MATERIAL; i++) {
-            total += Tree[i]->Size();
-        }
-        return total;
+  uint Size()
+  {
+    uint total = 0;
+    for (uint i = 0; i <= PBOOK_MAX_MATERIAL; i++)
+    {
+      total += Tree[i]->Size();
     }
-    uint    FewestPieces () { return LeastMaterial; }
-    uint    NumSkippedSearches() { return SkipCount; }
+    return total;
+  }
+  uint FewestPieces() { return LeastMaterial; }
+  uint NumSkippedSearches() { return SkipCount; }
 
-    errorT  ReadFile();
-    errorT  WriteFile();
-    errorT  ReadEcoFile ();
+  errorT ReadFile();
+  errorT WriteFile();
+  errorT ReadEcoFile();
 
-    errorT  Find (Position * pos, const char ** ptrComment);
-    errorT  Insert (Position * pos, const char * comment);
-    errorT  Delete (Position * pos);
-    errorT  FindOpcode (Position * pos, const char * opcode, DString * target);
-    void    EcoSummary (const char * ecoPrefix, DString * dstr);
-    uint    NumPositionBytes () { return Stats_PositionBytes; }
-    uint    NumCommentBytes ()  { return Stats_CommentBytes; }
-
+  errorT Find(Position *pos, const char **ptrComment);
+  errorT Insert(Position *pos, const char *comment);
+  errorT Delete(Position *pos);
+  errorT FindOpcode(Position *pos, const char *opcode, DString *target);
+  void EcoSummary(const char *ecoPrefix, DString *dstr);
+  uint NumPositionBytes() { return Stats_PositionBytes; }
+  uint NumCommentBytes() { return Stats_CommentBytes; }
 };
 
 #endif // SCID_PBOOK_H
@@ -119,4 +119,3 @@ class PBook
 //////////////////////////////////////////////////////////////////////
 //  EOF: pbook.h
 //////////////////////////////////////////////////////////////////////
-
