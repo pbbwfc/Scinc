@@ -86,8 +86,8 @@ class PgnParser
     // Constructors: PgnParser is initialised with a file pointer or
     //    a pointer to a buffer, or it defaults to an empty buffer.
     PgnParser (void) { Init ((const char *) ""); }
-    PgnParser (MFile * infile) { Init (infile); }
-    PgnParser (const char * inbuffer) { Init (inbuffer); }
+    explicit PgnParser (MFile * infile) { Init (infile); }
+    explicit PgnParser (const char * inbuffer) { Init (inbuffer); }
     ~PgnParser();
 
     void   Init (MFile * infile);

@@ -29,7 +29,7 @@ class StoredLine {
 
   public:
 
-	StoredLine(Position* pos);
+	explicit StoredLine(Position* pos);
 	bool CanMatch(uint ln, uint* ply, simpleMoveT* sm){
 		if (ln == 0 || ln > StoredLine::Count()) return true;
 		if (storedLineMatches_[ln] < 0 ) return false;

@@ -37,9 +37,9 @@
 ..\src\stralloc.h:73:5: warning: Member variable 'StrAllocator::LastAllocSize' is not initialized in the constructor. [uninitMemberVar]
     StrAllocator () {
     ^
-..\src\stralloc.h:80:5: warning: Member variable 'StrAllocator::LastAllocSize' is not initialized in the constructor. [uninitMemberVar]
-    StrAllocator (uint bucketSize) {
-    ^
+..\src\stralloc.h:80:14: warning: Member variable 'StrAllocator::LastAllocSize' is not initialized in the constructor. [uninitMemberVar]
+    explicit StrAllocator (uint bucketSize) {
+             ^
 ..\src\index.h:252:5: warning: Member variable 'IndexEntry::Offset' is not initialized in the constructor. [uninitMemberVar]
     IndexEntry() {}
     ^
@@ -115,21 +115,6 @@ class MoveList
 ..\src\game.h:305:5: warning: Member variable 'Game::StopLocation' is not initialized in the constructor. [uninitMemberVar]
     Game() { Init(); }
     ^
-..\src\stralloc.h:80:5: style: Class 'StrAllocator' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
-    StrAllocator (uint bucketSize) {
-    ^
-..\src\sqset.h:28:5: style: Class 'SquareSet' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
-    SquareSet(squareT *squares)
-    ^
-..\src\pgnparse.h:89:5: style: Class 'PgnParser' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
-    PgnParser (MFile * infile) { Init (infile); }
-    ^
-..\src\pgnparse.h:90:5: style: Class 'PgnParser' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
-    PgnParser (const char * inbuffer) { Init (inbuffer); }
-    ^
-..\src\stored.h:32:2: style: Class 'StoredLine' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
- StoredLine(Position* pos);
- ^
 ..\src\position.h:131:12: style: Unused private function: 'Position::AssertPos' [unusedPrivateFunction]
     errorT AssertPos(); //  Checks for errors in board etc.
            ^

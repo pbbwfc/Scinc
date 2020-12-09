@@ -77,7 +77,7 @@ class StrAllocator
         LastAllocAddress = NULL;
     };
     
-    StrAllocator (uint bucketSize) {
+    explicit StrAllocator (uint bucketSize) {
         ASSERT (bucketSize >= MIN_BUCKET_SIZE);
         BucketSize = bucketSize;
         FirstBucket = NULL;

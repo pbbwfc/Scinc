@@ -25,7 +25,7 @@ private:
 
 public:
     SquareSet() { Bits_a1h4 = Bits_a5h8 = 0; }
-    SquareSet(squareT *squares)
+    explicit SquareSet(squareT *squares)
     {
         Bits_a1h4 = Bits_a5h8 = 0;
         AddAll(squares);
