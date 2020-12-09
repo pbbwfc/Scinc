@@ -12,7 +12,6 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-
 // A DString is a string that can extend its allocated space when necessary
 // and is efficient for append operations since the end of the string is
 // remembered.
@@ -29,48 +28,51 @@ const uint DSTRING_MinCapacity = 64;
 
 class DString
 {
-  private:
-    char * Start;
-    uint   Len;
-    uint   Capacity;
+private:
+  char *Start;
+  uint Len;
+  uint Capacity;
 
-    void   Init (uint capacity);
-    void   Extend (uint neededLength);
+  void Init(uint capacity);
+  void Extend(uint neededLength);
 
 public:
-    DString() { Init (DSTRING_MinCapacity); }
-    DString (uint size) { Init (size); }
-    ~DString() {
-delete[] Start;
-}
+  DString() { Init(DSTRING_MinCapacity); }
+  explicit DString(uint size) { Init(size); }
+  ~DString()
+  {
+    delete[] Start;
+  }
 
-    void Clear (void)        { Start[0] = 0; Len = 0; }
-    const char * Data (void) { return (const char *) Start; }
-    uint Length (void)       { return Len; }
+  void Clear(void)
+  {
+    Start[0] = 0;
+    Len = 0;
+  }
+  const char *Data(void) { return (const char *)Start; }
+  uint Length(void) { return Len; }
 
-    void AddChar (char ch);
-    void AppendUint (uint i);
-    void Append (const char * str);
-    void Append (uint i);
-    void Append (const char * s1, const char * s2);
-    void Append (const char * s1, uint i2);
-    void Append (uint i1, const char * s2);
-    void Append (uint i1, uint i2);
-    void Append (const char * s1, const char * s2, const char * s3);
-    void Append (const char * s1, const char * s2, uint i3);
-    void Append (const char * s1, uint i2, const char * s3);
-    void Append (uint i1, const char * s2, const char * s3);
+  void AddChar(char ch);
+  void AppendUint(uint i);
+  void Append(const char *str);
+  void Append(uint i);
+  void Append(const char *s1, const char *s2);
+  void Append(const char *s1, uint i2);
+  void Append(uint i1, const char *s2);
+  void Append(uint i1, uint i2);
+  void Append(const char *s1, const char *s2, const char *s3);
+  void Append(const char *s1, const char *s2, uint i3);
+  void Append(const char *s1, uint i2, const char *s3);
+  void Append(uint i1, const char *s2, const char *s3);
 
-    void Append (const char * s1, const char * s2, const char * s3,
-                 const char * s4);
-    void Append (const char * s1, const char * s2, const char * s3, uint i4);
-    void Append (const char * s1, const char * s2, uint i3, const char * s4);
-    void Append (const char * s1, uint i2, const char * s3, const char * s4);
-    void Append (uint i1, const char * s2, const char * s3, const char * s4);
-    void Append (const char * s1, const char * s2, const char * s3,
-                 const char * s4, const char * s5);
+  void Append(const char *s1, const char *s2, const char *s3,
+              const char *s4);
+  void Append(const char *s1, const char *s2, const char *s3, uint i4);
+  void Append(const char *s1, const char *s2, uint i3, const char *s4);
+  void Append(const char *s1, uint i2, const char *s3, const char *s4);
+  void Append(uint i1, const char *s2, const char *s3, const char *s4);
+  void Append(const char *s1, const char *s2, const char *s3,
+              const char *s4, const char *s5);
 };
 
-
-#endif  // SCID_DSTRING_H
-
+#endif // SCID_DSTRING_H

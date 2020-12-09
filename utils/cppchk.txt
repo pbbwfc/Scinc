@@ -4,42 +4,21 @@
 ..\src\misc.h:397:13: error: Uninitialized variable: result [uninitvar]
     return (result == EOF ? ERROR_FileWrite : OK);
             ^
-..\src\win_mmap.h:86:5: warning: Class 'WinMMap' does not have a copy constructor which is recommended since it has dynamic memory/resource allocation(s). [noCopyConstructor]
+..\src\win_mmap.h:79:5: warning: Class 'WinMMap' does not have a copy constructor which is recommended since it has dynamic memory/resource allocation(s). [noCopyConstructor]
     m_address = MapViewOfFile(m_mapping, FILE_MAP_READ, 0, 0, 0);
     ^
-..\src\win_mmap.h:86:5: warning: Class 'WinMMap' does not have a operator= which is recommended since it has dynamic memory/resource allocation(s). [noOperatorEq]
+..\src\win_mmap.h:79:5: warning: Class 'WinMMap' does not have a operator= which is recommended since it has dynamic memory/resource allocation(s). [noOperatorEq]
     m_address = MapViewOfFile(m_mapping, FILE_MAP_READ, 0, 0, 0);
     ^
-..\src\dstring.h:42:5: style: Class 'DString' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
-    DString (uint size) { Init (size); }
-    ^
-..\src\win_mmap.h:32:5: style: Class 'WinMMap' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
-    WinMMap(char const* filename);
-    ^
-..\src\filter.h:46:5: warning: Member variable 'Filter::oldDataTreePly' is not initialized in the constructor. [uninitMemberVar]
-    Filter ()           { Init (0); }
-    ^
-..\src\filter.h:47:5: warning: Member variable 'Filter::oldDataTreePly' is not initialized in the constructor. [uninitMemberVar]
-    Filter (uint size)  { Init (size); }
-    ^
-..\src\filter.h:47:5: style: Class 'Filter' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
-    Filter (uint size)  { Init (size); }
-    ^
-..\src\filter.cpp:358:13: style: Unsigned expression 'CODE_RunLength' can't be negative so it is unnecessary to test it. [unsignedPositive]
-            ENCODE_CONTROL_BITS (CODE_RunLength);
+..\src\filter.cpp:400:13: style: Unsigned expression 'CODE_RunLength' can't be negative so it is unnecessary to test it. [unsignedPositive]
+            ENCODE_CONTROL_BITS(CODE_RunLength);
             ^
-..\src\filter.cpp:378:13: style: Unsigned expression 'CODE_PrevLiteral' can't be negative so it is unnecessary to test it. [unsignedPositive]
-            ENCODE_CONTROL_BITS (CODE_PrevLiteral);
+..\src\filter.cpp:427:13: style: Unsigned expression 'CODE_PrevLiteral' can't be negative so it is unnecessary to test it. [unsignedPositive]
+            ENCODE_CONTROL_BITS(CODE_PrevLiteral);
             ^
-..\src\filter.cpp:382:13: style: Unsigned expression 'CODE_NewLiteral' can't be negative so it is unnecessary to test it. [unsignedPositive]
-            ENCODE_CONTROL_BITS (CODE_NewLiteral);
+..\src\filter.cpp:433:13: style: Unsigned expression 'CODE_NewLiteral' can't be negative so it is unnecessary to test it. [unsignedPositive]
+            ENCODE_CONTROL_BITS(CODE_NewLiteral);
             ^
-..\src\stralloc.h:73:5: warning: Member variable 'StrAllocator::LastAllocSize' is not initialized in the constructor. [uninitMemberVar]
-    StrAllocator () {
-    ^
-..\src\stralloc.h:80:14: warning: Member variable 'StrAllocator::LastAllocSize' is not initialized in the constructor. [uninitMemberVar]
-    explicit StrAllocator (uint bucketSize) {
-             ^
 ..\src\movelist.h:60:1: style: The class 'MoveList' does not have a constructor although it has private member variables. [noConstructor]
 class MoveList
 ^

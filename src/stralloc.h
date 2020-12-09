@@ -35,106 +35,116 @@
 //   list is kept of all super-large strings (that exceed the bucket size)
 //   which are allocated in the usual way.
 
-
-#define MIN_BUCKET_SIZE        100  // A sensible minimum bucket size.
-#define DEFAULT_BUCKET_SIZE  32000
-#define DEFAULT_ALIGNMENT        1
+#define MIN_BUCKET_SIZE 100 // A sensible minimum bucket size.
+#define DEFAULT_BUCKET_SIZE 32000
+#define DEFAULT_ALIGNMENT 1
 
 struct largeStrT
 {
-    uint        size;
-    char *      data;
-    largeStrT * next;
+    uint size;
+    char *data;
+    largeStrT *next;
 };
 
 struct bucketT
 {
-    uint      bytesFree;
-    char *    data;
-    bucketT * next;
+    uint bytesFree;
+    char *data;
+    bucketT *next;
 };
 
 class StrAllocator
 {
-  private:    
-    uint        BucketSize;
-    bucketT *   FirstBucket;
-    largeStrT * LargeList;
+private:
+    uint BucketSize;
+    bucketT *FirstBucket;
+    largeStrT *LargeList;
 
     // We note last alloc details to avoid wasting space when the last
     // thing allocated is deleted and re-allocated (as happens often).
-    char *      LastAllocAddress;
-    uint        LastAllocSize;
-    
-    void  NewBucket();
-    char *  NewLarge (uint size);     // When size is too big for a bucket.
+    char *LastAllocAddress;
+    uint LastAllocSize;
 
-  public:
-    StrAllocator () {
+    void NewBucket();
+    char *NewLarge(uint size); // When size is too big for a bucket.
+
+public:
+    StrAllocator()
+    {
         BucketSize = DEFAULT_BUCKET_SIZE;
         FirstBucket = NULL;
         LargeList = NULL;
         LastAllocAddress = NULL;
+        LastAllocSize = 0;
     };
-    
-    explicit StrAllocator (uint bucketSize) {
-        ASSERT (bucketSize >= MIN_BUCKET_SIZE);
+
+    explicit StrAllocator(uint bucketSize)
+    {
+        ASSERT(bucketSize >= MIN_BUCKET_SIZE);
         BucketSize = bucketSize;
         FirstBucket = NULL;
         LargeList = NULL;
         LastAllocAddress = NULL;
+        LastAllocSize = 0;
     }
-    
+
     ~StrAllocator() { DeleteAll(); }
-    
-    inline void SetBucketSize (uint size);
-    
-    void DeleteAll();       // Deletes all strings.
-    inline void   Delete (const char * str);  // Deletes one string.
 
-    inline char * New (uint numBytes);  // Allocates a new string.
-    char *  Duplicate (const char * original);  // Duplicates a string.
+    inline void SetBucketSize(uint size);
 
+    void DeleteAll();                    // Deletes all strings.
+    inline void Delete(const char *str); // Deletes one string.
+
+    inline char *New(uint numBytes);       // Allocates a new string.
+    char *Duplicate(const char *original); // Duplicates a string.
 };
 
 inline void
-StrAllocator::SetBucketSize (uint size)
+StrAllocator::SetBucketSize(uint size)
 {
-    ASSERT (size >= MIN_BUCKET_SIZE);   // Assert a sensible bucket size.
+    ASSERT(size >= MIN_BUCKET_SIZE); // Assert a sensible bucket size.
     // We can ONLY change the bucket size when nothing has been allocated.
-    if (FirstBucket  ||  LargeList) { return; }
+    if (FirstBucket || LargeList)
+    {
+        return;
+    }
     BucketSize = size;
 }
 
 // Deleting an individual string: its space only becomes immediately free
 // if it was the most recent string allocated.
 inline void
-StrAllocator::Delete (const char * str)
+StrAllocator::Delete(const char *str)
 {
-    ASSERT (str != NULL);
-    if (str == LastAllocAddress) {
-        ASSERT (FirstBucket != NULL);
+    ASSERT(str != NULL);
+    if (str == LastAllocAddress)
+    {
+        ASSERT(FirstBucket != NULL);
         FirstBucket->bytesFree += LastAllocSize;
-        LastAllocAddress = NULL; LastAllocSize = 0;
+        LastAllocAddress = NULL;
+        LastAllocSize = 0;
     }
 }
 
 inline char *
-StrAllocator::New (uint size)
+StrAllocator::New(uint size)
 {
-    if (size > BucketSize) { return NewLarge (size); }
-    if (FirstBucket == NULL  ||  FirstBucket->bytesFree < size) {
+    if (size > BucketSize)
+    {
+        return NewLarge(size);
+    }
+    if (FirstBucket == NULL || FirstBucket->bytesFree < size)
+    {
         NewBucket();
     }
     LastAllocAddress = &(FirstBucket->data[BucketSize - FirstBucket->bytesFree]);
     LastAllocSize = size;
     FirstBucket->bytesFree -= size;
-    return LastAllocAddress;    
+    return LastAllocAddress;
 }
 
-#endif  // #ifndef SCID_STRALLOC_H
+#endif // #ifndef SCID_STRALLOC_H
 
 //////////////////////////////////////////////////////////////////////
 //  EOF: stralloc.h
 //////////////////////////////////////////////////////////////////////
-

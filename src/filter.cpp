@@ -15,10 +15,10 @@
 #include "filter.h"
 
 // Include header file for memcpy():
-#  include <memory.h>
+#include <memory.h>
 
-void
-Filter::Init (uint size) {
+void Filter::Init(uint size)
+{
     FilterSize = size;
     FilterCount = size;
     Capacity = size;
@@ -27,61 +27,69 @@ Filter::Init (uint size) {
 
     isValidOldDataTree = false;
 
-    Data = new byte [Capacity];
-    oldDataTree = new byte [Capacity];
+    Data = new byte[Capacity];
+    oldDataTree = new byte[Capacity];
     // Set all values in filter to 1 by default:
-    byte * pb = Data;
-    for (uint i=0; i < size; i++) { *pb++ = 1; }
+    byte *pb = Data;
+    for (uint i = 0; i < size; i++)
+    {
+        *pb++ = 1;
+    }
+    oldDataTreePly = 0;
 }
 
 Filter *
-Filter::Clone () 
+Filter::Clone()
 {
-	Filter *f = new Filter( Capacity);
-	memcpy( f->Data, Data, Capacity);
-	f->FilterCount = FilterCount;
-	f->FilterSize = FilterSize;
-	return f;
+    Filter *f = new Filter(Capacity);
+    memcpy(f->Data, Data, Capacity);
+    f->FilterCount = FilterCount;
+    f->FilterSize = FilterSize;
+    return f;
 }
 
-void
-Filter::Fill (byte value)
+void Filter::Fill(byte value)
 {
-    ASSERT (FilterSize <= Capacity);
+    ASSERT(FilterSize <= Capacity);
     CachedFilteredCount = 0;
     CachedIndex = 0;
     FilterCount = (value != 0) ? FilterSize : 0;
-    for (uint i=0; i < FilterSize; i++) {
+    for (uint i = 0; i < FilterSize; i++)
+    {
         Data[i] = value;
     }
 }
 
-void
-Filter::Append (byte value)
+void Filter::Append(byte value)
 {
-    ASSERT (FilterSize <= Capacity);
-    if (FilterSize == Capacity) {
+    ASSERT(FilterSize <= Capacity);
+    if (FilterSize == Capacity)
+    {
         // Data array is full, extend it in chunks of 1000:
-	SetCapacity(Capacity + 1000);
+        SetCapacity(Capacity + 1000);
     }
     Data[FilterSize] = value;
     FilterSize++;
     // This is not really consistent. Size should be set in SetCapacity - S.A.
-    if (value != 0) { FilterCount++; }
+    if (value != 0)
+    {
+        FilterCount++;
+    }
     CachedFilteredCount = 0;
     CachedIndex = 0;
 }
 
-void
-Filter::SetCapacity(uint size)
+void Filter::SetCapacity(uint size)
 {
-    if (size > Capacity) 
-	{
+    if (size > Capacity)
+    {
         Capacity = size;
-        byte * newData = new byte [Capacity];
-        byte * newOldDataTree = new byte [Capacity];
-        if (Data != NULL) {
-            for (uint i=0; i < FilterSize; i++) {
+        byte *newData = new byte[Capacity];
+        byte *newOldDataTree = new byte[Capacity];
+        if (Data != NULL)
+        {
+            for (uint i = 0; i < FilterSize; i++)
+            {
                 newData[i] = Data[i];
             }
             delete[] Data;
@@ -92,31 +100,50 @@ Filter::SetCapacity(uint size)
     }
 }
 
-uint
-Filter::IndexToFilteredCount (uint index)
+uint Filter::IndexToFilteredCount(uint index)
 {
-    if (index > FilterSize) { return 0; }
+    if (index > FilterSize)
+    {
+        return 0;
+    }
     uint filteredCount = 0;
-    for (uint i=0; i < index; i++) {
-        if (Data[i] > 0) { filteredCount++; }
+    for (uint i = 0; i < index; i++)
+    {
+        if (Data[i] > 0)
+        {
+            filteredCount++;
+        }
     }
     return filteredCount;
 }
 
-uint
-Filter::FilteredCountToIndex (uint filteredCount)
+uint Filter::FilteredCountToIndex(uint filteredCount)
 {
-    if (filteredCount == CachedFilteredCount) { return CachedIndex; }
-    if (filteredCount > FilterCount) { return 0; }
+    if (filteredCount == CachedFilteredCount)
+    {
+        return CachedIndex;
+    }
+    if (filteredCount > FilterCount)
+    {
+        return 0;
+    }
     uint index;
     uint count = filteredCount;
-    for (index=0; index < FilterSize; index++) {
-        if (Data[index] > 0) {
+    for (index = 0; index < FilterSize; index++)
+    {
+        if (Data[index] > 0)
+        {
             count--;
-            if (count == 0) { break; }
+            if (count == 0)
+            {
+                break;
+            }
         }
     }
-    if (index == FilterSize) { return 0; }
+    if (index == FilterSize)
+    {
+        return 0;
+    }
     CachedFilteredCount = filteredCount;
     CachedIndex = index;
     return index;
@@ -126,23 +153,23 @@ Filter::FilteredCountToIndex (uint filteredCount)
 // Filter::saveFilterForFastMode():
 //      Reads the compressed filter from the specified open file.
 //
-void Filter::saveFilterForFastMode(uint ply) {
-  memcpy( (void*) GetOldDataTree(), GetData(), Size() );
-  isValidOldDataTree = true;
-  oldDataTreePly = ply;
+void Filter::saveFilterForFastMode(uint ply)
+{
+    memcpy((void *)GetOldDataTree(), GetData(), Size());
+    isValidOldDataTree = true;
+    oldDataTreePly = ply;
 }
 
 //////////////////////////////////////////////////////////////////////
 //
 // CompressedFilter methods
 
-
 static uint
-packBytemap (const byte * inBuffer, byte * outBuffer, uint inLength);
+packBytemap(const byte *inBuffer, byte *outBuffer, uint inLength);
 
 static errorT
-unpackBytemap (const byte * inBuffer, byte * outBuffer,
-               uint inLength, uint outLength);
+unpackBytemap(const byte *inBuffer, byte *outBuffer,
+              uint inLength, uint outLength);
 
 // OVERFLOW_BYTES:
 //      The maximum length that the output buffer could exceed the input
@@ -152,28 +179,33 @@ unpackBytemap (const byte * inBuffer, byte * outBuffer,
 //
 const uint OVERFLOW_BYTES = 8;
 
-
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // CompressedFilter::Verify():
 //      Return OK only if the compressed filter is identical to
 //      the regular filter passed as the paramter.
 //
 errorT
-CompressedFilter::Verify (Filter * filter)
+CompressedFilter::Verify(Filter *filter)
 {
-    if (CFilterSize != filter->Size()) { return ERROR_Corrupt; }
+    if (CFilterSize != filter->Size())
+    {
+        return ERROR_Corrupt;
+    }
 
     // Decompress the compressed block and compare with the original:
-    byte * tempBuffer = new byte [CFilterSize];
-    const byte * filterData = filter->GetData();
+    byte *tempBuffer = new byte[CFilterSize];
+    const byte *filterData = filter->GetData();
 
-    if (unpackBytemap (CompressedData, tempBuffer,
-                       CompressedLength, CFilterSize) != OK) {
+    if (unpackBytemap(CompressedData, tempBuffer,
+                      CompressedLength, CFilterSize) != OK)
+    {
         delete[] tempBuffer;
         return ERROR_Corrupt;
     }
-    for (uint i=0; i < CFilterSize; i++) {
-        if (tempBuffer[i] != filterData[i]) { 
+    for (uint i = 0; i < CFilterSize; i++)
+    {
+        if (tempBuffer[i] != filterData[i])
+        {
             delete[] tempBuffer;
             return ERROR_Corrupt;
         }
@@ -187,26 +219,24 @@ CompressedFilter::Verify (Filter * filter)
 //      Sets the compressed filter to be the compressed representation
 //      of the supplied filter.
 //
-void
-CompressedFilter::CompressFrom (Filter * filter)
+void CompressedFilter::CompressFrom(Filter *filter)
 {
     Clear();
 
     CFilterSize = filter->Size();
     CFilterCount = filter->Count();
-    byte * tempBuf = new byte [CFilterSize + OVERFLOW_BYTES];
-    CompressedLength = packBytemap (filter->GetData(), tempBuf, CFilterSize);
-    CompressedData = new byte [CompressedLength];
-    memcpy (CompressedData, tempBuf, CompressedLength);
+    byte *tempBuf = new byte[CFilterSize + OVERFLOW_BYTES];
+    CompressedLength = packBytemap(filter->GetData(), tempBuf, CFilterSize);
+    CompressedData = new byte[CompressedLength];
+    memcpy(CompressedData, tempBuf, CompressedLength);
     delete[] tempBuf;
 
     // Assert that the compressed filter decompresses identical to the
     // original, is assertions are being tested:
-    ASSERT (Verify (filter) == OK);
+    ASSERT(Verify(filter) == OK);
 
     return;
 }
-
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // CompressedFilter::UncompressTo():
@@ -214,40 +244,45 @@ CompressedFilter::CompressFrom (Filter * filter)
 //      stored in this compressed filter.
 //
 errorT
-CompressedFilter::UncompressTo (Filter * filter)
+CompressedFilter::UncompressTo(Filter *filter)
 {
     // The filter and compressed filter MUST be of the same size:
-    if (CFilterSize != filter->Size()) { return ERROR_Corrupt; }
-    byte * tempBuffer = new byte [CFilterSize];
-    if (unpackBytemap (CompressedData, tempBuffer,
-                       CompressedLength, CFilterSize) != OK) {
-
-	delete[] tempBuffer;
+    if (CFilterSize != filter->Size())
+    {
         return ERROR_Corrupt;
     }
-    for (uint index=0; index < CFilterSize; index++) {
-        filter->Set (index, tempBuffer[index]);
+    byte *tempBuffer = new byte[CFilterSize];
+    if (unpackBytemap(CompressedData, tempBuffer,
+                      CompressedLength, CFilterSize) != OK)
+    {
+
+        delete[] tempBuffer;
+        return ERROR_Corrupt;
+    }
+    for (uint index = 0; index < CFilterSize; index++)
+    {
+        filter->Set(index, tempBuffer[index]);
     }
     delete[] tempBuffer;
     return OK;
 }
-
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // CompressedFilter::WriteToFile():
 //      Writes the compressed filter to the specified open file.
 //
 errorT
-CompressedFilter::WriteToFile (FILE * fp)
+CompressedFilter::WriteToFile(FILE *fp)
 {
-    ASSERT (fp != NULL);
+    ASSERT(fp != NULL);
 
-    writeFourBytes (fp, CFilterSize);
-    writeFourBytes (fp, CFilterCount);
-    writeFourBytes (fp, CompressedLength);
-    byte * pb = CompressedData;
-    for (uint i=0; i < CompressedLength; i++, pb++) {
-        writeOneByte (fp, *pb);
+    writeFourBytes(fp, CFilterSize);
+    writeFourBytes(fp, CFilterCount);
+    writeFourBytes(fp, CompressedLength);
+    byte *pb = CompressedData;
+    for (uint i = 0; i < CompressedLength; i++, pb++)
+    {
+        writeOneByte(fp, *pb);
     }
     return OK;
 }
@@ -257,25 +292,28 @@ CompressedFilter::WriteToFile (FILE * fp)
 //      Reads the compressed filter from the specified open file.
 //
 errorT
-CompressedFilter::ReadFromFile (FILE * fp)
+CompressedFilter::ReadFromFile(FILE *fp)
 {
-    ASSERT (fp != NULL);
-    if (CompressedData) { delete[] CompressedData; }
+    ASSERT(fp != NULL);
+    if (CompressedData)
+    {
+        delete[] CompressedData;
+    }
 
-    CFilterSize = readFourBytes (fp);
-    CFilterCount = readFourBytes (fp);
-    CompressedLength = readFourBytes (fp);
-    CompressedData = new byte [CompressedLength];
-    byte * pb = CompressedData;
-    for (uint i=0; i < CompressedLength; i++, pb++) {
+    CFilterSize = readFourBytes(fp);
+    CFilterCount = readFourBytes(fp);
+    CompressedLength = readFourBytes(fp);
+    CompressedData = new byte[CompressedLength];
+    byte *pb = CompressedData;
+    for (uint i = 0; i < CompressedLength; i++, pb++)
+    {
         *pb = readOneByte(fp);
     }
     return OK;
 }
 
-
-const byte FLAG_Packed = 1;     // Indicates buffer is stored packed.
-const byte FLAG_Copied = 0;     // Indicates buffer is stored uncompressed.
+const byte FLAG_Packed = 1; // Indicates buffer is stored packed.
+const byte FLAG_Copied = 0; // Indicates buffer is stored uncompressed.
 
 const uint CODE_ZeroLiteral = 0;
 const uint CODE_PrevLiteral = 1;
@@ -310,15 +348,15 @@ const uint MIN_RLE_LENGTH = 9;
 //      bytes long for safety.
 //
 static uint
-packBytemap (const byte * inBuffer, byte * outBuffer, uint inLength)
+packBytemap(const byte *inBuffer, byte *outBuffer, uint inLength)
 {
-    ASSERT (inBuffer != NULL  &&  outBuffer != NULL);
+    ASSERT(inBuffer != NULL && outBuffer != NULL);
 
     byte prevLiteral = 0;
-    const byte * inPtr = inBuffer;
-    byte * outPtr = outBuffer + 2;
-    byte * controlPtr = outBuffer + 1;
-    const byte * endPtr = inBuffer + inLength;
+    const byte *inPtr = inBuffer;
+    byte *outPtr = outBuffer + 2;
+    byte *controlPtr = outBuffer + 1;
+    const byte *endPtr = inBuffer + inLength;
 
     uint outBytes = 2;
     uint controlData = 0;
@@ -326,60 +364,73 @@ packBytemap (const byte * inBuffer, byte * outBuffer, uint inLength)
 
     uint stats[4] = {0, 0, 0, 0};
 
-#define ENCODE_CONTROL_BITS(bits)       \
-    ASSERT (bits >= 0  &&  bits <= 3);  \
-    controlData >>= 2;                  \
-    controlData |= (bits << 6);         \
-    stats[bits]++;                      \
-    ASSERT (controlBits >= 2);          \
-    controlBits -= 2;                   \
-    if (controlBits == 0) {             \
-        *controlPtr = controlData;      \
-        controlPtr = outPtr++;          \
-        outBytes++;                     \
-        controlData = 0;                \
-        controlBits = 8;                \
+#define ENCODE_CONTROL_BITS(bits)   \
+    ASSERT(bits >= 0 && bits <= 3); \
+    controlData >>= 2;              \
+    controlData |= (bits << 6);     \
+    stats[bits]++;                  \
+    ASSERT(controlBits >= 2);       \
+    controlBits -= 2;               \
+    if (controlBits == 0)           \
+    {                               \
+        *controlPtr = controlData;  \
+        controlPtr = outPtr++;      \
+        outBytes++;                 \
+        controlData = 0;            \
+        controlBits = 8;            \
     }
 
     outBuffer[0] = FLAG_Packed;
 
-    while (inPtr < endPtr  &&  outBytes <= inLength) {
+    while (inPtr < endPtr && outBytes <= inLength)
+    {
         // Find the run length value:
         uint rle = 1;
         byte value = *inPtr;
-        const byte * pb = inPtr + 1;
-        while (pb < endPtr  &&  *pb == value) {
+        const byte *pb = inPtr + 1;
+        while (pb < endPtr && *pb == value)
+        {
             rle++;
             pb++;
         }
 
-        if (rle >= MIN_RLE_LENGTH) {
+        if (rle >= MIN_RLE_LENGTH)
+        {
             // Run length is long enough to be worth encoding as a run:
-            ENCODE_CONTROL_BITS (CODE_RunLength);
+            ENCODE_CONTROL_BITS(CODE_RunLength);
             inPtr += rle;
             *outPtr++ = value;
-            if (rle > 255) {   // Longer run length:
+            if (rle > 255)
+            { // Longer run length:
                 *outPtr++ = 0;
                 *outPtr++ = (rle >> 24) & 255;
                 *outPtr++ = (rle >> 16) & 255;
-                *outPtr++ = (rle >>  8) & 255;
+                *outPtr++ = (rle >> 8) & 255;
                 *outPtr++ = rle & 255;
                 outBytes += 6;
-            } else {
+            }
+            else
+            {
                 *outPtr++ = rle;
                 outBytes += 2;
             }
-        } else if (value == 0) {
+        }
+        else if (value == 0)
+        {
             // Zero-valued literal: coded in two bits.
-            ENCODE_CONTROL_BITS (CODE_ZeroLiteral);
+            ENCODE_CONTROL_BITS(CODE_ZeroLiteral);
             inPtr++;
-        } else if (value == prevLiteral) {
+        }
+        else if (value == prevLiteral)
+        {
             // Nonzero literal, same as previous: coded in two bits.
-            ENCODE_CONTROL_BITS (CODE_PrevLiteral);
+            ENCODE_CONTROL_BITS(CODE_PrevLiteral);
             inPtr++;
-        } else {
+        }
+        else
+        {
             // Nonzero literal, different to previous one: coded in 10 bits.
-            ENCODE_CONTROL_BITS (CODE_NewLiteral);
+            ENCODE_CONTROL_BITS(CODE_NewLiteral);
             inPtr++;
             prevLiteral = value;
             *outPtr++ = value;
@@ -392,9 +443,10 @@ packBytemap (const byte * inBuffer, byte * outBuffer, uint inLength)
     *controlPtr = controlData;
 
     // Switch to regular copying if necessary:
-    if (outBytes > inLength) {
+    if (outBytes > inLength)
+    {
         outBuffer[0] = FLAG_Copied;
-        memcpy (outBuffer + 1, inBuffer, inLength);
+        memcpy(outBuffer + 1, inBuffer, inLength);
         return (inLength + 1);
     }
 
@@ -414,92 +466,123 @@ packBytemap (const byte * inBuffer, byte * outBuffer, uint inLength)
 //      corruption in the compressed data is detected.
 //
 static errorT
-unpackBytemap (const byte * inBuffer, byte * outBuffer, uint inLength,
-               uint outLength)
+unpackBytemap(const byte *inBuffer, byte *outBuffer, uint inLength,
+              uint outLength)
 {
-    ASSERT (inBuffer != NULL  &&  outBuffer != NULL);
-    if (inLength == 0) { return ERROR_Corrupt; }
+    ASSERT(inBuffer != NULL && outBuffer != NULL);
+    if (inLength == 0)
+    {
+        return ERROR_Corrupt;
+    }
 
     // Check if the buffer was copied without compression:
 
-    if (inBuffer[0] == FLAG_Copied) {
+    if (inBuffer[0] == FLAG_Copied)
+    {
         // outLength MUST be one shorter than inLength:
-        if (outLength + 1 != inLength) { return ERROR_Corrupt; }
-        memcpy (outBuffer, inBuffer + 1, outLength);
+        if (outLength + 1 != inLength)
+        {
+            return ERROR_Corrupt;
+        }
+        memcpy(outBuffer, inBuffer + 1, outLength);
         return OK;
     }
-    if (inBuffer[0] != FLAG_Packed) { return ERROR_Corrupt; }
+    if (inBuffer[0] != FLAG_Packed)
+    {
+        return ERROR_Corrupt;
+    }
 
-    const byte * inPtr = inBuffer + 1;
+    const byte *inPtr = inBuffer + 1;
     int inBytesLeft = inLength - 1;
-    byte * outPtr = outBuffer;
+    byte *outPtr = outBuffer;
     int outBytesLeft = outLength;
     uint controlData = *inPtr++;
     uint controlBits = 8;
     inBytesLeft--;
     byte prevLiteral = 0;
 
-    while (outBytesLeft > 0) {
+    while (outBytesLeft > 0)
+    {
         byte value;
         uint length;
         // Read the two control bits for this literal or run length:
         uint code = controlData & 3;
         controlData >>= 2;
         controlBits -= 2;
-        if (controlBits == 0) {
+        if (controlBits == 0)
+        {
             inBytesLeft--;
-            if (inBytesLeft < 0) { return ERROR_Corrupt; }
+            if (inBytesLeft < 0)
+            {
+                return ERROR_Corrupt;
+            }
             controlData = *inPtr++;
             controlBits = 8;
         }
 
-        switch (code) {
-        case CODE_ZeroLiteral:      // Literal value zero:
+        switch (code)
+        {
+        case CODE_ZeroLiteral: // Literal value zero:
             *outPtr++ = 0;
             outBytesLeft--;
             break;
 
-        case CODE_PrevLiteral:      // Nonzero literal same as previous:
+        case CODE_PrevLiteral: // Nonzero literal same as previous:
             *outPtr++ = prevLiteral;
             outBytesLeft--;
             break;
 
-        case CODE_RunLength:        // Run length encoding:
+        case CODE_RunLength: // Run length encoding:
             inBytesLeft -= 2;
-            if (inBytesLeft < 0) { return ERROR_Corrupt; }
+            if (inBytesLeft < 0)
+            {
+                return ERROR_Corrupt;
+            }
             value = *inPtr++;
             length = *inPtr++;
-            if (length == 0) {
+            if (length == 0)
+            {
                 // Longer run length, coded in next 4 bytes:
                 inBytesLeft -= 4;
-                if (inBytesLeft < 0) { return ERROR_Corrupt; }
+                if (inBytesLeft < 0)
+                {
+                    return ERROR_Corrupt;
+                }
                 length = *inPtr++;
-                length <<= 8; length |= *inPtr++;
-                length <<= 8; length |= *inPtr++;
-                length <<= 8; length |= *inPtr++;
+                length <<= 8;
+                length |= *inPtr++;
+                length <<= 8;
+                length |= *inPtr++;
+                length <<= 8;
+                length |= *inPtr++;
             }
             outBytesLeft -= length;
-            if (outBytesLeft < 0) { return ERROR_Corrupt; }
-            while (length--) {
+            if (outBytesLeft < 0)
+            {
+                return ERROR_Corrupt;
+            }
+            while (length--)
+            {
                 *outPtr++ = value;
             }
             break;
 
-        case CODE_NewLiteral:       // Nonzero literal with different value:
+        case CODE_NewLiteral: // Nonzero literal with different value:
             prevLiteral = *inPtr++;
             inBytesLeft--;
             *outPtr++ = prevLiteral;
             outBytesLeft--;
             break;
 
-        default:    // UNREACHABLE!
+        default: // UNREACHABLE!
             ASSERT(0);
             return ERROR_Corrupt;
         }
     }
 
     // Check the buffer lengths for corruption:
-    if (inBytesLeft != 0  ||  outBytesLeft != 0) {
+    if (inBytesLeft != 0 || outBytesLeft != 0)
+    {
         return ERROR_Corrupt;
     }
     return OK;
