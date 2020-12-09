@@ -89,9 +89,9 @@ test validDate {} -body {
     sc_info validDate 2020.12.02 } -result 1
 
 test version {} -body {
-    sc_info version } -result 0.05
+    sc_info version } -result 0.06
 
 test versiondate {} -body {
-    sc_info version date } -result "December 1, 2020"
+    sc_info version date } -result "December 9, 2020"
 
 cleanupTests
