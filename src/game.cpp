@@ -550,13 +550,13 @@ byte game_parseNag(const char *str)
     }
 
     if (*str == '~' && *(str + 1) == '=')
-    {   // ~=       $44
+    { // ~=       $44
         // alternative Compensation symbol:
         return NAG_Compensation;
     }
 
     if (*str == '~')
-    {   // ~        $13
+    { // ~        $13
         // Unclear symbol:
         return NAG_Unclear;
     }
@@ -567,13 +567,13 @@ byte game_parseNag(const char *str)
     }
 
     if (str[0] == 'N' && str[1] == 0)
-    {   // N        $146
+    { // N        $146
         // Novelty symbol:
         return NAG_Novelty;
     }
 
     if (str[0] == 'D' && str[1] == 0)
-    {   // D        $201
+    { // D        $201
         // Diagram symbol:
         return NAG_Diagram;
     }
@@ -1407,7 +1407,7 @@ Game::DeleteVariationAndFree(uint varNumber)
 
     // free moves starting at m
     moveT *tmp = NULL;
-    while (m->marker != END_MARKER && m != NULL)
+    while (m != NULL && m->marker != END_MARKER)
     {
         tmp = m->next;
         FreeMove(m);
@@ -1456,7 +1456,7 @@ void Game::TruncateAndFreeMove(moveT *thisMove)
 
     moveT *move = thisMove->next;
     moveT *tmp = NULL;
-    while (move->marker != END_MARKER && move != NULL)
+    while (move != NULL && move->marker != END_MARKER)
     {
 
         // free variations
@@ -1544,7 +1544,7 @@ uint Game::MakeHomePawnList(byte *pbPawnList)
     }
 
     uint count = 0;
-    uint hpOld, hpNew;
+    uint hpOld;
     uint halfByte = 0;
     errorT err = OK;
     byte *pbList = pbPawnList;
@@ -1567,7 +1567,7 @@ uint Game::MakeHomePawnList(byte *pbPawnList)
 
     while (err == OK)
     {
-        hpNew = CurrentPos->GetHPSig();
+        uint hpNew = CurrentPos->GetHPSig();
         if (hpNew != hpOld)
         {
             byte changeValue = (byte)(log2(hpOld - hpNew));
@@ -2792,7 +2792,7 @@ Game::WriteMoveList(TextBuffer *tb, uint plyCount,
 
     while (CurrentMove->marker != END_MARKER)
     {
-        moveT *m = CurrentMove;
+        m = CurrentMove;
         bool commentLine = false;
 
         // If the move being printed is the game's "current move" then
@@ -3014,18 +3014,15 @@ Game::WriteMoveList(TextBuffer *tb, uint plyCount,
             {
                 if ((PgnStyle & PGN_STYLE_COLUMN) && VarDepth == 0)
                 {
-                    if (!endedColumn)
+                    if (CurrentPos->GetToMove() == WHITE)
                     {
-                        if (CurrentPos->GetToMove() == WHITE)
-                        {
-                            tb->PauseTranslations();
-                            tb->PrintString(nextColumn);
-                            tb->ResumeTranslations();
-                        }
-                        tb->PrintString(endColumn);
-                        tb->PrintString(endTable);
-                        endedColumn = true;
+                        tb->PauseTranslations();
+                        tb->PrintString(nextColumn);
+                        tb->ResumeTranslations();
                     }
+                    tb->PrintString(endColumn);
+                    tb->PrintString(endTable);
+                    endedColumn = true;
                 }
                 if (IsHtmlFormat() && VarDepth == 0)
                 {
@@ -3657,8 +3654,6 @@ Game::WritePGN(TextBuffer *tb, uint stopLocation)
 errorT
 Game::WritePGNGraphToLatex(TextBuffer *tb)
 {
-    char temp[256];
-
     MoveToPly(0);
     PgnLastMovePos = PgnNextMovePos = 1;
     moveT *m = CurrentMove;
@@ -3804,16 +3799,9 @@ Game::WritePGNGraphToLatex(TextBuffer *tb)
     int xTick = 5;
     int lastX = (scoreHalfMoves / 2) + 1; // Number of Moves to Cover
     int maxX = ((lastX + xTick - 1) / xTick) * xTick;
-    bool finalTick = false;
-    /*
-        if (maxX - lastX > 2) {
-           finalTick = true;
-        }
-        */
 
     int maxY = 5;
     int minY = -5;
-    int minX = 1;
 
     double yscale = 0.014;
 
@@ -3853,12 +3841,13 @@ Game::WritePGNGraphToLatex(TextBuffer *tb)
 
     if (scoresFound)
     {
+        char temp[256];
         sprintf(temp, "\\begin{minipage}{\\textwidth}\n");
         tb->PrintString(temp);
         tb->PrintString("Analysis Scoregraph:\n{\n\\center\n");
         sprintf(temp, "\\psset{linewidth=0.7pt, yunit=%0.4f\\paperheight, xunit=%0.4f\\textwidth}\n", yscale, latexUnitSize);
         tb->PrintString(temp);
-        sprintf(temp, "\\pspicture[](%d,%d)(%d,%d)\n", minX - 1, minY, ((lastX > maxX) ? lastX : maxX), maxY);
+        sprintf(temp, "\\pspicture[](%d,%d)(%d,%d)\n", 0, minY, ((lastX > maxX) ? lastX : maxX), maxY);
         tb->PrintString(temp);
         sprintf(temp, "\\psframe*[fillstyle=solid,fillcolor=EvenGameColor,linecolor=EvenGameColor](1,-3)(%d,3)\n", lastX);
         tb->PrintString(temp);
@@ -3890,12 +3879,7 @@ Game::WritePGNGraphToLatex(TextBuffer *tb)
             sprintf(temp, "\\rput(0,-15){-50}");
             tb->PrintString(temp);
         }
-        if (finalTick)
-        {
-            sprintf(temp, "\\rput(%d,-1.30){%d}\\psline(%d,0)(%d,-0.5)", lastX, lastX, lastX, lastX);
-            tb->PrintString(temp);
-        }
-        for (int x = 1; x < NumHalfMoves; x++)
+        for (x = 1; x < NumHalfMoves; x++)
         {
             if (events[x] != ' ')
             {
@@ -3909,7 +3893,7 @@ Game::WritePGNGraphToLatex(TextBuffer *tb)
 
         sprintf(temp, "\n\\psline[linewidth=1.5pt,linecolor=%s](1,0)", (scores[1] > 0) ? "WhitePiecesGraphColor" : "BlackPiecesGraphColor");
         tb->PrintString(temp);
-        for (int x = 1; x < scoreHalfMoves; x++)
+        for (x = 1; x < scoreHalfMoves; x++)
         {
             if ((scores[x - 1] >= 0) && (scores[x] < 0))
             {
@@ -3963,12 +3947,9 @@ Game::WritePGNtoLaTeX(TextBuffer *tb, uint stopLocation)
     const char *postCommentStr = "\\\\[1ex]\n";
     const char *preVariationStr = "\\textcolor{VariationColor}{\\variation{";
     const char *postVariationStr = "}}\n\\\\[1ex]\n";
-    const char *diagramStr = "\\begin{center}\n\\vspace{1ex}\n\\chessboard\n\\vspace{1ex}\n\\end{center}\n";
     const char *diagramStrStart = "\\begin{center}\n\\vspace{1ex}\n\\chessboard[";
     const char *diagramStrStop = "]\\vspace{1ex}\n\\end{center}\n";
 
-    bool printDiagrams = true;
-    bool diagramPrinted;
     bool inMainline = false;
 
     tb->NewlinesToSpaces(false);
@@ -4105,6 +4086,7 @@ Game::WritePGNtoLaTeX(TextBuffer *tb, uint stopLocation)
         tb->PrintString("\\newchessgame[");
         tb->PrintString(temp);
         tb->PrintString("]\n");
+        const char *diagramStr = "\\begin{center}\n\\vspace{1ex}\n\\chessboard\n\\vspace{1ex}\n\\end{center}\n";
         tb->PrintString(diagramStr);
     }
 
@@ -4112,7 +4094,7 @@ Game::WritePGNtoLaTeX(TextBuffer *tb, uint stopLocation)
 
     while (m->marker != END_MARKER)
     {
-        diagramPrinted = false;
+        bool diagramPrinted = false;
 
         if (m->san[0] == 0)
         {
@@ -4137,7 +4119,7 @@ Game::WritePGNtoLaTeX(TextBuffer *tb, uint stopLocation)
 
         for (uint i = 0; i < (uint)m->nagCount; i++)
         {
-            if (printDiagrams && m->nags[i] == NAG_Diagram)
+            if (m->nags[i] == NAG_Diagram)
             {
                 if (strncmp(m->san, "O-O", 3) == 0)
                 {
@@ -4275,9 +4257,9 @@ Game::WritePGNtoLaTeX(TextBuffer *tb, uint stopLocation)
                     strcpy(temp, v->san);
                     tb->PrintWord(temp);
 
-                    for (uint i = 0; i < (uint)v->nagCount; i++)
+                    for (uint in = 0; in < (uint)v->nagCount; in++)
                     {
-                        game_printNag(v->nags[i], temp, true, PGN_FORMAT_Latex);
+                        game_printNag(v->nags[in], temp, true, PGN_FORMAT_Latex);
                         tb->PrintString(temp);
                     }
                     /*  in-var comments aren't decoded / working
@@ -5452,10 +5434,9 @@ Game::DecodeNextMove(ByteBuffer *buf, simpleMoveT *sm)
 {
     ASSERT(buf != NULL);
     errorT err;
-    byte b;
     while (1)
     {
-        b = buf->GetByte();
+        byte b = buf->GetByte();
         if (buf->Status() != OK)
         {
             return ERROR_Game;
