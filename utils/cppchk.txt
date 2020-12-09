@@ -400,126 +400,6 @@ class MoveList
 ..\src\namebase.cpp:441:13: warning: %d in format string (no. 1) requires 'int' but the argument type is 'unsigned int'. [invalidPrintfArgType_sint]
             fprintf (f, "%6d\t%s\n", node->data.frequency, node->name);
             ^
-..\src\optable.h:177:5: warning: Member variable 'OpTable::MaxThemeMoveNumber' is not initialized in the constructor. [uninitMemberVar]
-    OpTable (uint base, const char * type, Game * g, PBook * ecoBook) {
-    ^
-..\src\optable.h:177:5: warning: Member variable 'OpTable::NumNotes' is not initialized in the constructor. [uninitMemberVar]
-    OpTable (uint base, const char * type, Game * g, PBook * ecoBook) {
-    ^
-..\src\optable.h:177:5: warning: Member variable 'OpTable::Line' is not initialized in the constructor. [uninitMemberVar]
-    OpTable (uint base, const char * type, Game * g, PBook * ecoBook) {
-    ^
-..\src\optable.h:177:5: warning: Member variable 'OpTable::MoveOrder' is not initialized in the constructor. [uninitMemberVar]
-    OpTable (uint base, const char * type, Game * g, PBook * ecoBook) {
-    ^
-..\src\optable.h:177:5: warning: Member variable 'OpTable::Row' is not initialized in the constructor. [uninitMemberVar]
-    OpTable (uint base, const char * type, Game * g, PBook * ecoBook) {
-    ^
-..\src\optable.h:177:5: warning: Member variable 'OpTable::NLines' is not initialized in the constructor. [uninitMemberVar]
-    OpTable (uint base, const char * type, Game * g, PBook * ecoBook) {
-    ^
-..\src\optable.h:177:5: warning: Member variable 'OpTable::RowScore' is not initialized in the constructor. [uninitMemberVar]
-    OpTable (uint base, const char * type, Game * g, PBook * ecoBook) {
-    ^
-..\src\optable.h:180:5: warning: Member variable 'OpTable::MaxThemeMoveNumber' is not initialized in the constructor. [uninitMemberVar]
-    OpTable (uint base, const char * type, Game * g) { Init (base, type, g, NULL); }
-    ^
-..\src\optable.h:180:5: warning: Member variable 'OpTable::NumNotes' is not initialized in the constructor. [uninitMemberVar]
-    OpTable (uint base, const char * type, Game * g) { Init (base, type, g, NULL); }
-    ^
-..\src\optable.h:180:5: warning: Member variable 'OpTable::Line' is not initialized in the constructor. [uninitMemberVar]
-    OpTable (uint base, const char * type, Game * g) { Init (base, type, g, NULL); }
-    ^
-..\src\optable.h:180:5: warning: Member variable 'OpTable::MoveOrder' is not initialized in the constructor. [uninitMemberVar]
-    OpTable (uint base, const char * type, Game * g) { Init (base, type, g, NULL); }
-    ^
-..\src\optable.h:180:5: warning: Member variable 'OpTable::Row' is not initialized in the constructor. [uninitMemberVar]
-    OpTable (uint base, const char * type, Game * g) { Init (base, type, g, NULL); }
-    ^
-..\src\optable.h:180:5: warning: Member variable 'OpTable::NLines' is not initialized in the constructor. [uninitMemberVar]
-    OpTable (uint base, const char * type, Game * g) { Init (base, type, g, NULL); }
-    ^
-..\src\optable.h:180:5: warning: Member variable 'OpTable::RowScore' is not initialized in the constructor. [uninitMemberVar]
-    OpTable (uint base, const char * type, Game * g) { Init (base, type, g, NULL); }
-    ^
-..\src\optable.h:108:10: style: Unused private function: 'OpLine::Destroy' [unusedPrivateFunction]
-    void Destroy (void);
-         ^
-..\src\optable.cpp:2087:27: style: Condition 'NUM_POSTHEMES%2==1' is always false [knownConditionTrueFalse]
-    if (NUM_POSTHEMES % 2 == 1) { dstr->Append (endRow); }
-                          ^
-..\src\optable.cpp:27:31: style: Redundant initialization for 'idx'. The initialized value is overwritten before it is read. [redundantInitialization]
-            if (minors) { idx = EGTHEME_QRM; } else { idx = EGTHEME_QR; }
-                              ^
-..\src\optable.cpp:23:14: note: idx is initialized
-    uint idx = EGTHEME_P;
-             ^
-..\src\optable.cpp:27:31: note: idx is overwritten
-            if (minors) { idx = EGTHEME_QRM; } else { idx = EGTHEME_QR; }
-                              ^
-..\src\optable.cpp:468:16: style: Local variable 's' shadows outer variable [shadowVariable]
-        char * s = (char *) strFirstChar (dateStr+4, '?');
-               ^
-..\src\optable.cpp:392:18: note: Shadowed declaration
-    const char * s = White;
-                 ^
-..\src\optable.cpp:468:16: note: Shadow variable
-        char * s = (char *) strFirstChar (dateStr+4, '?');
-               ^
-..\src\optable.cpp:1059:14: style: Local variable 'score' shadows outer variable [shadowVariable]
-        uint score = 0;
-             ^
-..\src\optable.cpp:1014:10: note: Shadowed declaration
-    uint score = TheoryScore();
-         ^
-..\src\optable.cpp:1059:14: note: Shadow variable
-        uint score = 0;
-             ^
-..\src\optable.cpp:1121:14: style: Local variable 'score' shadows outer variable [shadowVariable]
-        uint score = 0;
-             ^
-..\src\optable.cpp:1087:10: note: Shadowed declaration
-    uint score = TheoryScore();
-         ^
-..\src\optable.cpp:1121:14: note: Shadow variable
-        uint score = 0;
-             ^
-..\src\optable.cpp:1244:14: style: Local variable 'score' shadows outer variable [shadowVariable]
-        uint score = 0;
-             ^
-..\src\optable.cpp:1162:10: note: Shadowed declaration
-    uint score = TheoryScore();
-         ^
-..\src\optable.cpp:1244:14: note: Shadow variable
-        uint score = 0;
-             ^
-..\src\optable.cpp:1663:18: style: Local variable 'maxElo' shadows outer variable [shadowVariable]
-            uint maxElo = pf[index].maxElo;
-                 ^
-..\src\optable.cpp:1619:14: note: Shadowed declaration
-        uint maxElo = 0;
-             ^
-..\src\optable.cpp:1663:18: note: Shadow variable
-            uint maxElo = pf[index].maxElo;
-                 ^
-..\src\optable.cpp:1681:27: style: Local variable 'n' shadows outer variable [shadowVariable]
-                for (uint n=0; n < PLAYERFREQ_MAXNOTES; n++) {
-                          ^
-..\src\optable.cpp:1617:15: note: Shadowed declaration
-    for (uint n=1; n <= count; n++) {
-              ^
-..\src\optable.cpp:1681:27: note: Shadow variable
-                for (uint n=0; n < PLAYERFREQ_MAXNOTES; n++) {
-                          ^
-..\src\optable.cpp:947:11: style: Variable 'count' is assigned a value that is never used. [unreadVariable]
-    count = 0;
-          ^
-..\src\optable.cpp:2045:9: style: Variable 'argc' is assigned a value that is never used. [unreadVariable]
-    argc--;
-        ^
-..\src\pbook.cpp:59:44: error: Syntax Error: AST broken, binary operator '>' doesn't have two operands. [internalAstError]
-        for (uint i = 0; i<PBOOK_HASH_BYTES> > 3; i++)
-                                           ^
 ..\src\position.h:131:12: style: Unused private function: 'Position::AssertPos' [unusedPrivateFunction]
     errorT AssertPos(); //  Checks for errors in board etc.
            ^
@@ -528,9 +408,6 @@ class MoveList
                           ^
 ..\src\tkscid.cpp:415:0: information: Skipping configuration 'SOURCE_TCL_FILE' since the value of 'SOURCE_TCL_FILE' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly. [ConfigurationNotChecked]
         strCopy(end + 1, SOURCE_TCL_FILE);
-^
-..\src\movelist.cpp:26:0: style: The function 'Find' is never used. [unusedFunction]
-
 ^
 nofile:0:0: information: Cppcheck cannot find all the include files (use --check-config for details) [missingIncludeSystem]
 
