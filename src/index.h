@@ -373,7 +373,7 @@ public:
 
     inline void SetLength(uint length)
     {
-        ASSERT(length >= 0 && length < 131072);
+        ASSERT(length < 131072);
         Length_Low = (unsigned short)(length & 0xFFFF);
         // preserve the last 7 bits
         Length_High = (Length_High & 0x7F) | (byte)((length >> 16) << 7);

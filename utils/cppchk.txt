@@ -283,18 +283,14 @@ class MoveList
 ..\src\game.cpp:3408:28: style: Variable 'inMainline' is assigned a value that is never used. [unreadVariable]
                 inMainline = false;
                            ^
-..\src\index.h:376:9: style: Unsigned expression 'length' can't be negative so it is unnecessary to test it. [unsignedPositive]
-        ASSERT(length >= 0 && length < 131072);
-        ^
-..\src\gfile.h:59:5: warning: Member variable 'GFile::FileName' is not initialized in the constructor. [uninitMemberVar]
-    GFile()      { Init(); }
-    ^
-..\src\gfile.h:59:5: warning: Member variable 'GFile::Reads' is not initialized in the constructor. [uninitMemberVar]
-    GFile()      { Init(); }
-    ^
-..\src\gfile.h:59:5: warning: Member variable 'GFile::Writes' is not initialized in the constructor. [uninitMemberVar]
-    GFile()      { Init(); }
-    ^
-..\src\gfile.h:59:5: warning: Member variable 'GFile::LastBlockSize' is not initialized in the constructor. [uninitMemberVar]
-    GFile()      { Init(); }
-    ^
+..\src\position.h:131:12: style: Unused private function: 'Position::AssertPos' [unusedPrivateFunction]
+    errorT AssertPos(); //  Checks for errors in board etc.
+           ^
+..\src\tkdnd\win\TkDND_OleDND.cpp:279:27: portability: Assigning an integer to a pointer is not portable. [AssignmentIntegerToAddress]
+              CurPosition = 1 + _tcschr(pszFileName, '\0');
+                          ^
+..\src\tkscid.cpp:415:0: information: Skipping configuration 'SOURCE_TCL_FILE' since the value of 'SOURCE_TCL_FILE' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly. [ConfigurationNotChecked]
+        strCopy(end + 1, SOURCE_TCL_FILE);
+^
+nofile:0:0: information: Cppcheck cannot find all the include files (use --check-config for details) [missingIncludeSystem]
+

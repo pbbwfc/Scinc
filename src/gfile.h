@@ -12,7 +12,6 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-
 #ifndef SCID_GFILE_H
 #define SCID_GFILE_H
 
@@ -23,64 +22,63 @@
 #include "mfile.h"
 
 // The GFile block size is 32 kilobytes:
-#define GF_BLOCKSIZE  131072 //524288
+#define GF_BLOCKSIZE 131072 //524288
 // const char OLD_GFILE_SUFFIX [] = ".sg3";
-const char GFILE_SUFFIX [] = ".sg4";
-
+const char GFILE_SUFFIX[] = ".sg4";
 
 // The block structure type:
 //
 struct gfBlockT
 {
-    int   blockNum;
-    int   dirty;
-    uint  length;
-    byte  data [GF_BLOCKSIZE];
+  int blockNum;
+  int dirty;
+  uint length;
+  byte data[GF_BLOCKSIZE];
 };
-
 
 class GFile
 {
-  private:
-    fileNameT FileName;
-    MFile *   Handle;
-    fileModeT FileMode;
-    uint      Offset;
+private:
+  fileNameT FileName;
+  MFile *Handle;
+  fileModeT FileMode;
+  uint Offset;
 
-    uint   Reads, Writes;
+  uint Reads, Writes;
 
-    uint   NumBlocks;
-    uint   LastBlockSize;
-    uint   CacheSize;
-    gfBlockT  ** Cache;
-    gfBlockT  *  CurrentBlock;
+  uint NumBlocks;
+  uint LastBlockSize;
+  uint CacheSize;
+  gfBlockT **Cache;
+  gfBlockT *CurrentBlock;
 
-  public:
-    GFile()      { Init(); }
+public:
+  GFile() { Init(); }
 
-    void      Init ();
-    
-    uint      GetFileSize();
-    uint      GetNumReads ()   { return Reads; }
-    uint      GetNumWrites ()  { return Writes; }
+  void Init();
 
-    errorT    Create (const char * filename, fileModeT fmode);
-    errorT    CreateMemoryOnly ();
-    errorT    Open (const char * filename, fileModeT fmode, const char * suffix);
-    errorT    Open (const char * filename, fileModeT fmode) {
-        return Open (filename, fmode, GFILE_SUFFIX);
-    }
-//     errorT    OpenOld (const char * filename, fileModeT fmode) {
-//         return Open (filename, fmode, OLD_GFILE_SUFFIX);
-//     }
-    errorT    Close ();
-    errorT    Fetch (gfBlockT * blk, uint blockNum);
-    errorT    Flush (gfBlockT * blk);
+  uint GetFileSize();
+  uint GetNumReads() { return Reads; }
+  uint GetNumWrites() { return Writes; }
 
-    void      FlushAll ()  { Flush (CurrentBlock); }
-    
-    errorT    AddGame (ByteBuffer * bb, uint * offset);
-    errorT    ReadGame (ByteBuffer * bb, uint offset, uint length);
+  errorT Create(const char *filename, fileModeT fmode);
+  errorT CreateMemoryOnly();
+  errorT Open(const char *filename, fileModeT fmode, const char *suffix);
+  errorT Open(const char *filename, fileModeT fmode)
+  {
+    return Open(filename, fmode, GFILE_SUFFIX);
+  }
+  //     errorT    OpenOld (const char * filename, fileModeT fmode) {
+  //         return Open (filename, fmode, OLD_GFILE_SUFFIX);
+  //     }
+  errorT Close();
+  errorT Fetch(gfBlockT *blk, uint blockNum);
+  errorT Flush(gfBlockT *blk);
+
+  void FlushAll() { Flush(CurrentBlock); }
+
+  errorT AddGame(ByteBuffer *bb, uint *offset);
+  errorT ReadGame(ByteBuffer *bb, uint offset, uint length);
 };
 
 #endif // SCID_GFLE_H
@@ -88,4 +86,3 @@ class GFile
 //////////////////////////////////////////////////////////////////////
 //  EOF: gfile.h
 //////////////////////////////////////////////////////////////////////
-
