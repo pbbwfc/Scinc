@@ -249,7 +249,7 @@ private:
     byte Length_High; // LxFFFFFF ( L = length for long games, x = spare, F = custom flags)
 
 public:
-    IndexEntry() {}
+    IndexEntry() { Init(); }
     ~IndexEntry() {}
     void Init();
 
@@ -730,7 +730,7 @@ public:
 
     void SetCustomFlagDesc(const char *str, byte c)
     {
-        strncpy(Header.customFlagDesc[c - 1], str, CUSTOM_FLAG_DESC_LENGTH+1);
+        strncpy(Header.customFlagDesc[c - 1], str, CUSTOM_FLAG_DESC_LENGTH + 1);
         Header.customFlagDesc[c - 1][CUSTOM_FLAG_DESC_LENGTH] = 0;
         WriteHeader();
     }

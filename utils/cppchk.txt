@@ -40,69 +40,9 @@
 ..\src\stralloc.h:80:14: warning: Member variable 'StrAllocator::LastAllocSize' is not initialized in the constructor. [uninitMemberVar]
     explicit StrAllocator (uint bucketSize) {
              ^
-..\src\index.h:252:5: warning: Member variable 'IndexEntry::Offset' is not initialized in the constructor. [uninitMemberVar]
-    IndexEntry() {}
-    ^
-..\src\index.h:252:5: warning: Member variable 'IndexEntry::WhiteID_Low' is not initialized in the constructor. [uninitMemberVar]
-    IndexEntry() {}
-    ^
-..\src\index.h:252:5: warning: Member variable 'IndexEntry::BlackID_Low' is not initialized in the constructor. [uninitMemberVar]
-    IndexEntry() {}
-    ^
-..\src\index.h:252:5: warning: Member variable 'IndexEntry::EventID_Low' is not initialized in the constructor. [uninitMemberVar]
-    IndexEntry() {}
-    ^
-..\src\index.h:252:5: warning: Member variable 'IndexEntry::SiteID_Low' is not initialized in the constructor. [uninitMemberVar]
-    IndexEntry() {}
-    ^
-..\src\index.h:252:5: warning: Member variable 'IndexEntry::RoundID_Low' is not initialized in the constructor. [uninitMemberVar]
-    IndexEntry() {}
-    ^
-..\src\index.h:252:5: warning: Member variable 'IndexEntry::WhiteBlack_High' is not initialized in the constructor. [uninitMemberVar]
-    IndexEntry() {}
-    ^
-..\src\index.h:252:5: warning: Member variable 'IndexEntry::EventSiteRnd_High' is not initialized in the constructor. [uninitMemberVar]
-    IndexEntry() {}
-    ^
-..\src\index.h:252:5: warning: Member variable 'IndexEntry::EcoCode' is not initialized in the constructor. [uninitMemberVar]
-    IndexEntry() {}
-    ^
-..\src\index.h:252:5: warning: Member variable 'IndexEntry::Dates' is not initialized in the constructor. [uninitMemberVar]
-    IndexEntry() {}
-    ^
-..\src\index.h:252:5: warning: Member variable 'IndexEntry::WhiteElo' is not initialized in the constructor. [uninitMemberVar]
-    IndexEntry() {}
-    ^
-..\src\index.h:252:5: warning: Member variable 'IndexEntry::BlackElo' is not initialized in the constructor. [uninitMemberVar]
-    IndexEntry() {}
-    ^
-..\src\index.h:252:5: warning: Member variable 'IndexEntry::FinalMatSig' is not initialized in the constructor. [uninitMemberVar]
-    IndexEntry() {}
-    ^
-..\src\index.h:252:5: warning: Member variable 'IndexEntry::Flags' is not initialized in the constructor. [uninitMemberVar]
-    IndexEntry() {}
-    ^
-..\src\index.h:252:5: warning: Member variable 'IndexEntry::VarCounts' is not initialized in the constructor. [uninitMemberVar]
-    IndexEntry() {}
-    ^
-..\src\index.h:252:5: warning: Member variable 'IndexEntry::NumHalfMoves' is not initialized in the constructor. [uninitMemberVar]
-    IndexEntry() {}
-    ^
-..\src\index.h:252:5: warning: Member variable 'IndexEntry::HomePawnData' is not initialized in the constructor. [uninitMemberVar]
-    IndexEntry() {}
-    ^
-..\src\index.h:252:5: warning: Member variable 'IndexEntry::Length_Low' is not initialized in the constructor. [uninitMemberVar]
-    IndexEntry() {}
-    ^
-..\src\index.h:252:5: warning: Member variable 'IndexEntry::Length_High' is not initialized in the constructor. [uninitMemberVar]
-    IndexEntry() {}
-    ^
 ..\src\movelist.h:60:1: style: The class 'MoveList' does not have a constructor although it has private member variables. [noConstructor]
 class MoveList
 ^
-..\src\sqlist.h:30:5: warning: Member variable 'SquareList::Squares' is not initialized in the constructor. [uninitMemberVar]
-    SquareList() { ListSize = 0; }
-    ^
 ..\src\position.h:131:12: style: Unused private function: 'Position::AssertPos' [unusedPrivateFunction]
     errorT AssertPos(); //  Checks for errors in board etc.
            ^

@@ -27,7 +27,7 @@ private:
 
 public:
 
-    SquareList() { ListSize = 0; }
+    SquareList() { ListSize = 0; Squares[MAX_SQUARELIST-1] = {0}; }
     ~SquareList() {}
 
     inline void Init() { ListSize = 0; }
