@@ -352,24 +352,6 @@ class MoveList
 ..\src\index.cpp:258:13: style: Variable 'version' is assigned a value that is never used. [unreadVariable]
     version = 0;  // We dont have any version-specific code.
             ^
-..\src\mfile.cpp:179:13: error: Uninitialized variable: result [uninitvar]
-    return (result == 0 ? OK : ERROR);
-            ^
-..\src\mfile.cpp:179:13: error: Uninitialized variable: result [uninitvar]
-    return (result == 0 ? OK : ERROR);
-            ^
-..\src\mfile.cpp:163:14: note: Assuming condition is true
-    if (Type == MFILE_MMAP) {
-             ^
-..\src\mfile.cpp:179:13: note: Uninitialized variable: result
-    return (result == 0 ? OK : ERROR);
-            ^
-..\src\mfile.cpp:109:25: style: Variable 'suffix' is assigned a value that is never used. [unreadVariable]
-    const char * suffix = strFileSuffix (name);
-                        ^
-..\src\mfile.cpp:188:16: style: Variable 'err' is assigned a value that is never used. [unreadVariable]
-    errorT err = OK;
-               ^
 ..\src\position.h:131:12: style: Unused private function: 'Position::AssertPos' [unusedPrivateFunction]
     errorT AssertPos(); //  Checks for errors in board etc.
            ^

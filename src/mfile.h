@@ -12,7 +12,6 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-
 // An MFile is a file that can be a regular file, or memory-only with
 // no actual file on any device.
 
@@ -25,7 +24,6 @@
 // On Linux we have a simpler method, glibc is providing the function
 // getc_unlocked() for this purpose.
 
-
 #ifndef SCID_MFILE_H
 #define SCID_MFILE_H
 
@@ -33,39 +31,55 @@
 #include "dstring.h"
 #include "error.h"
 
-# include "win_mmap.h"
+#include "win_mmap.h"
 
-enum mfileT {
-    MFILE_REGULAR = 0, MFILE_MEMORY, MFILE_MMAP,
+enum mfileT
+{
+    MFILE_REGULAR = 0,
+    MFILE_MEMORY,
+    MFILE_MMAP,
 };
 
 class MFile
 {
-  private:
-    FILE *      Handle;         // For regular files.
-    fileModeT   FileMode;
-    mfileT      Type;
-    char *      FileName;
+private:
+    FILE *Handle; // For regular files.
+    fileModeT FileMode;
+    mfileT Type;
+    char *FileName;
 
     // The next few fields are used for in-memory files.
-    uint        Capacity;
-    uint        Location;
-    byte *      Data;
-    byte *      CurrentPtr;
+    uint Capacity;
+    uint Location;
+    byte *Data;
+    byte *CurrentPtr;
 
-    char *      FileBuffer;  // Only for files with unusual buffer size.
+    char *FileBuffer; // Only for files with unusual buffer size.
 
-    WinMMap *   MappedFile;  // File mapping for fast read access.
+    WinMMap *MappedFile; // File mapping for fast read access.
 
-    void  Extend();
+    void Extend();
 
-  public:
+public:
     MFile() { Init(); }
-    ~MFile() {
-        if (Handle != NULL) { Close(); }
-        if (Data != NULL) { delete[] Data; }
-        if (FileBuffer != NULL) { delete[] FileBuffer; }
-        if (FileName != NULL) { delete[] FileName; }
+    ~MFile()
+    {
+        if (Handle != NULL)
+        {
+            Close();
+        }
+        if (Data != NULL)
+        {
+            delete[] Data;
+        }
+        if (FileBuffer != NULL)
+        {
+            delete[] FileBuffer;
+        }
+        if (FileName != NULL)
+        {
+            delete[] FileName;
+        }
         delete MappedFile;
     }
 
@@ -73,51 +87,58 @@ class MFile
 
     fileModeT Mode() { return FileMode; }
 
-    errorT Create (const char * name, fileModeT fmode);
-    errorT Open  (const char * name, fileModeT fmode);
-    errorT OpenMappedFile (const char * name, fileModeT fmode);
-    void   CreateMemory () { Close(); Init(); }
-    errorT Close ();
+    errorT Create(const char *name, fileModeT fmode);
+    errorT Open(const char *name, fileModeT fmode);
+    errorT OpenMappedFile(const char *name, fileModeT fmode);
+    void CreateMemory()
+    {
+        Close();
+        Init();
+    }
+    errorT Close();
 
-    void   SetBufferSize (uint bufsize);
+    void SetBufferSize(uint bufsize);
 
-    uint   Size ();
-    uint   Tell () { return Location; }
-    errorT Seek (uint position);
-    errorT Flush ();
+    uint Size();
+    uint Tell() { return Location; }
+    errorT Seek(uint position);
+    errorT Flush();
     inline bool EndOfFile();
 
-    errorT        WriteNBytes (const char * str, uint length);
-    errorT        ReadNBytes (char * str, uint length);
-    errorT        ReadLine (char * str, uint maxLength);
-    errorT        ReadLine (DString * dstr);
-    inline errorT WriteOneByte (byte value);
-    errorT        WriteTwoBytes (uint value);
-    errorT        WriteThreeBytes (uint value);
-    errorT        WriteFourBytes (uint value);
-    inline int    ReadOneByte ();
-    uint          ReadTwoBytes ();
-    uint          ReadThreeBytes ();
-    uint          ReadFourBytes ();
+    errorT WriteNBytes(const char *str, uint length);
+    errorT ReadNBytes(char *str, uint length);
+    errorT ReadLine(char *str, uint maxLength);
+    errorT ReadLine(DString *dstr);
+    inline errorT WriteOneByte(byte value);
+    errorT WriteTwoBytes(uint value);
+    errorT WriteThreeBytes(uint value);
+    errorT WriteFourBytes(uint value);
+    inline int ReadOneByte();
+    uint ReadTwoBytes();
+    uint ReadThreeBytes();
+    uint ReadFourBytes();
 
-    inline const char * GetFileName ();
+    inline const char *GetFileName();
 };
 
-
 inline const char *
-MFile::GetFileName ()
+MFile::GetFileName()
 {
-    if (FileName == NULL) {
+    if (FileName == NULL)
+    {
         return "";
-    } else {
+    }
+    else
+    {
         return FileName;
     }
 }
 
 inline bool
-MFile::EndOfFile ()
+MFile::EndOfFile()
 {
-    switch (Type) {
+    switch (Type)
+    {
     case MFILE_MEMORY:
         return (Location >= Capacity);
     case MFILE_REGULAR:
@@ -130,11 +151,15 @@ MFile::EndOfFile ()
 }
 
 inline errorT
-MFile::WriteOneByte (byte value)
+MFile::WriteOneByte(byte value)
 {
-    ASSERT (FileMode != FMODE_ReadOnly);
-    if (Type == MFILE_MEMORY) {
-        if (Location >= Capacity) { Extend(); }
+    ASSERT(FileMode != FMODE_ReadOnly);
+    if (Type == MFILE_MEMORY)
+    {
+        if (Location >= Capacity)
+        {
+            Extend();
+        }
         *CurrentPtr++ = value;
         Location++;
         return OK;
@@ -144,24 +169,33 @@ MFile::WriteOneByte (byte value)
 }
 
 inline int
-MFile::ReadOneByte ()
+MFile::ReadOneByte()
 {
-    ASSERT (FileMode != FMODE_WriteOnly);
-    if (Type == MFILE_MEMORY) {
-        if (Location >= Capacity) { return EOF; }
+    ASSERT(FileMode != FMODE_WriteOnly);
+    if (Type == MFILE_MEMORY)
+    {
+        if (Location >= Capacity)
+        {
+            return EOF;
+        }
         byte value = *CurrentPtr;
         Location++;
         CurrentPtr++;
-        return (int) value;
+        return (int)value;
     }
-    if (Type == MFILE_MMAP) {
-        if (Location >= MappedFile->size()) { return EOF; }
+    if (Type == MFILE_MMAP)
+    {
+        if (Location >= MappedFile->size())
+        {
+            return EOF;
+        }
         return *(MappedFile->address() + Location++);
-    } else {
+    }
+    else
+    {
         Location++;
         return getc(Handle);
     }
 }
 
-#endif  // SCID_MFILE_H
-
+#endif // SCID_MFILE_H
