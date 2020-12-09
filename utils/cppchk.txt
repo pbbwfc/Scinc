@@ -1,7 +1,7 @@
 ..\src\bytebuf.h:48:5: warning: Member variable 'ByteBuffer::ReadOnly' is not initialized in the constructor. [uninitMemberVar]
     ByteBuffer()    { Init(); }
     ^
-..\src\misc.h:365:13: error: Uninitialized variable: result [uninitvar]
+..\src\misc.h:397:13: error: Uninitialized variable: result [uninitvar]
     return (result == EOF ? ERROR_FileWrite : OK);
             ^
 ..\src\win_mmap.h:86:5: warning: Class 'WinMMap' does not have a copy constructor which is recommended since it has dynamic memory/resource allocation(s). [noCopyConstructor]
@@ -370,30 +370,6 @@ class MoveList
 ..\src\mfile.cpp:188:16: style: Variable 'err' is assigned a value that is never used. [unreadVariable]
     errorT err = OK;
                ^
-..\src\misc.cpp:596:27: warning: Possible null pointer dereference: startLocation [nullPointer]
-                *out++ = *startLocation;
-                          ^
-..\src\misc.cpp:587:28: note: Assignment 'startLocation=NULL', assigned value is 0
-    char * startLocation = NULL;
-                           ^
-..\src\misc.cpp:596:27: note: Null pointer dereference
-                *out++ = *startLocation;
-                          ^
-..\src\misc.cpp:615:11: error: Pointer addition with NULL pointer. [nullPointerArithmetic]
-        in++;
-          ^
-..\src\misc.cpp:587:28: note: Assignment 'startLocation=NULL', assigned value is 0
-    char * startLocation = NULL;
-                           ^
-..\src\misc.cpp:598:22: note: Assignment 'in=startLocation', assigned value is 0
-                in = startLocation;
-                     ^
-..\src\misc.cpp:615:11: note: Null pointer addition
-        in++;
-          ^
-..\src\misc.cpp:1198:29: style: Variable 'lastSuffix' is assigned a value that is never used. [unreadVariable]
-    const char * lastSuffix = strFileSuffix (fname);
-                            ^
 ..\src\position.h:131:12: style: Unused private function: 'Position::AssertPos' [unusedPrivateFunction]
     errorT AssertPos(); //  Checks for errors in board etc.
            ^
