@@ -118,8 +118,8 @@ class MoveList
 ..\src\stralloc.h:80:5: style: Class 'StrAllocator' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
     StrAllocator (uint bucketSize) {
     ^
-..\src\sqset.h:29:5: style: Class 'SquareSet' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
-    SquareSet(squareT * squares) {
+..\src\sqset.h:28:5: style: Class 'SquareSet' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
+    SquareSet(squareT *squares)
     ^
 ..\src\pgnparse.h:89:5: style: Class 'PgnParser' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
     PgnParser (MFile * infile) { Init (infile); }
@@ -241,42 +241,6 @@ class MoveList
 ..\src\game.cpp:4278:31: note: Shadow variable
                     for (uint i = 0; i < (uint)v->nagCount; i++)
                               ^
-..\src\sqset.h:48:25: portability: Shifting signed 32-bit value by 31 bits is implementation-defined behaviour. See condition at line 47. [shiftTooManyBitsSigned]
-        Bits_a1h4 |= (1 << sq);
-                        ^
-..\src\sqset.h:47:12: note: Assuming that condition 'sq<=H4' is not redundant
-    if (sq <= H4) {
-           ^
-..\src\sqset.h:48:25: note: Shift
-        Bits_a1h4 |= (1 << sq);
-                        ^
-..\src\sqset.h:63:29: portability: Shifting signed 32-bit value by 31 bits is implementation-defined behaviour. See condition at line 62. [shiftTooManyBitsSigned]
-            Bits_a1h4 |= (1 << sq);
-                            ^
-..\src\sqset.h:62:16: note: Assuming that condition 'sq<=H4' is not redundant
-        if (sq <= H4) {
-               ^
-..\src\sqset.h:63:29: note: Shift
-            Bits_a1h4 |= (1 << sq);
-                            ^
-..\src\sqset.h:75:32: portability: Shifting signed 32-bit value by 31 bits is implementation-defined behaviour. See condition at line 74. [shiftTooManyBitsSigned]
-        return (Bits_a1h4 & (1 << sq)) != 0;
-                               ^
-..\src\sqset.h:74:12: note: Assuming that condition 'sq<=H4' is not redundant
-    if (sq <= H4) {
-           ^
-..\src\sqset.h:75:32: note: Shift
-        return (Bits_a1h4 & (1 << sq)) != 0;
-                               ^
-..\src\sqset.h:86:26: portability: Shifting signed 32-bit value by 31 bits is implementation-defined behaviour. See condition at line 85. [shiftTooManyBitsSigned]
-        Bits_a1h4 &= ~(1 << sq);
-                         ^
-..\src\sqset.h:85:12: note: Assuming that condition 'sq<=H4' is not redundant
-    if (sq <= H4) {
-           ^
-..\src\sqset.h:86:26: note: Shift
-        Bits_a1h4 &= ~(1 << sq);
-                         ^
 ..\src\position.h:131:12: style: Unused private function: 'Position::AssertPos' [unusedPrivateFunction]
     errorT AssertPos(); //  Checks for errors in board etc.
            ^

@@ -17,79 +17,95 @@
 
 #include "common.h"
 
-class SquareSet {
+class SquareSet
+{
 private:
-
     uint Bits_a1h4;
     uint Bits_a5h8;
 
 public:
-
     SquareSet() { Bits_a1h4 = Bits_a5h8 = 0; }
-    SquareSet(squareT * squares) {
+    SquareSet(squareT *squares)
+    {
         Bits_a1h4 = Bits_a5h8 = 0;
-        AddAll (squares);
+        AddAll(squares);
     }
     ~SquareSet() {}
 
-    inline void Clear (void) { Bits_a1h4 = Bits_a5h8 = 0; }
-    inline void Add (squareT sq);
-    inline void AddAll (void) { Bits_a1h4 = Bits_a5h8 = 0xFFFFFFFFu; }
-    inline void AddAll (squareT * squares);
-    inline bool Contains (squareT sq);
-    inline void Remove (squareT sq);
+    inline void Clear(void) { Bits_a1h4 = Bits_a5h8 = 0; }
+    inline void Add(squareT sq);
+    inline void AddAll(void) { Bits_a1h4 = Bits_a5h8 = 0xFFFFFFFFu; }
+    inline void AddAll(squareT *squares);
+    inline bool Contains(squareT sq);
+    inline void Remove(squareT sq);
 };
 
 inline void
-SquareSet::Add (squareT sq)
+SquareSet::Add(squareT sq)
 {
-    ASSERT (sq <= H8);
-    if (sq <= H4) {
-        Bits_a1h4 |= (1 << sq);
-    } else {
+    ASSERT(sq <= H8);
+    if (sq <= H4)
+    {
+        Bits_a1h4 |= (1U << sq);
+    }
+    else
+    {
         Bits_a5h8 |= (1 << (sq & 31));
     }
 }
 
 inline void
-SquareSet::AddAll (squareT * squares)
+SquareSet::AddAll(squareT *squares)
 {
-    while (true) {
+    while (true)
+    {
         squareT sq = *squares;
-        if (sq == NULL_SQUARE) { break; }
-        ASSERT (sq <= H8);
+        if (sq == NULL_SQUARE)
+        {
+            break;
+        }
+        ASSERT(sq <= H8);
         squares++;
-        if (sq <= H4) {
-            Bits_a1h4 |= (1 << sq);
-        } else {
+        if (sq <= H4)
+        {
+            Bits_a1h4 |= (1U << sq);
+        }
+        else
+        {
             Bits_a5h8 |= (1 << (sq & 31));
         }
     }
 }
 
 inline bool
-SquareSet::Contains (squareT sq)
+SquareSet::Contains(squareT sq)
 {
-    ASSERT (sq <= H8);
-    if (sq <= H4) {
-        return (Bits_a1h4 & (1 << sq)) != 0;
-    } else {
+    ASSERT(sq <= H8);
+    if (sq <= H4)
+    {
+        return (Bits_a1h4 & (1U << sq)) != 0;
+    }
+    else
+    {
         return (Bits_a5h8 & (1 << (sq & 31))) != 0;
     }
 }
 
 inline void
-SquareSet::Remove (squareT sq)
+SquareSet::Remove(squareT sq)
 {
-    ASSERT (sq <= H8);
-    if (sq <= H4) {
-        Bits_a1h4 &= ~(1 << sq);
-    } else {
+    ASSERT(sq <= H8);
+    if (sq <= H4)
+    {
+        Bits_a1h4 &= ~(1U << sq);
+    }
+    else
+    {
         Bits_a5h8 &= ~(1 << (sq & 31));
     }
 }
 
-#endif  // SCID_SQSET_H
+#endif // SCID_SQSET_H
 
 //////////////////////////////////////////////////////////////////////
 //  EOF: sqset.h
