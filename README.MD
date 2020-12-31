@@ -2,6 +2,8 @@
 # Scinc
 #### *S*hane's *C*hess *I*nformation database - *N*o *C*omplications
 
+## NO LONGER BEING DEVELOPED - NOW WORKING ON A VERSION WITH NET CORE FRONT END - [ScincNet](https://github.com/pbbwfc/ScincNet)
+
 Minimalist version of [Scidvspc](http://scidvspc.sourceforge.net/ "Scidvspc")
 
 ![alt text](https://github.com/pbbwfc/Scinc/blob/master/icons/screenshot.png "Screen")
