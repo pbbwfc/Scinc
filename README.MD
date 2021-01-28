@@ -2,7 +2,9 @@
 # Scinc
 #### *S*hane's *C*hess *I*nformation database - *N*o *C*omplications
 
-## NO LONGER BEING DEVELOPED - NOW WORKING ON A VERSION WITH NET CORE FRONT END - [ScincNet](https://github.com/pbbwfc/ScincNet)
+## NO LONGER BEING DEVELOPED - NOW WORKING ON A VERSION ENTIRELY USING NET CORE - [Grampus](https://github.com/pbbwfc/Grampus)
+
+## If you want to script SCID databases with F# rather than TCL - please see my project [ScidNet](https://github.com/pbbwfc/ScidNet)
 
 Minimalist version of [Scidvspc](http://scidvspc.sourceforge.net/ "Scidvspc")
 

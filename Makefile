@@ -19,9 +19,9 @@ LINK=$(CXX)
 
 WARNINGS = -Wall
 
-CXXFLAGS = -fno-rtti -O2 $(WARNINGS) 
+# CXXFLAGS = -fno-rtti -O2 $(WARNINGS) 
 # Debug
-# CXXFLAGS = -fno-rtti -O0 $(WARNINGS) -g3 -ggdb
+CXXFLAGS = -fno-rtti -O0 $(WARNINGS) -g3 -ggdb
 # Asserts
 # CXXFLAGS = -fno-rtti -O2 $(WARNINGS) -DASSERTIONS
 
